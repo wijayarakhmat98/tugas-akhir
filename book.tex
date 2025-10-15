@@ -1,0 +1,52 @@
+%! TEX root = book.tex
+
+\input{config}
+
+\blankdoublefalse
+\darkmodefalse
+\fillpaperfalse
+
+\input{preamble}
+
+\begin{document}
+
+\maketitle
+\cleardoublepage
+
+\pagenumbering{roman}
+\setcounter{page}{1}
+
+{
+	\input{abstract.tex}
+
+	\input{table-of-contents}
+
+	\listoffigures
+	\addcontentsline{toc}{chapter}{Daftar Gambar}
+
+	\listoftables
+	\addcontentsline{toc}{chapter}{Daftar Tabel}
+
+	\input{symbols}
+}
+\cleardoublepage
+
+\pagenumbering{arabic}
+\setcounter{page}{1}
+
+\input{chapter-1}
+\cleardoublepage
+
+\input{chapter-2}
+\cleardoublepage
+
+\input{chapter-3}
+\cleardoublepage
+
+\input{chapter-4}
+\cleardoublepage
+
+\input{references}
+\cleardoublepage
+
+\end{document}

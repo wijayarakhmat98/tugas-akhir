@@ -1,0 +1,110 @@
+%! TEX root = self_chapter-4.tex
+
+\setcounter{chapter}{3}
+\chapter{Hasil dan Pembahasan}
+
+\section{Landasan Formal}
+
+Misalnya \(G\) adalah graf terhubung dengan himpunan simpul \(V\) dan himpunan sisi \(E\).
+
+\begin{definition}[\foreign{Similarity set}]
+	\[ \rho(u, v) = \{ w \in V : d(w, u) = d(w, v) \}, \text{ untuk } u, v \in V \]
+	\[ \rho(e, f) = \{ w \in V : d(w, e) = d(w, f) \}, \text{ untuk } e, f \in E \]
+
+\end{definition}
+
+\begin{definition}[\foreign{Similarity family}]
+	\[ b(V) = \{ \rho(u, v) : u, v \in V \text{ dan } u \neq v\} \setminus \{ \emptyset \} \]
+	\[ b(E) = \{ \rho(e, f) : e, f \in E \text{ dan } e \neq f \} \setminus \{ \emptyset \} \]
+\end{definition}
+
+\begin{definition}
+	\[ H(\rchi) = \bigcup \limits_{A \in \rchi}^{} \powerset(A) \setminus \{ \emptyset \} \]
+\end{definition}
+
+\begin{lemma}[\foreign{The set of invalid resolving sets}]
+	\[ H(b(V)) \]
+	\[ H(b(E)) \]
+Proof?
+\end{lemma}
+
+\begin{corollary}
+	\[ W \text{ adalah \foreign{resolving set} } \iff W \notin H(b(V)) \]
+	\[ W \text{ adalah \foreign{edge resolving set} } \iff W \notin H(b(E)) \]
+Proof?
+\end{corollary}
+
+\begin{definition}
+	\[ \Psi(\rchi) = \{ A \in \rchi : \nexists B \in \rchi \text{ sehingga } A \subset B \} \]
+\end{definition}
+
+\begin{corollary}[\foreign{Reduced similarity family}]
+	\[ H(\Psi(b(V))) = H(b(V)) \]
+	\[ H(\Psi(b(E))) = H(b(E)) \]
+Proof?
+\end{corollary}
+
+\begin{definition}
+	\[ \Tau(k, A) = \{ W \in \powerset(A) : |W| = k \} \]
+\end{definition}
+
+\begin{lemma}
+\label{lem:is-resolving-valid}
+Untuk \(W \in \Tau(k, V)\),
+	\[ \forall A \in \Tau(k, \Psi(b(V))), W \not\subseteq A \iff W \notin H(b(V)) \]
+	\[ \forall A \in \Tau(k, \Psi(b(E))), W \not\subseteq A \iff W \notin H(b(E)) \]
+Proof?
+\end{lemma}
+
+\begin{lemma}
+\label{lem:unsat-cost}
+	\[ \forall W \in \Tau(k, V), W \in H(b(V)) \iff |\Tau(k, V)| = |\Tau(k, H(b(V)))| \]
+	\[ \forall W \in \Tau(k, V), W \in H(b(E)) \iff |\Tau(k, V)| = |\Tau(k, H(b(E)))| \]
+Proof?
+\end{lemma}
+
+\section{Formulasi Algoritma}
+
+\subsection{\foreign{Brute-force}}
+
+Dengan menggunakan \autoref{lem:is-resolving-valid}, dapat ditentukan antara dua kemungkinan berikut:
+
+\begin{itemize}
+	\item \(\exists W \in \Tau(k, V), W \notin H(b(*))\)
+	\item \(\forall W \in \Tau(k, V), W \in H(b(*))\)
+\end{itemize}
+
+dengan \(*\) adalah \(V\) untuk \foreign{resolving set} atau \(E\) untuk \foreign{edge resolving set}.
+
+Pendekatan \foreign{brute-force} untuk mencari \foreign{resolving set} berkardinalitas \(k\) dapat dilakukan dengan mencoba satu-per-satu \(W \in \Tau(k, V)\) hingga ditemukan kasus pertama, atau ketika habis, disimpulkan kasus kedua.
+
+Karena \autoref{lem:unsat-cost}, lebih mahal secara \foreign{brute-force} untuk menyimpulkan kasus kedua dari pada kasus pertama. Dan karena sifat dimensi metrik, ketika \(k\) adalah dimensi metriknya, maka jelas tidak ada \foreign{resolving set} berkardinalitas \(k-1, k-2, \ldots, 1\).
+
+Oleh karena itu, algoritma \foreign{brute-force} melakukan pencarian \foreign{resolving set} secara iteratif dari kardinalitas terbesar, yaitu \(|V|-1\), dan menurun hingga ditemukan kardinalitas \(k\) yang menyebabkan kasus kedua. Lalu, dapat disimpulkan bahwa dimensi metriknya adalah \(k+1\).
+
+\subsection{\foreign{Satisfiability Modulo Theories}}
+
+\begin{definition}[Pemetaan simpul ke variabel boolean]
+	Misalnya sebuah graf terhubung memiliki himpunan simpul \(V = \{v_1, v_2, \ldots, v_n\}\). Dapat dikonstruksi himpunan variabel boolean \(X = \{x_1, x_2, \ldots, x_n\}\) yang parallel dengan himpunan \(V\). Sehingga, dapat didefinisikan pemetaan satu-satu \(\zeta(v_i) = x_i\) dari simpul ke variabel boolean.
+\end{definition}
+
+\subsubsection{Metode 1}
+
+\[ \neg \left( \bigvee \limits_{q\,\in\,\Tau(k, H(b(V)))}^{} \left( \bigwedge \limits_{v\,\in\,q}^{} \zeta(v) \right) \right) \]
+
+\[ \neg \left( \bigvee \limits_{q\,\in\,\Tau(k, H(b(E)))}^{} \left( \bigwedge \limits_{v\,\in\,q}^{} \zeta(v) \right) \right) \]
+
+\subsubsection{Metode 2}
+
+\[ \left[ \sum \limits_{v\,\in\,V}^{} \zeta(v) = k \right] \land \left[ \bigwedge \limits_{q\,\in\,\Tau(k, \Psi(b(V)))}^{} \left( \sum \limits_{v\,\in\,q}^{} \zeta(v) \leq k - 1 \right) \right] \]
+
+\[ \left[ \sum \limits_{v\,\in\,V}^{} \zeta(v) = k \right] \land \left[ \bigwedge \limits_{q\,\in\,\Tau(k, \Psi(b(E)))}^{} \left( \sum \limits_{v\,\in\,q}^{} \zeta(v) \leq k - 1 \right) \right] \]
+
+\section{\foreign{Pseudocode}}
+...
+
+\section{Evaluasi Waktu Eksekusi}
+...
+
+\section{Pembahasan}
+...

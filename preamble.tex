@@ -1,0 +1,136 @@
+%! TEX root = self_preamble.tex
+
+\ifblankdouble
+	\documentclass[12pt,twoside,openright]{report}
+\else
+	\documentclass[12pt,oneside,openright]{report}
+\fi
+
+\PassOptionsToPackage{english,main=indonesian}{babel}
+\PassOptionsToPackage{autostyle}{csquotes}
+\PassOptionsToPackage{hidelinks}{hyperref}
+\PassOptionsToPackage{authoryear}{natbib}
+\PassOptionsToPackage{table,xcdraw}{xcolor}
+
+\iffillpaper
+	\PassOptionsToPackage{paperwidth=17cm, paperheight=25.7cm, margin=.5cm}{geometry}
+\else
+	\PassOptionsToPackage{a4paper, inner=3cm, outer=2cm, top=2.5cm, bottom=2.5cm}{geometry}
+\fi
+
+\usepackage{
+	babel,
+	csquotes,
+	amsthm,
+	lmodern,
+	newtxtext,
+	newtxmath,
+	newtxtt,
+	geometry,
+	pagecolor,
+	parskip,
+	titlesec,
+	array,
+	multirow,
+	float,
+	graphicx,
+	subcaption,
+	hyperref,
+	natbib,
+	fancyhdr,
+	xcolor
+}
+
+\ifblankdouble
+	\usepackage{emptypage}
+\else
+	\renewcommand{\cleardoublepage}{\clearpage}
+\fi
+
+\ifdarkmode
+	\definecolor{background}{RGB}{50,48,47}
+	\definecolor{foreground}{RGB}{229,222,185}
+\else
+	\definecolor{background}{RGB}{255,255,255}
+	\definecolor{foreground}{RGB}{0,0,0}
+\fi
+
+\pagecolor{background}
+\color{foreground}
+
+\DeclareRobustCommand{\rchi}{{\mathpalette\irchi\relax}}
+\newcommand{\irchi}[2]{\raisebox{\depth}{$#1\chi$}}
+
+\def\powerset{\mathcal{P}}
+\def\Tau{\mathcal{T}}
+
+\def\True{\mathrm{True}}
+\def\False{\mathrm{False}}
+
+\newcommand{\mcol}[3]{\multicolumn{#1}{#2}{#3}}
+\newcommand{\mrow}[2]{\multirow{#1}{*}{#2}}
+\newcommand{\cellb}{\cellcolor[HTML]{000000}}
+
+\newcommand{\foreign}[1]{\foreignlanguage{english}{\textit{#1}}}
+
+\newtheoremstyle{break}
+  {\topsep}
+  {\topsep}
+  {\normalfont}
+  {}
+  {\bfseries}
+  {}
+  {\newline}
+  {}
+\theoremstyle{break}
+
+\newtheorem{definition}{Definisi}
+\newtheorem{theorem}{Teorema}
+\newtheorem{lemma}{Lemma}
+\newtheorem{corollary}{Korolari}
+
+\addto\extrasindonesian{
+	\renewcommand{\chapterautorefname}{Bab}
+	\renewcommand{\sectionautorefname}{Bagian}
+	\renewcommand{\subsectionautorefname}{Subbagian}
+	\renewcommand{\figureautorefname}{Gambar}
+	\renewcommand{\tableautorefname}{Tabel}
+	\renewcommand{\equationautorefname}{Persamaan}
+	\renewcommand{\refname}{Daftar Pustaka}
+	\renewcommand{\bibname}{Daftar Pustaka}
+	\providecommand{\definitionautorefname}{Definisi}
+	\providecommand{\theoremnautorefname}{Teorema}
+	\providecommand{\lemmaautorefname}{Lemma}
+	\providecommand{\corollaryautorefname}{Korolari}
+}
+
+\titleformat{\chapter}[display]
+	{\centering\LARGE\bfseries}
+	{\MakeUppercase{\chaptername~\Roman{chapter}}}
+	{0pt}
+	{\MakeUppercase}
+
+\titlespacing*{\chapter}
+	{0pt}
+	{0pt}
+	{2\parskip}
+
+\raggedbottom
+
+\pagestyle{fancy}
+\fancyhf{}
+\renewcommand{\headrulewidth}{0pt}
+\ifblankdouble
+	\fancyfoot[LE,RO]{\thepage}
+	\fancypagestyle{plain}{
+		\fancyfoot[LE,RO]{\thepage}
+	}
+\else
+	\fancyfoot[R]{\thepage}
+	\fancypagestyle{plain}{
+		\fancyfoot[R]{\thepage}
+	}
+\fi
+
+\title{Menentukan Dimensi Metrik Menggunakan \foreign{Satisfiability Modulo Theories}}
+\author{https://github.com/wijayarakhmat98/metric-dimension}

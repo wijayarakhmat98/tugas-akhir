@@ -1,0 +1,82 @@
+%! TEX root = self_chapter-1.tex
+
+\setcounter{chapter}{0}
+\chapter{Pendahuluan}
+
+\section{Latar Belakang}
+
+\cite{bondy1976} menjelaskan bagaimana graf secara alami muncul dalam berbagai disiplin ilmu dan permasalahan dunia nyata. Misalnya dalam jaringan komputer, simpul dapat merepresentasikan komputer dan sisi merepresentasikan hubungan komunikasi antara komputer, sehingga dapat digunakan untuk merancang dan menganalisis sistem yang efisien. Rangkaian listrik juga dapat dipelajari melalui graf, dengan komponen yang dimodelkan sebagai sisi dan titik sambungan sebagai simpul, sebagai metode sistematis untuk analisis rangkaian. Di riset operasi, graf digunakan untuk menyelesaikan masalah seperti penjadwalan pekerjaan, perutean optimal, dan alokasi sumber daya, karena efisiensi sangatlah penting. Ilmu sosial pun mendapat manfaat dari model graf: orang dapat dipandang sebagai simpul dan hubungan mereka sebagai sisi, sehingga dapat dipelajari pola konektivitas, pengaruh, dan struktur komunitas. Di kimia, graf digunakan untuk menggambarkan struktur molekul dengan atom sebagai simpul dan ikatan sebagai sisi. Pada biologi, graf diterapkan untuk memodelkan jaringan saraf, rantai makanan, atau hubungan genetik. Dalam linguistik, graf membantu menangkap jaringan semantik, struktur sintaksis, serta keterkaitan antara kata dan makna. Graf berperan penting pula di kartografi yang mengaplikasikan masalah pewarnaan peta, di teori permainan yang mengaplikasikan representasi strategi, dan di proses \foreign{decision making} karena keterlibatan keterkaitan yang kompleks. Contoh-contoh ini mengilustrasikan luasnya penerapan graf.
+
+Salah satu konsep yang terdapat dalam teori graf adalah dimensi metrik, yang berfungsi untuk mengidentifikasi serta membedakan simpul-simpul dalam suatu graf. \cite{tillquist2023} menunjukkan bahwa dimensi metrik memiliki berbagai aplikasi di berbagai bidang: 1) teori permainan, berperan dalam permainan pengejar–pelarian seperti \foreign{cops and robbers} --- himpunan pembeda dimanfaatkan untuk menyusun strategi dalam melacak atau menangkap lawan di dalam jaringan; 2) lokalisasi sumber, membantu mengidentifikasi asal mula suatu informasi seperti epidemi, virus komputer, atau rumor, dengan menggunakan himpunan sensor minimal untuk menentukan simpul sumber; 3) pendeteksian motif jaringan, memungkinkan ditemukannya pola subgraf yang berulang yang dapat mengungkapkan modul fungsional dalam sistem biologis atau struktur komunitas dalam jaringan sosial; 4) embedding data urutan biologis --- teknik dimensi metrik memungkinkan representasi urutan DNA, RNA, atau protein ke dalam ruang Euclidean berdimensi lebih rendah tanpa kehilangan informasi pembeda yang esensial, sehingga meningkatkan analisis dan pencarian data.
+
+Selain dimensi metrik, terdapat pula varian lain yang berfokus bukan pada simpul melainkan pada sisi, yaitu dimensi metrik sisi. Sebagaimana dibahas oleh \citeauthor{awadiyah2019} (\citeyear{awadiyah2019}), dimensi metrik sisi merupakan pengembangan dari konsep dimensi metrik --- dari awalnya membedakan simpul menjadi membedakan sisi --- yang memiliki potensi aplikasi dalam situasi ketika identifikasi atau pelacakan hubungan/koneksi lebih penting dibandingkan simpul itu sendiri. Salah satu contoh penerapannya adalah dalam navigasi dan pemantauan jaringan, khususnya pengenalan jalur yang krusial dalam perancangan sistem navigasi otonom.
+
+Baik dimensi metrik maupun dimensi metrik sisi pada dasarnya merupakan permasalahan kombinatorial. Permasalahan semacam ini dapat dipetakan ke dalam \foreign{Satisfiability Modulo Theories} (SMT), yang mendukung pemodelan berbagai jenis batasan secara ekspresif.
+
+\cite{smt-app} membahas berbagai macam pemodelan menggunakan SMT. Salah satu contoh nyata terdapat pada manajemen gudang di Microsoft Dynamics AX. Beragam syarat harus dipenuhi, misalnya makanan beku yang harus diangkut dengan truk pendingin serta larangan mencampur barang-barang tertentu dalam satu truk. Semua persyaratan ini dapat dimodelkan sebagai kombinasi boolean dari permasalahan linear dengan variabel 0-1. Selain logistik, strategi penjadwalan juga dapat diformulasikan dengan SMT menggunakan teori MaxSAT, maupun dalam desain portofolio \foreign{solver}, ketika permasalahan linear dapat menangkap hubungan rumit antara konfigurasi dan kinerja. SMT juga mendukung analisis program, misalnya untuk mencari lintasan terpanjang dalam graf dan membuktikan non-terminasi, yang keduanya melibatkan sistem permasalahan besar. Secara lebih umum, SMT diposisikan sebagai pendekatan yang melengkapi sekaligus memperluas MILP, \foreign{constraint programming}, dan MaxSAT. Pendekatan ini juga membuka peluang aplikasi dalam riset operasi, penyelesaian simbolik/numerik hibrida, hingga verifikasi program menggunakan klausa Horn.
+
+Dengan berbagai keunggulan tersebut, SMT tidak hanya relevan dalam konteks industri atau analisis perangkat lunak, tetapi juga berpotensi besar untuk diaplikasikan pada permasalahan graf seperti dimensi metrik dan dimensi metrik sisi. Pendekatan ini memungkinkan representasi deklaratif dari permasalahan kombinatorial, sekaligus memberikan fleksibilitas untuk menambahkan fungsi objektif dan batasan tambahan. Oleh karena itu, tugas akhir ini berfokus pada formulasi dimensi metrik dan dimensi metrik sisi ke dalam SMT serta pemanfaatan \foreign{solver}, untuk menghitung keduanya.
+
+\section{Rumusan Masalah}
+
+Rumusan masalah dalam tugas akhir ini adalah sebagai berikut:
+
+\begin{itemize}
+
+	\item Bagaimana cara merepresentasikan permasalahan dimensi metrik dan dimensi metrik sisi dari suatu graf ke dalam bentuk formula SMT?
+
+	\item Bagaimana penggunaan SMT \foreign{solver}, dapat digunakan untuk menghitung dimensi metrik dan dimensi metrik sisi suatu graf?
+
+	\item Sejauh mana efektivitas dan keterbatasan pendekatan berbasis SMT dalam menyelesaikan permasalahan dimensi metrik dan dimensi metrik sisi untuk sembarang graf dengan banyak simpul berhingga?
+
+\end{itemize}
+
+\section{Batasan Masalah}
+
+Batasan masalah dalam tugas akhir ini telah ditetapkan sebagai berikut:
+
+\begin{itemize}
+
+	\item Graf yang dibahas terbatas pada graf sederhana, tak berarah, terhubung, dan tak berbobot.
+
+	\item Perhitungan dilakukan untuk dimensi metrik dan dimensi metrik sisi.
+
+	\item Analisis dilakukan terhadap graf dengan ukuran simpul terbatas sesuai dengan keterbatasan waktu dan sumber daya komputasi.
+
+	\item Data graf yang digunakan menghapus redundansi akibat automorfisma sehingga hanya graf unik yang dianalisis.
+
+	\item Seluruh graf dengan banyak simpul 2 hingga 9 digunakan, karena banyaknya graf masih kurang dari 300000 sehingga masih cukup dalam daya komputasi.
+
+	\item Graf dengan banyak simpul lebih dari 9 digenerasi secara acak, dan banyak graf yang digunakan bergantung pada keterbatasan waktu dan sumber daya komputasi yang tersedia.
+
+	\item Beberapa hasil dimensi metrik dan dimensi metrik sisi menggunakan SMT akan dibandingkan dengan hasil dari pendekatan analitik serta \foreign{brute-force} untuk validasi.
+
+\end{itemize}
+
+\section{Tujuan}
+
+Tujuan dari tugas akhir ini adalah:
+
+\begin{itemize}
+
+	\item Merepresentasikan permasalahan dimensi metrik dan dimensi metrik sisi dalam SMT.
+
+	\item Mengimplementasikan pendekatan untuk menghitung dimensi metrik dan dimensi metrik sisi.
+
+	\item Mengevaluasi efektivitas metode SMT untuk menyelesaikan permasalahan tersebut.
+
+\end{itemize}
+
+\section{Manfaat}
+
+Adapun manfaat yang diharapkan dari tugas akhir ini adalah:
+
+\begin{itemize}
+
+	\item Memberikan kontribusi pada pengembangan metode komputasi dalam teori graf, khususnya dalam perhitungan dimensi metrik dan dimensi metrik sisi.
+
+	\item Menunjukkan potensi penggunaan SMT sebagai alternatif pendekatan dalam menyelesaikan permasalahan kombinatorial di bidang matematika diskrit.
+
+	\item Menjadi referensi untuk tugas akhir selanjutnya yang berkaitan dengan penerapan SMT pada permasalahan lain dalam teori graf maupun bidang ilmu komputer.
+
+\end{itemize}

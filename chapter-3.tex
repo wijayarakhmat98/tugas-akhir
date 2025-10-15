@@ -1,0 +1,132 @@
+%! TEX root = self_chapter-3.tex
+
+\setcounter{chapter}{2}
+\chapter{Metodologi}
+
+Metodologi yang digunakan dalam tugas akhir ini dirancang untuk menyusun, mengimplementasikan, dan mengevaluasi pendekatan berbasis SMT dalam menghitung dimensi metrik dan dimensi metrik sisi suatu graf. Tahapan metodologi ini dibagi menjadi beberapa bagian sebagaimana diilustrasikan oleh \autoref{fig:diagram-alir}.
+
+\begin{figure}[!htbp]
+	\centering
+	\includegraphics[width=0.5\linewidth]{img/diagram-alir-metodologi.pdf}
+	\caption{Diagram Alir Metodologi}
+	\label{fig:diagram-alir}
+\end{figure}
+
+\newpage
+\section{Persiapan Data}
+
+Data graf yang digunakan dibagi menjadi dua kategori: graf kecil (2 hingga 9 simpul) dan graf besar (lebih dari 9 simpul).
+
+\begin{itemize}
+
+	\item Graf Kecil
+
+	Graf tak berarah dengan banyak simpul 2 hingga 9 digenerasikan menggunakan program \texttt{nauty-geng}. Program ini menghasilkan seluruh graf dengan banyak simpul yang dispesifikasikan dan juga mengeliminasi semua redundansi automorfimanya. Opsi \texttt{-c} diberikan kepada program untuk memastikan hanya graf terhubung yang dihasilkan.
+
+	\item Graf Besar
+
+	Graf besar digenerasikan secara acak menggunakan program \texttt{nauty-genrang}. Opsi \texttt{-g} diberikan kepada program untuk memastikan hanya graf tak berarah yang dihasilkan. Untuk menghindari duplikasi akibat automorfisma, setiap graf diproses menggunakan program \texttt{nauty-labelg} untuk menghasilkan representasi kanonik. Kemudian, program \texttt{nauty-pickg} dengan opsi \texttt{-vc0} digunakan untuk memilih hanya graf yang terkoneksi.
+
+\end{itemize}
+
+Semua graf disimpan dalam \foreign{file} teks menggunakan format \texttt{graph6}. Graf dengan banyak simpul yang sama disimpan dalam file yang sama.
+
+Banyak simpul maksimum yang dapat diuji bergantung pada keterbatasan waktu dan sumber daya komputasi yang tersedia.
+
+\section{Eksplorasi Z3 Python}
+
+Pada tahap ini dilakukan eksplorasi SMT \foreign{solver}, yaitu Z3, menggunakan \foreign{binding} untuk bahasa Python. Aktivitas meliputi:
+
+\begin{itemize}
+
+	\item Mempelajari fitur dasar Z3 yang relevan dengan formulasi masalah kombinatorial pada teori graf.
+
+	\item Mencoba contoh sederhana untuk memahami cara mendefinisikan variabel, batasan (\foreign{constraints}), serta strategi pencarian solusi.
+
+	\item Mengevaluasi kemampuan Z3 dalam menangani permasalahan berukuran kecil maupun besar untuk mengidentifikasi potensi kendala performa.
+
+\end{itemize}
+
+\section{Perancangan Algoritma}
+
+Perancangan algoritma difokuskan pada formulasi masalah dimensi metrik ke dalam bentuk SMT. Pertama, graf direpresentasikan dalam bentuk matriks ketetanggaan yang dibaca dari format \texttt{graph6}. Kedua, matriks jarak dapat dibangun dari matriks ketetanggaan menggunakan algoritma \foreign{Floyd–Warshall}. Kemudian, berdasarkan dua informasi ini, dirancanglah algoritma yang memetakan pencarian dimensi metrik ke dalam bentuk batasan yang dapat dicerna oleh SMT.
+
+\section{Implementasi Algoritma}
+
+Algoritma yang telah dirancang kemudian diimplementasikan ke bentuk kode. Hal-hal yang perlu dilakukan diantaranya adalah:
+
+\begin{itemize}
+
+		\item Pembacaan graf dari \foreign{file} teks \texttt{graph6}.
+
+		\item Formulasi batasan untuk SMT dari informasi graf.
+
+		\item Eksekusi Z3 \foreign{solver} dan dapatkan dimensi metrik.
+
+		\item Simpan hasil perhitungan ke dalam \foreign{file} teks untuk analisis lebih lanjut.
+
+\end{itemize}
+
+\section{Uji Algoritma}
+
+Pengujian dilakukan secara bertahap untuk memverifikasi kebenaran implementasi serta mengevaluasi kinerjanya.
+
+\begin{itemize}
+
+	\item{Uji pada Sampel Kecil}
+
+	Beberapa graf kecil dipilih sebagai sampel. Tujuan tahap pengujian ini adalah memverifikasi bahwa rancangan algoritma dan implementasi program menghasilkan solusi yang benar.
+
+	\item{Uji pada Seluruh Graf Kecil}
+
+	Seluruh graf terhubung dengan 2–9 simpul diuji secara menyeluruh. Tujuan tahap pengujian ini adalah untuk mendapatkan data komprehensif kinerja algoritma dengan berbagai macam konfigurasi graf. Data ini dapat dianalisis kasus-kasusnya seperti kejadian \foreign{worst-case} dan kejadian \foreign{best-case}. Hasil ini juga dapat dibandingkan dengan literatur yang ada untuk validasi.
+
+	\item{Uji pada Graf Besar}
+
+	Pengujian diperluas pada graf dengan simpul lebih banyak. Tujuan tahap pengujian ini adalah mengevaluasi kinerja dan keterbatasan pendekatan SMT pada kasus yang lebih kompleks. Uji ini juga yang dijadikan sebagai tolak ukur performa solusi dari tugas akhir ini secara umum untuk sembarang graf.
+
+\end{itemize}
+
+\section{Adaptasi Algoritma}
+
+Tahap adaptasi dilakukan dengan memodifikasi algoritma yang telah ada untuk menghitung dimensi metrik sisi. Proses adaptasi mencakup:
+
+\begin{itemize}
+
+	\item Menyesuaikan representasi graf sehingga memperhatikan jarak antar sisi.
+
+	\item Memformulasikan kembali permasalahan ke dalam SMT.
+
+	\item Mengimplementasikan kembali ke bentuk kode.
+
+	\item Mengulangi tahapan pengujian: mulai dari sampel kecil, seluruh graf kecil, hingga graf besar.
+
+\end{itemize}
+
+\section{Penulisan Tugas Akhir}
+
+Tahap terakhir dari metodologi ini adalah penyusunan seluruh hasil penelitian ke dalam bentuk laporan tugas akhir. Penulisan dilakukan sesuai pedoman akademik yang berlaku sehingga hasil penelitian terdokumentasi dengan baik dan dapat dijadikan rujukan untuk penelitian selanjutnya.
+
+\section{Jadwal Kegiatan}
+
+Jadwal kegiatan pada \autoref{tab:jadwal-kegiatan} disusun untuk memberikan gambaran alur waktu pelaksanaan tugas akhir.
+
+\begin{table}[!htbp]
+	\centering
+	\caption{Jadwal Kegiatan}
+	\begin{tabular}{|c|l|llllllllllll|}
+		\hline
+		 &  & \mcol{12}{c|}{Minggu} \\ \cline{3-14}
+		\mrow{-2}{No} & \mrow{-2}{Nama Kegiatan} & \mcol{1}{c|}{1} & \mcol{1}{l|}{2} & \mcol{1}{l|}{3} & \mcol{1}{l|}{4} & \mcol{1}{l|}{5} & \mcol{1}{l|}{6} & \mcol{1}{l|}{7} & \mcol{1}{l|}{8} & \mcol{1}{l|}{9} & \mcol{1}{l|}{10} & \mcol{1}{l|}{11} & 12 \\ \hline
+		1 & Persiapan Data & \mcol{1}{c|}{\cellb} & \mcol{1}{l|}{\cellb} & \mcol{1}{l|}{} & \mcol{1}{l|}{} & \mcol{1}{l|}{} & \mcol{1}{l|}{} & \mcol{1}{l|}{} & \mcol{1}{l|}{} & \mcol{1}{l|}{} & \mcol{1}{l|}{} & \mcol{1}{l|}{} &  \\ \hline
+		2 & Eksplorasi Z3 Python & \mcol{1}{c|}{\cellb} & \mcol{1}{l|}{\cellb} & \mcol{1}{l|}{} & \mcol{1}{l|}{} & \mcol{1}{l|}{} & \mcol{1}{l|}{} & \mcol{1}{l|}{} & \mcol{1}{l|}{} & \mcol{1}{l|}{} & \mcol{1}{l|}{} & \mcol{1}{l|}{} &  \\ \hline
+		3 & Perancangan Algoritma & \mcol{1}{l|}{} & \mcol{1}{l|}{\cellb} & \mcol{1}{l|}{\cellb} & \mcol{1}{l|}{} & \mcol{1}{l|}{} & \mcol{1}{l|}{} & \mcol{1}{l|}{} & \mcol{1}{l|}{} & \mcol{1}{l|}{} & \mcol{1}{l|}{} & \mcol{1}{l|}{} &  \\ \hline
+		4 & Implementasi Algoritma & \mcol{1}{l|}{} & \mcol{1}{l|}{} & \mcol{1}{l|}{\cellb} & \mcol{1}{l|}{\cellb} & \mcol{1}{l|}{} & \mcol{1}{l|}{} & \mcol{1}{l|}{} & \mcol{1}{l|}{} & \mcol{1}{l|}{} & \mcol{1}{l|}{} & \mcol{1}{l|}{} &  \\ \hline
+		5 & Uji Algoritma & \mcol{1}{l|}{} & \mcol{1}{l|}{} & \mcol{1}{l|}{} & \mcol{1}{l|}{\cellb} & \mcol{1}{l|}{\cellb} & \mcol{1}{l|}{\cellb} & \mcol{1}{l|}{} & \mcol{1}{l|}{\cellb} & \mcol{1}{l|}{\cellb} & \mcol{1}{l|}{\cellb} & \mcol{1}{l|}{} &  \\ \hline
+		6 & Adaptasi Algoritma & \mcol{1}{l|}{} & \mcol{1}{l|}{} & \mcol{1}{l|}{} & \mcol{1}{l|}{} & \mcol{1}{l|}{} & \mcol{1}{l|}{\cellb} & \mcol{1}{l|}{\cellb} & \mcol{1}{l|}{\cellb} & \mcol{1}{l|}{} & \mcol{1}{l|}{} & \mcol{1}{l|}{} &  \\ \hline
+		7 & Penulisan Tugas Akhir & \mcol{1}{l|}{} & \mcol{1}{l|}{} & \mcol{1}{l|}{} & \mcol{1}{l|}{} & \mcol{1}{l|}{} & \mcol{1}{l|}{} & \mcol{1}{l|}{} & \mcol{1}{l|}{} & \mcol{1}{l|}{} & \mcol{1}{l|}{} & \mcol{1}{l|}{\cellb} & \cellb \\ \hline
+	\end{tabular}
+	\label{tab:jadwal-kegiatan}
+\end{table}
+
+Jadwal kegiatan membantu membatasi waktu setiap tahap agar penelitian dapat berjalan sesuai rencana. Tabel ini juga berfungsi sebagai acuan untuk memantau kemajuan dan menyesuaikan perkembangan bila ada keterlambatan.
