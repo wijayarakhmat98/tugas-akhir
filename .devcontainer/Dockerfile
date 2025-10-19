@@ -11,7 +11,7 @@ RUN apt-get -y dist-upgrade && \
     apt-get -y autopurge && \
     apt-get -y install curl git gnupg less man patch ssh vim
 
-RUN apt-get -y install latexmk texlive-bibtex-extra texlive-fonts-extra texlive-lang-other texlive-xetex
+RUN apt-get -y install texlive-full
 
 COPY --chmod=644 '.vimrc' '/etc/skel'
 ARG username='dev'
