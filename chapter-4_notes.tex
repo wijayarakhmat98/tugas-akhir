@@ -1,0 +1,659 @@
+%! TEX root = self_chapter-4_notes.tex
+
+\def\Ccal{\mathcal{C}}
+\def\Ecal{\mathcal{E}}
+\def\Fcal{\mathcal{F}}
+\def\Hcal{\mathcal{H}}
+\def\Lcal{\mathcal{L}}
+\def\Pcal{\mathcal{P}}
+\def\Qcal{\mathcal{Q}}
+\def\xcal{\mathcal{x}}
+\newcommand{\resolving}[1]{\Psi^{}_{#1}}
+\newcommand{\nonresolving}[1]{\widetilde{\resolving{#1}}}
+\def\bool{\mathtt{Bool}}
+\def\int{\mathtt{Int}}
+\def\sat{\texttt{sat}}
+\def\unsat{\texttt{unsat}}
+
+\setcounter{chapter}{4}
+\setcounter{section}{1}
+
+\setcounter{chapter}{3}
+\chapter{Results and Discussion}
+
+\section{Formal Framework}
+
+Here, all sets are finite!
+
+\(S\) is a set.
+
+\(T\) is a set of sets.
+
+\(G\) is an unweigted connected graph.
+
+\(V = \{v_1, v_2, \ldots\}\) is the set of all vertices in \(G\).
+
+\(E = \{e_1, e_2, \ldots\}\) is the set of all edges in \(G\).
+
+\(W = \{w_1, w_2, \ldots\} \subseteq V \)
+
+\subsection{Some Set Operations}
+
+\begin{definition}
+	\[ \Pcal(S)   = \{A \subseteq S\} \]
+\end{definition}
+
+\begin{definition}
+	\[ \Qcal(S,k) = \{A \subseteq S : |A| = k\} \]
+\end{definition}
+
+\begin{corollary}
+	\[\begin{array}{c}
+		k_1 \neq k_2 \implies \Qcal(S,k_1) \bigcap \Qcal(S,k_2) = \emptyset \\ [8pt]
+		\Pcal(S) = \displaystyle \bigcup \limits_{k = 0}^{|S|} \Qcal(S,k)
+	\end{array}\]
+\end{corollary}
+
+\begin{corollary}
+	\[\begin{array}{l@{\ }l}
+		k > |S| &\implies \Qcal(S,k) = \emptyset \\
+		k \leq |S| &\implies \Qcal(S,k) \subseteq \Pcal(S)
+	\end{array}\]
+\end{corollary}
+
+\begin{remark}
+	\[\begin{array}{l@{\ }c@{\ }r}
+		\Qcal(S,& 0 &) = \{\emptyset\} \\
+		\Qcal(S,&|S|&) = \{S\}
+	\end{array}\]
+\end{remark}
+
+\begin{lemma}
+	\[ |\Qcal(S,k)| = \displaystyle \binom{|S|}{k} \]
+\end{lemma}
+
+\begin{definition}
+	\[ \Ccal(T,k) = \{A \in T : |A| = k\} \]
+\end{definition}
+
+\begin{corollary}
+	\[\begin{array}{c}
+		k_1 \neq k_2 \implies \Ccal(T,k_1) \bigcap \Ccal(T,k_2) = \emptyset \\ [8pt]
+		T = \displaystyle \bigcup \limits_{k = 0}^{\infty} \Ccal(T,k)
+	\end{array}\]
+\end{corollary}
+
+\begin{corollary}
+	\[ \not\exists A \in T, |A| = k \iff \Ccal(T,k) = \emptyset \]
+\end{corollary}
+
+\begin{remark}
+	\[\begin{array}{l@{\ }c}
+		\emptyset \in T \iff \Ccal(T,0) =& \{\emptyset\} \\
+		\emptyset \notin T \iff \Ccal(T,0) =& \emptyset
+	\end{array}\]
+\end{remark}
+
+\begin{definition}
+	\[ \Fcal(T,k) = \{A \in T : |A| \geq k\} \]
+\end{definition}
+
+\begin{corollary}
+	\[\begin{array}{c}
+		k_1 > k_2 \implies \Fcal(T,k_1) \subseteq \Fcal(T,k_2) \\ [8pt]
+		\Fcal(T,k) = \displaystyle \bigcup \limits_{k' = k}^{\infty} \Ccal(T,k')
+	\end{array}\]
+\end{corollary}
+
+\begin{definition}
+	\[ \Lcal(T) = \{A \in T : \not\exists B \in T \text{ such that } A \subset B\} \]
+\end{definition}
+
+\begin{definition}
+	\[ \Hcal(T) = \displaystyle \bigcup \limits_{\displaystyle A \in T} \Pcal(A) \]
+\end{definition}
+
+\begin{definition}
+	\[ \Ecal(T,k) = \displaystyle \bigcup \limits_{\displaystyle A \in T} \Qcal(A,k) \]
+\end{definition}
+
+\begin{corollary}
+	\[ \Lcal(T) \subseteq T \subseteq \Hcal(T) \]
+\end{corollary}
+
+\begin{corollary}
+	\[\begin{array}{c}
+		k_1 \neq k_2 \implies \Ecal(T,k_1) \bigcap \Ecal(T,k_2) = \emptyset \\ [8pt]
+		\Hcal(T) = \displaystyle \bigcup \limits_{k = 0}^{\infty} \Ecal(T,k)
+	\end{array}\]
+\end{corollary}
+
+\begin{remark}
+	\[\begin{array}{l@{\ }c}
+		T = \emptyset \iff \Ecal(T,0) =& \emptyset \\
+		T \neq \emptyset \iff \Ecal(T,0) =& \{\emptyset\}
+	\end{array}\]
+\end{remark}
+
+\begin{corollary}
+	\[\begin{array}{l@{}l@{}l@{\ }l@{}l}
+		\Lcal&(\Lcal&(T)) &= \Lcal&(T) \\
+		\Hcal&(\Hcal&(T)) &= \Hcal&(T) \\
+		\Ecal&(\Ecal&(T,k),k) &= \Ecal&(T,k)
+	\end{array}\]
+\end{corollary}
+
+\begin{lemma}
+	\[\begin{array}{l@{}l@{}l@{}l}
+		\Lcal(\Hcal(T)) = \Lcal(T) \\
+		\Hcal(\Lcal(T)) = \Hcal(T)
+	\end{array}\]
+\end{lemma}
+
+\begin{corollary}
+	\[ T \subseteq \Pcal(S) \implies |\Ccal(\Hcal(T),k)| \leq |\Qcal(S,k)| \]
+\end{corollary}
+
+\begin{lemma}
+	\[ \Ccal(\Hcal(T),k) = \Ecal(T,k) \]
+\end{lemma}
+
+\begin{corollary}
+	\[ \Ccal(\Hcal(T),k) = \Ecal(\Lcal(T),k) \]
+\end{corollary}
+
+\begin{theorem}
+	\[ \Ccal(\Hcal(T),k) = \Ecal(\Fcal(\Lcal(T),k),k) \]
+\end{theorem}
+
+\cleardoublepage
+\subsection{Distances}
+
+\begin{definition}
+	For \(u, v \in V\), the distance from \(u\) to \(v\) is
+		\[ d(u,v) \]
+\end{definition}
+
+\begin{corollary}
+	\[\begin{array}{c}
+		u = v \implies d(u,v) = 0 \\
+		u \neq v \implies d(u,v) > 0
+	\end{array}\]
+\end{corollary}
+
+\begin{definition}
+	For \(u \in V\) and \(e \in E\), where \(e\) connects \(v, w \in V\), the distance from \(u\) to \(e\) is
+		\[ \mathrm{min}(d(u,v),d(u,w)) \]
+\end{definition}
+
+\begin{definition}
+	\[ D(V \times V) = \left[\begin{array}{ccc}
+		d(v_1,v_1) & d(v_1,v_2) & \cdots \\
+		d(v_2,v_1) & d(v_2,v_2) & \cdots \\
+		\vdots     & \vdots     & \ddots
+	\end{array}\right] \]
+	\[ D(V \times E) = \left[\begin{array}{ccc}
+		d(v_1,e_1) & d(v_1,e_2) & \cdots \\
+		d(v_2,e_1) & d(v_2,e_2) & \cdots \\
+		\vdots     & \vdots     & \ddots
+	\end{array}\right]\]
+\end{definition}
+
+\begin{corollary}
+	\[\begin{array}{c}
+		d(v_i,v_j) = D_{i,j}(V \times V) \\
+		d(v_i,e_j) = D_{i,j}(V \times E)
+	\end{array}\]
+\end{corollary}
+
+\cleardoublepage
+\subsection{Properties of Representation}
+
+\begin{definition}
+	\[\begin{array}{l@{\ }r l}
+		v &\in V, & r(v|W) = (d(w_1,v), d(w_2,v), \ldots)) \\
+		e &\in E, & r(e|W) = (d(w_1,e), d(w_2,e), \ldots))
+	\end{array}\]
+\end{definition}
+
+\begin{definition}
+	\[\begin{array}{l@{\ }r l@{}r@{\ }l@{\ }l}
+		v &\in V, & r(v|W) \text{ is unique} \iff \forall &u \in V, u \neq v \implies & r(u|W) &\neq r(v|W) \\
+		e &\in E, & r(e|W) \text{ is unique} \iff \forall &f \in E, f \neq e \implies & r(f|W) &\neq r(e|W)
+	\end{array}\]
+\end{definition}
+
+\begin{corollary}
+	\[\begin{array}{l@{\ }r l@{}r@{\ }l@{\ }l}
+		v &\in V, & r(v|W) \text{ is not unique} \iff \exists& u \in V, u \neq v, & r(u|W) &= r(v|W) \\
+		e &\in E, & r(e|W) \text{ is not unique} \iff \exists& f \in E, f \neq e, & r(f|W) &= r(e|W)
+	\end{array}\]
+\end{corollary}
+
+\begin{definition}
+	\[\begin{array}{l@{\ }r l@{\ }l@{\ }l@{\ }l}
+		u, v &\in V, & r(u|W) &= r(v|W) &\iff \forall w \in W, d(w,u) &= d(w,v) \\
+		e, f &\in E, & r(e|W) &= r(f|W) &\iff \forall w \in W, d(w,e) &= d(w,f)
+	\end{array}\]
+\end{definition}
+
+\begin{corollary}
+	\[\begin{array}{l@{\ }r l@{\ }l@{\ }l@{\ }l}
+		u, v &\in V, & r(u|W) &\neq r(v|W) &\iff \exists w \in W, d(w,u) &\neq d(w,v) \\
+		e, f &\in E, & r(e|W) &\neq r(f|W) &\iff \exists w \in W, d(w,e) &\neq d(w,f)
+	\end{array}\]
+\end{corollary}
+
+\begin{definition}
+	\[\begin{array}{l@{\ }r l@{}l@{}l}
+		u, v &\in V, & \rho(u,v&|W) = \{w \in W : d(w,u) = d(w,v)&\} \\
+		e, f &\in E, & \rho(e,f&|W) = \{w \in W : d(w,e) = d(w,f)&\}
+	\end{array}\]
+\end{definition}
+
+\begin{remark}
+	\[\begin{array}{l@{\ }r l@{}l@{}l}
+		u, v &\in V, & \rho(u,v&|W) = \rho(v,u&|W) \\
+		e, f &\in E, & \rho(e,f&|W) = \rho(f,e&|W)
+	\end{array}\]
+\end{remark}
+
+\begin{lemma}
+	\[\begin{array}{l@{\ }r l@{\ }l@{\ }l@{}l}
+		u, v &\in V, & \forall w \in W, d(w,u) &= d(w,v) &\iff \rho(u,v&|W) = W \\
+		e, f &\in E, & \forall w \in W, d(w,e) &= d(w,f) &\iff \rho(e,f&|W) = W
+	\end{array}\]
+\end{lemma}
+
+\begin{corollary}
+	\[\begin{array}{l@{\ }r l@{\ }l@{\ }l@{}l}
+		u, v &\in V, & \exists w \in W, d(w,u) &\neq d(w,v) &\iff \rho(u,v&|W) \neq W \\
+		e, f &\in E, & \exists w \in W, d(w,e) &\neq d(w,f) &\iff \rho(e,f&|W) \neq W
+	\end{array}\]
+\end{corollary}
+
+\begin{corollary}
+	\[\begin{array}{l@{\ }r l@{}l@{}l@{}l}
+		u, v &\in V, & r(u&|W) = r(v&|W) \iff \rho(u,v&|W) = W \\
+		e, f &\in E, & r(e&|W) = r(f&|W) \iff \rho(e,f&|W) = W
+	\end{array}\]
+\end{corollary}
+
+\begin{corollary}
+	\[\begin{array}{l@{\ }r l@{}l@{}l@{}l}
+		u, v &\in V, & r(u&|W) \neq r(v&|W) \iff \rho(u,v&|W) \neq W \\
+		e, f &\in E, & r(e&|W) \neq r(f&|W) \iff \rho(e,f&|W) \neq W
+	\end{array}\]
+\end{corollary}
+
+\begin{lemma}
+	\[\begin{array}{l@{\ }r l@{}l@{\ }r@{\ }r@{\ }l@{\ }l@{}l}
+		v &\in V, & r(v&|W) \text{ is unique} \iff \forall u &\in V, & u &\neq v &\implies \rho(u,v&|W) = W \\
+		e &\in E, & r(e&|W) \text{ is unique} \iff \forall f &\in E, & f &\neq e &\implies \rho(f,e&|W) = W
+	\end{array}\]
+\end{lemma}
+
+\begin{corollary}
+	\[\begin{array}{l@{\ }r l@{}l@{\ }r@{\ }r@{\ }l@{}l@{}l}
+		v &\in V, & r(v&|W) \text{ is not unique} \iff \exists u &\in V, & u &\neq v &, \rho(u,v&|W) \neq W \\
+		e &\in E, & r(e&|W) \text{ is not unique} \iff \exists f &\in E, & f &\neq e &, \rho(f,e&|W) \neq W
+	\end{array}\]
+\end{corollary}
+
+\begin{lemma}
+	\[\begin{array}{l@{\ }r l@{}l@{}l}
+		u, v &\in V, & Z \subseteq \rho(u,v&|W) \implies \rho(u,v&|Z) = Z \\
+		e, f &\in E, & Z \subseteq \rho(e,f&|W) \implies \rho(e,f&|Z) = Z
+	\end{array}\]
+\end{lemma}
+
+\cleardoublepage
+\subsection{Partition}
+
+\begin{definition}
+	\[\begin{array}{l@{\ }l}
+		\text{When } W \text{ is not a resolving set,} &\text{then } W \text{ is called an invalid resolving set.} \\ [8pt]
+		\text{When } W \text{ is not an edge resolving set,} &\text{then } W \text{ is called an invalid edge resolving set.}
+	\end{array}\]
+\end{definition}
+
+\begin{definition}
+	\[\begin{array}{l}
+		\resolving{V} \text{ is the set that contains all resolving set.} \\ [8pt]
+		\resolving{E} \text{ is the set that contains all edge resolving set.} \\ [8pt]
+		\nonresolving{V} \text{ is the set that contains all invalid resolving set.} \\ [8pt]
+		\nonresolving{E} \text{ is the set that contains all invalid edge resolving set.}
+	\end{array}\]
+\end{definition}
+
+\begin{corollary}
+	\[\begin{array}{c}
+		\Pcal(V) = \resolving{V} \bigcup \nonresolving{V} \\ [8pt]
+		\Pcal(V) = \resolving{E} \bigcup \nonresolving{E} \\ [8pt]
+		\resolving{V} \bigcap \nonresolving{V} = \emptyset \\ [8pt]
+		\resolving{E} \bigcap \nonresolving{E} = \emptyset
+	\end{array}\]
+\end{corollary}
+
+\begin{lemma}
+	\[\begin{array}{l}
+		\Ccal(\resolving{V},k) \text{ contains all resolving set of cardinality } k \text{.} \\ [8pt]
+		\Ccal(\resolving{E},k) \text{ contains all edge resolving set of cardinality } k \text{.} \\ [8pt]
+		\Ccal(\nonresolving{V},k) \text{ contains all invalid resolving set of cardinality } k \text{.} \\ [8pt]
+		\Ccal(\nonresolving{E},k) \text{ contains all invalid edge resolving set of cardinality } k \text{.}
+	\end{array}\]
+\end{lemma}
+
+\begin{corollary}
+	\[\begin{array}{c}
+		\Qcal(V,k) = \Ccal(\resolving{V},k) \bigcup \Ccal(\nonresolving{V},k) \\ [8pt]
+		\Qcal(V,k) = \Ccal(\resolving{E},k) \bigcup \Ccal(\nonresolving{E},k) \\ [8pt]
+		\Ccal(\resolving{V},k) \bigcap \Ccal(\nonresolving{V},k) = \emptyset \\ [8pt]
+		\Ccal(\resolving{E},k) \bigcap \Ccal(\nonresolving{E},k) = \emptyset
+	\end{array}\]
+\end{corollary}
+
+\begin{corollary}
+	\[\begin{array}{c}
+		|\Ccal(\nonresolving{V},k)| \leq |\Qcal(V,k)| \\ [8pt]
+		|\Ccal(\nonresolving{E},k)| \leq |\Qcal(V,k)|
+	\end{array}\]
+\end{corollary}
+
+\begin{lemma}
+	\[\begin{array}{l}
+		\Ccal(\resolving{V},k) = \emptyset \iff \Ccal(\nonresolving{V},k) = \Qcal(V,k) \\ [8pt]
+		\Ccal(\resolving{E},k) = \emptyset \iff \Ccal(\nonresolving{E},k) = \Qcal(V,k)
+	\end{array}\]
+\end{lemma}
+
+\begin{corollary}
+	\[\begin{array}{l}
+		\Ccal(\resolving{V},k) \neq \emptyset \iff \Ccal(\nonresolving{V},k) \neq \Qcal(V,k) \\ [8pt]
+		\Ccal(\resolving{E},k) \neq \emptyset \iff \Ccal(\nonresolving{E},k) \neq \Qcal(V,k)
+	\end{array}\]
+\end{corollary}
+
+\begin{corollary}
+	\[\begin{array}{l}
+		\Ccal(\resolving{V},k) \neq \emptyset \iff |\Ccal(\nonresolving{V},k)| < \displaystyle \binom{|V|}{k} \\ [16pt]
+		\Ccal(\resolving{E},k) \neq \emptyset \iff |\Ccal(\nonresolving{E},k)| < \displaystyle \binom{|V|}{k}
+	\end{array}\]
+\end{corollary}
+
+\begin{definition}
+	\[\begin{array}{l}
+		\Lcal(\nonresolving{V}) \text{ is called the minimum invalid resolving set criteria.} \\ [8pt]
+		\Lcal(\nonresolving{E}) \text{ is called the minimum invalid edge resolving set criteria.}
+	\end{array}\]
+\end{definition}
+
+\cleardoublepage
+\subsection{Properties of Resolving Set}
+
+\begin{definition}
+	\[\begin{array}{l@{\ }l}
+		W \text{ is resolving set} &\iff \forall v \in V, r(v|W) \text{ is unique} \\
+		W \text{ is edge resolving set} &\iff \forall e \in E, r(e|W) \text{ is unique}
+	\end{array}\]
+\end{definition}
+
+\begin{corollary}
+	\[\begin{array}{l@{\ }l}
+		W \text{ is invalid resolving set} &\iff \exists v \in V, r(v|W) \text{ is not unique} \\
+		W \text{ is invalid edge resolving set} &\iff \exists e \in E, r(e|W) \text{ is not unique}
+	\end{array}\]
+\end{corollary}
+
+\begin{definition}
+	\[\begin{array}{l@{\ }l@{}l@{}l}
+		b(W,V) &= \{\rho(u,v&|W) : u, v \in V&\} \\
+		b(W,E) &= \{\rho(e,f&|W) : e, f \in E&\}
+	\end{array}\]
+\end{definition}
+
+\begin{lemma}
+	\[\begin{array}{l@{\ }l}
+		W \in b(W,V) &\iff W \text{ is invalid resolving set} \\
+		W \in b(W,E) &\iff W \text{ is invalid edge resolving set}
+	\end{array}\]
+\end{lemma}
+
+\begin{corollary}
+	\[\begin{array}{l@{\ }l}
+		W \notin b(W,V) &\iff W \text{ is resolving set} \\
+		W \notin b(W,E) &\iff W \text{ is edge resolving set}
+	\end{array}\]
+\end{corollary}
+
+\begin{lemma}
+	\[\begin{array}{l@{\ }l}
+		Z \in b(W,V) &\implies Z \text{ is invalid resolving set} \\
+		Z \in b(W,E) &\implies Z \text{ is invalid edge resolving set}
+	\end{array}\]
+\end{lemma}
+
+\begin{theorem}
+	\[\begin{array}{l@{\ }l}
+		W \text{ is invalid resolving set}, &Z \subseteq W \implies Z \text{ is invalid resolving set} \\ [8pt]
+		W \text{ is invalid edge resolving set}, &Z \subseteq W \implies Z \text{ is invalid edge resolving set}
+	\end{array}\]
+\end{theorem}
+
+\begin{theorem}
+	\[\begin{array}{l@{\ }l}
+		\Hcal(\nonresolving{V}) &= \nonresolving{V} \\ [8pt]
+		\Hcal(\nonresolving{E}) &= \nonresolving{E}
+	\end{array}\]
+\end{theorem}
+
+\begin{corollary}
+	\[\begin{array}{l@{\ }l}
+		\Hcal(\Lcal(\nonresolving{V})) &= \nonresolving{V} \\ [8pt]
+		\Hcal(\Lcal(\nonresolving{E})) &= \nonresolving{E}
+	\end{array}\]
+\end{corollary}
+
+\begin{theorem}
+	\[\begin{array}{l@{\ }l}
+		\Hcal(b(V,V)) &= \nonresolving{V} \\ [8pt]
+		\Hcal(b(V,E)) &= \nonresolving{E}
+	\end{array}\]
+\end{theorem}
+
+\begin{corollary}
+	\label{cor:resolving-construct}
+	\[\begin{array}{l@{\ }l}
+		\Lcal(b(V,V)) &= \Lcal(\nonresolving{V}) \\ [8pt]
+		\Lcal(b(V,E)) &= \Lcal(\nonresolving{E})
+	\end{array}\]
+\end{corollary}
+
+\begin{corollary}
+	\[\begin{array}{l@{\ }l}
+		\Ccal(\nonresolving{V},k) &= \Ecal(\Fcal(\Lcal(\nonresolving{V}),k),k) \\ [8pt]
+		\Ccal(\nonresolving{E},k) &= \Ecal(\Fcal(\Lcal(\nonresolving{E}),k),k)
+	\end{array}\]
+\end{corollary}
+
+\begin{theorem}
+	\[\begin{array}{l@{\ }l}
+		W \text{ is invalid resolving set} &\iff \exists Z \in \Lcal(\nonresolving{V}), W \subseteq Z \\ [8pt]
+		W \text{ is invalid edge resolving set} &\iff \exists Z \in \Lcal(\nonresolving{E}), W \subseteq Z
+	\end{array}\]
+\end{theorem}
+
+\begin{corollary}
+	\[\begin{array}{l@{\ }l}
+		W \text{ is resolving set} &\iff \forall Z \in \Lcal(\nonresolving{V}), W \not\subseteq Z \\ [8pt]
+		W \text{ is edge resolving set} &\iff \forall Z \in \Lcal(\nonresolving{E}), W \not\subseteq Z
+	\end{array}\]
+\end{corollary}
+
+\begin{theorem}
+	\label{thm:resolving-set-test}
+	\[\begin{array}{ll@{\ }l}
+		|W| = k, & W \text{ is invalid resolving set} &\iff \exists Z \in \Fcal(\Lcal(\nonresolving{V}),k), W \subseteq Z \\ [8pt]
+		|W| = k, & W \text{ is invalid edge resolving set} &\iff \exists Z \in \Fcal(\Lcal(\nonresolving{E}),k), W \subseteq Z
+	\end{array}\]
+\end{theorem}
+
+\begin{corollary}
+	\[\begin{array}{ll@{\ }l}
+		|W| = k, & W \text{ is resolving set} &\iff \forall Z \in \Fcal(\Lcal(\nonresolving{V}),k), W \not\subseteq Z \\ [8pt]
+		|W| = k, & W \text{ is edge resolving set} &\iff \forall Z \in \Fcal(\Lcal(\nonresolving{E}),k), W \not\subseteq Z
+	\end{array}\]
+\end{corollary}
+
+\cleardoublepage
+\subsection{Properties of Metric Dimension}
+
+\begin{definition}
+	\[\begin{array}{l@{\ }l}
+		\text{Metric dimension} &= \mathrm{min}\left(|W| \in \resolving{V}\right) \\ [8pt]
+		\text{Edge metric dimension} &= \mathrm{min}\left(|W| \in \resolving{E}\right)
+	\end{array}\]
+\end{definition}
+
+\begin{corollary}
+	\label{cor:metric-dimension-from-existence}
+	\[\begin{array}{l@{\ }l}
+		k \text{ is the metric dimension} &\iff \exists W \in \Ccal(\resolving{V},k) \text{ and } \not\exists W' \in \Ccal(\resolving{V},k - 1) \\ [8pt]
+		k \text{ is the edge metric dimension} &\iff \exists W \in \Ccal(\resolving{E},k) \text{ and } \not\exists W' \in \Ccal(\resolving{E},k - 1)
+	\end{array}\]
+\end{corollary}
+
+\begin{corollary}
+	\[\begin{array}{l@{\ }l}
+		k \text{ is the metric dimension} &\iff \Ccal(\resolving{V},k) \neq \emptyset \text{ and } \Ccal(\resolving{V},k - 1) = \emptyset \\ [8pt]
+		k \text{ is the edge metric dimension} &\iff \Ccal(\resolving{E},k) \neq \emptyset \text{ and } \Ccal(\resolving{E},k - 1) = \emptyset
+	\end{array}\]
+\end{corollary}
+
+\begin{corollary}
+	\[\begin{array}{l@{\ }l}
+		k \text{ is the metric dimension} &\iff \Ccal(\resolving{V},k) \neq \emptyset \text{ and } \Ccal(\nonresolving{V},k - 1) = \Qcal(V,k - 1) \\ [8pt]
+		k \text{ is the edge metric dimension} &\iff \Ccal(\resolving{E},k) \neq \emptyset \text{ and } \Ccal(\nonresolving{E},k - 1) = \Qcal(V,k - 1)
+	\end{array}\]
+\end{corollary}
+
+\begin{corollary}
+	\[\begin{array}{l@{\ }l}
+		k \text{ is the metric dimension} &\iff |\Ccal(\resolving{V},k)| > 0 \text{ and } |\Ccal(\nonresolving{V},k - 1)| = \displaystyle \binom{|V|}{k - 1} \\ [16pt]
+		k \text{ is the edge metric dimension} &\iff |\Ccal(\resolving{E},k)| > 0 \text{ and } |\Ccal(\nonresolving{E},k - 1)| = \displaystyle \binom{|V|}{k - 1}
+	\end{array}\]
+\end{corollary}
+
+\begin{corollary}
+	\[\begin{array}{l@{\ }l}
+		|\Ccal(\nonresolving{V},k)| = \displaystyle \binom{|V|}{k} \implies k \text{ is not the metric dimension} \\ [16pt]
+		|\Ccal(\nonresolving{E},k)| = \displaystyle \binom{|V|}{k} \implies k \text{ is not the edge metric dimension}
+	\end{array}\]
+\end{corollary}
+
+\begin{theorem}
+	\[\begin{array}{l}
+		\Ccal(\resolving{V},k) = \emptyset \implies \Ccal(\resolving{V},k - 1) = \emptyset \\ [8pt]
+		\Ccal(\resolving{E},k) = \emptyset \implies \Ccal(\resolving{E},k - 1) = \emptyset
+	\end{array}\]
+\end{theorem}
+
+\begin{corollary}
+	\[\begin{array}{l}
+		\Ccal(\nonresolving{V},k) = \Qcal(V,k) \implies \Ccal(\nonresolving{V},k - 1) = \Qcal(V,k - 1) \\ [8pt]
+		\Ccal(\nonresolving{E},k) = \Qcal(V,k) \implies \Ccal(\nonresolving{E},k - 1) = \Qcal(V,k - 1)
+	\end{array}\]
+\end{corollary}
+
+\begin{theorem}
+	\[\begin{array}{l}
+		\Ccal(\resolving{V},k) \neq \emptyset \implies \Ccal(\resolving{V},k + 1) \neq \emptyset \\ [8pt]
+		\Ccal(\resolving{E},k) \neq \emptyset \implies \Ccal(\resolving{E},k + 1) \neq \emptyset
+	\end{array}\]
+\end{theorem}
+
+\begin{corollary}
+	\[\begin{array}{l}
+		\Ccal(\nonresolving{V},k) \neq \Qcal(V,k) \implies \Ccal(\nonresolving{V},k - 1) \neq \Qcal(V,k + 1) \\ [8pt]
+		\Ccal(\nonresolving{E},k) \neq \Qcal(V,k) \implies \Ccal(\nonresolving{E},k - 1) \neq \Qcal(V,k + 1)
+	\end{array}\]
+\end{corollary}
+
+\cleardoublepage
+\subsection{Some Mappings to SMT}
+
+\begin{definition}
+	\ \begin{center}
+		There exists an injective mapping \(\bool: V \to \{\text{Boolean variables in SMT}\}\).
+	\end{center}
+\end{definition}
+
+\begin{definition}
+	\ \begin{center}
+		There exists an injective mapping \(\int: V \to \{\text{Integer variables in SMT}\}\).
+	\end{center}
+\end{definition}
+
+\subsection{Properties of SMT}
+
+\begin{conjecture}
+	\ \begin{center}
+		In SMT, proving \unsat is more expensive than proving \sat.
+	\end{center}
+\end{conjecture}
+
+\cleardoublepage
+\section{Algorithm Formulation}
+
+The basis of all the following algorithms is \autoref{cor:metric-dimension-from-existence}. That is, to determine the metric dimension, find a resolving set of cardinality \(k\) and show that no resolving set of cardinality \(k - 1\) exists. From this, it follows that the metric dimension is \(k\). The same applies for determining the edge metric dimension.
+
+There are two possible approaches that can be taken to arrive at this conclusion. One is to incrementally attempt from the smallest cardinality and upward. This implies repeatedly demonstrating the second condition and stops when the first condition is met. Another is to decrementally attempt from the largest cardinality and downward. This implies repeatedly demonstrating the first condition and stops when the second condition is met.
+
+The input for all of the algorithms is \(\Lcal(\nonresolving{V})\) for determining the metric dimension, and \(\Lcal(\nonresolving{E})\) for determining the edge metric dimension. Either are constructed using \autoref{cor:resolving-construct}.
+
+\subsection{Brute-force}
+
+To find a resolving set of cardinality \(k\), examine each \(W \in \Qcal(V, k)\) one by one using \autoref{thm:resolving-set-test}. Stop immediately upon finding the first resolving set, and conclude that \(\exists W \in C(\resolving{V},k)\). If, after exhaustively testing all sets in \(\Qcal(V, k)\), no resolving set is found, conclude that there is no resolving set of cardinality \(k\), i.e., \(\not\exists W \in C(\resolving{V},k)\).
+
+\textit{?...analysis...?}
+
+\textit{?...increment/decrement...?}
+
+\subsection{Boolean Satisfiability}
+
+To find a resolving set of cardinality \(k\), first construct \(C(\nonresolving{V},k)\) from \(\Ecal(\Fcal(\Lcal(\nonresolving{V}),k),k)\). Second, for each \(W_i \in C(\nonresolving{V},k)\), map it to
+	\[ \xcal_i = \bigwedge \limits_{\displaystyle w \in W_i} \bool(w) \]
+
+and combine them all into
+	\[ \neg \left( \bigvee \limits_{i} \mathcal \xcal_i \right) \]
+
+then add this constraint into SMT. Third, run the solver. If the result is \sat, then a resolving set of cardinality \(k\) exists. If the result is \unsat, then no resolving set of cardinality \(k\) exists.
+
+\textit{?...same as brute-force...?}
+
+\cleardoublepage
+\subsection{Linear Integer Arithmetic}
+
+\textit{?...more information than boolean...?}
+
+\textit{?...algorithm...?}
+
+\textit{?...analysis...?}
+
+\textit{?...increment/decrement...?}
+
+\subsection{Pseudo Boolean}
+
+\textit{?...more effective than integer...?}
+
+\textit{?...constant limitation...?}
+
+\textit{?...algorithm...?}
+
+\textit{?...increment/decrement...?}
+
+\section{Evaluate Execution Time}
+...
+
+\section{Discussion}
+...

@@ -6,7 +6,6 @@
 	\documentclass[12pt,oneside,openright]{report}
 \fi
 
-\PassOptionsToPackage{english}{babel}
 \PassOptionsToPackage{autostyle}{csquotes}
 \PassOptionsToPackage{hidelinks}{hyperref}
 \PassOptionsToPackage{authoryear}{natbib}
@@ -26,7 +25,6 @@
 	newtxtext,
 	newtxmath,
 	newtxtt,
-	enumitem,
 	geometry,
 	pagecolor,
 	parskip,
@@ -68,24 +66,16 @@
 
 \newcommand{\foreign}[1]{\foreignlanguage{english}{\textit{#1}}}
 
-\theoremstyle{definition}
-\newtheorem{definition}{Definition}
-\newtheorem{theorem}{Theorem}
-\newtheorem{lemma}{Lemma}
-\newtheorem{corollary}{Corollary}
-\newtheorem{proposition}{Proposition}
-\newtheorem{example}{Example}
-\newtheorem{remark}{Remark}
-\newtheorem{conjecture}{Conjecture}
-
-\providecommand{\definitionautorefname}{Definition}
-\providecommand{\theoremnautorefname}{Theorem}
-\providecommand{\lemmaautorefname}{Lemma}
-\providecommand{\corollaryautorefname}{Corollary}
-\providecommand{\propositionautorefname}{Proposition}
-\providecommand{\exampleautorefname}{Example}
-\providecommand{\remarkautorefname}{Remark}
-\providecommand{\conjectureautorefname}{Conjecture}
+\addto\extrasindonesian{
+	\renewcommand{\chapterautorefname}{Bab}
+	\renewcommand{\sectionautorefname}{Bagian}
+	\renewcommand{\subsectionautorefname}{Subbagian}
+	\renewcommand{\figureautorefname}{Gambar}
+	\renewcommand{\tableautorefname}{Tabel}
+	\renewcommand{\equationautorefname}{Persamaan}
+	\renewcommand{\refname}{Daftar Pustaka}
+	\renewcommand{\bibname}{Daftar Pustaka}
+}
 
 \titleformat{\chapter}[display]
 	{\centering\LARGE\bfseries}
