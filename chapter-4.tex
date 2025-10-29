@@ -1,195 +1,659 @@
 %! TEX root = self_chapter-4.tex
 
+\def\Ccal{\mathcal{C}}
+\def\Ecal{\mathcal{E}}
+\def\Fcal{\mathcal{F}}
+\def\Hcal{\mathcal{H}}
+\def\Lcal{\mathcal{L}}
+\def\Pcal{\mathcal{P}}
+\def\Qcal{\mathcal{Q}}
+\def\xcal{\mathcal{x}}
 \newcommand{\resolving}[1]{\Psi^{}_{#1}}
 \newcommand{\nonresolving}[1]{\widetilde{\resolving{#1}}}
+\def\bool{\mathtt{Bool}}
+\def\int{\mathtt{Int}}
+\def\sat{\texttt{sat}}
+\def\unsat{\texttt{unsat}}
+
+\setcounter{chapter}{4}
+\setcounter{section}{1}
 
 \setcounter{chapter}{3}
-\chapter{Hasil dan Pembahasan}
+\chapter{Results and Discussion}
 
-\section{Landasan Formal}
+\section{Formal Framework}
 
-\subsection{Beberapa Operasi Pada Himpunan}
+Here, all sets are finite!
 
-Di sini didefinisikan beberapa fungsi pembantu untuk mempermudah operasi pada himpunan. Untuk selanjutnya dalam pembahasan, diambil \(S\) adalah sembarang himpunan, dan \(T\) adalah sembarang himpunan dari himpunan.
+\(S\) is a set.
 
-\(\powerset(S)\) adalah himpunan yang memuat seluruh himpunan bagian tak sejati dari \(S\).
-	\[ \powerset(S) = \{A \subseteq S\} \]
+\(T\) is a set of sets.
 
-\begin{example}
-	Misalnya \(S = \{a, b\}\), maka \(\powerset(S) = \{\emptyset, \{a\}, \{b\}, \{a, b\}\}\).
-\end{example}
+\(G\) is an unweigted connected graph.
 
-Didefinisikan ekstensi \(\powerset(S, k)\) adalah himpunan yang memuat seluruh himpunan bagian tak sejati dari \(S\) berkardinalitas \(k\).
-	\[ \powerset(S,k) = \{A \subseteq S : |S| = k\} \]
+\(V = \{v_1, v_2, \ldots\}\) is the set of all vertices in \(G\).
 
-\begin{example}
-	Misalnya \(S = \{a, b\}\), maka \(\powerset(S, 1) = \{\{a\}, \{b\}\}\).
-\end{example}
+\(E = \{e_1, e_2, \ldots\}\) is the set of all edges in \(G\).
 
-\begin{corollary}
-	\(\powerset(S,k) = \emptyset\) saat \(k > |S|\).
-\end{corollary}
+\(W = \{w_1, w_2, \ldots\} \subseteq V \)
 
-\(P(S, k)\) dapat dilihat juga sebagai operasi yang mempartisi \(P(S)\) menjadi himpunan tak beririsan berdasarkan kardinalitas.
-	\[ k_1 \neq k_2 \implies \powerset(S, k_1) \cap \powerset(S, k_2) = \emptyset \]
-	\[ \powerset(S) = \bigcup \limits_{k = 0}^{|S|} \powerset(S, k) \]
+\subsection{Some Set Operations}
 
-Operasi partisi ini dapat digeneralisasikan untuk sembarang himpunan dari himpunan.
-	\[ C(T,k) = \{A \in T : |A| = k\} \]
+\begin{definition}
+	\[ \Pcal(S)   = \{A \subseteq S\} \]
+\end{definition}
 
-Dan mirip pula, ia bersifat seperti operasi partisi tak beririsan pada umumnya.
-	\[ k_1 \neq k_2 \implies C(T, k_1) \cap C(T, k_2) = \emptyset \]
-	\[ T = \bigcup \limits_{k = 0}^{\infty} C(T, k) \]
-
-Perhatikan \(C(T, k) = \emptyset\) ketika tidak ada \(A \in T\) berkardinalitas \(k\). Ini berbeda dari bila \(T\) memuat \(\emptyset\) dan memilih \(k = 0\), yang menghasilkan \(C(T, k) = \{\emptyset\}\).
+\begin{definition}
+	\[ \Qcal(S,k) = \{A \subseteq S : |A| = k\} \]
+\end{definition}
 
 \begin{corollary}
-	\(\powerset(S,k) = C(\powerset(S),k)\)
+	\[\begin{array}{c}
+		k_1 \neq k_2 \implies \Qcal(S,k_1) \bigcap \Qcal(S,k_2) = \emptyset \\ [8pt]
+		\Pcal(S) = \displaystyle \bigcup \limits_{k = 0}^{|S|} \Qcal(S,k)
+	\end{array}\]
 \end{corollary}
 
-\subsection{\foreign{Resolving Set}}
+\begin{corollary}
+	\[\begin{array}{l@{\ }l}
+		k > |S| &\implies \Qcal(S,k) = \emptyset \\
+		k \leq |S| &\implies \Qcal(S,k) \subseteq \Pcal(S)
+	\end{array}\]
+\end{corollary}
 
-Misalnya \(G\) adalah sembarang graf terhubung dengan \(V\) adalah himpunan seluruh simpulnya dan \(E\) adalah himpunan seluruh sisinya. Dalam pembahasan ini, \(W\) adalah himpunan bagian tak sejati dari \(V\), atau \(W \subseteq V\). Dan digunakan juga \(N = |V|\) untuk mempermudah bacaan.
-
-Simpul \(v \in V\) dikatakan memiliki representasi unik terhadap \(W\) apabila tidak ada simpul lain dengan representasi yang sama, yaitu:
-	\[ \forall u \in V, u \neq v \implies r(u|W) \neq r(v|W) \]
-
-Demikian pula untuk sisi \(e \in E\), representasinya unik terhadap \(W\) jika:
-	\[ \forall f \in E, f \neq e \implies r(f|W) \neq r(e|W) \]
-
-Dua simpul \(u, v \in V\) dikatakan memiliki representasi yang sama terhadap \(W\) ketika semua simpul di \(W\) memiliki jarak yang sama ke \(u\) dan ke \(v\), yaitu:
-	\[ r(u|W) = r(v|W) \iff \forall w \in W, d(w,u) = d(w,v) \]
-
-Didefinisikan fungsi pembantu \(\rho(u,v|W) \subseteq W\) sebagai himpunan seluruh simpul di \(W\) yang jaraknya ke \(u\) dan ke \(v\) sama:
-	\[ \rho(u,v|W) = \{w \in W : d(w,u) = d(w,v)\} \]
-
-Dengan jelas dapat dilihat bahwa ketika semua simpul di \(W\) memiliki jarak sama ke \(u\) dan ke \(v\), maka \(\rho(u,v|W) = W\), atau secara ekuivalen:
-	\[ \forall w \in W, d(w,u) = d(w,v) \iff \rho(u,v|W) = W \]
-
-Menggunakan sifat transitif pada kesetaraan di atas, diperoleh:
-	\[ r(u|W) = r(v|W) \iff \rho(u,v|W) = W \]
-
-Atau dengan kata lain, ketika \(\rho(u,v|W) = W\), maka \(u\) dan \(v\) memiliki representasi yang sama persis, dan selain dari itu \(u\) dan \(v\) memiliki representasi yang berbeda.
-
-Dengan cara yang sama, dua sisi \(e, f \in E\) dapat ditunjukkan memiliki representasi yang sama terhadap \(W\) melalui fungsi pembantu seperti berikut.
-	\[ \rho(e,f|W) = \{w \in W : d(w,e) = d(w,f)\} \]
-	\[ r(e|W) = r(f|W) \iff \rho(e,f|W) = W \]
-
-Yaitu, representasi \(e\) dan \(f\) adalah sama persis jika dan hanya jika \(\rho(e,f|W) = W\).
-
-Perhatikan ketika \(u = v\), jelas terjadi \(\rho(u,v|W) = W\), dan ketika \(e = f\), maka \(\rho(e,f|W) = W\). Perhatikan juga \(\rho\) yang bersifat komutatif untuk simpul dan sisi, bahwa \(\rho(u,v|W) = \rho(v,u|W)\) dan \(\rho(e,f|W) = \rho(f,e|W)\).
-
-% \begin{lemma}
-% 	\label{lem:representation-max}
-% 	Untuk sepasang sembarang simpul, berlaku \(u, v \notin \rho(u,v|W)\), dan untuk sepasang sembarang sisi, berlaku \(e \notin \rho(e,f|W)\) atau \(f \notin \rho(e,f|W)\).
-
-% 	\textit{?...need fixing...?}
-% \end{lemma}
-
-% Karena untuk sepasang simpul yang sama, \(d(v,v) = 0\), dan untuk sepasang simpul yang berbeda, \(d(u,v) \neq 0\).
-
-% \textit{?...more proof...?}
+\begin{remark}
+	\[\begin{array}{l@{\ }c@{\ }r}
+		\Qcal(S,& 0 &) = \{\emptyset\} \\
+		\Qcal(S,&|S|&) = \{S\}
+	\end{array}\]
+\end{remark}
 
 \begin{lemma}
-	\label{lem:representation}
-	Representasi simpul \(u\) dan simpul \(v\) terhadap \(Z \subseteq \rho(u,v|W)\) adalah sama. Representasi sisi \(e\) dan sisi \(f\) terhadap \(Z \subseteq \rho(e,f|W)\) adalah sama.
+	\[ |\Qcal(S,k)| = \displaystyle \binom{|S|}{k} \]
 \end{lemma}
 
-Secara definisi, simpul \(w \in \rho(u,v|W)\) berjarak sama ke \(u\) maupun ke \(v\). Oleh karena itu, semua simpul di \(Z \subseteq \rho(u,v|W)\) berjarak sama ke \(u\) maupun ke \(v\) pula, sehingga, \(\rho(u,v|Z) = Z\), dan, representasi \(u\) dan \(v\) terhadap \(Z\) jelas sama.
+\begin{definition}
+	\[ \Ccal(T,k) = \{A \in T : |A| = k\} \]
+\end{definition}
 
 \begin{corollary}
-	Representasi semua simpul terhadap \(\emptyset\) adalah sama dan representasi semua sisi terhadap \(\emptyset\) adalah sama.
+	\[\begin{array}{c}
+		k_1 \neq k_2 \implies \Ccal(T,k_1) \bigcap \Ccal(T,k_2) = \emptyset \\ [8pt]
+		T = \displaystyle \bigcup \limits_{k = 0}^{\infty} \Ccal(T,k)
+	\end{array}\]
 \end{corollary}
 
-Himpunan \(W\) disebut \foreign{resolving set} untuk \(G\) ketika semua simpulnya memiliki representasi unik terhadap \(W\), yakni:
-	\[ \forall u, v \in V, u \neq v \implies r(u|W) \neq r(v|W) \]
+\begin{corollary}
+	\[ \not\exists A \in T, |A| = k \iff \Ccal(T,k) = \emptyset \]
+\end{corollary}
 
-Menggunakan sifat negasi dan transitif, diperoleh pernyataan yang ekuivalen:
-	\[ \forall u, v \in V, u \neq v \implies \rho(u,v|W) \neq W \]
+\begin{remark}
+	\[\begin{array}{l@{\ }c}
+		\emptyset \in T \iff \Ccal(T,0) =& \{\emptyset\} \\
+		\emptyset \notin T \iff \Ccal(T,0) =& \emptyset
+	\end{array}\]
+\end{remark}
 
-Didefinisikan fungsi pembantu \(b(W,V) \subseteq \powerset(W)\) sebagai himpunan yang memuat \(\rho(u,v|W)\) untuk semua permutasi \(u, v \in V\):
-	\[ b(W,V) = \{\rho(u,v|W) : u, v \in V\} \]
+\begin{definition}
+	\[ \Fcal(T,k) = \{A \in T : |A| \geq k\} \]
+\end{definition}
 
-Saat \(W \notin b(W,V)\), maka terpenuhi \(\rho(u,v|W) \neq W\) untuk semua \(u, v \in V\) dengan \(u \neq v\), sehingga:
-	\[ W \notin b(W,V) \iff W \text{ adalah \foreign{resolving set}} \]
+\begin{corollary}
+	\[\begin{array}{c}
+		k_1 > k_2 \implies \Fcal(T,k_1) \subseteq \Fcal(T,k_2) \\ [8pt]
+		\Fcal(T,k) = \displaystyle \bigcup \limits_{k' = k}^{\infty} \Ccal(T,k')
+	\end{array}\]
+\end{corollary}
 
-Artinya, \(W\) gagal menjadi \foreign{resolving set} saat \(W \in b(W,V)\). Kita sebut \(W \in b(W,V)\) sebagai \foreign{invalid resolving set}, atau himpunan pembeda \foreign{invalid}.
-	\[ W \in b(W,V) \iff W \text{ adalah \foreign{invalid resolving set}} \]
+\begin{definition}
+	\[ \Lcal(T) = \{A \in T : \not\exists B \in T \text{ such that } A \subset B\} \]
+\end{definition}
 
-Serupa halnya, \(W\) dapat ditunjukkan merupakan \foreign{edge resolving set} melalui fungsi pembantu seperti berikut:
-\[\begin{array}{rl}
-	\forall e, f \in E, e \neq f &\implies r(e|W) \neq r(f|W) \\
-	                             &\implies \rho(e,f|W) \neq W
-\end{array}\]
-\[ b(W,E) = \{\rho(e,f|W) : e, f \in E\} \]
-\[\begin{array}{rl}
-	W \notin b(W,E) &\iff W \text{ adalah \foreign{edge resolving set}} \\
-	W \in b(W,E) &\iff W \text{ adalah \foreign{invalid edge resolving set}}
-\end{array}\]
+\begin{definition}
+	\[ \Hcal(T) = \displaystyle \bigcup \limits_{\displaystyle A \in T} \Pcal(A) \]
+\end{definition}
 
-% \begin{lemma}
-% 	\(Z \subset V, |Z| = N - 1\) adalah \foreign{resolving set} dan \foreign{edge resolving set}.
-% \end{lemma}
+\begin{definition}
+	\[ \Ecal(T,k) = \displaystyle \bigcup \limits_{\displaystyle A \in T} \Qcal(A,k) \]
+\end{definition}
 
-% Karena \autoref{lem:representation-max}, kardinalitas maksimal dari himpunan \(\rho(u,v|Z)\) adalah \(|Z| - 2\), sehingga jelas \(Z \notin b(Z,V)\).
+\begin{corollary}
+	\[ \Lcal(T) \subseteq T \subseteq \Hcal(T) \]
+\end{corollary}
+
+\begin{corollary}
+	\[\begin{array}{c}
+		k_1 \neq k_2 \implies \Ecal(T,k_1) \bigcap \Ecal(T,k_2) = \emptyset \\ [8pt]
+		\Hcal(T) = \displaystyle \bigcup \limits_{k = 0}^{\infty} \Ecal(T,k)
+	\end{array}\]
+\end{corollary}
+
+\begin{remark}
+	\[\begin{array}{l@{\ }c}
+		T = \emptyset \iff \Ecal(T,0) =& \emptyset \\
+		T \neq \emptyset \iff \Ecal(T,0) =& \{\emptyset\}
+	\end{array}\]
+\end{remark}
+
+\begin{corollary}
+	\[\begin{array}{l@{}l@{}l@{\ }l@{}l}
+		\Lcal&(\Lcal&(T)) &= \Lcal&(T) \\
+		\Hcal&(\Hcal&(T)) &= \Hcal&(T) \\
+		\Ecal&(\Ecal&(T,k),k) &= \Ecal&(T,k)
+	\end{array}\]
+\end{corollary}
 
 \begin{lemma}
-	\(Z \in b(W,V)\) adalah \foreign{invalid resolving set} dan \(Z \in b(W,E)\) adalah \foreign{invalid edge resolving set}.
+	\[\begin{array}{l@{}l@{}l@{}l}
+		\Lcal(\Hcal(T)) = \Lcal(T) \\
+		\Hcal(\Lcal(T)) = \Hcal(T)
+	\end{array}\]
 \end{lemma}
 
-\(Z \in b(W,V)\) bermakna \(Z = \rho(u,v|W)\), dan karena \autoref{lem:representation}, maka jelas \(Z \in b(Z,V)\).
-
 \begin{corollary}
-	\(\emptyset\) adalah \foreign{invalid resolving set} dan \foreign{invalid edge resolving set}.
+	\[ T \subseteq \Pcal(S) \implies |\Ccal(\Hcal(T),k)| \leq |\Qcal(S,k)| \]
 \end{corollary}
 
-Himpunan \(\powerset(V)\) dapat dipartisi menjadi dua himpunan tak beririsan, yaitu \(\resolving{V}\) yang memuat seluruh \foreign{resolving set} dan \(\nonresolving{V}\) yang memuat seluruh \foreign{invalid resolving set}.
-	\[ \resolving{V} = \{Z \subseteq V : Z \notin b(Z,V)\} \]
-	\[ \nonresolving{V} = \{Z \subseteq V : Z \in b(Z,V)\} \]
+\begin{lemma}
+	\[ \Ccal(\Hcal(T),k) = \Ecal(T,k) \]
+\end{lemma}
 
-Atau, \(\powerset(V)\) dapat pula dipartisi menjadi \(\resolving{E}\) yang memuat seluruh \foreign{edge resolving set} dan \(\nonresolving{E}\) yang memuat seluruh \foreign{invalid edge resolving set}.
-	\[ \resolving{E} = \{Z \subseteq V : Z \notin b(Z,E)\} \]
-	\[ \nonresolving{E} = \{Z \subseteq V : Z \in b(Z,E)\} \]
-
-Misalnya \(A\) adalah himpunan dari himpunan, didefinisikan fungsi pembantu
-	\[ H(A) = \bigcup \limits_{B \in A} \powerset(B) \]
+\begin{corollary}
+	\[ \Ccal(\Hcal(T),k) = \Ecal(\Lcal(T),k) \]
+\end{corollary}
 
 \begin{theorem}
-	\(H(b(V,V))\) adalah himpunan yang memuat seluruh \foreign{invalid resolving set} untuk \(G\) dan \(H(b(V,E))\) adalah himpunan yang memuat seluruh \foreign{invalid edge resolving set} untuk \(G\).
+	\[ \Ccal(\Hcal(T),k) = \Ecal(\Fcal(\Lcal(T),k),k) \]
 \end{theorem}
 
-\textit{?...proof...?}
+\cleardoublepage
+\subsection{Distances}
 
-Didefinisikan pula fungsi pembantu
-	\[ L(A) = \{ B \in A : \nexists C \in A \text{ sehingga } B \subset C \} \]
+\begin{definition}
+	For \(u, v \in V\), the distance from \(u\) to \(v\) is
+		\[ d(u,v) \]
+\end{definition}
+
+\begin{corollary}
+	\[\begin{array}{c}
+		u = v \implies d(u,v) = 0 \\
+		u \neq v \implies d(u,v) > 0
+	\end{array}\]
+\end{corollary}
+
+\begin{definition}
+	For \(u \in V\) and \(e \in E\), where \(e\) connects \(v, w \in V\), the distance from \(u\) to \(e\) is
+		\[ \mathrm{min}(d(u,v),d(u,w)) \]
+\end{definition}
+
+\begin{definition}
+	\[ D(V \times V) = \left[\begin{array}{ccc}
+		d(v_1,v_1) & d(v_1,v_2) & \cdots \\
+		d(v_2,v_1) & d(v_2,v_2) & \cdots \\
+		\vdots     & \vdots     & \ddots
+	\end{array}\right] \]
+	\[ D(V \times E) = \left[\begin{array}{ccc}
+		d(v_1,e_1) & d(v_1,e_2) & \cdots \\
+		d(v_2,e_1) & d(v_2,e_2) & \cdots \\
+		\vdots     & \vdots     & \ddots
+	\end{array}\right]\]
+\end{definition}
+
+\begin{corollary}
+	\[\begin{array}{c}
+		d(v_i,v_j) = D_{i,j}(V \times V) \\
+		d(v_i,e_j) = D_{i,j}(V \times E)
+	\end{array}\]
+\end{corollary}
+
+\cleardoublepage
+\subsection{Properties of Representation}
+
+\begin{definition}
+	\[\begin{array}{l@{\ }r l}
+		v &\in V, & r(v|W) = (d(w_1,v), d(w_2,v), \ldots)) \\
+		e &\in E, & r(e|W) = (d(w_1,e), d(w_2,e), \ldots))
+	\end{array}\]
+\end{definition}
+
+\begin{definition}
+	\[\begin{array}{l@{\ }r l@{}r@{\ }l@{\ }l}
+		v &\in V, & r(v|W) \text{ is unique} \iff \forall &u \in V, u \neq v \implies & r(u|W) &\neq r(v|W) \\
+		e &\in E, & r(e|W) \text{ is unique} \iff \forall &f \in E, f \neq e \implies & r(f|W) &\neq r(e|W)
+	\end{array}\]
+\end{definition}
+
+\begin{corollary}
+	\[\begin{array}{l@{\ }r l@{}r@{\ }l@{\ }l}
+		v &\in V, & r(v|W) \text{ is not unique} \iff \exists& u \in V, u \neq v, & r(u|W) &= r(v|W) \\
+		e &\in E, & r(e|W) \text{ is not unique} \iff \exists& f \in E, f \neq e, & r(f|W) &= r(e|W)
+	\end{array}\]
+\end{corollary}
+
+\begin{definition}
+	\[\begin{array}{l@{\ }r l@{\ }l@{\ }l@{\ }l}
+		u, v &\in V, & r(u|W) &= r(v|W) &\iff \forall w \in W, d(w,u) &= d(w,v) \\
+		e, f &\in E, & r(e|W) &= r(f|W) &\iff \forall w \in W, d(w,e) &= d(w,f)
+	\end{array}\]
+\end{definition}
+
+\begin{corollary}
+	\[\begin{array}{l@{\ }r l@{\ }l@{\ }l@{\ }l}
+		u, v &\in V, & r(u|W) &\neq r(v|W) &\iff \exists w \in W, d(w,u) &\neq d(w,v) \\
+		e, f &\in E, & r(e|W) &\neq r(f|W) &\iff \exists w \in W, d(w,e) &\neq d(w,f)
+	\end{array}\]
+\end{corollary}
+
+\begin{definition}
+	\[\begin{array}{l@{\ }r l@{}l@{}l}
+		u, v &\in V, & \rho(u,v&|W) = \{w \in W : d(w,u) = d(w,v)&\} \\
+		e, f &\in E, & \rho(e,f&|W) = \{w \in W : d(w,e) = d(w,f)&\}
+	\end{array}\]
+\end{definition}
+
+\begin{remark}
+	\[\begin{array}{l@{\ }r l@{}l@{}l}
+		u, v &\in V, & \rho(u,v&|W) = \rho(v,u&|W) \\
+		e, f &\in E, & \rho(e,f&|W) = \rho(f,e&|W)
+	\end{array}\]
+\end{remark}
+
+\begin{lemma}
+	\[\begin{array}{l@{\ }r l@{\ }l@{\ }l@{}l}
+		u, v &\in V, & \forall w \in W, d(w,u) &= d(w,v) &\iff \rho(u,v&|W) = W \\
+		e, f &\in E, & \forall w \in W, d(w,e) &= d(w,f) &\iff \rho(e,f&|W) = W
+	\end{array}\]
+\end{lemma}
+
+\begin{corollary}
+	\[\begin{array}{l@{\ }r l@{\ }l@{\ }l@{}l}
+		u, v &\in V, & \exists w \in W, d(w,u) &\neq d(w,v) &\iff \rho(u,v&|W) \neq W \\
+		e, f &\in E, & \exists w \in W, d(w,e) &\neq d(w,f) &\iff \rho(e,f&|W) \neq W
+	\end{array}\]
+\end{corollary}
+
+\begin{corollary}
+	\[\begin{array}{l@{\ }r l@{}l@{}l@{}l}
+		u, v &\in V, & r(u&|W) = r(v&|W) \iff \rho(u,v&|W) = W \\
+		e, f &\in E, & r(e&|W) = r(f&|W) \iff \rho(e,f&|W) = W
+	\end{array}\]
+\end{corollary}
+
+\begin{corollary}
+	\[\begin{array}{l@{\ }r l@{}l@{}l@{}l}
+		u, v &\in V, & r(u&|W) \neq r(v&|W) \iff \rho(u,v&|W) \neq W \\
+		e, f &\in E, & r(e&|W) \neq r(f&|W) \iff \rho(e,f&|W) \neq W
+	\end{array}\]
+\end{corollary}
+
+\begin{lemma}
+	\[\begin{array}{l@{\ }r l@{}l@{\ }r@{\ }r@{\ }l@{\ }l@{}l}
+		v &\in V, & r(v&|W) \text{ is unique} \iff \forall u &\in V, & u &\neq v &\implies \rho(u,v&|W) = W \\
+		e &\in E, & r(e&|W) \text{ is unique} \iff \forall f &\in E, & f &\neq e &\implies \rho(f,e&|W) = W
+	\end{array}\]
+\end{lemma}
+
+\begin{corollary}
+	\[\begin{array}{l@{\ }r l@{}l@{\ }r@{\ }r@{\ }l@{}l@{}l}
+		v &\in V, & r(v&|W) \text{ is not unique} \iff \exists u &\in V, & u &\neq v &, \rho(u,v&|W) \neq W \\
+		e &\in E, & r(e&|W) \text{ is not unique} \iff \exists f &\in E, & f &\neq e &, \rho(f,e&|W) \neq W
+	\end{array}\]
+\end{corollary}
+
+\begin{lemma}
+	\[\begin{array}{l@{\ }r l@{}l@{}l}
+		u, v &\in V, & Z \subseteq \rho(u,v&|W) \implies \rho(u,v&|Z) = Z \\
+		e, f &\in E, & Z \subseteq \rho(e,f&|W) \implies \rho(e,f&|Z) = Z
+	\end{array}\]
+\end{lemma}
+
+\cleardoublepage
+\subsection{Partition}
+
+\begin{definition}
+	\[\begin{array}{l@{\ }l}
+		\text{When } W \text{ is not a resolving set,} &\text{then } W \text{ is called an invalid resolving set.} \\ [8pt]
+		\text{When } W \text{ is not an edge resolving set,} &\text{then } W \text{ is called an invalid edge resolving set.}
+	\end{array}\]
+\end{definition}
+
+\begin{definition}
+	\[\begin{array}{l}
+		\resolving{V} \text{ is the set that contains all resolving set.} \\ [8pt]
+		\resolving{E} \text{ is the set that contains all edge resolving set.} \\ [8pt]
+		\nonresolving{V} \text{ is the set that contains all invalid resolving set.} \\ [8pt]
+		\nonresolving{E} \text{ is the set that contains all invalid edge resolving set.}
+	\end{array}\]
+\end{definition}
+
+\begin{corollary}
+	\[\begin{array}{c}
+		\Pcal(V) = \resolving{V} \bigcup \nonresolving{V} \\ [8pt]
+		\Pcal(V) = \resolving{E} \bigcup \nonresolving{E} \\ [8pt]
+		\resolving{V} \bigcap \nonresolving{V} = \emptyset \\ [8pt]
+		\resolving{E} \bigcap \nonresolving{E} = \emptyset
+	\end{array}\]
+\end{corollary}
+
+\begin{lemma}
+	\[\begin{array}{l}
+		\Ccal(\resolving{V},k) \text{ contains all resolving set of cardinality } k \text{.} \\ [8pt]
+		\Ccal(\resolving{E},k) \text{ contains all edge resolving set of cardinality } k \text{.} \\ [8pt]
+		\Ccal(\nonresolving{V},k) \text{ contains all invalid resolving set of cardinality } k \text{.} \\ [8pt]
+		\Ccal(\nonresolving{E},k) \text{ contains all invalid edge resolving set of cardinality } k \text{.}
+	\end{array}\]
+\end{lemma}
+
+\begin{corollary}
+	\[\begin{array}{c}
+		\Qcal(V,k) = \Ccal(\resolving{V},k) \bigcup \Ccal(\nonresolving{V},k) \\ [8pt]
+		\Qcal(V,k) = \Ccal(\resolving{E},k) \bigcup \Ccal(\nonresolving{E},k) \\ [8pt]
+		\Ccal(\resolving{V},k) \bigcap \Ccal(\nonresolving{V},k) = \emptyset \\ [8pt]
+		\Ccal(\resolving{E},k) \bigcap \Ccal(\nonresolving{E},k) = \emptyset
+	\end{array}\]
+\end{corollary}
+
+\begin{corollary}
+	\[\begin{array}{c}
+		|\Ccal(\nonresolving{V},k)| \leq |\Qcal(V,k)| \\ [8pt]
+		|\Ccal(\nonresolving{E},k)| \leq |\Qcal(V,k)|
+	\end{array}\]
+\end{corollary}
+
+\begin{lemma}
+	\[\begin{array}{l}
+		\Ccal(\resolving{V},k) = \emptyset \iff \Ccal(\nonresolving{V},k) = \Qcal(V,k) \\ [8pt]
+		\Ccal(\resolving{E},k) = \emptyset \iff \Ccal(\nonresolving{E},k) = \Qcal(V,k)
+	\end{array}\]
+\end{lemma}
+
+\begin{corollary}
+	\[\begin{array}{l}
+		\Ccal(\resolving{V},k) \neq \emptyset \iff \Ccal(\nonresolving{V},k) \neq \Qcal(V,k) \\ [8pt]
+		\Ccal(\resolving{E},k) \neq \emptyset \iff \Ccal(\nonresolving{E},k) \neq \Qcal(V,k)
+	\end{array}\]
+\end{corollary}
+
+\begin{corollary}
+	\[\begin{array}{l}
+		\Ccal(\resolving{V},k) \neq \emptyset \iff |\Ccal(\nonresolving{V},k)| < \displaystyle \binom{|V|}{k} \\ [16pt]
+		\Ccal(\resolving{E},k) \neq \emptyset \iff |\Ccal(\nonresolving{E},k)| < \displaystyle \binom{|V|}{k}
+	\end{array}\]
+\end{corollary}
+
+\begin{definition}
+	\[\begin{array}{l}
+		\Lcal(\nonresolving{V}) \text{ is called the minimum invalid resolving set criteria.} \\ [8pt]
+		\Lcal(\nonresolving{E}) \text{ is called the minimum invalid edge resolving set criteria.}
+	\end{array}\]
+\end{definition}
+
+\cleardoublepage
+\subsection{Properties of Resolving Set}
+
+\begin{definition}
+	\[\begin{array}{l@{\ }l}
+		W \text{ is resolving set} &\iff \forall v \in V, r(v|W) \text{ is unique} \\
+		W \text{ is edge resolving set} &\iff \forall e \in E, r(e|W) \text{ is unique}
+	\end{array}\]
+\end{definition}
+
+\begin{corollary}
+	\[\begin{array}{l@{\ }l}
+		W \text{ is invalid resolving set} &\iff \exists v \in V, r(v|W) \text{ is not unique} \\
+		W \text{ is invalid edge resolving set} &\iff \exists e \in E, r(e|W) \text{ is not unique}
+	\end{array}\]
+\end{corollary}
+
+\begin{definition}
+	\[\begin{array}{l@{\ }l@{}l@{}l}
+		b(W,V) &= \{\rho(u,v&|W) : u, v \in V&\} \\
+		b(W,E) &= \{\rho(e,f&|W) : e, f \in E&\}
+	\end{array}\]
+\end{definition}
+
+\begin{lemma}
+	\[\begin{array}{l@{\ }l}
+		W \in b(W,V) &\iff W \text{ is invalid resolving set} \\
+		W \in b(W,E) &\iff W \text{ is invalid edge resolving set}
+	\end{array}\]
+\end{lemma}
+
+\begin{corollary}
+	\[\begin{array}{l@{\ }l}
+		W \notin b(W,V) &\iff W \text{ is resolving set} \\
+		W \notin b(W,E) &\iff W \text{ is edge resolving set}
+	\end{array}\]
+\end{corollary}
+
+\begin{lemma}
+	\[\begin{array}{l@{\ }l}
+		Z \in b(W,V) &\implies Z \text{ is invalid resolving set} \\
+		Z \in b(W,E) &\implies Z \text{ is invalid edge resolving set}
+	\end{array}\]
+\end{lemma}
 
 \begin{theorem}
-	\[ H(L(b(V,V))) = H(b(V,V)) \]
-	\[ H(L(b(V,E))) = H(b(V,E)) \]
+	\[\begin{array}{l@{\ }l}
+		W \text{ is invalid resolving set}, &Z \subseteq W \implies Z \text{ is invalid resolving set} \\ [8pt]
+		W \text{ is invalid edge resolving set}, &Z \subseteq W \implies Z \text{ is invalid edge resolving set}
+	\end{array}\]
 \end{theorem}
 
-Karena untuk sembarang himpunan \(B \subseteq A\), berlaku \(\powerset(B) \cup \powerset(A) = \powerset(A)\).
+\begin{theorem}
+	\[\begin{array}{l@{\ }l}
+		\Hcal(\nonresolving{V}) &= \nonresolving{V} \\ [8pt]
+		\Hcal(\nonresolving{E}) &= \nonresolving{E}
+	\end{array}\]
+\end{theorem}
 
-\section{Formulasi Algoritma}
+\begin{corollary}
+	\[\begin{array}{l@{\ }l}
+		\Hcal(\Lcal(\nonresolving{V})) &= \nonresolving{V} \\ [8pt]
+		\Hcal(\Lcal(\nonresolving{E})) &= \nonresolving{E}
+	\end{array}\]
+\end{corollary}
 
-\subsection{\foreign{Brute-force}}
+\begin{theorem}
+	\[\begin{array}{l@{\ }l}
+		\Hcal(b(V,V)) &= \nonresolving{V} \\ [8pt]
+		\Hcal(b(V,E)) &= \nonresolving{E}
+	\end{array}\]
+\end{theorem}
 
+\begin{corollary}
+	\label{cor:resolving-construct}
+	\[\begin{array}{l@{\ }l}
+		\Lcal(b(V,V)) &= \Lcal(\nonresolving{V}) \\ [8pt]
+		\Lcal(b(V,E)) &= \Lcal(\nonresolving{E})
+	\end{array}\]
+\end{corollary}
+
+\begin{corollary}
+	\[\begin{array}{l@{\ }l}
+		\Ccal(\nonresolving{V},k) &= \Ecal(\Fcal(\Lcal(\nonresolving{V}),k),k) \\ [8pt]
+		\Ccal(\nonresolving{E},k) &= \Ecal(\Fcal(\Lcal(\nonresolving{E}),k),k)
+	\end{array}\]
+\end{corollary}
+
+\begin{theorem}
+	\[\begin{array}{l@{\ }l}
+		W \text{ is invalid resolving set} &\iff \exists Z \in \Lcal(\nonresolving{V}), W \subseteq Z \\ [8pt]
+		W \text{ is invalid edge resolving set} &\iff \exists Z \in \Lcal(\nonresolving{E}), W \subseteq Z
+	\end{array}\]
+\end{theorem}
+
+\begin{corollary}
+	\[\begin{array}{l@{\ }l}
+		W \text{ is resolving set} &\iff \forall Z \in \Lcal(\nonresolving{V}), W \not\subseteq Z \\ [8pt]
+		W \text{ is edge resolving set} &\iff \forall Z \in \Lcal(\nonresolving{E}), W \not\subseteq Z
+	\end{array}\]
+\end{corollary}
+
+\begin{theorem}
+	\label{thm:resolving-set-test}
+	\[\begin{array}{ll@{\ }l}
+		|W| = k, & W \text{ is invalid resolving set} &\iff \exists Z \in \Fcal(\Lcal(\nonresolving{V}),k), W \subseteq Z \\ [8pt]
+		|W| = k, & W \text{ is invalid edge resolving set} &\iff \exists Z \in \Fcal(\Lcal(\nonresolving{E}),k), W \subseteq Z
+	\end{array}\]
+\end{theorem}
+
+\begin{corollary}
+	\[\begin{array}{ll@{\ }l}
+		|W| = k, & W \text{ is resolving set} &\iff \forall Z \in \Fcal(\Lcal(\nonresolving{V}),k), W \not\subseteq Z \\ [8pt]
+		|W| = k, & W \text{ is edge resolving set} &\iff \forall Z \in \Fcal(\Lcal(\nonresolving{E}),k), W \not\subseteq Z
+	\end{array}\]
+\end{corollary}
+
+\cleardoublepage
+\subsection{Properties of Metric Dimension}
+
+\begin{definition}
+	\[\begin{array}{l@{\ }l}
+		\text{Metric dimension} &= \mathrm{min}\left(|W| \in \resolving{V}\right) \\ [8pt]
+		\text{Edge metric dimension} &= \mathrm{min}\left(|W| \in \resolving{E}\right)
+	\end{array}\]
+\end{definition}
+
+\begin{corollary}
+	\label{cor:metric-dimension-from-existence}
+	\[\begin{array}{l@{\ }l}
+		k \text{ is the metric dimension} &\iff \exists W \in \Ccal(\resolving{V},k) \text{ and } \not\exists W' \in \Ccal(\resolving{V},k - 1) \\ [8pt]
+		k \text{ is the edge metric dimension} &\iff \exists W \in \Ccal(\resolving{E},k) \text{ and } \not\exists W' \in \Ccal(\resolving{E},k - 1)
+	\end{array}\]
+\end{corollary}
+
+\begin{corollary}
+	\[\begin{array}{l@{\ }l}
+		k \text{ is the metric dimension} &\iff \Ccal(\resolving{V},k) \neq \emptyset \text{ and } \Ccal(\resolving{V},k - 1) = \emptyset \\ [8pt]
+		k \text{ is the edge metric dimension} &\iff \Ccal(\resolving{E},k) \neq \emptyset \text{ and } \Ccal(\resolving{E},k - 1) = \emptyset
+	\end{array}\]
+\end{corollary}
+
+\begin{corollary}
+	\[\begin{array}{l@{\ }l}
+		k \text{ is the metric dimension} &\iff \Ccal(\resolving{V},k) \neq \emptyset \text{ and } \Ccal(\nonresolving{V},k - 1) = \Qcal(V,k - 1) \\ [8pt]
+		k \text{ is the edge metric dimension} &\iff \Ccal(\resolving{E},k) \neq \emptyset \text{ and } \Ccal(\nonresolving{E},k - 1) = \Qcal(V,k - 1)
+	\end{array}\]
+\end{corollary}
+
+\begin{corollary}
+	\[\begin{array}{l@{\ }l}
+		k \text{ is the metric dimension} &\iff |\Ccal(\resolving{V},k)| > 0 \text{ and } |\Ccal(\nonresolving{V},k - 1)| = \displaystyle \binom{|V|}{k - 1} \\ [16pt]
+		k \text{ is the edge metric dimension} &\iff |\Ccal(\resolving{E},k)| > 0 \text{ and } |\Ccal(\nonresolving{E},k - 1)| = \displaystyle \binom{|V|}{k - 1}
+	\end{array}\]
+\end{corollary}
+
+\begin{corollary}
+	\[\begin{array}{l@{\ }l}
+		|\Ccal(\nonresolving{V},k)| = \displaystyle \binom{|V|}{k} \implies k \text{ is not the metric dimension} \\ [16pt]
+		|\Ccal(\nonresolving{E},k)| = \displaystyle \binom{|V|}{k} \implies k \text{ is not the edge metric dimension}
+	\end{array}\]
+\end{corollary}
+
+\begin{theorem}
+	\[\begin{array}{l}
+		\Ccal(\resolving{V},k) = \emptyset \implies \Ccal(\resolving{V},k - 1) = \emptyset \\ [8pt]
+		\Ccal(\resolving{E},k) = \emptyset \implies \Ccal(\resolving{E},k - 1) = \emptyset
+	\end{array}\]
+\end{theorem}
+
+\begin{corollary}
+	\[\begin{array}{l}
+		\Ccal(\nonresolving{V},k) = \Qcal(V,k) \implies \Ccal(\nonresolving{V},k - 1) = \Qcal(V,k - 1) \\ [8pt]
+		\Ccal(\nonresolving{E},k) = \Qcal(V,k) \implies \Ccal(\nonresolving{E},k - 1) = \Qcal(V,k - 1)
+	\end{array}\]
+\end{corollary}
+
+\begin{theorem}
+	\[\begin{array}{l}
+		\Ccal(\resolving{V},k) \neq \emptyset \implies \Ccal(\resolving{V},k + 1) \neq \emptyset \\ [8pt]
+		\Ccal(\resolving{E},k) \neq \emptyset \implies \Ccal(\resolving{E},k + 1) \neq \emptyset
+	\end{array}\]
+\end{theorem}
+
+\begin{corollary}
+	\[\begin{array}{l}
+		\Ccal(\nonresolving{V},k) \neq \Qcal(V,k) \implies \Ccal(\nonresolving{V},k - 1) \neq \Qcal(V,k + 1) \\ [8pt]
+		\Ccal(\nonresolving{E},k) \neq \Qcal(V,k) \implies \Ccal(\nonresolving{E},k - 1) \neq \Qcal(V,k + 1)
+	\end{array}\]
+\end{corollary}
+
+\cleardoublepage
+\subsection{Some Mappings to SMT}
+
+\begin{definition}
+	\ \begin{center}
+		There exists an injective mapping \(\bool: V \to \{\text{Boolean variables in SMT}\}\).
+	\end{center}
+\end{definition}
+
+\begin{definition}
+	\ \begin{center}
+		There exists an injective mapping \(\int: V \to \{\text{Integer variables in SMT}\}\).
+	\end{center}
+\end{definition}
+
+\subsection{Properties of SMT}
+
+\begin{conjecture}
+	\ \begin{center}
+		In SMT, proving \unsat is more expensive than proving \sat.
+	\end{center}
+\end{conjecture}
+
+\cleardoublepage
+\section{Algorithm Formulation}
+
+The basis of all the following algorithms is \autoref{cor:metric-dimension-from-existence}. That is, to determine the metric dimension, find a resolving set of cardinality \(k\) and show that no resolving set of cardinality \(k - 1\) exists. From this, it follows that the metric dimension is \(k\). The same applies for determining the edge metric dimension.
+
+There are two possible approaches that can be taken to arrive at this conclusion. One is to incrementally attempt from the smallest cardinality and upward. This implies repeatedly demonstrating the second condition and stops when the first condition is met. Another is to decrementally attempt from the largest cardinality and downward. This implies repeatedly demonstrating the first condition and stops when the second condition is met.
+
+The input for all of the algorithms is \(\Lcal(\nonresolving{V})\) for determining the metric dimension, and \(\Lcal(\nonresolving{E})\) for determining the edge metric dimension. Either are constructed using \autoref{cor:resolving-construct}.
+
+\subsection{Brute-force}
+
+To find a resolving set of cardinality \(k\), examine each \(W \in \Qcal(V, k)\) one by one using \autoref{thm:resolving-set-test}. Stop immediately upon finding the first resolving set, and conclude that \(\exists W \in C(\resolving{V},k)\). If, after exhaustively testing all sets in \(\Qcal(V, k)\), no resolving set is found, conclude that there is no resolving set of cardinality \(k\), i.e., \(\not\exists W \in C(\resolving{V},k)\).
+
+\textit{?...analysis...?}
+
+\textit{?...increment/decrement...?}
+
+\subsection{Boolean Satisfiability}
+
+To find a resolving set of cardinality \(k\), first construct \(C(\nonresolving{V},k)\) from \(\Ecal(\Fcal(\Lcal(\nonresolving{V}),k),k)\). Second, for each \(W_i \in C(\nonresolving{V},k)\), map it to
+	\[ \xcal_i = \bigwedge \limits_{\displaystyle w \in W_i} \bool(w) \]
+
+and combine them all into
+	\[ \neg \left( \bigvee \limits_{i} \mathcal \xcal_i \right) \]
+
+then add this constraint into SMT. Third, run the solver. If the result is \sat, then a resolving set of cardinality \(k\) exists. If the result is \unsat, then no resolving set of cardinality \(k\) exists.
+
+\textit{?...same as brute-force...?}
+
+\cleardoublepage
+\subsection{Linear Integer Arithmetic}
+
+\textit{?...more information than boolean...?}
+
+\textit{?...algorithm...?}
+
+\textit{?...analysis...?}
+
+\textit{?...increment/decrement...?}
+
+\subsection{Pseudo Boolean}
+
+\textit{?...more effective than integer...?}
+
+\textit{?...constant limitation...?}
+
+\textit{?...algorithm...?}
+
+\textit{?...increment/decrement...?}
+
+\section{Evaluate Execution Time}
 ...
 
-\subsection{\foreign{Boolean Satisfiability}}
-
-...
-
-\subsection{\foreign{Linear Integer Arithmetic}}
-
-...
-
-\subsection{\foreign{Pseudo Boolean}}
-
-...
-
-\section{Evaluasi Waktu Eksekusi}
-...
-
-\section{Pembahasan}
+\section{Discussion}
 ...

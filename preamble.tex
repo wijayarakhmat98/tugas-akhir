@@ -6,7 +6,7 @@
 	\documentclass[12pt,oneside,openright]{report}
 \fi
 
-\PassOptionsToPackage{english,main=indonesian}{babel}
+\PassOptionsToPackage{english}{babel}
 \PassOptionsToPackage{autostyle}{csquotes}
 \PassOptionsToPackage{hidelinks}{hyperref}
 \PassOptionsToPackage{authoryear}{natbib}
@@ -59,11 +59,6 @@
 \pagecolor{background}
 \color{foreground}
 
-\DeclareRobustCommand{\rchi}{{\mathpalette\irchi\relax}}
-\newcommand{\irchi}[2]{\raisebox{\depth}{$#1\chi$}}
-
-\def\powerset{\mathcal{P}}
-
 \def\True{\mathrm{True}}
 \def\False{\mathrm{False}}
 
@@ -73,27 +68,24 @@
 
 \newcommand{\foreign}[1]{\foreignlanguage{english}{\textit{#1}}}
 
-\newtheorem{definition}{Definisi}
-\newtheorem{theorem}{Teorema}
+\theoremstyle{definition}
+\newtheorem{definition}{Definition}
+\newtheorem{theorem}{Theorem}
 \newtheorem{lemma}{Lemma}
-\newtheorem{corollary}{Korolari}
-\newtheorem{example}{Contoh}
+\newtheorem{corollary}{Corollary}
+\newtheorem{proposition}{Proposition}
+\newtheorem{example}{Example}
+\newtheorem{remark}{Remark}
+\newtheorem{conjecture}{Conjecture}
 
-\addto\extrasindonesian{
-	\renewcommand{\chapterautorefname}{Bab}
-	\renewcommand{\sectionautorefname}{Bagian}
-	\renewcommand{\subsectionautorefname}{Subbagian}
-	\renewcommand{\figureautorefname}{Gambar}
-	\renewcommand{\tableautorefname}{Tabel}
-	\renewcommand{\equationautorefname}{Persamaan}
-	\renewcommand{\refname}{Daftar Pustaka}
-	\renewcommand{\bibname}{Daftar Pustaka}
-	\providecommand{\definitionautorefname}{Definisi}
-	\providecommand{\theoremnautorefname}{Teorema}
-	\providecommand{\lemmaautorefname}{Lemma}
-	\providecommand{\corollaryautorefname}{Korolari}
-	\providecommand{\exampleautorefname}{Contoh}
-}
+\providecommand{\definitionautorefname}{Definition}
+\providecommand{\theoremnautorefname}{Theorem}
+\providecommand{\lemmaautorefname}{Lemma}
+\providecommand{\corollaryautorefname}{Corollary}
+\providecommand{\propositionautorefname}{Proposition}
+\providecommand{\exampleautorefname}{Example}
+\providecommand{\remarkautorefname}{Remark}
+\providecommand{\conjectureautorefname}{Conjecture}
 
 \titleformat{\chapter}[display]
 	{\centering\LARGE\bfseries}
