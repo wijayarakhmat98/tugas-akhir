@@ -1,130 +1,150 @@
 %! TEX root = self_chapter-4.tex
 
-\def\bool{\mathtt{Bool}}
-\def\And{\mathtt{And}}
-\def\Or{\mathtt{Or}}
+\newcommand{\resolving}[1]{\Psi^{}_{#1}}
+\newcommand{\nonresolving}[1]{\widetilde{\resolving{#1}}}
 
 \setcounter{chapter}{3}
 \chapter{Hasil dan Pembahasan}
 
 \section{Landasan Formal}
 
-Misalnya \(G\) adalah graf terhubung dengan himpunan simpul \(V\) dan himpunan sisi \(E\).
+Misalnya \(G\) adalah sembarang graf terhubung dengan \(V\) adalah himpunan seluruh simpulnya dan \(E\) adalah himpunan seluruh sisinya. Dalam pembahasan ini, \(W\) adalah himpunan bagian tak sejati dari \(V\), atau \(W \subseteq V\). Dan digunakan juga \(N = |V|\) untuk mempermudah bacaan.
 
-\begin{definition}[\foreign{Similarity set}]
-	\[ \rho(u, v) = \{ w \in V : d(w, u) = d(w, v) \}, \text{ untuk } u, v \in V \]
-	\[ \rho(e, f) = \{ w \in V : d(w, e) = d(w, f) \}, \text{ untuk } e, f \in E \]
+Simpul \(v \in V\) dikatakan memiliki representasi unik terhadap \(W\) apabila tidak ada simpul lain dengan representasi yang sama, yaitu:
+	\[ \forall u \in V, u \neq v \implies r(u|W) \neq r(v|W) \]
 
-\end{definition}
+Demikian pula untuk sisi \(e \in E\), representasinya unik terhadap \(W\) jika:
+	\[ \forall f \in E, f \neq e \implies r(f|W) \neq r(e|W) \]
 
-\begin{definition}[\foreign{Similarity family}]
-	\[ b(V) = \{ \rho(u, v) : u, v \in V \text{ dan } u \neq v \} \]
-	\[ b(E) = \{ \rho(e, f) : e, f \in E \text{ dan } e \neq f \} \]
-\end{definition}
+Dua simpul \(u, v \in V\) dikatakan memiliki representasi yang sama terhadap \(W\) ketika semua simpul di \(W\) memiliki jarak yang sama ke \(u\) dan ke \(v\), yaitu:
+	\[ r(u|W) = r(v|W) \iff \forall w \in W, d(w,u) = d(w,v) \]
 
-\begin{definition}
-	\[ H(\rchi) = \bigcup \limits_{A \in \rchi}^{} \powerset(A) \]
-\end{definition}
+Didefinisikan fungsi pembantu \(\rho(u,v|W) \subseteq W\) sebagai himpunan seluruh simpul di \(W\) yang jaraknya ke \(u\) dan ke \(v\) sama:
+	\[ \rho(u,v|W) = \{w \in W : d(w,u) = d(w,v)\} \]
 
-\begin{lemma}[\foreign{The set of invalid resolving sets}]
-	\[ H(b(V)) \]
-	\[ H(b(E)) \]
-Proof?
+Dengan jelas dapat dilihat bahwa ketika semua simpul di \(W\) memiliki jarak sama ke \(u\) dan ke \(v\), maka \(\rho(u,v|W) = W\), atau secara ekuivalen:
+	\[ \forall w \in W, d(w,u) = d(w,v) \iff \rho(u,v|W) = W \]
+
+Menggunakan sifat transitif pada kesetaraan di atas, diperoleh:
+	\[ r(u|W) = r(v|W) \iff \rho(u,v|W) = W \]
+
+Atau dengan kata lain, ketika \(\rho(u,v|W) = W\), maka \(u\) dan \(v\) memiliki representasi yang sama persis, dan selain dari itu \(u\) dan \(v\) memiliki representasi yang berbeda.
+
+Dengan cara yang sama, dua sisi \(e, f \in E\) dapat ditunjukkan memiliki representasi yang sama terhadap \(W\) melalui fungsi pembantu seperti berikut.
+	\[ \rho(e,f|W) = \{w \in W : d(w,e) = d(w,f)\} \]
+	\[ r(e|W) = r(f|W) \iff \rho(e,f|W) = W \]
+
+Yaitu, representasi \(e\) dan \(f\) adalah sama persis jika dan hanya jika \(\rho(e,f|W) = W\).
+
+Perhatikan ketika \(u = v\), jelas terjadi \(\rho(u,v|W) = W\), dan ketika \(e = f\), maka \(\rho(e,f|W) = W\). Perhatikan juga \(\rho\) yang bersifat komutatif untuk simpul dan sisi, bahwa \(\rho(u,v|W) = \rho(v,u|W)\) dan \(\rho(e,f|W) = \rho(f,e|W)\).
+
+% \begin{lemma}
+% 	\label{lem:representation-max}
+% 	Untuk sepasang sembarang simpul, berlaku \(u, v \notin \rho(u,v|W)\), dan untuk sepasang sembarang sisi, berlaku \(e \notin \rho(e,f|W)\) atau \(f \notin \rho(e,f|W)\).
+
+% 	\textit{?...need fixing...?}
+% \end{lemma}
+
+% Karena untuk sepasang simpul yang sama, \(d(v,v) = 0\), dan untuk sepasang simpul yang berbeda, \(d(u,v) \neq 0\).
+
+% \textit{?...more proof...?}
+
+\begin{lemma}
+	\label{lem:representation}
+	Representasi simpul \(u\) dan simpul \(v\) terhadap \(Z \subseteq \rho(u,v|W)\) adalah sama. Representasi sisi \(e\) dan sisi \(f\) terhadap \(Z \subseteq \rho(e,f|W)\) adalah sama.
 \end{lemma}
+
+Secara definisi, simpul \(w \in \rho(u,v|W)\) berjarak sama ke \(u\) maupun ke \(v\). Oleh karena itu, semua simpul di \(Z \subseteq \rho(u,v|W)\) berjarak sama ke \(u\) maupun ke \(v\) pula, sehingga, \(\rho(u,v|Z) = Z\), dan, representasi \(u\) dan \(v\) terhadap \(Z\) jelas sama.
 
 \begin{corollary}
-	\[ W \text{ adalah \foreign{resolving set} } \iff W \notin H(b(V)) \]
-	\[ W \text{ adalah \foreign{edge resolving set} } \iff W \notin H(b(E)) \]
-Proof?
+	Representasi semua simpul terhadap \(\emptyset\) adalah sama dan representasi semua sisi terhadap \(\emptyset\) adalah sama.
 \end{corollary}
 
-\begin{definition}
-	\[ L(\rchi) = \{ A \in \rchi : \nexists B \in \rchi \text{ sehingga } A \subset B \} \]
-\end{definition}
+Himpunan \(W\) disebut \foreign{resolving set} untuk \(G\) ketika semua simpulnya memiliki representasi unik terhadap \(W\), yakni:
+	\[ \forall u, v \in V, u \neq v \implies r(u|W) \neq r(v|W) \]
 
-\begin{corollary}[\foreign{Reduced similarity family}]
-	\[ H(L(b(V))) = H(b(V)) \]
-	\[ H(L(b(E))) = H(b(E)) \]
-Proof?
+Menggunakan sifat negasi dan transitif, diperoleh pernyataan yang ekuivalen:
+	\[ \forall u, v \in V, u \neq v \implies \rho(u,v|W) \neq W \]
+
+Didefinisikan fungsi pembantu \(b(W,V) \subseteq \powerset(W)\) sebagai himpunan yang memuat \(\rho(u,v|W)\) untuk semua permutasi \(u, v \in V\):
+	\[ b(W,V) = \{\rho(u,v|W) : u, v \in V\} \]
+
+Saat \(W \notin b(W,V)\), maka terpenuhi \(\rho(u,v|W) \neq W\) untuk semua \(u, v \in V\) dengan \(u \neq v\), sehingga:
+	\[ W \notin b(W,V) \iff W \text{ adalah \foreign{resolving set}} \]
+
+Artinya, \(W\) gagal menjadi \foreign{resolving set} saat \(W \in b(W,V)\). Kita sebut \(W \in b(W,V)\) sebagai \foreign{invalid resolving set}, atau himpunan pembeda \foreign{invalid}.
+	\[ W \in b(W,V) \iff W \text{ adalah \foreign{invalid resolving set}} \]
+
+Serupa halnya, \(W\) dapat ditunjukkan merupakan \foreign{edge resolving set} melalui fungsi pembantu seperti berikut:
+\[\begin{array}{rl}
+	\forall e, f \in E, e \neq f &\implies r(e|W) \neq r(f|W) \\
+	                             &\implies \rho(e,f|W) \neq W
+\end{array}\]
+\[ b(W,E) = \{\rho(e,f|W) : e, f \in E\} \]
+\[\begin{array}{rl}
+	W \notin b(W,E) &\iff W \text{ adalah \foreign{edge resolving set}} \\
+	W \in b(W,E) &\iff W \text{ adalah \foreign{invalid edge resolving set}}
+\end{array}\]
+
+% \begin{lemma}
+% 	\(Z \subset V, |Z| = N - 1\) adalah \foreign{resolving set} dan \foreign{edge resolving set}.
+% \end{lemma}
+
+% Karena \autoref{lem:representation-max}, kardinalitas maksimal dari himpunan \(\rho(u,v|Z)\) adalah \(|Z| - 2\), sehingga jelas \(Z \notin b(Z,V)\).
+
+\begin{lemma}
+	\(Z \in b(W,V)\) adalah \foreign{invalid resolving set} dan \(Z \in b(W,E)\) adalah \foreign{invalid edge resolving set}.
+\end{lemma}
+
+\(Z \in b(W,V)\) bermakna \(Z = \rho(u,v|W)\), dan karena \autoref{lem:representation}, maka jelas \(Z \in b(Z,V)\).
+
+\begin{corollary}
+	\(\emptyset\) adalah \foreign{invalid resolving set} dan \foreign{invalid edge resolving set}.
 \end{corollary}
 
-\begin{definition}
-	\[ \powerset(A, k) = \{ W \subseteq A : |W| = k \} \]
-\end{definition}
+Himpunan \(\powerset(V)\) dapat dipartisi menjadi dua himpunan tak beririsan, yaitu \(\resolving{V}\) yang memuat seluruh \foreign{resolving set} dan \(\nonresolving{V}\) yang memuat seluruh \foreign{invalid resolving set}.
+	\[ \resolving{V} = \{Z \subseteq V : Z \notin b(Z,V)\} \]
+	\[ \nonresolving{V} = \{Z \subseteq V : Z \in b(Z,V)\} \]
 
-\begin{definition}
-	\[ F(A, k) = \{ W \in A : |W| \geq k \} \]
-\end{definition}
+Atau, \(\powerset(V)\) dapat pula dipartisi menjadi \(\resolving{E}\) yang memuat seluruh \foreign{edge resolving set} dan \(\nonresolving{E}\) yang memuat seluruh \foreign{invalid edge resolving set}.
+	\[ \resolving{E} = \{Z \subseteq V : Z \notin b(Z,E)\} \]
+	\[ \nonresolving{E} = \{Z \subseteq V : Z \in b(Z,E)\} \]
 
-\begin{lemma}
-\label{lem:is-resolving-valid}
-Untuk \(W \in \powerset(V, k)\),
-	\[ \forall A \in F(L(b(V)), k), W \not\subseteq A \iff W \notin H(b(V)) \]
-	\[ \forall A \in F(L(b(E)), k), W \not\subseteq A \iff W \notin H(b(E)) \]
-Proof?
-\end{lemma}
+Misalnya \(A\) adalah himpunan dari himpunan, didefinisikan fungsi pembantu
+	\[ H(A) = \bigcup \limits_{B \in A} \powerset(B) \]
 
-\begin{lemma}
-\label{lem:unsat-cost}
-	\[ \forall W \in \powerset(V, k), W \in H(b(V)) \iff |\powerset(V, k)| = |F(H(b(V)), k)| \]
-	\[ \forall W \in \powerset(V, k), W \in H(b(E)) \iff |\powerset(V, k)| = |F(H(b(E)), k)| \]
-Proof?
-\end{lemma}
+\begin{theorem}
+	\(H(b(V,V))\) adalah himpunan yang memuat seluruh \foreign{invalid resolving set} untuk \(G\) dan \(H(b(V,E))\) adalah himpunan yang memuat seluruh \foreign{invalid edge resolving set} untuk \(G\).
+\end{theorem}
+
+\textit{?...proof...?}
+
+Didefinisikan pula fungsi pembantu
+	\[ L(A) = \{ B \in A : \nexists C \in A \text{ sehingga } B \subset C \} \]
+
+\begin{theorem}
+	\[ H(L(b(V,V))) = H(b(V,V)) \]
+	\[ H(L(b(V,E))) = H(b(V,E)) \]
+\end{theorem}
+
+Karena untuk sembarang himpunan \(B \subseteq A\), berlaku \(\powerset(B) \cup \powerset(A) = \powerset(A)\).
 
 \section{Formulasi Algoritma}
 
 \subsection{\foreign{Brute-force}}
 
-Dengan menggunakan \autoref{lem:is-resolving-valid}, dapat ditentukan antara dua kemungkinan berikut:
+...
 
-\begin{itemize}
-	\item \(\exists W \in \powerset(V, k), W \notin H(b(*))\)
-	\item \(\forall W \in \powerset(V, k), W \in H(b(*))\)
-\end{itemize}
+\subsection{\foreign{Boolean Satisfiability}}
 
-dengan \(*\) adalah \(V\) untuk \foreign{resolving set} atau \(E\) untuk \foreign{edge resolving set}.
+...
 
-Pendekatan \foreign{brute-force} untuk mencari \foreign{resolving set} berkardinalitas \(k\) dapat dilakukan dengan mencoba satu-per-satu \(W \in \powerset(V, k)\) hingga ditemukan kasus pertama, atau ketika habis, disimpulkan kasus kedua.
+\subsection{\foreign{Linear Integer Arithmetic}}
 
-Karena \autoref{lem:unsat-cost}, lebih mahal secara \foreign{brute-force} untuk menyimpulkan kasus kedua dari pada kasus pertama. Dan karena sifat dimensi metrik, ketika \(k\) adalah dimensi metriknya, maka jelas tidak ada \foreign{resolving set} berkardinalitas \(k-1, k-2, \ldots, 1\).
+...
 
-Oleh karena itu, algoritma \foreign{brute-force} melakukan pencarian \foreign{resolving set} secara iteratif dari kardinalitas terbesar, yaitu \(|V|-1\), dan menurun hingga ditemukan kardinalitas \(k\) yang menyebabkan kasus kedua. Lalu, dapat disimpulkan bahwa dimensi metriknya adalah \(k+1\).
+\subsection{\foreign{Pseudo Boolean}}
 
-\subsection{\foreign{Satisfiability Modulo Theories}}
-
-\begin{definition}[Pemetaan simpul ke variabel boolean]
-	Misalnya sebuah graf terhubung memiliki himpunan simpul \(V = \{v_1, v_2, \ldots, v_n\}\). Dapat dikonstruksi himpunan variabel boolean \(X = \{x_1, x_2, \ldots, x_n\}\) yang parallel dengan himpunan \(V\). Sehingga, dapat didefinisikan pemetaan satu-satu \(\bool(v_i) = x_i\) dari simpul ke variabel boolean.
-\end{definition}
-
-\begin{definition}
-	Misalnya \(A\) adalah himpunan dan \(f\) adalah pemetaan dari \(A\) ke variabel boolean.
-	{
-	\[
-	\begin{array}{rlc}
-		\And(A, f) &=& \displaystyle \bigwedge \limits_{x \in A}^{} f(x) \\
-		\Or(A, f) &=& \displaystyle \bigvee \limits_{x \in A}^{} f(x)
-	\end{array}
-	\]
-	}
-\end{definition}
-
-\subsubsection{Metode 1}
-
-\[ \neg \Or(\And(\bool(q))) \]
-
-\[ \powerset(H(b(V)), k) \]
-
-\[ \neg \left( \bigvee \limits_{q\,\in\,\powerset(H(b(V)), k)}^{} \left( \bigwedge \limits_{v\,\in\,q}^{} \bool(v) \right) \right) \]
-
-\[ \neg \left( \bigvee \limits_{q\,\in\,\powerset(H(b(E)), k)}^{} \left( \bigwedge \limits_{v\,\in\,q}^{} \bool(v) \right) \right) \]
-
-\subsubsection{Metode 2}
-
-\[ \left[ \sum \limits_{v\,\in\,V}^{} \bool(v) = k \right] \land \left[ \bigwedge \limits_{q\,\in\,\powerset(L(b(V)), k)}^{} \left( \sum \limits_{v\,\in\,q}^{} \bool(v) \leq k - 1 \right) \right] \]
-
-\[ \left[ \sum \limits_{v\,\in\,V}^{} \bool(v) = k \right] \land \left[ \bigwedge \limits_{q\,\in\,\powerset(L(b(E)), k)}^{} \left( \sum \limits_{v\,\in\,q}^{} \bool(v) \leq k - 1 \right) \right] \]
-
-\section{\foreign{Pseudocode}}
 ...
 
 \section{Evaluasi Waktu Eksekusi}
