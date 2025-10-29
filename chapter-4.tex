@@ -31,37 +31,64 @@ Secara natural, operator tersebut dapat diperluas untuk \(a, b \in S^n\), sehing
 
 \cleardoublepage
 
-Didefinisikan sebuah operator boolean biner lain yang berbentuk \((s_1 | s_2) \in \Bbb\) untuk \(s_1, s_2 \in S\) sebagai berikut.
-	\[ (s_1 = s_2) = \left\{
+Didefinisikan sebuah operator boolean biner sebagai operasi pada dua unsur boolean yang berbentuk \((s_1 | s_2) \in \Bbb\) untuk \(s_1, s_2 \in \Bbb\) sebagai berikut.
+	\[ (s_1 | s_2) = \left\{
 	\begin{array}{l@{\ }l@{\ }c}
 		\True  &\iff& s_1 \vee s_2 \\
 		\False &\iff& \neg s_1 \wedge \neg s_2
 	\end{array} \right. \]
-Seperti sebelumnya, operator ini diperluas untuk \(a, b \in S^n\) dengan \((a | b) = ((a_i | b_i)\ \cdots) \in \Bbb^n\).
+Seperti sebelumnya, operator ini diperluas untuk \(a, b \in \Bbb^n\) dengan \((a | b) = ((a_i | b_i)\ \cdots) \in \Bbb^n\).
 
-Terakhir, diperkenalkan beberapa notasi yang berhubungan dengan graf. Misalkan \(G\) adalah graf. Representasi graf \(G\) dalam bentuk matriks ketetanggaan ditulis sebagai \(M\). Untuk \(V\), himpunan seluruh simpul di \(G\), matriks jarak simpul ke simpul dari \(G\) ditulis sebagai \(D^{(V)}\), sehingga jarak antar dua simpul \(v_i,v_j \in V\) adalah \(d(v_i,v_j) = D_{i,j}^{(V)}\). Untuk \(E\), himpunan seluruh sisi di \(G\), matriks jarak simpul ke sisi dari \(G\) ditulis sebagai \(D^{(E)}\), sehingga jarak antara simpul \(v_i \in V\) dan sisi \(e_j \in E\) adalah \(d(v_i,e_j) = D_{i,j}^{(E)}\).
-
-Dengan menggunakan notasi yang telah didefinikan, perhatikan bahwa matriks jarak simpul ke simpul dapat dibangun melalui representasi, yaitu \(D = [r(v_i|V)\ \cdots]\), karena \(r(u|V) = (d(u,v_j)\ \cdots), v_j \in V\). Demikian pula, matriks jarak simpul ke sisi dapat dibangun melalui representasi, yaitu \(D = [r(e_i|V)\ \cdots]\), karena \(r(e,v_j) = (d(e,v_j)\ \cdots), v_j \in V\).
+Terakhir, diperkenalkan beberapa notasi yang berhubungan dengan graf. Misalkan \(G\) adalah graf. Representasi graf \(G\) dalam bentuk matriks ketetanggaan ditulis sebagai \(M\). Untuk \(V\), himpunan seluruh simpul di \(G\), matriks jarak simpul ke simpul dari \(G\) ditulis sebagai \(D^{(V)}\), sehingga jarak antar dua simpul \(v_i,u_j \in V\) adalah \(d(v_i,u_j) = D^{(V)}_{ij}\). Untuk \(E\), himpunan seluruh sisi di \(G\), matriks jarak simpul ke sisi dari \(G\) ditulis sebagai \(D^{(E)}\), sehingga jarak antara simpul \(v_i \in V\) dan sisi \(e_j \in E\) adalah \(d(v_i,e_j) = D^{(E)}_{ij}\).
 
 \section{Formulasi Algoritma}
 
-Pondasi yang digunakan oleh seluruh formulasi algoritma di sini adalah matriks yang bernama \foreign{distance similarity matrix} untuk penentuan dimensi metrik, atau \foreign{edge distance similarity matrix} untuk penentuan dimensi metrik sisi. Untuk membangun masing-masing matriks tersebut, diperlukan matriks jarak simpul ke simpul dan matriks jarak simpul ke sisi.
+Pondasi yang digunakan oleh seluruh formulasi algoritma di sini adalah matriks yang bernama \foreign{reduced distance similarity matrix} untuk penentuan dimensi metrik, atau \foreign{reduced edge distance similarity matrix} untuk penentuan dimensi metrik sisi. Untuk membangun masing-masing matriks tersebut, diperlukan matriks jarak simpul ke simpul dan matriks jarak simpul ke sisi.
 
-Oleh karena itu, \foreign{input} yang digunakan adalah representasi matriks ketetanggaan \(M\) dari graf \(G\). Kemudian, \(D^{(V)}\) dapat dikonstruksi dari \(M\) menggunakan algoritma \foreign{Floyd-Warshall}. Dan \(D^{(E)}\) dapat dikonstruksi langsung dari definisi jarak simpul ke sisi; yaitu jarak dari simpul \(v_i \in V\) ke sisi \(e_j \in E\), di mana \(e_j\) adalah sisi yang menghubungkan dua simpul \(v_k, v_l \in V\), adalah \(d(v_i,e_j) = \min(d(v_i, v_k), d(v_i, v_l))\), sehingga \(D_{ij}^{(E)} = \min(D_{ik}^{(V)}, D_{il}^{(V)})\).
+Oleh karena itu, \foreign{input} yang digunakan adalah representasi matriks ketetanggaan \(M\) dari graf \(G\). Kemudian, \(D^{(V)}\) dapat dikonstruksi dari \(M\) menggunakan algoritma \foreign{Floyd-Warshall}. Dan \(D^{(E)}\) dapat dikonstruksi langsung dari definisi jarak simpul ke sisi; yaitu jarak dari simpul \(v_i \in V\) ke sisi \(e_j \in E\), di mana \(e_j\) adalah sisi yang menghubungkan dua simpul \(v_k, v_l \in V\), adalah \(d(v_i,e_j) = \min(d(v_i, v_k), d(v_i, v_l))\), sehingga \(D^{(E)}_{ij} = \min(D^{(V)}_{ik}, D^{(V)}_{il})\).
 
-\foreign{Distance similarity matrix} dari \(G\) yang dinotasikan \(B^{(V)} \in \Bbb^{|V|\times \frac{|V|(|V|-1)}{2}}\) dan \foreign{edge distance similarity matrix} dari \(G\) yang dinotasikan \(B^{(E)} \in \Bbb^{|V|\times \frac{|E|(|E|-1)}{2}}\) berturut-turut merupakan hasil dari perbandingan antara setiap kolom berbeda di \(D^{(V)}\) serta \(D^{(E)}\).
-	\[ B^{(V)} = [(D_{*j}^{(V)} = D_{*k}^{(V)})\ \cdots], \quad j < k\]
-	\[ B^{(E)} = [(D_{*j}^{(E)} = D_{*k}^{(E)})\ \cdots], \quad j < k\]
+\foreign{Distance similarity matrix} dari \(G\) yang dinotasikan \(B^{(V)} \in \Bbb^{|V|\times \frac{(|V|-1)|V|}{2}}\) dan \foreign{edge distance similarity matrix} dari \(G\) yang dinotasikan \(B^{(E)} \in \Bbb^{|V|\times \frac{(|E|-1)|E|}{2}}\) berturut-turut merupakan hasil dari perbandingan antara setiap kolom berbeda di \(D^{(V)}\) dan \(D^{(E)}\).
+	\[ B^{(V)} = [(D^{(V)}_{*j} = D^{(V)}_{*k})\ \cdots], \quad j < k\]
+	\[ B^{(E)} = [(D^{(E)}_{*j} = D^{(E)}_{*k})\ \cdots], \quad j < k\]
 
-Kemudian, dari \(B^{(V)}\), dikonstruksi matriks yang bernama \foreign{reduced distance similarity}, dan dinotasikan \(P^{(V)}\), atau dari \(B^{(E)}\), dikonstruksi matriks yang bernama \foreign{reduced edge distance similarity}, dan dinotasikan \(P^{(E)}\), menggunakan algoritma berikut.
+Kemudian, dari \(B^{(V)}\), dikonstruksi matriks yang bernama \foreign{reduced distance similarity matrix}, dan dinotasikan \(P^{(V)}\), atau dari \(B^{(E)}\), dikonstruksi matriks yang bernama \foreign{reduced edge distance similarity matrix}, dan dinotasikan \(P^{(E)}\), menggunakan algoritma berikut.
 \begin{enumerate}
 	\item Tetapkan \(P := B\).
 	\item Untuk setiap \(P_{*j}\) dan \(P_{*k}\) dan \(j \neq k\), hapus \(P_{*j}\) jika \((P_{*j} | P_{*k}) = P_{*k}\).
 \end{enumerate}
 
+Seluruh formulasi algoritma yang akan datang didasari dari interpretasi \(P^{(V)}\) maupun \(P^{(E)}\). Maka dari itu, dibahas terlebih dahulu pemaknaan informasi yang dikandung oleh \(P\).
+
+Pertama-tama, amatilah hubungan antara jarak dan representasi. Secara definisi, representasi dibangun dari jarak, yaitu \(r(\cdot|V)=(d(v_i,\cdot)\ \cdots)\). Artinya, jarak dapat diambil tarbalik dari representasi sebagai \(d(v_i,\cdot) = r_i(\cdot|V)\) untuk \(v_i \in V\). Dengan begitu, untuk \(W \subseteq V\), representasi terhadapt \(W\) dapat diambil langsung dari representasi terhadap \(V\) dengan cara \(r(\cdot|W) = (r_i(\cdot|V)\ \cdots), w_i \in W\).
+
+Kedua, cermatilah hubungan antara matriks jarak dan representasi. Matriks jarak dapat dibangun dari representasi sebagai kolom-kolomnya, yaitu \(D = [r(\cdot_j|V)\ \cdots]\). Sebaliknya, representasi dapat diambil langsung dari kolom matriks jarak sebagai \(r(\cdot_j|V) = D_{*j}\). Sehingga, representasi terhadap sembarang \(W \subseteq V\) sudah termuat dalam matriks jarak, dan dapat diambil menggunakan dua bentuk pendekatan.
+
+\begin{enumerate}
+	\item Ambil kolom kemudian baris:
+		\(
+		\begin{array}{r@{}c@{\ }l}
+			r(\cdot_j|W) = (&(D_{*j})_i&\ \cdots) \\
+			= (&D_{ij}&\ \cdots) \quad, w_i \in W
+		\end{array}
+		\)
+	\item Ambil baris kemudian kolom:
+		\, \( r(\cdot_j|W) = \left[ \begin{array}{c} D_{i*}\\ \vdots \end{array} \right]_{\displaystyle *j} \;\;\;\quad, w_i \in W \)
+\end{enumerate}
+
+Perhatikan metode \foreign{indexing} kedua yang memilih baris terlebih dahulu sebelum memilih kolom. Ketika pemilihan kolom diabaikan, operasi tersebut dapat digeneralisasikan menjadi pemilihan baris-baris berdasarkan \(W\) dari sembarang matriks \(A\) yang memiliki sebanyak \(|V|\) baris. Operasi ini dinotasikan dengan \((A|W)\) dan didefinisikan sebagai berikut:
+	\[ (A|W) = \left[ \begin{array}{c} A_{i*}\\ \vdots \end{array} \right] \quad, w_i \in W \]
+
+Dengan demikian, representasi terhadap \(W\) dapat diambil melalui kolom di \((D|W)\), yaitu \(r(\cdot_j|W) = (D|W)_{*j}\). Simak pula bahwa kolom-kolom \((D|W)\) memuat seluruh representasi terhadap \(W\). Ingat kembali, untuk menunjukkan \(W \subseteq V\) adalah \foreign{resolving set}, haruslah semua \(v \in V\) memiliki representasi unik. Atau dengan kata lain, setiap kolom di \((D|W)\) haruslah unik, yang diuji dengan membandingkan semua pasang kolomnya. Proses ini sudah dilakukan oleh \foreign{distance similarity matrix} \(B\). Maka, perbandingan setiap pasang kolom \((D|W)\) dimuat oleh kolom-kolom \((B|W)\). Jika terdapat representasi yang sama persis (dua kolom di \((D|W)\) yang sama), maka akan terdapat kolom di \((B|W)\) yang berisi semua \(\True\). Artinya, \(W\) bukanlan \foreign{resolving set} ketika ada kolom berisi semua \(\True\) di \((B|W)\). Dan sebaliknya, \(W\) adalah \foreign{resolving set} ketika tidak ada kolom di \((B|W)\) yang berisi semua \(\True\).
+
+Pengambilan kesimpulan ini dapat dibalik, yaitu dimulai dari sebuah kolom \(B_{*j}\). Kemudian ambil \(W = \{w_i \in V : B_{ij} = \True\}\), yaitu semua koresponden simpul yang elemennya di \(B_{*j}\) adalah \(\True\). Operasi ini dinotasikan dengan \(W = V[B_{*j}]\). Prosedur pemilihan tersebut menyebabkan kolom \((B|W)_{*j}\) berisi semua \(\True\), sehingga \(W\) bukanlah \foreign{resolving set}. Akibatnya, untuk semua kolom di \(B\), jelas \(V[B_{*j}]\) bukanlah \foreign{resolving set}.
+
+Tinjau, jika \(W\) bukanlah \foreign{resolving set}, maka kolom di \((B|W)\) yang berisi semua \(\True\) akan juga menyebabkan \(Z \subseteq W\) memiliki kolom di \((B|Z)\) yang berisi semua \(\True\) pada posisi yang sama persis, sehingga \(Z\) juga bukanlan \foreign{resolving set}. Oleh karena itu, ketika \(W\) bukan \foreign{resolving set}, maka semua subsetnya juga bukan \foreign{resolving set}, termasuk sang himpunan kosong (disebut juga \foreign{nullset}). Perlu ditekankan bahwa \foreign{nullset} bukanlah \foreign{resolving set} karena \(r(\cdot|\emptyset) = \emptyset\), atau dengan kata lain, semua representasi terhadap \foreign{nullset} adalah sama.
+
+Berdasarkan pengamatan ini, saat ada \(W = V[B_{*k}]\) sedemikian rupa \(Z = V[B_{*j}] \subseteq W\), maka kolom \(B_{*j}\) dapat dihapus, karena \(W\) yang bukan \foreign{resolving set} sudah mengimplikasikan \(Z\) juga bukan \foreign{resolving set}. Mengikuti proses ini untuk seluruh kolom di \(B\) akan menghasilkan \foreign{reduced distance similarity matrix} \(P\). Akhirnya, semua analisis sejauh ini yang menggunakan \(B\) dapat digantikan secara langsung oleh \(P\).
+
 \cleardoublepage
 
-Sebagai contoh, perhatikan graf berikut.
+Untuk memperjelas pembahasan sebelumnya, diilustrasikan ulang eksposisi melalui contoh. Perhatikan graf berikut.
 
 \begin{figure}[!htbp]
 	\centering
@@ -92,9 +119,9 @@ Menggunakan \foreign{Floyd-Warshall}, didapatkan matriks jarak simpul ke simpul 
 	\end{array} \right]
 \]
 
-Selanjutnya, dihasilkan \foreign{distance similarity matrix} berikut.
+Selanjutnya, dari membandingkan setiap pasang kolom di matriks jarak, dihasilkan \foreign{distance similarity matrix} berikut.
 \[
-	B^{(V)} = \left[ \begin{array}{cccccccccc}
+	B^{(V)} = \left[ \begin{array}{c@{\enspace}c@{\enspace}c@{\enspace}c@{\enspace}c@{\enspace}c@{\enspace}c@{\enspace}c@{\enspace}c@{\enspace}c@{\enspace}}
 		\False & \False & \False & \False &  \True & \False & \False & \False & \False &  \True \\
 		\False &  \True & \False & \False & \False & \False & \False & \False & \False &  \True \\
 		 \True & \False & \False & \False & \False & \False & \False & \False & \False &  \True \\
@@ -107,15 +134,27 @@ Kemudian, setelah penghapusan, didapat \foreign{reduced distance similarity} ber
 
 \[
 	P^{(V)} = \left[ \begin{array}{ccccc}
-		\False & \False & \False &  \True &  \True \\
-		\False &  \True & \False & \False &  \True \\
-		 \True & \False & \False & \False &  \True \\
-		 \True &  \True & \False &  \True & \False \\
-		 \True &  \True & \False &  \True & \False \\
+		\False & \False &  \True &  \True \\
+		\False &  \True & \False &  \True \\
+		 \True & \False & \False &  \True \\
+		 \True &  \True &  \True & \False \\
+		 \True &  \True &  \True & \False \\
 	\end{array} \right]
 \]
 
 \cleardoublepage
+
+Misalnya dipilih kolom kedua dari \(P^{(V)}\), yaitu \(P^{(V)}_{*2} = (\False, \True, \False, \True, \True)\). Mengambil semua simpul yang berkoresponden dengan \(\True\), didapat \(W = V[P^{(V)}_{*2}] = \{v_2, v_4, v_5\}\). Lihat bahwa
+
+\[
+	(P^{(V)}|W) = \left[ \begin{array}{ccccc}
+		\False &  \True & \False &  \True \\
+		 \True &  \True &  \True & \False \\
+		 \True &  \True &  \True & \False \\
+	\end{array} \right]
+\]
+
+di mana kolom kedua berisi semua \(\True\). Disimpulkan \(W\) dan semua subset dari \(W\), yaitu \(\{v_2, v_4, v_5\}\), \(\{v_4, v_5\}\), \(\{v_2, v_5\}\), \(\{v_2, v_4\}\), \(\{v_2\}\), \(\{v_4\}\), \(\{v_5\}\), dan \(\emptyset\) bukanlah \foreign{resolving set}.
 
 \subsection{\foreign{Brute-force}}
 
@@ -125,12 +164,12 @@ Kemudian, setelah penghapusan, didapat \foreign{reduced distance similarity} ber
 
 Minimize the number of \(x_i\) that needs to be \(\True\).
 \[
-	\begin{array}{rl}
-		x_3 \vee x_4 \vee x_5 \implies& x_1 \vee x_2 \\
-		x_2 \vee x_4 \vee x_5 \implies& x_1 \vee x_3 \\
-		& x_1 \vee x_2 \vee x_3 \vee x_4 \vee x_5 \\
-		x_1 \vee x_4 \vee x_5 \implies& x_2 \vee x_3 \\
-		x_1 \vee x_2 \vee x_3 \implies& x_4 \vee x_5 \\
+	\begin{array}{c}
+		x_1 \vee x_2 \vee x_3 \vee x_4 \vee x_5 \\ [4pt]
+		x_3 \vee x_4 \vee x_5 \implies x_1 \vee x_2 \\
+		x_2 \vee x_4 \vee x_5 \implies x_1 \vee x_3 \\
+		x_1 \vee x_4 \vee x_5 \implies x_2 \vee x_3 \\
+		x_1 \vee x_2 \vee x_3 \implies x_4 \vee x_5 \\
 	\end{array}
 \]
 
@@ -141,7 +180,6 @@ Minimize \(x_1 + x_2 + x_3 + x_4 + x_5 \).
 	\begin{array}{r}
 		x_1 + x_2 \geq 1 \\
 		x_1 + x_3 \geq 1 \\
-		x_1 + x_2 + x_3 + x_4 + x_5 \geq 1 \\
 		x_2 + x_3 \geq 1 \\
 		x_4 + x_5 \geq 1
 	\end{array}
@@ -155,7 +193,6 @@ Minimize \(k\).
 		x_1 + x_2 + x_3 + x_4 + x_5 &= k\\ [4pt]
 		x_3 + x_4 + x_5 &\leq k - 1 \\
 		x_2 + x_4 + x_5 &\leq k - 1 \\
-		0 &\leq k - 1 \\
 		x_1 + x_4 + x_5 &\leq k - 1 \\
 		x_1 + x_2 + x_3 &\leq k - 1
 	\end{array}
