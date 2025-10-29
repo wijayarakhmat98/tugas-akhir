@@ -8,6 +8,47 @@
 
 \section{Landasan Formal}
 
+\subsection{Beberapa Operasi Pada Himpunan}
+
+Di sini didefinisikan beberapa fungsi pembantu untuk mempermudah operasi pada himpunan. Untuk selanjutnya dalam pembahasan, diambil \(S\) adalah sembarang himpunan, dan \(T\) adalah sembarang himpunan dari himpunan.
+
+\(\powerset(S)\) adalah himpunan yang memuat seluruh himpunan bagian tak sejati dari \(S\).
+	\[ \powerset(S) = \{A \subseteq S\} \]
+
+\begin{example}
+	Misalnya \(S = \{a, b\}\), maka \(\powerset(S) = \{\emptyset, \{a\}, \{b\}, \{a, b\}\}\).
+\end{example}
+
+Didefinisikan ekstensi \(\powerset(S, k)\) adalah himpunan yang memuat seluruh himpunan bagian tak sejati dari \(S\) berkardinalitas \(k\).
+	\[ \powerset(S,k) = \{A \subseteq S : |S| = k\} \]
+
+\begin{example}
+	Misalnya \(S = \{a, b\}\), maka \(\powerset(S, 1) = \{\{a\}, \{b\}\}\).
+\end{example}
+
+\begin{corollary}
+	\(\powerset(S,k) = \emptyset\) saat \(k > |S|\).
+\end{corollary}
+
+\(P(S, k)\) dapat dilihat juga sebagai operasi yang mempartisi \(P(S)\) menjadi himpunan tak beririsan berdasarkan kardinalitas.
+	\[ k_1 \neq k_2 \implies \powerset(S, k_1) \cap \powerset(S, k_2) = \emptyset \]
+	\[ \powerset(S) = \bigcup \limits_{k = 0}^{|S|} \powerset(S, k) \]
+
+Operasi partisi ini dapat digeneralisasikan untuk sembarang himpunan dari himpunan.
+	\[ C(T,k) = \{A \in T : |A| = k\} \]
+
+Dan mirip pula, ia bersifat seperti operasi partisi tak beririsan pada umumnya.
+	\[ k_1 \neq k_2 \implies C(T, k_1) \cap C(T, k_2) = \emptyset \]
+	\[ T = \bigcup \limits_{k = 0}^{\infty} C(T, k) \]
+
+Perhatikan \(C(T, k) = \emptyset\) ketika tidak ada \(A \in T\) berkardinalitas \(k\). Ini berbeda dari bila \(T\) memuat \(\emptyset\) dan memilih \(k = 0\), yang menghasilkan \(C(T, k) = \{\emptyset\}\).
+
+\begin{corollary}
+	\(\powerset(S,k) = C(\powerset(S),k)\)
+\end{corollary}
+
+\subsection{\foreign{Resolving Set}}
+
 Misalnya \(G\) adalah sembarang graf terhubung dengan \(V\) adalah himpunan seluruh simpulnya dan \(E\) adalah himpunan seluruh sisinya. Dalam pembahasan ini, \(W\) adalah himpunan bagian tak sejati dari \(V\), atau \(W \subseteq V\). Dan digunakan juga \(N = |V|\) untuk mempermudah bacaan.
 
 Simpul \(v \in V\) dikatakan memiliki representasi unik terhadap \(W\) apabila tidak ada simpul lain dengan representasi yang sama, yaitu:
