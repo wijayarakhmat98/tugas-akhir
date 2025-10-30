@@ -3,10 +3,12 @@
 \setcounter{chapter}{3}
 \chapter{Hasil dan Pembahasan}
 
-\def\True{\mathtt{True}}
-\def\False{\mathtt{False}}
-\def\min{\mathtt{min}}
 \def\Bbb{\mathbb{B}}
+\def\bool{\mathtt{Bool}}
+\def\False{\mathtt{False}}
+\def\indeterminate{\mathit{[indeterminate]}}
+\def\min{\mathtt{min}}
+\def\True{\mathtt{True}}
 \renewcommand{\foreign}[1]{\foreignlanguage{english}{\textit{#1}}}
 
 \section{Landasan Formal}
@@ -21,23 +23,27 @@ Kemudian, misalnya, diberikan \(a_1,\ \cdots,\ a_m \in S^n\). Sebuah matriks \(A
 Dengan demikian, matriks \(A\) dapat dibangun dari elemen-elemen barisnya maupun dari elemen-elemen kolomnya sebagai berikut.
 	\[ A = \left[ \begin{array}{c} A_{i*}\\ \vdots \end{array} \right] = [A_{*j}\ \cdots] \]
 
-Selanjutnya, didefinisikan sebuah operator boolean biner sebagai operasi yang memetakan dua unsur ke dalam nilai boolean \(\Bbb = \{\True, \False\}\). Untuk setiap \(s_1, s_2 \in S\), didefinisikan \((s_1 = s_2) \in \Bbb\) sebagai berikut.
-	\[ (s_1 = s_2) = \left\{
-	\begin{array}{l@{\ }l}
-		\True  &\iff s_1 = s_2 \\
-		\False &\iff s_1 \neq s_2
-	\end{array} \right. \]
-Secara natural, operator tersebut dapat diperluas untuk \(a, b \in S^n\), sehingga \((a = b) \in \Bbb^n\) merupakan vektor boolean yang komponennya diberikan oleh \((a = b)_i = (a_i = b_i)\), dan oleh karena itu \((a = b) = ((a_i = b_i)\ \cdots)\).
-
-\cleardoublepage
-
-Didefinisikan sebuah operator boolean biner sebagai operasi pada dua unsur boolean yang berbentuk \((s_1 | s_2) \in \Bbb\) untuk \(s_1, s_2 \in \Bbb\) sebagai berikut.
-	\[ (s_1 | s_2) = \left\{
-	\begin{array}{l@{\ }l@{\ }c}
-		\True  &\iff& s_1 \vee s_2 \\
-		\False &\iff& \neg s_1 \wedge \neg s_2
-	\end{array} \right. \]
-Seperti sebelumnya, operator ini diperluas untuk \(a, b \in \Bbb^n\) dengan \((a | b) = ((a_i | b_i)\ \cdots) \in \Bbb^n\).
+Selanjutnya, didefinisikan dua operator biner, yaitu \((s_1 = s_2)\) dan \((t_1 | t_2)\), serta satu operator unari, yaitu \((\sim\!t)\), yang memetakan unsur-unsurnya kepada nilai boolean \(\Bbb = \{\True, \False\}\), untuk sembarang \(s_1, s_2 \in S\) serta \(t, t_1, t_2 \in \Bbb\).
+	\[
+	\begin{array}{r@{\ }l}
+		(s_1 = s_2) &= \left\{
+			\begin{array}{l@{\ }l}
+				\True  &\iff s_1 = s_2 \\
+				\False &\iff s_1 \neq s_2
+			\end{array} \right. \\ [16pt]
+		(s_1 | s_2) &= \left\{
+			\begin{array}{l@{\ }l@{\ }c}
+				\True  &\iff& s_1 \vee s_2 \\
+				\False &\iff& \neg s_1 \wedge \neg s_2
+			\end{array} \right. \\ [16pt]
+		(\sim\!s) &= \left\{
+			\begin{array}{l@{\ }l@{\ }c}
+				\True  &\iff& \neg s \\
+				\False &\iff& s
+			\end{array} \right.
+	\end{array}
+	\]
+Secara natural, setiap operator tersebut dapat diperluas untuk unsur-unsur vektor yang dipetakan ke \(\Bbb^n\). Misalnya \(a, b \in S^n\), maka \((a = b) = ((a_i = b_i)\ \cdots)\). Sedangkan untuk \(\alpha, \beta \in \Bbb^n\), maka \((\alpha | \beta) = ((\alpha_i | \beta_i)\ \cdots)\) dan juga \((\sim\!\alpha) = ((\sim\!\alpha_i)\ \cdots)\).
 
 Terakhir, diperkenalkan beberapa notasi yang berhubungan dengan graf. Misalkan \(G\) adalah graf. Representasi graf \(G\) dalam bentuk matriks ketetanggaan ditulis sebagai \(M\). Untuk \(V\), himpunan seluruh simpul di \(G\), matriks jarak simpul ke simpul dari \(G\) ditulis sebagai \(D^{(V)}\), sehingga jarak antar dua simpul \(v_i,u_j \in V\) adalah \(d(v_i,u_j) = D^{(V)}_{ij}\). Untuk \(E\), himpunan seluruh sisi di \(G\), matriks jarak simpul ke sisi dari \(G\) ditulis sebagai \(D^{(E)}\), sehingga jarak antara simpul \(v_i \in V\) dan sisi \(e_j \in E\) adalah \(d(v_i,e_j) = D^{(E)}_{ij}\).
 
@@ -85,6 +91,8 @@ Pengambilan kesimpulan ini dapat dibalik, yaitu dimulai dari sebuah kolom \(B_{*
 Tinjau, jika \(W\) bukanlah \foreign{resolving set}, maka kolom di \((B|W)\) yang berisi semua \(\True\) akan juga menyebabkan \(Z \subseteq W\) memiliki kolom di \((B|Z)\) yang berisi semua \(\True\) pada posisi yang sama persis, sehingga \(Z\) juga bukanlan \foreign{resolving set}. Oleh karena itu, ketika \(W\) bukan \foreign{resolving set}, maka semua subsetnya juga bukan \foreign{resolving set}, termasuk sang himpunan kosong (disebut juga \foreign{nullset}). Perlu ditekankan bahwa \foreign{nullset} bukanlah \foreign{resolving set} karena \(r(\cdot|\emptyset) = \emptyset\), atau dengan kata lain, semua representasi terhadap \foreign{nullset} adalah sama.
 
 Berdasarkan pengamatan ini, saat ada \(W = V[B_{*k}]\) sedemikian rupa \(Z = V[B_{*j}] \subseteq W\), maka kolom \(B_{*j}\) dapat dihapus, karena \(W\) yang bukan \foreign{resolving set} sudah mengimplikasikan \(Z\) juga bukan \foreign{resolving set}. Mengikuti proses ini untuk seluruh kolom di \(B\) akan menghasilkan \foreign{reduced distance similarity matrix} \(P\). Akhirnya, semua analisis sejauh ini yang menggunakan \(B\) dapat digantikan secara langsung oleh \(P\).
+
+Terkahir, menunjukkan \(k\) merupakan kandidat dimensi metrik yang valid dapat dilakukan dengan mencari contoh \foreign{resolving set} berkardinalitas \(k\). Kemudian, untuk menunjukkan bahwa \(k\) adalah dimensi metrik, cukup ditunjukkan bahwa tidak ada \foreign{resolving set} berkardinalitas \(k - 1\), sehingga, sesuai definisi dimensi metrik, \(k\) adalah kardinalitas \foreign{resolving set} minimum. Metode yang sama persis juga dapat digunakaan untuk mencari dimensi metrik sisi. Pendekatan inilah yang digunakan oleh semua algoritma yang akan datang.
 
 \cleardoublepage
 
@@ -156,11 +164,86 @@ Misalnya dipilih kolom kedua dari \(P^{(V)}\), yaitu \(P^{(V)}_{*2} = (\False, \
 
 di mana kolom kedua berisi semua \(\True\). Disimpulkan \(W\) dan semua subset dari \(W\), yaitu \(\{v_2, v_4, v_5\}\), \(\{v_4, v_5\}\), \(\{v_2, v_5\}\), \(\{v_2, v_4\}\), \(\{v_2\}\), \(\{v_4\}\), \(\{v_5\}\), dan \(\emptyset\) bukanlah \foreign{resolving set}.
 
+Contoh \foreign{resolving set} berkardinalitas 3 untuk graf ini adalah \(\{v_1, v_2, v_4\}\). Kemudian, karena ia tidak memiliki \foreign{resolving set} berkardinalitas 2, maka kardinalitas minimum \foreign{resolving set}-nya adalah 3. Sehingga, disimpulkan dimensi metriknya adalah 3.
+
 \subsection{\foreign{Brute-force}}
 
-...
+Cara paling sederhana untuk menunjukkan bahwa \(k\) adalah kandidat dimensi matrik yang valid adalah dengan mencoba satu per satu himpunan \(W \subseteq V\) berkardinalitas \(k\) hingga ditemukan satu saja \(W\) yang merupakan \foreign{resolving set}. Sebaliknya, untuk menunjukkan bahwa tidak ada \foreign{resolving set} berkardinalitas \(k\), maka harus dicoba habis seluruh kemungkinan himpunan \(W \subseteq V\) berkardinalitas \(k\). Kemudian, untuk menguji apakah \(W\) adalah \foreign{resolving set}, cukup ditunjukkan untuk seluruh kolom di \(P\) bahwa tidak ada \(W\) merupakan himpunan bagian tak sejati dari \(V[P_{*j}]\). Secara terbalik, jika ada saja satu kolom di \(P\) yang menyebabkan \(W \subseteq V[P_{*j}]\), maka \(W\) bukanlah \foreign{resolving set}.
+
+Karena \(P\) berbentuk matriks boolean, akan lebih mudah untuk bekerja dengan representasi \(W\) dalam bentuk boolean juga. Hal ini dapat dilakukan dengan mengkonstruksi vektor boolean \(X \in \Bbb^{|V|}\) dan memiliki sebanyak \(k\) nilai \(\True\). Oleh karena itu, jelas \(W = V[X]\) adalah himpunan berkardinalitas \(k\). Selanjutnya, pengujian apakah \(W\) merupakan himpunan bagian tak sejadi dari \(V[P_{*j}]\) dapat dicapai melalui operasi \((X|P_{*j})\). Secara eksplisit:
+\[
+	\begin{array}{rl}
+		(X|P_{*j}) = P_{*j}  &\iff V[X] \subseteq V[P_{*j}] \\
+		(X|P_{*j}) \neq P_{*j}  &\iff V[X] \not\subseteq V[P_{*j}]
+	\end{array}
+\]
+
+Amatilah, untuk menyatakan bahwa tidak ada \foreign{resolving set} berkardinalitas \(k\), harus diuji habis sebanyak \(\binom{|V|}{k}\) kasus. Sedangkan, secara umum, untuk menemukan satu contoh \foreign{resolving set} berkardinalitas \(k\) akan membutuhkan kurang dari \(\binom{|V|}{k}\) banyak kasus yang perlu diuji. Maka dari itu, menemukan satu contoh \foreign{resolving set} berkardinalitas \(k\) "lebih murah" dibandingkan menunjukkan tidak ada \foreign{resolving set} berkardinalitas \(k\). Sehingga, desain algoritma yang melakukan pencarian dari bawah, yaitu secara iteratif menaikkan nilai \(k\) hingga menemukan \foreign{resolving set} pertama dan mengambil kardinalitasnya sebagai dimensi metrik, akan "lebih lambat" dibandingkan desain algoritma yang melakukan pencarian dari atas, yaitu secara iteratif menurunkan nilai \(k\) hingga menemukan kardinalitas pertama yang tidak ada \foreign{resolving set}-nya dan mengambil \(k + 1\) sebagai dimensi metrik.
+
+Dengan demikian, diperolehlah formulasi algoritma penentuan dimensi metrik dan dimensi metrik sisi menggunakan pendekatan \foreign{brute-force} sebagai berikut:
+
+\cleardoublepage
+
+\foreign{Input}:
+\begin{itemize}
+	\item Representasi graf dalam representasi matriks ketetanggaan \(M\).
+	\item Mencari dimensi metrik atau dimensi metrik sisi?
+\end{itemize}
+Algoritma:
+\begin{enumerate}
+	\item Kalkulasi \(D^{(V)}\) dari \(M\) menggunakan \foreign{Floyd-Warshall}.
+	\item Kalkulasi \(D^{(E)}\) dari \(D^{(V)}\).
+	\item Tentukan \(D := D^{(V)}\) jika mencari dimensi metrik, atau \(D := D^{(E)}\) jika mencari dimensi metrik sisi.
+	\item Kalkulasi \(B\) dari \(D\).
+	\item Kalkulasi \(P\) dari \(B\).
+	\item Tentuakn \(n :=\) banyaknya kolom di \(P\).
+	\item Tentukan \(k := |V|\).
+	\item Selama \(k \geq 0\):
+		\begin{enumerate}
+			\item Coba satu per satu untuk semua kemungkinan \(X \in \Bbb^{|V|}\) yang memiliki sebanyak \(k\) nilai \(\True\):
+				\begin{enumerate}
+					\item Tentukan \(j := 1\).
+					\item Selama \(j \leq n\):
+						\begin{itemize}
+							\item Jika \((X|P_{*j}) = P_{*j}\), lompat ke tahap (8a).
+							\item Tambah \(j\) sebanyak satu, yaitu \(j := j + 1\).
+						\end{itemize}
+					\item Lompat ke tahap (8c).
+				\end{enumerate}
+			\item Lonpat ke tahap (9).
+			\item Kurangi \(k\) sebanyak satu, yaitu \(k := k - 1\).
+		\end{enumerate}
+	\item Simpulkan bahwa \(k + 1\) adalah dimensi metrik jika \(D = D^{(V)}\), atau \(k + 1\) adalah dimensi metrik sisi jika \(D = D^{(E)}\).
+\end{enumerate}
+
+Contoh:
+
+Ambil graf sebelumnya, dan cari dimensi metrik.
+\begin{itemize}
+	\item Untuk \(k = 5\), ditemukan \(X = (\True, \True, \True, \True, \True)\) sehingga \(W = \{v_1, v_2,\\ v_3, v_4, v_5\}\) adalah \foreign{resolving set}.
+	\item Untuk \(k = 4\), ditemukan \(X = (\True, \True, \True, \True, \False)\) sehingga \(W = \{v_1, v_2,\\ v_3, v_4\}\) adalah \foreign{resolving set}.
+	\item Untuk \(k = 3\), ditemukan \(X = (\True, \True, \False, \True, \False)\) sehingga \(W = \{v_1, v_2,\\ v_4\}\) adalah \foreign{resolving set}.
+	\item Untuk \(k = 2\), secara habis tidak ada \foreign{resolving set} berkardinalitas 2.
+\end{itemize}
+Disimpulkan bahwa \(2 + 1 = 3\) adalah dimensi metrik dari graf tersebut.
 
 \subsection{\foreign{Boolean Satisfiability}}
+
+Sebelum dibahas formulasi algoritma untuk \foreign{boolean satisfiability}, perlu dicermati terlebih dahulu pemetaan antara himpunan \(W \subseteq V\) dan \foreign{constraint} di \foreign{boolean satisfiability}. Untuk mempermudah pembicaraan, digunakan contoh nyata \(V = \{v_1, v_2, v_3, v_4\}\) dan \(W = \{v_1, v_3\}\).
+
+Pertama, didefinisikan pemetaan injektif \(\bool\) dari \(V\) ke variabel boolean di SMT. Misalnya, \(\bool(v_i) = x_i\), sehingga \(\bool(V) = \{x_1, x_2, x_3, x_4\}\). Perlu dicatat bahwa \(x_i\) bukanlah elemen di \(\Bbb\), melainkan merupakan variabel abstrak di SMT yang nilainya belum ditentukan. Hanya setelah menjalankan \foreign{solver} dan dihasilkan \foreign{model} di mana variabel \(x_i\) "\foreign{collapsed}" dan memiliki nilai antara \(\True\) atau \(\False\).
+
+Kedua, misalnya dibangun \foreign{constraint} berikut: "\( x_1 \wedge x_3 \)". Salah satu \foreign{model} yang memenuhi \foreign{constraint} tersebut adalah \(x_1 = \True, x_2 = \False, x_3 = \True, x_4 = \False\). Atau lebih tepatnya, \foreign{constraint} tersebut akan memaksa nilai \(x_1\) dan \(x_3\) agar \(\True\), dan tidak memberikan restriksi apapun kepada \(x_2\) dan \(x_4\). Maka, secara umum, \foreign{model} yang dihasilkan adalah \(x_1 = \True, x_2 = \indeterminate, x_3 = \True, x_4 = \indeterminate\). Oleh karena itu, untuk memaksa tidak terjadinya "variabel bebas", setiap variabel yang ada haruslah diberikan suatu macam restriksi. Misalnya, \foreign{constraint} sebelumnya dapat dimodifikasi menjadi "\( x_1 \wedge x_3 \wedge \neg x_2 \wedge x_4 \)". Model yang akan dihasilkan sekarang pastilah \(x_1 = \True, x_2 = \False, x_3 = \True, x_4 = \True\), tanpa ada alternatif lain.
+
+Ketiga, digunakan notasi \(X \in \Bbb^{|V|}\) untuk menyatakan \foreign{collapsed model}, sehingga \(X\) menunjukkan \foreign{model} \(\bool(v_i) = X_i\). Maksud dari \foreign{collapsed model} di sini adalah \foreign{model} yang bukan umum dan variabelnya masih dinyatakan bernilai \(\indeterminate\), melainkan adalah \foreign{model} nyata yang dihasilkan oleh \foreign{solver}. Sebagai contoh, \(X = (\False, \False, \False, \True)\) menyatakan \(x_1 = \False, x_2 = \False, x_3 = \False, x_4 = \True\). Dengan ini, dapat dipetakan dari model ke himpunan menggunakan \(V[X]\).
+
+Akhirnya, dapat didefinisikan pemetaan bijektif antara himpunan dan \foreign{constraint}.
+
+\textit{...}
+
+\textit{...still more explanations to come...}
+
+\textit{...}
 
 Minimize the number of \(x_i\) that needs to be \(\True\).
 \[
