@@ -37,6 +37,7 @@
 	hyperref,
 	natbib,
 	fancyhdr,
+	algorithm,
 	xcolor
 }
 
@@ -66,6 +67,9 @@
 
 \newcommand{\foreign}[1]{\foreignlanguage{english}{\textit{#1}}}
 
+\theoremstyle{definition}
+\newtheorem{example}{Contoh}
+
 \addto\extrasindonesian{
 	\renewcommand{\chapterautorefname}{Bab}
 	\renewcommand{\sectionautorefname}{Bagian}
@@ -73,8 +77,10 @@
 	\renewcommand{\figureautorefname}{Gambar}
 	\renewcommand{\tableautorefname}{Tabel}
 	\renewcommand{\equationautorefname}{Persamaan}
+	\floatname{algorithm}{Algoritma}
 	\renewcommand{\refname}{Daftar Pustaka}
 	\renewcommand{\bibname}{Daftar Pustaka}
+	\providecommand{\exampleautorefname}{Contoh}
 }
 
 \titleformat{\chapter}[display]
