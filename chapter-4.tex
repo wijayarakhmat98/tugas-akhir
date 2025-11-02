@@ -5,9 +5,12 @@
 
 \def\Bbb{\mathbb{B}}
 \def\bool{\mathtt{Bool}}
+\newcommand{\combine}[7]{#1 #2 \vphantom{#6} #3 #4 #5 #6 \vphantom{#2} #7}
 \def\False{\mathtt{False}}
 \def\indeterminate{\mathit{[indeterminate]}}
 \def\min{\mathtt{min}}
+\def\PB{\mathtt{PB}}
+\def\Pcal{\mathcal{P}}
 \def\True{\mathtt{True}}
 \renewcommand{\foreign}[1]{\foreignlanguage{english}{\textit{#1}}}
 
@@ -23,7 +26,7 @@ Kemudian, misalnya, diberikan \(a_1,\ \cdots,\ a_m \in S^n\). Sebuah matriks \(A
 Dengan demikian, matriks \(A\) dapat dibangun dari elemen-elemen barisnya maupun dari elemen-elemen kolomnya sebagai berikut.
 	\[ A = \left[ \begin{array}{c} A_{i*}\\ \vdots \end{array} \right] = [A_{*j}\ \cdots] \]
 
-Selanjutnya, didefinisikan dua operator biner, yaitu \((s_1 = s_2)\) dan \((t_1 | t_2)\), serta satu operator unari, yaitu \((\sim\!t)\), yang memetakan unsur-unsurnya kepada nilai boolean \(\Bbb = \{\True, \False\}\), untuk sembarang \(s_1, s_2 \in S\) serta \(t, t_1, t_2 \in \Bbb\).
+Didefinisikan dua operator biner, yaitu \((s_1 = s_2)\) dan \((t_1 | t_2)\), serta satu operator unari, yaitu \((\sim\!t)\), yang memetakan unsur-unsurnya kepada nilai boolean \(\Bbb = \{\True, \False\}\), untuk sembarang \(s_1, s_2 \in S\) serta \(t, t_1, t_2 \in \Bbb\).
 	\[
 	\begin{array}{r@{\ }l}
 		(s_1 = s_2) &= \left\{
@@ -88,7 +91,7 @@ Dengan demikian, representasi terhadap \(W\) dapat diambil melalui kolom di \((D
 
 Pengambilan kesimpulan ini dapat dibalik, yaitu dimulai dari sebuah kolom \(B_{*j}\). Kemudian ambil \(W = \{w_i \in V : B_{ij} = \True\}\), yaitu semua koresponden simpul yang elemennya di \(B_{*j}\) adalah \(\True\). Operasi ini dinotasikan dengan \(W = V[B_{*j}]\). Prosedur pemilihan tersebut menyebabkan kolom \((B|W)_{*j}\) berisi semua \(\True\), sehingga \(W\) bukanlah \foreign{resolving set}. Akibatnya, untuk semua kolom di \(B\), jelas \(V[B_{*j}]\) bukanlah \foreign{resolving set}.
 
-Tinjau, jika \(W\) bukanlah \foreign{resolving set}, maka kolom di \((B|W)\) yang berisi semua \(\True\) akan juga menyebabkan \(Z \subseteq W\) memiliki kolom di \((B|Z)\) yang berisi semua \(\True\) pada posisi yang sama persis, sehingga \(Z\) juga bukanlan \foreign{resolving set}. Oleh karena itu, ketika \(W\) bukan \foreign{resolving set}, maka semua subsetnya juga bukan \foreign{resolving set}, termasuk sang himpunan kosong (disebut juga \foreign{nullset}). Perlu ditekankan bahwa \foreign{nullset} bukanlah \foreign{resolving set} karena \(r(\cdot|\emptyset) = \emptyset\), atau dengan kata lain, semua representasi terhadap \foreign{nullset} adalah sama.
+Tinjau, jika \(W\) bukanlah \foreign{resolving set}, maka kolom di \((B|W)\) yang berisi semua \(\True\) akan juga menyebabkan \(Z \subseteq W\) memiliki kolom di \((B|Z)\) yang berisi semua \(\True\) pada posisi yang sama persis, sehingga \(Z\) juga bukanlan \foreign{resolving set}. Oleh karena itu, ketika \(W\) bukan \foreign{resolving set}, maka semua subsetnya juga bukan \foreign{resolving set}, termasuk sang himpunan kosong. Perlu ditekankan bahwa himpunan kosong bukanlah \foreign{resolving set} karena \(r(\cdot|\emptyset) = \emptyset\), atau dengan kata lain, semua representasi terhadap himpunan kosong adalah sama.
 
 Berdasarkan pengamatan ini, saat ada \(W = V[B_{*k}]\) sedemikian rupa \(Z = V[B_{*j}] \subseteq W\), maka kolom \(B_{*j}\) dapat dihapus, karena \(W\) yang bukan \foreign{resolving set} sudah mengimplikasikan \(Z\) juga bukan \foreign{resolving set}. Mengikuti proses ini untuk seluruh kolom di \(B\) akan menghasilkan \foreign{reduced distance similarity matrix} \(P\). Akhirnya, semua analisis sejauh ini yang menggunakan \(B\) dapat digantikan secara langsung oleh \(P\).
 
@@ -170,7 +173,7 @@ Contoh \foreign{resolving set} berkardinalitas 3 untuk graf ini adalah \(\{v_1, 
 
 Cara paling sederhana untuk menunjukkan bahwa \(k\) adalah kandidat dimensi matrik yang valid adalah dengan mencoba satu per satu himpunan \(W \subseteq V\) berkardinalitas \(k\) hingga ditemukan satu saja \(W\) yang merupakan \foreign{resolving set}. Sebaliknya, untuk menunjukkan bahwa tidak ada \foreign{resolving set} berkardinalitas \(k\), maka harus dicoba habis seluruh kemungkinan himpunan \(W \subseteq V\) berkardinalitas \(k\). Kemudian, untuk menguji apakah \(W\) adalah \foreign{resolving set}, cukup ditunjukkan untuk seluruh kolom di \(P\) bahwa tidak ada \(W\) merupakan himpunan bagian tak sejati dari \(V[P_{*j}]\). Secara terbalik, jika ada saja satu kolom di \(P\) yang menyebabkan \(W \subseteq V[P_{*j}]\), maka \(W\) bukanlah \foreign{resolving set}.
 
-Karena \(P\) berbentuk matriks boolean, akan lebih mudah untuk bekerja dengan representasi \(W\) dalam bentuk boolean juga. Hal ini dapat dilakukan dengan mengkonstruksi vektor boolean \(X \in \Bbb^{|V|}\) dan memiliki sebanyak \(k\) nilai \(\True\). Oleh karena itu, jelas \(W = V[X]\) adalah himpunan berkardinalitas \(k\). Selanjutnya, pengujian apakah \(W\) merupakan himpunan bagian tak sejadi dari \(V[P_{*j}]\) dapat dicapai melalui operasi \((X|P_{*j})\). Secara eksplisit:
+Karena \(P\) berbentuk matriks boolean, akan lebih mudah untuk bekerja dengan representasi \(W\) dalam bentuk boolean juga. Hal ini dapat dilakukan dengan mengkonstruksi vektor boolean \(X \in \Bbb^{|V|}\) yang memiliki sebanyak \(k\) nilai \(\True\). Oleh karena itu, jelas \(W = V[X]\) adalah himpunan berkardinalitas \(k\). Selanjutnya, pengujian apakah \(W\) merupakan himpunan bagian tak sejati dari \(V[P_{*j}]\) dapat dicapai melalui operasi \((X|P_{*j})\). Secara eksplisit:
 \[
 	\begin{array}{rl}
 		(X|P_{*j}) = P_{*j}  &\iff V[X] \subseteq V[P_{*j}] \\
@@ -178,7 +181,7 @@ Karena \(P\) berbentuk matriks boolean, akan lebih mudah untuk bekerja dengan re
 	\end{array}
 \]
 
-Amatilah, untuk menyatakan bahwa tidak ada \foreign{resolving set} berkardinalitas \(k\), harus diuji habis sebanyak \(\binom{|V|}{k}\) kasus. Sedangkan, secara umum, untuk menemukan satu contoh \foreign{resolving set} berkardinalitas \(k\) akan membutuhkan kurang dari \(\binom{|V|}{k}\) banyak kasus yang perlu diuji. Maka dari itu, menemukan satu contoh \foreign{resolving set} berkardinalitas \(k\) "lebih murah" dibandingkan menunjukkan tidak ada \foreign{resolving set} berkardinalitas \(k\). Sehingga, desain algoritma yang melakukan pencarian dari bawah, yaitu secara iteratif menaikkan nilai \(k\) hingga menemukan \foreign{resolving set} pertama dan mengambil kardinalitasnya sebagai dimensi metrik, akan "lebih lambat" dibandingkan desain algoritma yang melakukan pencarian dari atas, yaitu secara iteratif menurunkan nilai \(k\) hingga menemukan kardinalitas pertama yang tidak ada \foreign{resolving set}-nya dan mengambil \(k + 1\) sebagai dimensi metrik.
+Amatilah, untuk menyatakan bahwa tidak ada \foreign{resolving set} berkardinalitas \(k\), harus diuji habis sebanyak \(\binom{|V|}{k}\) kasus. Sedangkan, secara umum, untuk menemukan satu contoh \foreign{resolving set} berkardinalitas \(k\), akan dibutuhkan banyaknya kasus yang perlu diuji kurang dari \(\binom{|V|}{k}\). Maka dari itu, menemukan satu contoh \foreign{resolving set} berkardinalitas \(k\) "lebih murah" dibandingkan menunjukkan tidak ada \foreign{resolving set} berkardinalitas \(k\). Sehingga, desain algoritma yang melakukan pencarian dari bawah, yaitu secara iteratif menaikkan nilai \(k\) hingga menemukan \foreign{resolving set} pertama dan mengambil kardinalitasnya sebagai dimensi metrik, akan "lebih lambat" dibandingkan desain algoritma yang melakukan pencarian dari atas, yaitu secara iteratif menurunkan nilai \(k\) hingga menemukan kardinalitas pertama yang tidak ada \foreign{resolving set}-nya dan mengambil \(k + 1\) sebagai dimensi metrik.
 
 Dengan demikian, diperolehlah formulasi algoritma penentuan dimensi metrik dan dimensi metrik sisi menggunakan pendekatan \foreign{brute-force} sebagai berikut:
 
@@ -229,15 +232,75 @@ Disimpulkan bahwa \(2 + 1 = 3\) adalah dimensi metrik dari graf tersebut.
 
 \subsection{\foreign{Boolean Satisfiability}}
 
-Sebelum dibahas formulasi algoritma untuk \foreign{boolean satisfiability}, perlu dicermati terlebih dahulu pemetaan antara himpunan \(W \subseteq V\) dan \foreign{constraint} di \foreign{boolean satisfiability}. Untuk mempermudah pembicaraan, digunakan contoh nyata \(V = \{v_1, v_2, v_3, v_4\}\) dan \(W = \{v_1, v_3\}\).
+Sebelum dibahas formulasi algoritma menggunakan \foreign{boolean satisfiability}, perlu dicermati terlebih dahulu pemetaan antara himpunan \(W \subseteq V\) dan \foreign{constraint} di \foreign{boolean satisfiability}. Pertama-tama, didefinisikan pemetaan injektif \(\bool\) dari \(V\) ke variabel boolean di SMT. Misalnya, \(V = \{v_1, v_2, v_3, v_4\}\), dapat dibangun \(\bool(v_i) = x_i\) sehingga \(\bool(V) = \{x_1, x_2, x_3, x_4\}\). Catat bahwa \(x_i\) bukanlah elemen di \(\Bbb\), melainkan merupakan variabel abstrak di SMT yang nilainya belum ditentukan. Hanya setelah menjalankan \foreign{solver} dan dihasilkan \foreign{model}, barulah variabel \(x_i\) "\foreign{collapsed}" dan memiliki nilai antara \(\True\) atau \(\False\).
 
-Pertama, didefinisikan pemetaan injektif \(\bool\) dari \(V\) ke variabel boolean di SMT. Misalnya, \(\bool(v_i) = x_i\), sehingga \(\bool(V) = \{x_1, x_2, x_3, x_4\}\). Perlu dicatat bahwa \(x_i\) bukanlah elemen di \(\Bbb\), melainkan merupakan variabel abstrak di SMT yang nilainya belum ditentukan. Hanya setelah menjalankan \foreign{solver} dan dihasilkan \foreign{model} di mana variabel \(x_i\) "\foreign{collapsed}" dan memiliki nilai antara \(\True\) atau \(\False\).
+Kedua, misalnya dibangun \foreign{constraint} disjungtif berikut: "\( x_1 \wedge x_3 \)". Salah satu \foreign{model} yang memenuhi \foreign{constraint} tersebut adalah \(x_1 = \True, x_2 = \False, x_3 = \True, x_4 = \False\). Atau lebih tepatnya, batasan tersebut akan memaksa nilai \(x_1\) dan \(x_3\) agar \(\True\), sementara secara bersamaan tidak memberikan restriksi apa pun kepada \(x_2\) dan \(x_4\). Maka, secara umum, \foreign{model} yang dihasilkan adalah \(x_1 = \True, x_2 = \indeterminate, x_3 = \True, x_4 = \indeterminate\). Oleh karena itu, untuk memaksa tidak terjadinya "variabel bebas", setiap variabel yang ada haruslah diberikan suatu macam restriksi. Misalnya, \foreign{constraint} sebelumnya dapat dimodifikasi menjadi "\( x_1 \wedge x_3 \wedge \neg x_2 \wedge x_4 \)". Model yang akan dihasilkan sekarang pastilah \(x_1 = \True, x_2 = \False, x_3 = \True, x_4 = \True\), tanpa ada alternatif lain.
 
-Kedua, misalnya dibangun \foreign{constraint} berikut: "\( x_1 \wedge x_3 \)". Salah satu \foreign{model} yang memenuhi \foreign{constraint} tersebut adalah \(x_1 = \True, x_2 = \False, x_3 = \True, x_4 = \False\). Atau lebih tepatnya, \foreign{constraint} tersebut akan memaksa nilai \(x_1\) dan \(x_3\) agar \(\True\), dan tidak memberikan restriksi apapun kepada \(x_2\) dan \(x_4\). Maka, secara umum, \foreign{model} yang dihasilkan adalah \(x_1 = \True, x_2 = \indeterminate, x_3 = \True, x_4 = \indeterminate\). Oleh karena itu, untuk memaksa tidak terjadinya "variabel bebas", setiap variabel yang ada haruslah diberikan suatu macam restriksi. Misalnya, \foreign{constraint} sebelumnya dapat dimodifikasi menjadi "\( x_1 \wedge x_3 \wedge \neg x_2 \wedge x_4 \)". Model yang akan dihasilkan sekarang pastilah \(x_1 = \True, x_2 = \False, x_3 = \True, x_4 = \True\), tanpa ada alternatif lain.
+Ketiga, digunakan notasi \(X \in \Bbb^{|V|}\) untuk menyatakan \foreign{collapsed model}, sehingga \(X\) menunjukkan \foreign{model} \(\bool(v_i) = X_i\). Maksud dari \foreign{collapsed model} di sini adalah bukan \foreign{model} yang umum, di mana variabelnya masih bernilai \(\indeterminate\), melainkan adalah \foreign{model} nyata yang dihasilkan oleh \foreign{solver}. Sebagai contoh, \(X = (\False, \False, \False, \True)\) menyatakan \(x_1 = \False, x_2 = \False, x_3 = \False, x_4 = \True\). Dengan ini, dapat dipetakan dari model ke himpunan menggunakan \(V[X]\).
 
-Ketiga, digunakan notasi \(X \in \Bbb^{|V|}\) untuk menyatakan \foreign{collapsed model}, sehingga \(X\) menunjukkan \foreign{model} \(\bool(v_i) = X_i\). Maksud dari \foreign{collapsed model} di sini adalah \foreign{model} yang bukan umum dan variabelnya masih dinyatakan bernilai \(\indeterminate\), melainkan adalah \foreign{model} nyata yang dihasilkan oleh \foreign{solver}. Sebagai contoh, \(X = (\False, \False, \False, \True)\) menyatakan \(x_1 = \False, x_2 = \False, x_3 = \False, x_4 = \True\). Dengan ini, dapat dipetakan dari model ke himpunan menggunakan \(V[X]\).
+Akhirnya, dapat didefinisikan pemetaan bijektif antara himpunan dan \foreign{constraint}. Untuk membangun sebuah \foreign{constraint} yang pasti memilih \(W = \{v_1, v_3\} \subseteq V\), tidak cukup hanya dengan
+	\[ \bigwedge \limits_{\displaystyle v \in W} \bool(v) = x_1 \wedge x_3 \]
+karena \foreign{model} umum yang dihasilkan masih memuat \(\indeterminate\). Oleh karena, untuk semua simpul \(v \in V\), seluruh koresponden variabel boolean \(\bool(v)\)-nya harus memiliki restriksi. Dalam contoh \(W\) ini, artinya harus ditambahkan \foreign{constraint} pada \(\widetilde{W}\) pula. Dengan begitu, didapat \foreign{cosntraint} yang bijektif terhadap \(W\) sebagai berikut:
+	\[ \combine{\left(}{\bigwedge \limits_{\displaystyle v \in W} \bool(v)}{\right)}{\wedge}{\left(}{\bigwedge \limits_{\displaystyle v \in \widetilde{W}} \neg \bool(v)}{\right)} = x_1 \wedge x_3 \wedge \neg x_2 \wedge \neg x_4 \]
 
-Akhirnya, dapat didefinisikan pemetaan bijektif antara himpunan dan \foreign{constraint}.
+Menggunakan metode di atas, sebuah kolom di \(P\) dapat dikonstruksikan menjadi \foreign{constraint} yang menunjukkan langsung sebuah himpunan yang bukan \foreign{resolving set}. Akan tetapi, ketika \(W = X[P_{*j}]\), seluruh himpunan bagian tak sejatinya \(Z \subseteq W\) juga merupakan himpunan yang bukan \foreign{resolving set}. Menggunakan contoh sebelumnya, jika \(W = \{v_1, v_3\}\) bukan \foreign{resolving set}, maka semua \(\{v_1\}\), \(\{v_3\}\), dan \(\emptyset\) juga bukan \foreign{resolving set}. Sehingga, didapatkan \foreign{constraint} berikut yang menyatakan fakta tersebut:
+\[
+	\bigvee \limits_{\displaystyle Z \subseteq W} \left( \combine{\left(}{\bigwedge \limits_{\displaystyle v \in Z} \bool(v)}{\right)}{\wedge}{\left(}{\bigwedge \limits_{\displaystyle v \in \widetilde{Z}} \neg \bool(v)}{\right)} \right) = \begin{array}{r@{}r@{\ }l@{\ }r@{\ }l}
+		       (&      x_1 &\wedge&      x_3 &\wedge \  \neg x_2 \wedge \neg x_4) \\
+		\vee \ (&      x_1 &\wedge& \neg x_3 &\wedge \  \neg x_2 \wedge \neg x_4) \\
+		\vee \ (& \neg x_1 &\wedge&      x_3 &\wedge \  \neg x_2 \wedge \neg x_4) \\
+		\vee \ (& \neg x_1 &\wedge& \neg x_3 &\wedge \  \neg x_2 \wedge \neg x_4)
+	\end{array}
+\]
+
+Bentuk ini dapat disederhanakan dengan menganalisis \foreign{constraint} tidak melalui perspektif \(Z\), melainkan melalui perspektif \(W\). Dapat dilihat bahwa adanya \foreign{constraint} bagian yang salalu berkoresponden dengan \(\widetilde{W}\). Di lain sisi, ada \foreign{constraint} bagian yang secara gabungan berkoresponden dengan \(W\) serta seluruh himpunan bagiannya. Sisi kedua ini lah yang menariknya dapat disederhakanan menjadi konjungsi langsung dari semua \(\bool(v_i)\) untuk \(v_i \in W\). Hanya saja, hasil konjungsi ini masih belum memuat sang himpunan kosong. Agar membuatnya lengkap, cukup ditambahkan disjungsi dari semua negasi \(\bool(v_i)\) untuk \(v_i \in W\). Sehingga, didapatkanlah bentuk berikut:
+\[
+	\begin{array}{l}
+		\combine{\left(}{\combine{\left(}{\bigwedge \limits_{\displaystyle v \in W} \neg \bool(v)}{\right)}{\vee}{\left(}{\bigvee \limits_{\displaystyle v \in W} \bool(v)}{\right)}}{\right)}{\wedge}{\left(}{\bigwedge \limits_{\displaystyle v \in \widetilde{W}} \neg \bool(v)}{\right)} \\ [24pt]
+		\qquad = ((\neg x_1 \wedge \neg x_3) \vee x_1 \vee x_3) \wedge (\neg x_2 \wedge \neg x_4)
+	\end{array}
+\]
+
+Karena gabungan dari \(W\) dan \(\widetilde{W}\) adalah \(V\), \foreign{constraint} terhadap sang himpunan kosong dapat difaktorkan secara menyeluruh keluar menjadi terhadap \(V\) langsung. Sehingga, bentuk sebelumnya dapat lebih disederhakanan lagi menjadi berikut:
+\[
+	\begin{array}{l}
+		\combine{\left(}{\bigwedge \limits_{\displaystyle v \in V} \neg \bool(v)}{\right)}{\vee}{\left(}{\combine{\left(}{\bigvee \limits_{\displaystyle v \in W} \bool(v)}{\right)}{\wedge}{\left(}{\bigwedge \limits_{\displaystyle v \in \widetilde{W}} \neg \bool(v)}{\right)}}{\right)} \\ [24pt]
+		\qquad = (\neg x_1 \wedge \neg x_2 \wedge \neg x_3 \wedge \neg x_4) \vee ((x_1 \vee x_3) \wedge \neg x_2 \wedge \neg x_3)
+	\end{array}
+\]
+
+\vspace{2em}
+
+\textit{...more explanations/bridging neeeded...}
+
+\vspace{2em}
+
+Selanjutnya, \foreign{constraint} ini dapat dinegasikan untuk mengasilkan salah satu \foreign{constraint} yang harus dipenuhi ketika mencari \foreign{resolving set}.
+\[
+	\begin{array}{l}
+		\neg \left( \combine{\left(}{\bigwedge \limits_{\displaystyle v \in V} \neg \bool(v)}{\right)}{\vee}{\left(}{\combine{\left(}{\bigvee \limits_{\displaystyle v \in W} \bool(v)}{\right)}{\wedge}{\left(}{\bigwedge \limits_{\displaystyle v \in \widetilde{W}} \neg \bool(v)}{\right)}}{\right)} \right) \\ [24pt]
+		\qquad = \combine{\left(}{\bigvee \limits_{\displaystyle v \in V} \bool(v)}{\right)}{\wedge}{\left(}{\combine{\left(}{\neg \bigvee \limits_{\displaystyle v \in W} \bool(v)}{\right)}{\vee}{\left(}{\bigvee \limits_{\displaystyle v \in \widetilde{W}} \bool(v)}{\right)}}{\right)} \\ [24pt]
+		\qquad = \combine{\left(}{\bigvee \limits_{\displaystyle v \in V} \bool(v)}{\right)}{\wedge}{\left(}{\bigvee \limits_{\displaystyle v \in W} \bool(v) \ \implies \bigvee \limits_{\displaystyle v \in \widetilde{W}} \bool(v)}{\right)} \\ [24pt]
+		\qquad = (x_1 \vee x_2 \vee x_3 \vee x_4) \wedge (x_1 \vee x_3 \implies x_2 \vee x_3)
+	\end{array}
+\]
+
+\cleardoublepage
+
+Menggunakan identitas \(p \iff (\False \implies p)\), konjungsi kosong yang bernilai \(\False\), dan pemaknaan \(\widetilde{\emptyset} = V\), sisi \foreign{constraint} konjungsi terhadap \(V\) dapat dimodifikasi menjadi parallel seperti \foreign{constraint} terhadap \(W\). Sehingga, didapatkan normalisasi bentuk seperti berikut:
+\[
+	\begin{array}{l}
+		\combine{\left(}{\bigvee \limits_{\displaystyle v \in \emptyset} \bool(v) \ \implies \bigvee \limits_{\displaystyle v \in V} \bool(v)}{\right)}{\wedge}{\left(}{\bigvee \limits_{\displaystyle v \in W} \bool(v) \ \implies \bigvee \limits_{\displaystyle v \in \widetilde{W}} \bool(v)}{\right)} \\ [24pt]
+		\qquad = (\False \implies x_1 \vee x_2 \vee x_3 \vee x_4) \wedge (x_1 \vee x_3 \implies x_2 \vee x_3)
+	\end{array}
+\]
+
+Dengan demikian, dapat didefinisikan pemetaan untuk sembarang himpunan \(W \subseteq V\) ke bentuk \foreign{constraint} boolean sebagai berikut:
+\[
+	C_{\PB}(W) = \bigvee \limits_{\displaystyle v \in W} \bool(v) \ \implies \bigvee \limits_{\displaystyle v \in \widetilde{W}} \bool(v)
+\]
+
+Didapatkan \(\neg C_{\PB}(\emptyset) \vee \neg C_{\PB}(W)\) merupakan \foreign{constraint} yang \foreign{model}-nya adalah \(\Pcal(W)\). Dan sebaliknya, \(C_{\PB}(\emptyset) \wedge C_{\PB}(W)\) merupakan \foreign{constraint} yang \foreign{model}-nya adalah \(\widetilde{\Pcal(W)}\).
 
 \textit{...}
 
