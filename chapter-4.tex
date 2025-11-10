@@ -297,17 +297,23 @@ Dan dapat disederhakan menjadi:
 	\label{ex:boolean-satisfiability-natural}
 \end{example}
 
-Karena ruang solusi \foreign{model} yang memenuhi \foreign{constraint} tersebut sudah menunjukkan \foreign{resolving set}, maka algoritma yang perlu dirancang cukup mencari \foreign{resolving set} dengan kardinalitas terendah dari ruang solusi tersebut. Ini dapat dilakukan dengan mudah menggunakan \foreign{constraint} \(\AtLeast\) dan \(\AtMost\) yang memaksa banyaknya variabel boolean bernilai \(\True\) secara berturut-turut kurang dari atau sama dengan dan lebih dari atau sama dengan \(k\).
-
-Secara umum, menunjukkan \(\sat\) dalam SMT lebih murah dari pada menunjukkan \(\unsat\). Hal ini karena secara fundamental, SMT adalah proses mencari \foreign{model}. Oleh karena itu, untuk menunjukkan \(\sat\), cukup dicari satu saja contoh yang memenuhi \foreign{constraint}. Sedangkan untuk menunjukkan \(\unsat\), harus secara habis dibuktikan bahwa tidak ada satu pun \foreign{model} yang dapat memenuhi \foreign{constraint}.
-
-Secara teori, \foreign{constraint} \autoref{eq:boolean-satisfiability-natural} sudah berbentuk \foreign{conjunctive normal form} (CNF). Akan tetapi, ketika menunjukkan \(\unsat\) menggunakan SMT, efektivitasnya sangat bergantung pada \foreign{conflict driven learning}, yaitu metode "penalaran" yang digunakan oleh \foreign{solver} untuk melakukan pemangkasan ruang pencarian. Salah satu sifat yang digunakan oleh \foreign{conflict driven learning} adalah bentuk CNF yang terdiri dari suku-suku positif maupun suku-suku negatif. Sedangkan \autoref{eq:boolean-satisfiability-natural} sepenuhnya hanya memuat suku-suku positif. Bentuk yang sudah diperoleh ini dapat ditransformasikan untuk juga memuat suku-suku negatif dengan memfaktorkan keluar "pemilihan" sang himpunan kosong, seperti yang tertera pada \autoref{eq:boolean-satisfiability}.
+Secara teori, \foreign{constraint} \autoref{eq:boolean-satisfiability-natural} sudah berbentuk \foreign{conjunctive normal form} (CNF). Akan tetapi, ketika menunjukkan \(\unsat\) menggunakan SMT, efektivitasnya sangat bergantung pada \foreign{conflict driven learning}, yaitu metode "penalaran" yang digunakan oleh \foreign{solver} untuk melakukan pemangkasan ruang pencarian. Salah satu sifat yang digunakan oleh \foreign{conflict driven learning} adalah bentuk CNF yang terdiri dari suku-suku positif maupun suku-suku negatif. Sedangkan \autoref{eq:boolean-satisfiability-natural} sepenuhnya hanya memuat suku-suku positif. Bentuk yang sudah diperoleh ini dapat ditransformasikan agar juga memuat suku-suku negatif dengan memfaktorkan keluar "pemilihan" sang himpunan kosong, dengan cara berikut:
+\begin{equation}
+	\begin{array}{l}
+		\displaystyle \bigwedge \limits_{\displaystyle P_{*j} \in P} \enspace \combine{\left(}{\False}{\right)}{\vee}{\left(}{\bigvee \limits_{\displaystyle v \in V[\sim\!P_{*j}]} \boolmap(v)}{\right)} \\ [18pt]
+		\displaystyle = \bigwedge \limits_{\displaystyle P_{*j} \in P} \enspace \combine{\left(}{\combine{\left(}{\bigvee \limits_{\displaystyle v \in V[P_{*j}]} \boolmap(v)}{\right)}{\wedge}{\left(}{\neg \bigvee \limits_{\displaystyle v \in V[P_{*j}]} \boolmap(v)}{\right)}}{\right)}{\vee}{\left(}{\bigvee \limits_{\displaystyle v \in V[\sim\!P_{*j}]} \boolmap(v)}{\right)} \\ [18pt]
+		\displaystyle = \bigwedge \limits_{\displaystyle P_{*j} \in P} \enspace \combine{\left(}{\combine{\left(}{\bigvee \limits_{\displaystyle v \in V[P_{*j}]} \boolmap(v)}{\right)}{\vee}{\left(}{\bigvee \limits_{\displaystyle v \in V[\sim\!P_{*j}]} \boolmap(v)}{\right)}}{\right)}{\\[18pt]\qquad\qquad\wedge}{\left(}{\combine{\left(}{\neg \bigvee \limits_{\displaystyle v \in V[P_{*j}]} \boolmap(v)}{\right)}{\vee}{\left(}{\bigvee \limits_{\displaystyle v \in V[\sim\!P_{*j}]} \boolmap(v)}{\right)}}{\right)} \\ [18pt]
+		\displaystyle = \bigwedge \limits_{\displaystyle P_{*j} \in P} \enspace \combine{\left(}{\bigvee \limits_{\displaystyle v \in V} \boolmap(v)}{\right)}{\wedge}{\left(}{\bigvee \limits_{\displaystyle v \in V[P_{*j}]} \boolmap(v)\ \implies \bigvee \limits_{\displaystyle v \in V[\sim\!P_{*j}]} \boolmap(v)}{\right)} \\ [18pt]
+		\displaystyle = \combine{\left(}{\bigvee \limits_{\displaystyle v \in V} \boolmap(v)}{\right)}{\wedge}{\left(}{\bigwedge \limits_{\displaystyle P_{*j} \in P} \enspace \left( \bigvee \limits_{\displaystyle v \in V[P_{*j}]} \boolmap(v)\ \implies \bigvee \limits_{\displaystyle v \in V[\sim\!P_{*j}]} \boolmap(v) \right)}{\right)} \\ [18pt]
+	\end{array}
+	\label{eq:boolean-satisfiability}
+\end{equation}
 
 \begin{example}
 	Berikut adalah hasil dari pemfaktoran \autoref{ex:boolean-satisfiability-natural}.
 	\[
 		\begin{array}{c}
-			x_1 \vee x_2 \vee x_3 \vee x_4 \vee x_5 \\ [8pt]
+			x_1 \vee x_2 \vee x_3 \vee x_4 \vee x_5 \\ [4pt]
 			x_3 \vee x_4 \vee x_5 \implies x_1 \vee x_2 \\
 			x_2 \vee x_4 \vee x_5 \implies x_1 \vee x_3 \\
 			x_1 \vee x_4 \vee x_5 \implies x_2 \vee x_3 \\
@@ -318,17 +324,9 @@ Secara teori, \foreign{constraint} \autoref{eq:boolean-satisfiability-natural} s
 	\label{ex:boolean-satisfiability}
 \end{example}
 
-\begin{equation}
-	\begin{array}{l}
-		\displaystyle \bigwedge \limits_{\displaystyle P_{*j} \in P} \enspace \bigvee \limits_{\displaystyle v \in V[\sim\!P_{*j}]} \boolmap(v) \\ [24pt]
-		\displaystyle = \bigwedge \limits_{\displaystyle P_{*j} \in P} \enspace \combine{\left(}{\False}{\right)}{\vee}{\left(}{\bigvee \limits_{\displaystyle v \in V[\sim\!P_{*j}]} \boolmap(v)}{\right)} \\ [24pt]
-		\displaystyle = \bigwedge \limits_{\displaystyle P_{*j} \in P} \enspace \combine{\left(}{\combine{\left(}{\bigvee \limits_{\displaystyle v \in V[P_{*j}]} \boolmap(v)}{\right)}{\wedge}{\left(}{\neg \bigvee \limits_{\displaystyle v \in V[P_{*j}]} \boolmap(v)}{\right)}}{\right)}{\vee}{\left(}{\bigvee \limits_{\displaystyle v \in V[\sim\!P_{*j}]} \boolmap(v)}{\right)} \\ [24pt]
-		\displaystyle = \bigwedge \limits_{\displaystyle P_{*j} \in P} \enspace \combine{\left(}{\combine{\left(}{\bigvee \limits_{\displaystyle v \in V[P_{*j}]} \boolmap(v)}{\right)}{\vee}{\left(}{\bigvee \limits_{\displaystyle v \in V[\sim\!P_{*j}]} \boolmap(v)}{\right)}}{\right)}{\\[24pt]\qquad\qquad\wedge}{\left(}{\combine{\left(}{\neg \bigvee \limits_{\displaystyle v \in V[P_{*j}]} \boolmap(v)}{\right)}{\vee}{\left(}{\bigvee \limits_{\displaystyle v \in V[\sim\!P_{*j}]} \boolmap(v)}{\right)}}{\right)} \\ [24pt]
-		\displaystyle = \bigwedge \limits_{\displaystyle P_{*j} \in P} \enspace \combine{\left(}{\bigvee \limits_{\displaystyle v \in V} \boolmap(v)}{\right)}{\wedge}{\left(}{\bigvee \limits_{\displaystyle v \in V[P_{*j}]} \boolmap(v)\ \implies \bigvee \limits_{\displaystyle v \in V[\sim\!P_{*j}]} \boolmap(v)}{\right)} \\ [24pt]
-		\displaystyle = \combine{\left(}{\bigvee \limits_{\displaystyle v \in V} \boolmap(v)}{\right)}{\wedge}{\left(}{\bigwedge \limits_{\displaystyle P_{*j} \in P} \enspace \left( \bigvee \limits_{\displaystyle v \in V[P_{*j}]} \boolmap(v)\ \implies \bigvee \limits_{\displaystyle v \in V[\sim\!P_{*j}]} \boolmap(v) \right)}{\right)} \\ [24pt]
-	\end{array}
-	\label{eq:boolean-satisfiability}
-\end{equation}
+Karena ruang solusi \foreign{model} yang memenuhi \foreign{constraint} tersebut sudah menunjukkan \foreign{resolving set}, maka algoritma yang perlu dirancang cukup mencari \foreign{resolving set} dengan kardinalitas terendah dari ruang solusi. Ini dapat dilakukan dengan mudah menggunakan \foreign{constraint} \(\AtLeast\) dan \(\AtMost\) yang memaksa banyaknya variabel boolean bernilai \(\True\) secara berturut-turut kurang dari atau sama dengan dan lebih dari atau sama dengan \(k\).
+
+Secara umum, menunjukkan \(\sat\) dalam SMT lebih murah dari pada menunjukkan \(\unsat\). Hal ini karena secara fundamental, SMT adalah proses mencari \foreign{model}. Oleh karena itu, untuk menunjukkan \(\sat\), cukup dicari satu saja contoh yang memenuhi \foreign{constraint}. Sedangkan untuk menunjukkan \(\unsat\), harus secara habis dibuktikan bahwa tidak ada satu pun \foreign{model} yang dapat memenuhi \foreign{constraint}.
 
 Dengan demikian, didapatkan desain algoritma yang melakukan pencarian dari atas. Digunakan \(\AtLeast\) dan \(\AtMost\) secara bersamaan untuk memaksa mencari \foreign{model} berkardinalitas tepat sama dengan \(k\). Dimulai dari nilai \(k\) tertinggi, lalu secara iteratif menurunkan nilai \(k\) hingga menemukan kardinalitas pertama yang menyebabkan \(\unsat\), dan mengambil \(k + 1\) sebagai dimensi metrik.
 
@@ -438,7 +436,7 @@ Sama seperti transformasi \autoref{eq:boolean-satisfiability-natural} ke \autore
 	\label{ex:linear-integer-arithmetic-constraint}
 \end{example}
 
-Dengan demikian, didapatkan desain \autoref{alg:linear-integer-arithmetic} yang menggunakan \foreign{linear integer arithmetic}.
+Dengan demikian, didapatkan desain algoritma yang menggunakan \foreign{linear integer arithmetic}.
 
 \begin{algorithm}
 	\foreign{Input}:
