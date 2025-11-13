@@ -326,6 +326,15 @@ Secara teori, \foreign{constraint} \autoref{eq:boolean-satisfiability-natural} s
 
 Karena ruang solusi \foreign{model} yang memenuhi \foreign{constraint} tersebut sudah menunjukkan \foreign{resolving set}, maka algoritma yang perlu dirancang cukup mencari \foreign{resolving set} dengan kardinalitas terendah dari ruang solusi. Ini dapat dilakukan dengan mudah menggunakan \foreign{constraint} \(\AtLeast\) dan \(\AtMost\) yang memaksa banyaknya variabel boolean bernilai \(\True\) secara berturut-turut kurang dari atau sama dengan dan lebih dari atau sama dengan \(k\).
 
+Secara historis, SMT paling efektif ketika bekerja langsung dengan bentuk CNF. Akan tetapi, SMT \foreign{modern} sudah tidak lagi terbatasi oleh \foreign{implementation detail} seperti ini, sebagaimana yang telah dibahasa pada Pendahuluan. Maka dari itu, \foreign{solver} sekarang sudah memiliki \foreign{higher level construct} dan justru lebih banyak diuntungkan ketika bekerja langsung dalam bentuk tersebut. \foreign{Constraint} \(\AtLeast\) dan \(\AtMost\) merupakan salah satu contoh dari \foreign{higher level construct} yang ada dalam SMT. Namun, tidak ada salahnya untuk memahami bagaimana bentuk-bentuk ini dapat direpresentasikan menggunakan operasi konjungsi dan disjungsi yang lebih sederhana. Berikut adalah salah satu \foreign{encoding} yang mungkin dilakukan untuk menyatakan kedua \foreign{constraint} tersebut.
+\[
+	\begin{array}{r@{\ }l}
+		\AtLeast(V, n) &= \displaystyle \bigvee \limits_{\displaystyle W \in \binom{V}{n}} \enspace \bigwedge \limits_{\displaystyle v \in W} \boolmap(v) \\ [48pt]
+		\AtMost(V, n) &= \displaystyle \bigvee \limits_{\displaystyle W \in \binom{V}{n}} \enspace \bigwedge \limits_{\displaystyle v \in \widetilde{W}} \neg \boolmap(v)
+	\end{array}
+\]
+Catat, notasi \(\displaystyle \binom{V}{n} = \{W \subseteq V : |V| = n\}\) menunjukkan himpunan yang memuat seluruh himpunan bagian \(V\) dengan kardinalitas \(n\).
+
 Secara umum, menunjukkan \(\sat\) dalam SMT lebih murah dari pada menunjukkan \(\unsat\). Hal ini karena secara fundamental, SMT adalah proses mencari \foreign{model}. Oleh karena itu, untuk menunjukkan \(\sat\), cukup dicari satu saja contoh yang memenuhi \foreign{constraint}. Sedangkan untuk menunjukkan \(\unsat\), harus secara habis dibuktikan bahwa tidak ada satu pun \foreign{model} yang dapat memenuhi \foreign{constraint}.
 
 Dengan demikian, didapatkan desain algoritma yang melakukan pencarian dari atas. Digunakan \(\AtLeast\) dan \(\AtMost\) secara bersamaan untuk memaksa mencari \foreign{model} berkardinalitas tepat sama dengan \(k\). Dimulai dari nilai \(k\) tertinggi, lalu secara iteratif menurunkan nilai \(k\) hingga menemukan kardinalitas pertama yang menyebabkan \(\unsat\), dan mengambil \(k + 1\) sebagai dimensi metrik.
