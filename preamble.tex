@@ -68,7 +68,11 @@
 \newcommand{\foreign}[1]{\foreignlanguage{english}{\textit{#1}}}
 
 \theoremstyle{definition}
-\newtheorem{example}{Contoh}
+\newtheorem{examplex}{Contoh}
+
+\newenvironment{example}
+	{\begin{examplex}\pushQED{\qed}}
+	{\popQED\end{examplex}}
 
 \addto\extrasindonesian{
 	\renewcommand{\chapterautorefname}{Bab}
@@ -81,7 +85,7 @@
 	\renewcommand{\refname}{Daftar Pustaka}
 	\renewcommand{\bibname}{Daftar Pustaka}
 	\providecommand{\algorithmautorefname}{Algoritma}
-	\providecommand{\exampleautorefname}{Contoh}
+	\providecommand{\examplexautorefname}{Contoh}
 }
 
 \titleformat{\chapter}[display]
