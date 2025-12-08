@@ -599,6 +599,8 @@ Untuk perihal dua, karena justru invarian dimensi metrik atau dimensi metrik sis
 
 Untuk perihal tiga, karena eksekusi algoritma pada satu graf sama sekali tidak berdampak dengan eksekusi algoritma pada graf lainnya, maka dapat dilakukan banyak pengukuran waktu eksekusi secara bersamaan pada \foreign{CPU} yang memiliki banyak \foreign{core} maupun memiliki kapabilitas \foreign{hyper-threading}, selama seluruh \foreign{core} yang digunakan adalah sama, dan kapasitas \foreign{RAM} pada platform tersebut cukup untuk setiap proses yang ada. Komputer yang digunakan untuk memperoleh data hasil eksekusi yang dibahas di sini adalah Surface Pro 8 dengan \foreign{RAM} sebanyak 16GB dan processor Intel i7-118G7 yang memiliki 4 \foreign{physical cores} identikal, masing-masing dengan kapabilitas \foreign{hypethreading}, sehingga terdapat 8 \foreign{logical cores} yang dapat digunakan. Seluruh Algoritma (1-4) diimplementasikan dalam bahasa pemrograman \foreign{Python}, menggunakan \foreign{library} \foreign{SciPy} yang sudah menyediakan implementasi algorima \foreign{Floyd-Warshall}, \foreign{NetworkX} yang sudah menyediakan implementasi untuk melakukan \foreign{decoding} dan \foreign{encoding} format \texttt{graph6}, \foreign{NumPy} yang menyediakan implementasi untuk melakukan operasi matriks secara efisien, dan \foreign{Z3-Solver} yang menyediakan \foreign{binding} untuk menggunakan SMT \foreign{solver} Z3 melalui \foreign{Python}. Informasi mengenai cara mengakses kode yang digunakan oleh tugas akhir ini dibahas dalam \cref{app:code}.
 
+\clearpage
+
 \section{Pembahasan}
 
 \input{fingerprint}
