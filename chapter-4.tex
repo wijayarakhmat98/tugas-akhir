@@ -3,6 +3,7 @@
 \setcounter{chapter}{3}
 \chapter{Hasil dan Pembahasan}
 
+\def\alg-time{\mathtt{algorithm\_time}}
 \def\AtLeast{\mathtt{AtLeast}}
 \def\AtMost{\mathtt{AtMost}}
 \def\Bbb{\mathbb{B}}
@@ -11,6 +12,7 @@
 \def\False{\mathtt{False}}
 \def\indeterminate{\mathit{[indeterminate]}}
 \def\intmap{\mathtt{Int}}
+\def\k-time{\mathtt{k\_time}}
 \def\min{\mathtt{min}}
 \def\PB{\mathtt{PB}}
 \def\Pcal{\mathcal{P}}
@@ -560,4 +562,43 @@ Sehingga, didapat desain algoritma yang menggunakan \foreign{pseudo boolean}.
 
 \section{Evaluasi Algoritma}
 
+Terdapat tiga hal yang perlu dipertimbangkan dalam melakukan evaluasi algoritma. Yang pertama adalah pengukuran waktu eksekusi, yang mencakup di mana dan bagaimana waktu eksekusi algoritma akan diukur, apakah akan diberlakukan batas waktu eksekusi, dan jika batas waktu digunakan, bagaimana hasil yang mencapai batas tersebut harus diinterpretasikan. Yang kedua adalah data yang digunakan, yang memerlukan keputusan apa saja invarian yang harus dipertahankan dan apa saja variabel yang akan divariasikan. Yang ketiga adalah platform eksekusi, yang mencakup spesifikasi \foreign{environment} di mana algoritma akan dijalankan, dan menentukan prosedur eksekusi pada platform tersebut agar dari hasil yang diperoleh dapat ditarik kesimpulan yang bermakna.
+
+Untuk perihal satu, diperlakukan batas waktu eksekusi pada setiap iterasi kardinalitas selama 5 menit. Catat bahwa ini berbeda dengan membatasi waktu eksekusi algoritma itu sendiri selama 5 menit. Artinya, batas waktu ini adalah untuk tahap \((8a)\) pada \autoref{alg:brute-force}, untuk tahap \((8b)\) pada \autoref{alg:boolean-satisfiability}, untuk tahap \((8b)\) pada \autoref{alg:linear-integer-arithmetic}, dan untuk tahap \((7b)\) pada \autoref{alg:pseudo-boolean}. Dengan demikian, ada dua pengukuran waktu eksekusi algoritma yang direkam, yaitu waktu eksekusi algoritma secara keseluruhan dari awal hingga akhir algoritma, disimpan sebagai \(\alg-time\), dan waktu eksekusi algoritma pada kardinalits terakhir, disimpan sebagai \(\k-time\). Maksud dari \(\k-time\) adalah, ketika algoritma berhasil berjalan hingga selesai tanpa terminasi karena mencapai batas waktu, maka \(k + 1\) adalah dimensi metrik atau dimensi matrik sisi yang dicari, dan \(k\) adalah kardinalitas tertinggi yang tidak memiliki \foreign{resolving set}, sehingga \(\k-time\) adalah waktu yang diperlukan oleh algoritma untuk menunjukkan bahwa tidak ada \foreign{resolving set} berkardinalitak \(k\).
+
+\clearpage
+
+Untuk perihal dua, karena justru invarian dimensi metrik atau dimensi metrik sisi lah yang dicari, maka, pemilihan invarian dilakukan secara retrospektif. Yaitu, dijalankan algoritma pada seluruh data yang telah dipersiapkan terlebih dahulu. Kemudian, dipilih dimensi metrik atau dimensi metrik sisi yang memiliki frekuensi terbanyak. Sedangkan banyaknya simpul graf adalah yang bervariasi. Oleh karena itu, dimensi metrik atau dimensi metri sisi sebagai invarian dipilih per banyaknya simpul. Melanjutkan pembahasan dari bab 3, banyak data yang telah dipersiapkan dan digunakan dalam tugas akhir ini tertera pada \autoref{tab:banyak-data}, dengan total sebayak 273642 graf.
+
+\begin{table}[!htbp]
+	\centering
+	\caption{Banyak data}
+	\begin{tabular}{|c|c|}
+	\hline
+	Banyak Simpul & Banyak Graf \\ \hline
+	2             & 1           \\ \hline
+	3             & 2           \\ \hline
+	4             & 6           \\ \hline
+	5             & 21          \\ \hline
+	6             & 112         \\ \hline
+	7             & 853         \\ \hline
+	8             & 11117       \\ \hline
+	9             & 261080      \\ \hline
+	10            & 50          \\ \hline
+	15            & 50          \\ \hline
+	20            & 50          \\ \hline
+	25            & 50          \\ \hline
+	30            & 50          \\ \hline
+	35            & 50          \\ \hline
+	40            & 50          \\ \hline
+	45            & 50          \\ \hline
+	50            & 50          \\ \hline
+	\end{tabular}
+	\label{tab:banyak-data}
+\end{table}
+
+Untuk perihal tiga, karena eksekusi algoritma pada satu graf sama sekali tidak berdampak dengan eksekusi algoritma pada graf lainnya, maka dapat dilakukan banyak pengukuran waktu eksekusi secara bersamaan pada \foreign{CPU} yang memiliki banyak \foreign{core} maupun memiliki kapabilitas \foreign{hyper-threading}, selama seluruh \foreign{core} yang digunakan adalah sama, dan kapasitas \foreign{RAM} pada platform tersebut cukup untuk setiap proses yang ada. Komputer yang digunakan untuk memperoleh data hasil eksekusi yang dibahas di sini adalah Surface Pro 8 dengan \foreign{RAM} sebanyak 16GB dan processor Intel i7-118G7 yang memiliki 4 \foreign{physical cores} identikal, masing-masing dengan kapabilitas \foreign{hypethreading}, sehingga terdapat 8 \foreign{logical cores} yang dapat digunakan. Seluruh Algoritma (1-4) diimplementasikan dalam bahasa pemrograman \foreign{Python}, menggunakan \foreign{library} \foreign{SciPy} yang sudah menyediakan implementasi algorima \foreign{Floyd-Warshall}, \foreign{NetworkX} yang sudah menyediakan implementasi untuk melakukan \foreign{decoding} dan \foreign{encoding} format \texttt{graph6}, \foreign{NumPy} yang menyediakan implementasi untuk melakukan operasi matriks secara efisien, dan \foreign{Z3-Solver} yang menyediakan \foreign{binding} untuk menggunakan SMT \foreign{solver} Z3 melalui \foreign{Python}. Informasi mengenai cara mengakses kode yang digunakan oleh tugas akhir ini dibahas dalam \cref{app:code}.
+
 \section{Pembahasan}
+
+... latex landscape ...

@@ -35,6 +35,7 @@
 	graphicx,
 	subcaption,
 	hyperref,
+	cleveref,
 	natbib,
 	fancyhdr,
 	algorithm,
@@ -86,11 +87,13 @@
 	\renewcommand{\bibname}{Daftar Pustaka}
 	\providecommand{\algorithmautorefname}{Algoritma}
 	\providecommand{\examplexautorefname}{Contoh}
+	\crefname{appsec}{Lampiran}{Appendices}
+	\Crefname{appsec}{Lampiran}{Appendices}
 }
 
 \titleformat{\chapter}[display]
 	{\centering\LARGE\bfseries}
-	{\MakeUppercase{\chaptername~\Roman{chapter}}}
+	{\MakeUppercase{\chaptername~\thechapter}}
 	{0pt}
 	{\MakeUppercase}
 
