@@ -1,13 +1,22 @@
-\documentclass[12pt,twoside,openright]{report}
-\usepackage{emptypage}
+% \documentclass[12pt,openright]{book}
+% \usepackage{emptypage}
+% \PassOptionsToPackage{a4paper, inner=3cm, outer=2cm, top=2.5cm, bottom=2.5cm}{geometry}
+
+% \documentclass[12pt,openany]{book}
+% \usepackage{emptypage}
+% \PassOptionsToPackage{a4paper, inner=3cm, outer=2cm, top=2.5cm, bottom=2.5cm}{geometry}
+
+% \documentclass[12pt,openright]{book}
+% \PassOptionsToPackage{paperwidth=17cm, paperheight=25.7cm, margin=.5cm}{geometry}
+
+\documentclass[12pt,openany]{book}
+\PassOptionsToPackage{paperwidth=17cm, paperheight=25.7cm, margin=.5cm}{geometry}
 
 \PassOptionsToPackage{english,main=indonesian}{babel}
 \PassOptionsToPackage{autostyle}{csquotes}
 \PassOptionsToPackage{hidelinks}{hyperref}
 \PassOptionsToPackage{authoryear}{natbib}
 \PassOptionsToPackage{table,xcdraw}{xcolor}
-
-\PassOptionsToPackage{a4paper, inner=3cm, outer=2cm, top=2.5cm, bottom=2.5cm}{geometry}
 
 \usepackage{
 	babel,
@@ -34,12 +43,6 @@
 	xcolor,
 	pdflscape
 }
-
-\definecolor{background}{RGB}{255,255,255}
-\definecolor{foreground}{RGB}{0,0,0}
-
-\pagecolor{background}
-\color{foreground}
 
 \def\True{\mathrm{True}}
 \def\False{\mathrm{False}}
@@ -100,47 +103,46 @@
 \begin{document}
 
 \maketitle
-\cleardoublepage
 
-\pagenumbering{roman}
-\setcounter{page}{1}
+\frontmatter
 
 \input{abstract.tex}
-\cleardoublepage
+\clearpage
 
 \addcontentsline{toc}{chapter}{Daftar Isi}
 \tableofcontents
-\cleardoublepage
+\clearpage
 
 \addcontentsline{toc}{chapter}{Daftar Gambar}
 \listoffigures
-\cleardoublepage
+\clearpage
 
 \addcontentsline{toc}{chapter}{Daftar Tabel}
 \listoftables
-\cleardoublepage
+\clearpage
 
-\pagenumbering{arabic}
-\setcounter{page}{1}
+\mainmatter
 
 \input{chapter-1}
-\cleardoublepage
+\clearpage
 
 \input{chapter-2}
-\cleardoublepage
+\clearpage
 
 \input{chapter-3}
-\cleardoublepage
+\clearpage
 
 \input{chapter-4}
-\cleardoublepage
+\clearpage
+
+\backmatter
 
 \input{appendix}
-\cleardoublepage
+\clearpage
 
 \addcontentsline{toc}{chapter}{Daftar Pustaka}
 \bibliographystyle{apalike}
 \bibliography{references}
-\cleardoublepage
+\clearpage
 
 \end{document}
