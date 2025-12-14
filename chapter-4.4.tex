@@ -1,3 +1,17 @@
+\newcommand{\minipagealign}{t}
+\newcommand{\minipagewidth}{\linewidth}
+\captionsetup{hypcap=false}
+
+\newlength{\contentwidth}
+\newcommand{\resizetofit}[1]{
+	\settowidth{\contentwidth}{#1}
+	\ifdim\contentwidth > \linewidth
+		\resizebox{\linewidth}{!}{#1}
+	\else
+		#1
+	\fi
+}
+
 \section{Pembahasan}
 
 \input{result/freq-md-small}
