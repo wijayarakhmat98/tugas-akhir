@@ -1,0 +1,118 @@
+\section{Formulasi Algoritma}
+
+Pondasi yang digunakan oleh seluruh formulasi algoritma di sini adalah matriks yang bernama \foreign{reduced distance similarity matrix} untuk penentuan dimensi metrik, atau \foreign{reduced edge distance similarity matrix} untuk penentuan dimensi metrik sisi. Untuk membangun masing-masing matriks tersebut, diperlukan matriks jarak simpul ke simpul dan matriks jarak simpul ke sisi.
+
+Oleh karena itu, \foreign{input} yang digunakan adalah representasi matriks ketetanggaan \(M\) dari graf \(G\). Kemudian, \(D^{(V)}\) dapat dikonstruksi dari \(M\) menggunakan algoritma \foreign{Floyd-Warshall}. Dan \(D^{(E)}\) dapat dikonstruksi langsung dari definisi jarak simpul ke sisi; yaitu jarak dari simpul \(v_i \in V\) ke sisi \(e_j \in E\), di mana \(e_j\) adalah sisi yang menghubungkan dua simpul \(v_k, v_l \in V\), adalah \(d(v_i,e_j) = \min(d(v_i, v_k), d(v_i, v_l))\), sehingga \(D^{(E)}_{ij} = \min(D^{(V)}_{ik}, D^{(V)}_{il})\).
+
+\foreign{Distance similarity matrix} dari \(G\) yang dinotasikan \(B^{(V)} \in \Bbb^{|V|\times \frac{(|V|-1)|V|}{2}}\) dan \foreign{edge distance similarity matrix} dari \(G\) yang dinotasikan \(B^{(E)} \in \Bbb^{|V|\times \frac{(|E|-1)|E|}{2}}\) berturut-turut merupakan hasil dari perbandingan antara setiap kolom berbeda di \(D^{(V)}\) dan \(D^{(E)}\).
+	\[ B^{(V)} = [(D^{(V)}_{*j} = D^{(V)}_{*k})\ \cdots], \quad j < k\]
+	\[ B^{(E)} = [(D^{(E)}_{*j} = D^{(E)}_{*k})\ \cdots], \quad j < k\]
+
+Kemudian, dari \(B^{(V)}\), dikonstruksi matriks yang bernama \foreign{reduced distance similarity matrix}, dan dinotasikan \(P^{(V)}\), atau dari \(B^{(E)}\), dikonstruksi matriks yang bernama \foreign{reduced edge distance similarity matrix}, dan dinotasikan \(P^{(E)}\), menggunakan algoritma berikut.
+\begin{enumerate}
+	\item Tetapkan \(P := B\).
+	\item Untuk setiap \(P_{*j}\) dan \(P_{*k}\) dan \(j \neq k\), hapus \(P_{*j}\) jika \((P_{*j} | P_{*k}) = P_{*k}\).
+\end{enumerate}
+
+Seluruh formulasi algoritma yang akan datang didasari dari interpretasi \(P^{(V)}\) maupun \(P^{(E)}\). Maka dari itu, dibahas terlebih dahulu pemaknaan informasi yang dikandung oleh \(P\).
+
+Pertama-tama, amatilah hubungan antara jarak dan representasi. Secara definisi, representasi dibangun dari jarak, yaitu \(r(\cdot|V)=(d(v_i,\cdot)\ \cdots)\). Artinya, jarak dapat diambil tarbalik dari representasi sebagai \(d(v_i,\cdot) = r_i(\cdot|V)\) untuk \(v_i \in V\). Dengan begitu, untuk \(W \subseteq V\), representasi terhadapt \(W\) dapat diambil langsung dari representasi terhadap \(V\) dengan cara \(r(\cdot|W) = (r_i(\cdot|V)\ \cdots), w_i \in W\).
+
+Kedua, cermatilah hubungan antara matriks jarak dan representasi. Matriks jarak dapat dibangun dari representasi sebagai kolom-kolomnya, yaitu \(D = [r(\cdot_j|V)\ \cdots]\). Sebaliknya, representasi dapat diambil langsung dari kolom matriks jarak sebagai \(r(\cdot_j|V) = D_{*j}\). Sehingga, representasi terhadap sembarang \(W \subseteq V\) sudah termuat dalam matriks jarak, dan dapat diambil menggunakan dua bentuk pendekatan.
+
+\begin{enumerate}
+	\item Ambil kolom kemudian baris:
+		\(
+		\begin{array}{r@{}c@{\ }l}
+			r(\cdot_j|W) = (&(D_{*j})_i&\ \cdots) \\
+			= (&D_{ij}&\ \cdots) \quad, w_i \in W
+		\end{array}
+		\)
+	\item Ambil baris kemudian kolom:
+		\, \( r(\cdot_j|W) = \left[ \begin{array}{c} D_{i*}\\ \vdots \end{array} \right]_{\displaystyle *j} \;\;\;\quad, w_i \in W \)
+\end{enumerate}
+
+Perhatikan metode \foreign{indexing} kedua yang memilih baris terlebih dahulu sebelum memilih kolom. Ketika pemilihan kolom diabaikan, operasi tersebut dapat digeneralisasikan menjadi pemilihan baris-baris berdasarkan \(W\) dari sembarang matriks \(A\) yang memiliki sebanyak \(|V|\) baris. Operasi ini dinotasikan dengan \((A|W)\) dan didefinisikan sebagai berikut:
+	\[ (A|W) = \left[ \begin{array}{c} A_{i*}\\ \vdots \end{array} \right] \quad, w_i \in W \]
+
+Dengan demikian, representasi terhadap \(W\) dapat diambil melalui kolom di \((D|W)\), yaitu \(r(\cdot_j|W) = (D|W)_{*j}\). Simak pula bahwa kolom-kolom \((D|W)\) memuat seluruh representasi terhadap \(W\). Ingat kembali, untuk menunjukkan \(W \subseteq V\) adalah \foreign{resolving set}, haruslah semua \(v \in V\) memiliki representasi unik. Atau dengan kata lain, setiap kolom di \((D|W)\) haruslah unik, yang diuji dengan membandingkan semua pasang kolomnya. Proses ini sudah dilakukan oleh \foreign{distance similarity matrix} \(B\). Maka, perbandingan setiap pasang kolom \((D|W)\) dimuat oleh kolom-kolom \((B|W)\). Jika terdapat representasi yang sama persis (dua kolom di \((D|W)\) yang sama), maka akan terdapat kolom di \((B|W)\) yang berisi semua \(\True\). Artinya, \(W\) bukanlan \foreign{resolving set} ketika ada kolom berisi semua \(\True\) di \((B|W)\). Dan sebaliknya, \(W\) adalah \foreign{resolving set} ketika tidak ada kolom di \((B|W)\) yang berisi semua \(\True\).
+
+Pengambilan kesimpulan ini dapat dibalik, yaitu dimulai dari sebuah kolom \(B_{*j}\). Kemudian ambil \(W = \{w_i \in V : B_{ij} = \True\}\), yaitu semua koresponden simpul yang elemennya di \(B_{*j}\) adalah \(\True\). Operasi ini dinotasikan dengan \(W = V[B_{*j}]\). Prosedur pemilihan tersebut menyebabkan kolom \((B|W)_{*j}\) berisi semua \(\True\), sehingga \(W\) bukanlah \foreign{resolving set}. Akibatnya, untuk semua kolom di \(B\), jelas \(V[B_{*j}]\) bukanlah \foreign{resolving set}.
+
+Tinjau, jika \(W\) bukanlah \foreign{resolving set}, maka kolom di \((B|W)\) yang berisi semua \(\True\) akan juga menyebabkan \(Z \subseteq W\) memiliki kolom di \((B|Z)\) yang berisi semua \(\True\) pada posisi yang sama persis, sehingga \(Z\) juga bukanlan \foreign{resolving set}. Oleh karena itu, ketika \(W\) bukan \foreign{resolving set}, maka semua subsetnya juga bukan \foreign{resolving set}, termasuk sang himpunan kosong. Perlu ditekankan bahwa himpunan kosong bukanlah \foreign{resolving set} untuk graf dengan banyak simpul 2 atau lebih, dan bukanlah \foreign{edge resolving set} untuk graf dengan banyak sisi 2 atau lebih, karena \(r(\cdot|\emptyset) = \emptyset\), atau dengan kata lain, semua representasi terhadap himpunan kosong adalah sama.
+
+Berdasarkan pengamatan ini, saat ada \(W = V[B_{*k}]\) sedemikian rupa \(Z = V[B_{*j}] \subseteq W\), maka kolom \(B_{*j}\) dapat dihapus, karena \(W\) yang bukan \foreign{resolving set} sudah mengimplikasikan \(Z\) juga bukan \foreign{resolving set}. Mengikuti proses ini untuk seluruh kolom di \(B\) akan menghasilkan \foreign{reduced distance similarity matrix} \(P\). Akhirnya, semua analisis sejauh ini yang menggunakan \(B\) dapat digantikan secara langsung oleh \(P\).
+
+Terkahir, menunjukkan \(k\) merupakan kandidat dimensi metrik yang valid dapat dilakukan dengan mencari contoh \foreign{resolving set} berkardinalitas \(k\). Kemudian, untuk menunjukkan bahwa \(k\) adalah dimensi metrik, cukup ditunjukkan bahwa tidak ada \foreign{resolving set} berkardinalitas \(k - 1\), sehingga, sesuai definisi dimensi metrik, \(k\) adalah kardinalitas \foreign{resolving set} minimum. Metode yang sama persis juga dapat digunakaan untuk mencari dimensi metrik sisi. Pendekatan inilah yang digunakan oleh semua algoritma yang akan datang.
+
+\clearpage
+
+Untuk memperjelas pembahasan sebelumnya, diilustrasikan ulang eksposisi melalui contoh. Perhatikan graf berikut.
+
+\begin{figure}[!htbp]
+	\centering
+	\includegraphics[width=0.25\linewidth]{img/f372738d3845db182fe0b4a3eced9bc2ac778c82a1804f5788cce6bb74ea1beb.pdf}
+	\caption{Contoh Graf}
+	\label{fig:algorithm-example}
+\end{figure}
+
+Graf ini memiliki representasi dalam matriks ketetanggaan sebagai berikut.
+\[
+	M = \left[ \begin{array}{ccccc}
+		0 & 0 & 0 & 1 & 1 \\
+		0 & 0 & 0 & 1 & 1 \\
+		0 & 0 & 0 & 1 & 1 \\
+		1 & 1 & 1 & 0 & 0 \\
+		1 & 1 & 1 & 0 & 0
+	\end{array} \right]
+\]
+
+Menggunakan \foreign{Floyd-Warshall}, didapatkan matriks jarak simpul ke simpul berikut.
+\[
+	D^{(V)} = \left[ \begin{array}{ccccc}
+		0 & 2 & 2 & 1 & 1 \\
+		2 & 0 & 2 & 1 & 1 \\
+		2 & 2 & 0 & 1 & 1 \\
+		1 & 1 & 1 & 0 & 2 \\
+		1 & 1 & 1 & 2 & 0
+	\end{array} \right]
+\]
+
+Selanjutnya, dari membandingkan setiap pasang kolom di matriks jarak, dihasilkan \foreign{distance similarity matrix} berikut.
+\[
+	B^{(V)} = \left[ \begin{array}{c@{\enspace}c@{\enspace}c@{\enspace}c@{\enspace}c@{\enspace}c@{\enspace}c@{\enspace}c@{\enspace}c@{\enspace}c@{\enspace}}
+		\False & \False & \False & \False &  \True & \False & \False & \False & \False &  \True \\
+		\False &  \True & \False & \False & \False & \False & \False & \False & \False &  \True \\
+		 \True & \False & \False & \False & \False & \False & \False & \False & \False &  \True \\
+		 \True &  \True & \False & \False &  \True & \False & \False & \False & \False & \False \\
+		 \True &  \True & \False & \False &  \True & \False & \False & \False & \False & \False
+	\end{array} \right]
+\]
+
+Kemudian, setelah penghapusan, didapat \foreign{reduced distance similarity} berikut.
+
+\[
+	P^{(V)} = \left[ \begin{array}{ccccc}
+		\False & \False &  \True &  \True \\
+		\False &  \True & \False &  \True \\
+		 \True & \False & \False &  \True \\
+		 \True &  \True &  \True & \False \\
+		 \True &  \True &  \True & \False \\
+	\end{array} \right]
+\]
+
+\clearpage
+
+Misalnya dipilih kolom kedua dari \(P^{(V)}\), yaitu \(P^{(V)}_{*2} = (\False, \True, \False, \True, \True)\). Mengambil semua simpul yang berkoresponden dengan \(\True\), didapat \(W = V[P^{(V)}_{*2}] = \{v_2, v_4, v_5\}\). Lihat bahwa
+
+\[
+	(P^{(V)}|W) = \left[ \begin{array}{ccccc}
+		\False &  \True & \False &  \True \\
+		 \True &  \True &  \True & \False \\
+		 \True &  \True &  \True & \False \\
+	\end{array} \right]
+\]
+
+di mana kolom kedua berisi semua \(\True\). Disimpulkan \(W\) dan semua subset dari \(W\), yaitu \(\{v_2, v_4, v_5\}\), \(\{v_4, v_5\}\), \(\{v_2, v_5\}\), \(\{v_2, v_4\}\), \(\{v_2\}\), \(\{v_4\}\), \(\{v_5\}\), dan \(\emptyset\) bukanlah \foreign{resolving set}.
+
+Contoh \foreign{resolving set} berkardinalitas 3 untuk graf ini adalah \(\{v_1, v_2, v_4\}\). Kemudian, karena ia tidak memiliki \foreign{resolving set} berkardinalitas 2, maka kardinalitas minimum \foreign{resolving set}-nya adalah 3. Sehingga, disimpulkan dimensi metriknya adalah 3.

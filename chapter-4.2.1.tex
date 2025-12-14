@@ -1,0 +1,65 @@
+\subsection{\foreign{Brute-force}}
+
+Cara paling sederhana untuk menunjukkan bahwa \(k\) adalah kandidat dimensi matrik yang valid adalah dengan mencoba satu per satu himpunan \(W \subseteq V\) berkardinalitas \(k\) hingga ditemukan satu saja \(W\) yang merupakan \foreign{resolving set}. Sebaliknya, untuk menunjukkan bahwa tidak ada \foreign{resolving set} berkardinalitas \(k\), maka harus dicoba habis seluruh kemungkinan himpunan \(W \subseteq V\) berkardinalitas \(k\). Kemudian, untuk menguji apakah \(W\) adalah \foreign{resolving set}, cukup ditunjukkan untuk seluruh kolom di \(P\) bahwa tidak ada \(W\) merupakan himpunan bagian tak sejati dari \(V[P_{*j}]\). Secara terbalik, jika ada saja satu kolom di \(P\) yang menyebabkan \(W \subseteq V[P_{*j}]\), maka \(W\) bukanlah \foreign{resolving set}.
+
+Karena \(P\) berbentuk matriks boolean, akan lebih mudah untuk bekerja dengan representasi \(W\) dalam bentuk boolean juga. Hal ini dapat dilakukan dengan mengkonstruksi vektor boolean \(X \in \Bbb^{|V|}\) yang memiliki sebanyak \(k\) nilai \(\True\). Oleh karena itu, jelas \(W = V[X]\) adalah himpunan berkardinalitas \(k\). Selanjutnya, pengujian apakah \(W\) merupakan himpunan bagian tak sejati dari \(V[P_{*j}]\) dapat dicapai melalui operasi \((X|P_{*j})\). Secara eksplisit:
+\[
+	\begin{array}{rl}
+		(X|P_{*j}) = P_{*j}  &\iff V[X] \subseteq V[P_{*j}] \\
+		(X|P_{*j}) \neq P_{*j}  &\iff V[X] \not\subseteq V[P_{*j}]
+	\end{array}
+\]
+
+Amatilah, untuk menyatakan bahwa tidak ada \foreign{resolving set} berkardinalitas \(k\), harus diuji habis sebanyak \(\binom{|V|}{k}\) kasus. Sedangkan, secara umum, untuk menemukan satu contoh \foreign{resolving set} berkardinalitas \(k\), akan dibutuhkan banyaknya kasus yang perlu diuji kurang dari \(\binom{|V|}{k}\). Maka dari itu, menemukan satu contoh \foreign{resolving set} berkardinalitas \(k\) "lebih murah" dibandingkan menunjukkan tidak ada \foreign{resolving set} berkardinalitas \(k\). Sehingga, desain algoritma yang melakukan pencarian dari bawah, yaitu secara iteratif menaikkan nilai \(k\) hingga menemukan \foreign{resolving set} pertama dan mengambil kardinalitasnya sebagai dimensi metrik, akan "lebih lambat" dibandingkan desain algoritma yang melakukan pencarian dari atas, yaitu secara iteratif menurunkan nilai \(k\) hingga menemukan kardinalitas pertama yang tidak ada \foreign{resolving set}-nya dan mengambil \(k + 1\) sebagai dimensi metrik.
+
+Dengan demikian, diperolehlah formulasi algoritma penentuan dimensi metrik dan dimensi metrik sisi menggunakan pendekatan \foreign{brute-force} sebagai berikut:
+
+\clearpage
+
+\begin{algorithm}
+	\foreign{Input}:
+	\begin{itemize}
+		\item Representasi graf dalam representasi matriks ketetanggaan \(M\).
+		\item Mencari dimensi metrik atau dimensi metrik sisi?
+	\end{itemize}
+	Prosedur:
+	\begin{enumerate}
+		\item Hitung \(D^{(V)}\) dari \(M\) menggunakan \foreign{Floyd-Warshall}.
+		\item Hitung \(D^{(E)}\) dari \(D^{(V)}\).
+		\item Isi \(D\) dengan \(D^{(V)}\) jika mencari dimensi metrik, atau isi \(D\) dengan \(D^{(E)}\) jika mencari dimensi metrik sisi.
+		\item Hitung \(B\) dari \(D\).
+		\item Hitung \(P\) dari \(B\).
+		\item Digunakan variabel \(n\) sebagai banyaknya kolom di \(P\), yaitu \(n :=\) banyak kolom \(P\).
+		\item Mulai variabel \(k\) dari banyaknya simpul, yaitu \(k := |V|\).
+		\item Selama \(k \geq 0\):
+			\begin{enumerate}
+				\item Coba satu per satu untuk semua kemungkinan \(X \in \Bbb^{|V|}\) yang memiliki sebanyak \(k\) nilai \(\True\):
+					\begin{enumerate}
+						\item Mulai variabel \(j\) dari nilai 1, yaitu \(j := 1\).
+						\item Selama \(j \leq n\):
+							\begin{itemize}
+								\item Jika \((X|P_{*j}) = P_{*j}\), lompat ke tahap (8a).
+								\item Tambah \(j\) sebanyak satu, yaitu \(j := j + 1\).
+							\end{itemize}
+						\item Lompat ke tahap (8c).
+					\end{enumerate}
+				\item Lonpat ke tahap (10).
+				\item Kurangi \(k\) sebanyak satu, yaitu \(k := k - 1\).
+			\end{enumerate}
+		\item Simpulkan bahwa 0 adalah dimensi metrik atau dimensi metrik sisi, dan \texttt{BERHENTI}.
+		\item Simpulkan bahwa \(k + 1\) adalah dimensi metrik atau dimensi metrik sisi.
+	\end{enumerate}
+	\caption{\foreign{Brute-force}}
+	\label{alg:brute-force}
+\end{algorithm}
+
+\begin{example}
+	Ambil graf \autoref{fig:algorithm-example}, dan cari dimensi metriknya menggunakan \autoref{alg:brute-force}.
+	\begin{itemize}
+		\item Untuk \(k = 5\), ditemukan \(X = (\True, \True, \True, \True, \True)\) sehingga \(W = \{v_1, v_2,\\ v_3, v_4, v_5\}\) adalah \foreign{resolving set}.
+		\item Untuk \(k = 4\), ditemukan \(X = (\True, \True, \True, \True, \False)\) sehingga \(W = \{v_1, v_2,\\ v_3, v_4\}\) adalah \foreign{resolving set}.
+		\item Untuk \(k = 3\), ditemukan \(X = (\True, \True, \False, \True, \False)\) sehingga \(W = \{v_1, v_2,\\ v_4\}\) adalah \foreign{resolving set}.
+		\item Untuk \(k = 2\), secara habis tidak ada \foreign{resolving set} berkardinalitas 2.
+	\end{itemize}
+	Disimpulkan bahwa \(2 + 1 = 3\) adalah dimensi metrik dari graf tersebut.
+\end{example}
