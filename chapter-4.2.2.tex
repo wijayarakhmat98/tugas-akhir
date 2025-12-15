@@ -1,4 +1,5 @@
 \subsection{\foreign{Boolean Satisfiability}}
+\label{subsec:bs}
 
 Pertama-tama, didefinisikan pemetaan injektif \(\boolmap\) dari \(V\) ke variabel boolean di SMT. Catat bahwa variabel boolean di sini bukanlah elemen di \(\Bbb\), melainkan merupakan variabel abstrak di SMT yang nilainya belum ditentukan. Hanya setelah menjalankan \foreign{solver} barulah dihasilkan \foreign{model} yang elemennya di \(\Bbb\). Dengan demikian, variabel-variabel tersebut digunakan untuk mengkonstruksi \foreign{constraint} sehingga \foreign{model} \(\in \Bbb^{|V|}\) menunjukkan \(W \subseteq V\) yang elemen-elemennya berkoresponden dengan elemen di \(V\) yang \(\boolmap(v_i)\)-nya bernilai \(\True\).
 

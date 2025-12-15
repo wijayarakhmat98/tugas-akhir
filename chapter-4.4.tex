@@ -8,6 +8,18 @@ Sebelum dilakukannya pembahasan, diperjelas terlebih dahulu cara membaca tabel d
 	\input{result/trend-legend}
 \end{center}
 
+Pertama, dibahas hasil eksekusi untuk graf kecil. Untuk seluruh algoritma dan untuk dimensi metrik maupun dimensi metrik sisi, tidak ada hasil evaluasi yang gagal karena melewati batas waktu. Sehingga, untuk seluruh 273192 graf kecil, berhasil diidentifikasi dimensi metrik dan dimensi metrik sisinya. Rincian frekuensi graf berdasarkan dimensi metrik dapat dilihat dalam \autoref{tab:freq-md-small}, dan rincian frekuensi graf berdasarkan dimensi metrik sisi dapat dilihat dalam \autoref{tab:freq-emd-small}. Kedua tabel ini berlaku untuk seluruh \autoref{alg:brute-force}, \autoref{alg:boolean-satisfiability}, \autoref{alg:linear-integer-arithmetic}, dan \autoref{alg:pseudo-boolean}, menunjukkan secara \foreign{experimental} bahwa semua implementasi algoritma benar, sekaligus secara tidak langsung menunjukkan bahwa teori formulasi setiap algoritma benar untuk menentukan dimensi metrik dan dimensi metrik sisi, karena semuanya menghasilkan frekuensi yang sama.
+
+Dari data ini, dapat diilustrasikan perbedaan antara invarian graf dimensi metrik dan invarian graf dimensi metrik sisi. Perhatikanlah \autoref{fig:hist-md-8}, yaitu histogram frekuensi graf berdasarkan dimensi metrik, dan \autoref{fig:hist-emd-8}, yaitu histogram frekuensi graf berdasarkan dimensi metrik sisi. Meskipun kedua histogram menggunakan graf bersimpul 8, gambaran ini dapat memberikan intuisi mengenai sebaran dimensi metrik dan sebaran dimensi metrik sisi pada graf dengan banyak simpul lebih besar. Amati bahwa untuk graf dengan \(n\) simpul, sebaran dimensi metrik cenderung berat di kiri \(\dfrac{n}{2}\) sedangkan sebaran dimensi metrik sisi cenderung berat di kanan \(\dfrac{n}{2}\).
+
+Dari data frekuensi ini juga terlihat bahwa eksistensi dimensi metrik dan dimensi metrik sisi minimum mirip, karena hanya ada satu graf yang memiliki dimensi metrik minimum dan hanya ada satu graf pula yang memiliki dimensi metrik sisi minimum. Namun, eksistensi dimensi metrik dan dimensi metrik sisi maksimum berbeda, karena hanya ada satu graf yang berdimensi metrik maksimum, tetapi ada banyak graf yang berdimensi metrik sisi maksimum.
+
+Selanjutnya, untuk membandingkan waktu eksekusi antar algoritma, dihitung rata-rata waktu eksekusi untuk setiap graf dengan \(n\) simpul. Akan tetapi, sebagaimana telah dibahas dalam \autoref{subsec:bs} mengenai pengujian habis dan dalam \autoref{subsec:bs} mengenai menunjukkan \(\unsat\), tidaklah masuk akal untuk menghitung rata-rata waktu eksekusi langsung dari semua graf dengan banyak yang sama. Hal ini karena waktu eksekusi sangat dipengaruhi oleh nilai invarian dimensi metrik maupun dimensi metrik sisi yang dimiliki oleh setiap graf. Oleh karena itu, untuk setiap graf bersimpul \(n\), dipilih graf berdasarkan frekuensi dimensi metrik terbanyak dan dimensi metrik sisi terbanyak.
+
+Untuk graf bersimpul 2 hingga 9, frekuensi dimensi metrik terbanyak berturut-turut adalah 1, 1, 2, 2, 2, 2, 3, 3, 3, dan frekuensi dimensi metrik sisi terbanyak berturut-turut adalah 0, 1, 2, 3, 4, 4, 5, 5.  Rata-rata waktu eksekusi dihitung berdasarkan banyaknya simpul \(n\) dan frekuensi dimensi metrik atau dimensi metrik sisi terbanyak. Hasil perhitungan rata-rata waktu eksekusi setiap algoritma untuk menentukan dimensi metrik pada graf kecil dapat dilihat pada \autoref{tab:mean-md-small}, dan rata-rata waktu eksekusi setiap algoritma menentukan dimensi metrik sisi pada graf kecil dapat dilihat pada \autoref{tab:mean-emd-small}.
+
+Akhirnya, rata-rata waktu eksekusi yang telah diperoleh untuk membandingkan waktu eksekusi setiap algoritma dapat diilustrasikan lebih jelas sebagai grafik tren. Untuk dimensi metrik, tren ini dapat diamati pada \autoref{fig:trend-md-small}, dan untuk dimensi metrik sisi, tren ini dapat diamati pada \autoref{fig:trend-emd-small}. Terlihat bahwa, untuk graf kecil, waktu eksekusi \autoref{alg:brute-force} selalu paling cepat, sedangkan waktu eksekusi \autoref{alg:linear-integer-arithmetic} selalu paling lambat.
+
 \begin{landscape}
 \begin{center}
 	\renewcommand{\minipagewidth}{0.475\linewidth}
@@ -49,6 +61,8 @@ Sebelum dilakukannya pembahasan, diperjelas terlebih dahulu cara membaca tabel d
 	\vfill \vfill \vfill
 \end{center}
 \end{landscape}
+
+Kedua, dibahas hasil eksekusi untuk graf besar.
 
 \begin{landscape}
 \begin{center}
@@ -115,6 +129,8 @@ Sebelum dilakukannya pembahasan, diperjelas terlebih dahulu cara membaca tabel d
 	\vfill \vfill \vfill
 \end{center}
 \end{landscape}
+
+Ketiga, dibahas hasil eksekusi secara keseluruhan.
 
 \begin{landscape}
 \begin{center}
