@@ -1,54 +1,54 @@
-\newcommand{\minipagealign}{}
-\newcommand{\minipagewidth}{0.65\linewidth}
-\captionsetup{hypcap=false}
-
-\newlength{\contentwidth}
-\newcommand{\resizetofit}[1]{
-	\settowidth{\contentwidth}{#1}
-	\ifdim\contentwidth > \linewidth
-		\resizebox{\linewidth}{!}{#1}
-	\else
-		#1
-	\fi
-}
-
 \section{Pembahasan}
+
+\begin{center}
+	\input{result/trend-legend}
+\end{center}
 
 \begin{landscape}
 \begin{center}
-	\renewcommand{\minipagewidth}{0.45\linewidth}
+	\renewcommand{\minipagewidth}{0.475\linewidth}
+
+	\vphantom{}
+	\vfill
 
 	\input{result/freq-md-small}
 	\hspace{2em}
 	\input{result/hist-md-8}
 
-	\vspace{1em}
+	\vspace{2em}
 
 	\input{result/freq-emd-small}
 	\hspace{2em}
 	\input{result/hist-emd-8}
+
+	\vfill \vfill \vfill
 \end{center}
 \end{landscape}
 
 \begin{landscape}
 \begin{center}
-	\renewcommand{\minipagewidth}{0.45\linewidth}
+	\renewcommand{\minipagewidth}{0.475\linewidth}
+
+	\vphantom{}
+	\vfill
 
 	\input{result/mean-md-small}
 	\hspace{2em}
 	\input{result/trend-md-small}
 
-	\vspace{1em}
+	\vspace{2em}
 
 	\input{result/mean-emd-small}
 	\hspace{2em}
 	\input{result/trend-emd-small}
+
+	\vfill \vfill \vfill
 \end{center}
 \end{landscape}
 
 \begin{landscape}
 \begin{center}
-	\renewcommand{\minipagewidth}{0.4\linewidth}
+	\renewcommand{\minipagewidth}{0.475\linewidth}
 
 	\vphantom{}
 	\vfill
@@ -68,65 +68,61 @@
 \end{landscape}
 
 \begin{center}
-	\renewcommand{\minipagewidth}{0.45\linewidth}
+	\renewcommand{\minipagewidth}{0.475\linewidth}
 
 	\vphantom{}
 	\vfill
 
 	\input{result/freq-emd-large-bf}
-	\hspace{2em}
+	\hspace{1em}
 	\input{result/freq-emd-large-bs}
 
 	\vspace{2em}
 
 	\input{result/freq-emd-large-lia}
-	\hspace{2em}
+	\hspace{1em}
 	\input{result/freq-emd-large-pb}
 
-	\vspace{4em}
+	\vspace{2em}
 
 	\renewcommand{\minipagewidth}{\linewidth}
 	\input{result/freq-fail-large}
 
-	\vfill
-\end{center}
-
-\begin{center}
-	\vphantom{}
-	\vfill
-
-	\renewcommand{\minipagewidth}{0.495\linewidth}
-	\input{result/mean-md-large}
-	\hspace{1em}
-	\renewcommand{\minipagewidth}{0.45\linewidth}
-	\input{result/trend-md-large}
-
-	\vspace{4em}
-
-	\renewcommand{\minipagewidth}{0.495\linewidth}
-	\input{result/mean-emd-large}
-	\hspace{1em}
-	\renewcommand{\minipagewidth}{0.45\linewidth}
-	\begin{minipage}[\minipagealign]{\minipagewidth}
-		\renewcommand{\minipagewidth}{\linewidth}
-		\input{result/trend-emd-large-1}
-		\vspace{4em} \\
-		\input{result/trend-emd-large-2}
-	\end{minipage}
-
-	\vfill \vfill
+	\vfill \vfill \vfill
 \end{center}
 
 \begin{landscape}
 \begin{center}
-	\renewcommand{\minipagewidth}{0.45\linewidth}
+	\renewcommand{\minipagewidth}{0.475\linewidth}
+
+	\vphantom{}
+	\vfill
+
+	\input{result/mean-md-large}
+	\hspace{2em}
+	\input{result/trend-md-large}
+
+	\vspace{2em}
+
+	\input{result/mean-emd-large}
+	\hspace{2em}
+	\input{result/trend-emd-large}
+
+	\vfill \vfill \vfill
+\end{center}
+\end{landscape}
+
+\begin{landscape}
+\begin{center}
+	\renewcommand{\minipagewidth}{0.7\linewidth}
+
+	\vphantom{}
+	\vfill
 
 	\input{result/trend-md-combined}
 
-	\vspace{1em}
+	\input{result/trend-emd-combined}
 
-	\input{result/trend-emd-combined-1}
-	\hspace{2em}
-	\input{result/trend-emd-combined-2}
+	\vfill \vfill \vfill
 \end{center}
 \end{landscape}

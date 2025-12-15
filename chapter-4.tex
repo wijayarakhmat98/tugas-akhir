@@ -13,6 +13,20 @@
 \def\sat{\mathtt{sat}}
 \def\unsat{\mathtt{unsat}}
 
+\newcommand{\minipagealign}{}
+\newcommand{\minipagewidth}{0.65\linewidth}
+\captionsetup{hypcap=false}
+
+\newlength{\contentwidth}
+\newcommand{\resizetofit}[1]{
+	\settowidth{\contentwidth}{#1}
+	\ifdim\contentwidth > \linewidth
+		\resizebox{\linewidth}{!}{#1}
+	\else
+		#1
+	\fi
+}
+
 \input{chapter-4.1}
 
 \input{chapter-4.2}
