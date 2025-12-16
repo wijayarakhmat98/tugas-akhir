@@ -1,15 +1,17 @@
 \addcontentsline{toc}{chapter}{Pernyataan Orisinalitas}
 \chapter*{Pernyataan Orisinalitas}
 
+\vspace{2em}
+
 Yang bertanda tangan di sini:
 
 \vspace{0.75em}
 
-\begin{tabular}{@{}l@{\ }l}
-	Nama Mahasiswa / NRP &: \theAuthor\ / \theAuthorId \\
-	Departemen &: \departmentName \\
-	Dosen Pembimbing / NIP &: \supervisor\ / \supervisorId
-\end{tabular}
+\begin{tabularx}{0.8\linewidth}{@{}l@{}l@{\ }X}
+	Nama Mahasiswa / NRP &:& \theAuthor\ / \theAuthorId \\
+	Departemen &:& \departmentName \\
+	Dosen Pembimbing / NIP &:& \supervisor\ / \supervisorId
+\end{tabularx}
 
 \vspace{0.75em}
 
@@ -17,8 +19,32 @@ dengan ini menyatakan bahwa \documentName\ dengan judul "\titleBahasa" adalah ha
 
 Bilamana di kemudian hari ditemukan ketidaksesuaian dengan pernyataan ini, maka saya bersedia menerima sanksi sesuai dengan ketentuan yang berlaku di \campusName.
 
-\vspace{2em}
+\vspace{4em}
 
 \begin{flushright}
 	\theCity, \theDay\ \theMonth\ \theYear
 \end{flushright}
+
+\begin{minipage}[t]{0.35\linewidth}
+	Mengetahui, \\
+	Dosen Pembimbing
+
+	\vspace{6em}
+
+	\supervisor \\
+	\supervisorId
+\end{minipage}
+\hfill
+\begin{minipage}[t]{0.35\linewidth}
+	\strut \\
+	Mahasiswa
+
+	\vspace{6em}
+
+	\theAuthor \\
+	\strut \\
+	\theAuthorId
+\end{minipage}
+\begin{minipage}[t]{0.05\linewidth}
+	\strut
+\end{minipage}
