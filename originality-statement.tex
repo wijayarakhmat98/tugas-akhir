@@ -7,11 +7,14 @@ Yang bertanda tangan di sini:
 
 \vspace{0.75em}
 
-\begin{tabularx}{\linewidth}{@{}l@{}l@{\ }X}
-	Nama Mahasiswa / NRP &:& \theAuthor\ / \theAuthorId \\
-	Departemen &:& \departmentNameBahasa \\
-	Dosen Pembimbing / NIP &:& \supervisor\ /\newline \supervisorId
-\end{tabularx}
+{
+	\renewcommand{\arraystretch}{1.5}
+	\begin{tabularx}{\linewidth}{@{\hspace{2em}}l@{\ }l@{\quad}X}
+		Nama Mahasiswa / NRP &:& \theAuthor\ / \theAuthorId \\
+		Departemen &:& \departmentNameBahasa \\
+		Dosen Pembimbing / NIP &:& \supervisor\ /\newline \supervisorId
+	\end{tabularx}
+}
 
 \vspace{0.75em}
 
