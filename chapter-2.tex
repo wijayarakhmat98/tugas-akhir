@@ -141,6 +141,11 @@ Dimensi metrik dari \(G\) adalah kardinalitas minimum dari himpunan pembeda untu
 \begin{array}{ccccc}
 	r(x_1|W) & = & ( d(x_2, x_1), \; d(x_4, x_1) ) & = & (2, 1) \\
 	r(x_2|W) & = & ( d(x_2, x_2), \; d(x_4, x_2) ) & = & (0, 1) \\
+\end{array}
+\]
+
+\[
+\begin{array}{ccccc}
 	r(x_3|W) & = & ( d(x_2, x_3), \; d(x_4, x_3) ) & = & (2, 1) \\
 	r(x_4|W) & = & ( d(x_2, x_4), \; d(x_4, x_4) ) & = & (1, 0) \\
 	r(x_5|W) & = & ( d(x_2, x_5), \; d(x_4, x_5) ) & = & (1, 1)
@@ -176,11 +181,6 @@ Dimensi metrik sisi dari \(G\) adalah kardinalitas minimum dari himpunan pembeda
 	r(e_3|W) & = & ( d(x_1, e_3), \; d(x_4, e_3), \; d(x_5, e_3) ) & = & (0, 1, 0) \\
 	r(e_4|W) & = & ( d(x_1, e_4), \; d(x_4, e_4), \; d(x_5, e_4) ) & = & (1, 0, 1) \\
 	r(e_5|W) & = & ( d(x_1, e_5), \; d(x_4, e_5), \; d(x_5, e_5) ) & = & (1, 1, 0) \\
-\end{array}
-\]
-
-\[
-\begin{array}{ccccc}
 	r(e_6|W) & = & ( d(x_1, e_6), \; d(x_4, e_6), \; d(x_5, e_6) ) & = & (1, 0, 1) \\
 	r(e_7|W) & = & ( d(x_1, e_7), \; d(x_4, e_7), \; d(x_5, e_7) ) & = & (1, 1, 0) \\
 	r(e_8|W) & = & ( d(x_1, e_8), \; d(x_4, e_8), \; d(x_5, e_8) ) & = & (1, 0, 0)
@@ -216,12 +216,6 @@ dengan \(x_1, x_2, x_3\) adalah variabel boolean. Tabel kebenaran untuk ekspresi
 	 \True &  \True & \False &  \True \\
 	\False & \False &  \True & \False \\
 	 \True & \False &  \True &  \True \\
-\end{array}
-\]
-
-\[
-\begin{array}{cccc}
-	\phantom{\False} & \phantom{\False} & \phantom{\False} & \phantom{(x_1 \land x_2) \lor (x_1 \land x_3)} \\ [-2em]
 	\False &  \True &  \True & \False \\
 	 \True &  \True &  \True &  \True
 \end{array}
