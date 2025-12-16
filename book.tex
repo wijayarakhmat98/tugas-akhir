@@ -36,7 +36,8 @@
 	graphicx,
 	subcaption,
 	xcolor,
-	pdflscape,
+	% pdflscape,
+	lscape,
 	hyperref,
 	cleveref,
 	natbib,
@@ -72,6 +73,12 @@
 	\Crefname{appsec}{Lampiran}{Appendices}
 }
 
+\newcommand{\bulan}[1]{
+	\ifcase#1\relax
+		\or Januari\or Februari\or Maret\or April\or Mei\or Juni\or Juli\or Agustus\or September\or Oktober\or Nopember\or Desember%
+	\fi
+}
+
 \titleformat{\chapter}[display]
 	{\centering\LARGE\bfseries}
 	{\MakeUppercase{\chaptername~\Roman{chapter}}}
@@ -93,8 +100,7 @@
 	\fancyfoot[LE,RO]{\thepage}
 }
 
-\title{Menentukan Dimensi Metrik Menggunakan \foreign{Satisfiability Modulo Theories}}
-\author{https://github.com/wijayarakhmat98/metric-dimension}
+\input{constants}
 
 \begin{document}
 
