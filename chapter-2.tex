@@ -42,15 +42,22 @@ Lintasan adalah rangkaian sisi yang menghubungkan rangkaian simpul, dengan setia
 
 Graf terhubung adalah graf dengan setiap pasang simpulnya memiliki lintasan yang menghubungkan \citep{chartrand2000}. \autoref{fig:contoh-graf} adalah contoh graf terhubung. \autoref{fig:graf-tak-terhubung} adalah contoh graf tak terhubung karena tidak terdapat lintasan yang dapat menghubungkan \(x_1\) dan \(x_5\).
 
-Jarak antara dua simpul \(u\) dan \(v\), dinotasikan \(d(u, v)\), adalah panjang minimum dari semua lintasan yang menghubungkan kedua simpul tersebut \citep{chartrand2000}. Panjang sebuah lintasan adalah banyaknya sisi yang membangun rangkaian lintasan tersebut. Sebagai ilustrasi, pada \autoref{fig:contoh-graf}, \(d(x_2, x_1) = 2\).
+Jarak antara dua simpul \(u\) dan \(v\), dinotasikan \(d(u, v)\), adalah panjang minimum dari semua lintasan yang menghubungkan kedua simpul tersebut \citep{chartrand2000}. Panjang sebuah lintasan adalah banyaknya sisi yang membangun rangkaian lintasan tersebut. Contoh, pada \autoref{fig:contoh-graf}, nilai dari \(d(x_2, x_1)\) adalah \(2\).
 
-\subsection{Matriks Ketetanggaan}
+Matriks ketetanggaan adalah alternatif representasi dari graf yang menunjukkan ketetanggaan, atau keberadaan sisi antar simpul \citep{west1996}. Misalnya sebuah graf memiliki himpunan simpul \(V = \{v_1, v_2, \ldots\}\). Maka, baris dan kolom pertama dalam matriks ketetanggaannya menunjukkan \(v_1\), baris dan kolom kedua menunjukkan \(v_2\), dan seterusnya. Ketika terdapat sisi yang menghubungkan \(v_i\) ke \(v_j\), maka elemen pada baris ke-\(i\) dan kolom ke-\(j\) bernilai \(1\), sedangkan bila tidak terhubung maka bernilai \(0\).
 
-Matriks ketetanggaan adalah alternatif representasi dari graf yang menunjukkan ketetanggaan, atau keberadaan sisi antar simpul \citep{west1996}.
+Matriks jarak adalah matriks yang memuat jarak antara seluruh pasangan simpul \citep{chartrand2000}. Sehingga, setiap baris ke-\(i\) dan kolom ke-\(j\) berisi nilai jarak dari \(v_i\) ke \(v_j\), seperti berikut:
+\[
+\left[
+\begin{array}{ccc}
+	d(v_1, v_1) & d(v_1, v_2) & \cdots \\
+	d(v_2, v_1) & d(v_2, v_2) & \cdots \\
+	\vdots & \vdots & \ddots
+\end{array}
+\right]
+\]
 
-Misalnya sebuah graf memiliki himpunan simpul \(V = \{v_1, v_2, \ldots\}\). Maka, baris dan kolom pertama dalam matriks ketetanggaannya menunjukkan \(v_1\), baris dan kolom kedua menunjukkan \(v_2\), dan seterusnya. Ketika terdapat sisi yang menghubungkan \(v_i\) ke \(v_j\), maka elemen pada baris ke-\(i\) dan kolom ke-\(j\) bernilai \(1\), sedangkan bila tidak terhubung maka bernilai \(0\).
-
-Berikut adalah matriks ketetanggaan dari \autoref{fig:contoh-graf}.
+Untuk ilustrasi, berikut adalah matriks ketetanggaan dari \autoref{fig:contoh-graf}.
 
 \[
 \left[
@@ -64,23 +71,7 @@ Berikut adalah matriks ketetanggaan dari \autoref{fig:contoh-graf}.
 \right]
 \]
 
-Perhatikan matriks ketetanggaan ini simetris terhadap diagonal utama, karena graf yang direpresentasikan tak berarah.
-
-\subsection{Matriks Jarak}
-
-Matriks jarak adalah matriks yang memuat jarak antara seluruh pasangan simpul \citep{chartrand2000}. Setiap baris ke-\(i\) dan kolom ke-\(j\) berisi nilai jarak dari \(v_i\) ke \(v_j\), yaitu
-
-\[
-\left[
-\begin{array}{ccc}
-	d(v_1, v_1) & d(v_1, v_2) & \cdots \\
-	d(v_2, v_1) & d(v_2, v_2) & \cdots \\
-	\vdots & \vdots & \ddots
-\end{array}
-\right]
-\]
-
-untuk graf dengan himpunan simpul \(V = \{v_1, v_2, \ldots\}\). Sebagai ilustrasi, berikut adalah matriks jarak dari \autoref{fig:contoh-graf}.
+Dan berikut adalah matriks jarak dari \autoref{fig:contoh-graf}.
 
 \[
 \left[
@@ -94,7 +85,7 @@ untuk graf dengan himpunan simpul \(V = \{v_1, v_2, \ldots\}\). Sebagai ilustras
 \right]
 \]
 
-Perhatikan bahwa karena graf yang direpresentasikan adalah graf terhubung, maka setiap elemen dalam matriks jaraknya memiliki nilai.
+Perhatikan matriks ketetanggaan simetris terhadap diagonal utama ketika graf yang direpresentasikan tak berarah. Dan perhatikan pula, setiap elemen dalam matriks jarak memiliki nilai ketika graf yang direpresentasikan adalah graf terhubung.
 
 \section{Automorfisma Graf}
 
