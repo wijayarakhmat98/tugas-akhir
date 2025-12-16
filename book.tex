@@ -74,7 +74,7 @@
 
 \titleformat{\chapter}[display]
 	{\centering\LARGE\bfseries}
-	{\MakeUppercase{\chaptername~\thechapter}}
+	{\MakeUppercase{\chaptername~\Roman{chapter}}}
 	{0pt}
 	{\MakeUppercase}
 
@@ -98,11 +98,21 @@
 
 \begin{document}
 
-\maketitle
+\input{cover}
+\clearpage
 
 \frontmatter
 
-\input{abstract.tex}
+\input{endorsement-statement}
+\clearpage
+
+\input{originality-statement}
+\clearpage
+
+\input{abstract}
+\clearpage
+
+\input{preface}
 \clearpage
 
 \addcontentsline{toc}{chapter}{Daftar Isi}
@@ -131,6 +141,9 @@
 \input{chapter-4}
 \clearpage
 
+\input{chapter-5}
+\clearpage
+
 \backmatter
 
 \input{appendix}
@@ -139,6 +152,12 @@
 \addcontentsline{toc}{chapter}{Daftar Pustaka}
 \bibliographystyle{apalike}
 \bibliography{references}
+\clearpage
+
+\input{acknowledgement}
+\clearpage
+
+\input{Biography}
 \clearpage
 
 \end{document}
