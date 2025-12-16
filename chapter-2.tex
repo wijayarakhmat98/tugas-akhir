@@ -16,58 +16,34 @@ Berdasarkan penelitian-penelitian terdahulu, dapat dilihat bahwa kajian mengenai
 
 \section{Graf}
 
-Graf adalah struktur yang terdiri dari himpunan simpul dan himpunan sisi, yang setiap sisinya menghubungkan sepasang simpul dalam himpunan simpul tersebut \citep{harary1969}.
+Graf adalah struktur yang terdiri dari himpunan simpul dan himpunan sisi, yang setiap sisinya menghubungkan sepasang simpul dalam himpunan simpul tersebut \citep{harary1969}. Misalnya sebuah graf memiliki 5 simpul \(V = \{x_1, x_2, x_3, x_4, x_5\}\) dan 8 sisi \(E = \{e_1, e_2, e_3, e_4, e_5, e_6, e_7, e_8\}\). Setiap sisi tersebut berturut-turut menghubungkan pasangan simpul \((x_1, x_3)\), \((x_1, x_4)\), \((x_1, x_5)\), \((x_2, x_4)\), \((x_2, x_5)\), \((x_3, x_4)\), \((x_3, x_5)\), dan \((x_4, x_5)\). \autoref{fig:contoh-graf} menunjukkan graf ini.
 
-\begin{figure}[!htbp]
-	\centering
-	\includegraphics[width=0.25\linewidth]{img/8ec60eeeaa549478379fc4cb6b42df17c5ca8b364e4e642efbba0ac2db0b6e94.pdf}
-	\caption{Contoh Graf}
-	\label{fig:contoh-graf}
-\end{figure}
+Lintasan adalah rangkaian sisi yang menghubungkan rangkaian simpul, dengan setiap ujung sisinya merupakan simpul berurutan \citep{west1996}. Contohnya, pada \autoref{fig:contoh-graf}, \((x_2, x_4, x_3, x_1)\) adalah lintasan, karena dapat dihubungkan dengan rangkaian \((e_4, e_6, e_1)\). Sedangkan \((x_5, x_2, x_3)\) bukanlah lintasan, karena tidak terdapat sisi yang menghubungkan simpul \(x_2\) dan \(x_3\). Lintasan dengan ujung simpul \(v, w\) disebut sebagai lintasan yang menghubungkan \(v\) dan \(w\). Pada suatu graf, bisa terdapat banyak lintasan yang menghubungkan sepasang simpul \citep{west1996}. Sehingga, lintasan \((e_4, e_6, e_1\)) disebut menghubungkan \(x_2\) dan \(x_1\).
 
-Perhatikan \autoref{fig:contoh-graf}. Graf tersebut memiliki 5 simpul, yaitu \(V = \{x_1, x_2, x_3, x_4, x_5\}\), dan memiliki 8 sisi, yang terdiri dari
+\vspace{1em}
 
-\[
-\begin{array}{c}
-	e_1 \text{ menghubungkan } x_1 \text{ dan } x_3 \\
-	e_2 \text{ menghubungkan } x_1 \text{ dan } x_4 \\
-	e_3 \text{ menghubungkan } x_1 \text{ dan } x_5 \\
-	e_4 \text{ menghubungkan } x_2 \text{ dan } x_4 \\
-	e_5 \text{ menghubungkan } x_2 \text{ dan } x_5 \\
-	e_6 \text{ menghubungkan } x_3 \text{ dan } x_4 \\
-	e_7 \text{ menghubungkan } x_3 \text{ dan } x_5 \\
-	e_8 \text{ menghubungkan } x_4 \text{ dan } x_5
-\end{array}
-\]
+\begin{center}
+	\captionsetup{hypcap=false}
+	\begin{minipage}{0.4\linewidth}
+		\centering
+		\includegraphics[width=0.625\linewidth]{img/8ec60eeeaa549478379fc4cb6b42df17c5ca8b364e4e642efbba0ac2db0b6e94.pdf}
+		\captionof{figure}{\centering Graf Terhubung}
+		\label{fig:contoh-graf}
+	\end{minipage}
+	\begin{minipage}{0.4\linewidth}
+		\centering
+		\includegraphics[width=0.625\linewidth]{img/0630ebfe671b8208b2dc56ca90c62464252c4ac5e3f30ff3fc2c6db4495f49cc.pdf}
+		\captionof{figure}{\centering Graf Tak Terhubung}
+		\label{fig:graf-tak-terhubung}
+	\end{minipage}
+\end{center}
 
-atau dengan kata lain, \(E = \{e_1, e_2, e_3, e_4, e_5, e_6, e_7, e_8\}\).
+\vspace{1em}
 
-\subsection{Lintasan}
-
-Lintasan adalah rangkaian sisi yang menghubungkan rangkaian simpul, dengan setiap ujung sisinya merupakan simpul berurutan \citep{west1996}.
-
-Sebagai ilustrasi, pada \autoref{fig:contoh-graf}, \((x_2, x_4, x_3, x_1)\) adalah lintasan karena dapat dihubungkan dengan rangkaian \((e_4, e_6, e_1)\). Sedangkan \((x_5, x_2, x_3)\) bukanlah lintasan karena tidak terdapat sisi yang menghubungkan simpul \(x_2\) dan \(x_3\) sehingga tidak dapat dibangun rangkaian sisinya untuk membentuk lintasan.
-
-Lintasan dengan ujung simpul \(v, w\) disebut sebagai lintasan yang menghubungkan \(v\) dan \(w\). Pada suatu graf, bisa terdapat banyak lintasan yang menghubungkan sepasang simpul \citep{west1996}. Contoh, lintasan \((e_4, e_6, e_1\)) disebut menghubungkan \(x_2\) dan \(x_1\).
-
-\subsection{Graf Terhubung}
-
-Graf terhubung adalah graf dengan setiap pasang simpulnya memiliki lintasan yang menghubungkan \citep{chartrand2000}.
-
-\begin{figure}[!htbp]
-	\centering
-	\includegraphics[width=0.25\linewidth]{img/0630ebfe671b8208b2dc56ca90c62464252c4ac5e3f30ff3fc2c6db4495f49cc.pdf}
-	\caption{Contoh Graf Tak Terhubung}
-	\label{fig:graf-tak-terhubung}
-\end{figure}
-
-\autoref{fig:contoh-graf} adalah contoh graf terhubung. \autoref{fig:graf-tak-terhubung} adalah contoh graf tak terhubung karena tidak terdapat lintasan yang dapat menghubungkan \(x_1\) dan \(x_5\).
-
-\subsection{Jarak}
+Graf terhubung adalah graf dengan setiap pasang simpulnya memiliki lintasan yang menghubungkan \citep{chartrand2000}. \autoref{fig:contoh-graf} adalah contoh graf terhubung. \autoref{fig:graf-tak-terhubung} adalah contoh graf tak terhubung karena tidak terdapat lintasan yang dapat menghubungkan \(x_1\) dan \(x_5\).
 
 Jarak antara dua simpul \(u\) dan \(v\), dinotasikan \(d(u, v)\), adalah panjang minimum dari semua lintasan yang menghubungkan kedua simpul tersebut \citep{chartrand2000}. Panjang sebuah lintasan adalah banyaknya sisi yang membangun rangkaian lintasan tersebut. Sebagai ilustrasi, pada \autoref{fig:contoh-graf}, \(d(x_2, x_1) = 2\).
 
-\newpage
 \subsection{Matriks Ketetanggaan}
 
 Matriks ketetanggaan adalah alternatif representasi dari graf yang menunjukkan ketetanggaan, atau keberadaan sisi antar simpul \citep{west1996}.
@@ -120,7 +96,6 @@ untuk graf dengan himpunan simpul \(V = \{v_1, v_2, \ldots\}\). Sebagai ilustras
 
 Perhatikan bahwa karena graf yang direpresentasikan adalah graf terhubung, maka setiap elemen dalam matriks jaraknya memiliki nilai.
 
-\newpage
 \section{Automorfisma Graf}
 
 Automorfisma graf adalah isomorfima dari graf ke dirinya sendiri. Salah satu cara untuk menunjukkan automorfisma graf adalah menggunakan representasi kanonik. Hal ini telah dilakukan oleh \citeauthor{mckay2014} di \citeyear{mckay2014}. Jika dua graf memiliki representasi kanonik yang sama, maka kedua graf tersebut isomorfik. Sebaliknya, jika representasi kanonik berbeda, maka kedua graf tersebut tidak isomorfik.
@@ -155,38 +130,21 @@ Automorfisma graf adalah isomorfima dari graf ke dirinya sendiri. Salah satu car
 	\label{fig:contoh-automorfisma}
 \end{figure}
 
-Untuk graf tak berarah, representasi kanonik oleh \citeauthor{mckay2014} dituliskan dalam format \texttt{graph6}.
+Untuk graf tak berarah, representasi kanonik oleh \citeauthor{mckay2014} dituliskan dalam format \texttt{graph6}. Misalnya, \autoref{fig:contoh-graf} memiliki representasi \texttt{DV\{} dalam format \texttt{graph6}. Kemudian, setiap graf pada \autoref{fig:contoh-automorfisma}, dari (a) sampai (f), berturut-turut memiliki representasi \texttt{D\textbackslash\{}, \texttt{Du\{},  \texttt{D\{\{},  \texttt{D\textasciitilde g},  \texttt{D\textasciitilde S},  dan \texttt{Dx\{} dalam format \texttt{graph6}. Akan tetapi, graf pada \autoref{fig:contoh-graf} dan semua graf pada \autoref{fig:contoh-automorfisma} memiliki representasi kanonik yang sama, yaitu \texttt{DN\{} dalam format \texttt{graph6}, sehingga semuanya merupakan automorfisma dari graf yang sama.
 
-Misalnya, \autoref{fig:contoh-graf} memiliki representasi \texttt{DV\{} dalam format \texttt{graph6}. Kemudian, setiap graf pada \autoref{fig:contoh-automorfisma}, dari (a) sampai (f), berturut-turut memiliki representasi \texttt{D\textbackslash\{}, \texttt{Du\{},  \texttt{D\{\{},  \texttt{D\textasciitilde g},  \texttt{D\textasciitilde S},  dan \texttt{Dx\{} dalam format \texttt{graph6}.
-
-Akan tetapi, graf pada \autoref{fig:contoh-graf} dan semua graf pada \autoref{fig:contoh-automorfisma} memiliki representasi kanonik yang sama, yaitu \texttt{DN\{} dalam format \texttt{graph6}, sehingga semuanya merupakan automorfisma dari graf yang sama.
-
-\newpage
 \section{Dimensi Metrik}
 
-Misalkan \(G\) adalah sebuah graf terhubung.
-
-Diberikan \(V = \{v_1, v_2, \ldots, v_n\}\) sebagai himpunan seluruh simpul dalam \(G\).
-
-Misalkan \(d(x, y)\) adalah jarak antara simpul \(x\) dan simpul \(y\).
-
-Misalkan \(W = \{w_1, w_2, \ldots, w_k\}\) adalah himpunan simpul berurutan dalam \(G\).
-
-Untuk \(v \in V\), tupel terurut berikut
+Misalkan \(G\) adalah sebuah graf terhubung dengan himpunan simpul \(V = \{v_1, v_2, \ldots, v_n\}\), dan \(d(x, y)\) adalah jarak antara simpul \(x\) dan \(y\) di \(G\). Pilih sembarang \(W = \{w_1, w_2, \ldots, w_k\} \subseteq V\). Untuk \(v \in V\), tupel terurut
 
 	\[ r(v|W) = (d(w_1, v), d(w_2, v), \ldots, d(w_k, v)) \]
 
-adalah representasi dari \(v\) terhadap \(W\).
-
-Himpunan \(W\) adalah \foreign{resolving set}, atau himpunan pembeda, untuk \(G\) apabila
+adalah representasi dari \(v\) terhadap \(W\). Himpunan \(W\) adalah \foreign{resolving set}, atau himpunan pembeda, untuk \(G\) apabila
 
 	\[ \forall u, v \in V, u \neq v \implies r(u|W) \neq r(v|W) \]
 
 atau dengan kata lain, seluruh simpul dalam \(G\) memiliki representasi unik terhadap \(W\).
 
-Dimensi metrik dari \(G\) adalah kardinalitas minimum dari himpunan pembeda untuk \(G\) \citep{tillquist2023}.
-
-Sebagai ilustrasi, ambil \autoref{fig:contoh-graf}. Coba \(W = \{x_2, x_4\}\).
+Dimensi metrik dari \(G\) adalah kardinalitas minimum dari himpunan pembeda untuk \(G\) \citep{tillquist2023}. Sebagai ilustrasi, ambil \autoref{fig:contoh-graf}. Coba \(W = \{x_2, x_4\}\).
 
 \[
 \begin{array}{ccccc}
@@ -198,26 +156,15 @@ Sebagai ilustrasi, ambil \autoref{fig:contoh-graf}. Coba \(W = \{x_2, x_4\}\).
 \end{array}
 \]
 
-Ditemukan \(\{x_2, x_4\}\) bukanlah himpunan pembeda karena \(r(x_1|W) = r(x_3|W)\).
+Ditemukan \(\{x_2, x_4\}\) bukanlah himpunan pembeda karena \(r(x_1|W) = r(x_3|W)\). Untuk \autoref{fig:contoh-graf}, tidak ada himpunan pembeda dengan kardinalitas 2. Dimensi metrik dari graf ini adalah 3, dengan contoh solusi \(\{x_1, x_4, x_5\}\), atau \(\{x_1, x_3, x_4\}\), dan himpunan pembeda lainnya yang berkardinalitas 3.
 
-Untuk \autoref{fig:contoh-graf}, tidak ada himpunan pembeda dengan kardinalitas 2. Dimensi metrik dari graf ini adalah 3, dengan contoh solusi \(\{x_1, x_4, x_5\}\), atau \(\{x_1, x_3, x_4\}\), dan himpunan pembeda lainnya yang berkardinalitas 3.
-
-\newpage
 \section{Dimensi Metrik Sisi}
 
-Misalkan \(G\) adalah sebuah graf terhubung.
-
-Diberikan \(E = \{e_1, e_2, \ldots, e_n\}\) sebagai himpunan seluruh sisi dalam \(G\).
-
-Misalkan \(d(x, y)\) adalah jarak antara simpul \(x\) dan simpul \(y\) dalam \(G\).
-
-Misalkan \(z\) adalah simpul dalam \(G\) dan \(e = (x, y)\) adalah sisi yang menghubungkan simpul \(x\) dan \(y\). Jarak dari simpul \(z\) ke sisi \(e\) adalah
+Misalkan \(G\) adalah sebuah graf terhubung dengan himpunan simpul \(V\), himpunan sisi \(E = \{e_1,\\ e_2, \ldots, e_n\}\), dan \(d(x, y)\) adalah jarak antara simpul \(x\) dan \(y\) di \(G\). Untuk sembarang simpul \(z\) dan sembarang sisi \(e\) di \(G\), jika \(e\) adalah sisi yang menghubungkan simpul \(x\) dan \(y\), maka jarak dari \(z\) ke \(e\) adalah
 
 	\[ d(z, e) = \min(d(z, x), d(z, y)) \]
 
-Misalkan \(W = \{w_1, w_2, \ldots, w_k\}\) adalah himpunan simpul berurutan dalam \(G\).
-
-Untuk \(e \in E\), tupel terurut berikut
+Ambil sembarang \(W = \{w_1, w_2, \ldots, w_k\} \subseteq V\). Untuk \(e \in E\), tupel terurut
 
 	\[ r(e|W) = (d(w_1, e), d(w_2, e), \ldots, d(w_k, e)) \]
 
@@ -229,9 +176,7 @@ Himpunan \(W\) adalah \foreign{edge resolving set}, atau himpunan pembeda sisi, 
 
 atau dengan kata lain, seluruh sisi dalam \(G\) memiliki representasi unik terhadap \(W\).
 
-Dimensi metrik sisi dari \(G\) adalah kardinalitas minimum dari himpunan pembeda sisi untuk \(G\) \citep{kelenc2018}.
-
-Sebagai ilustrasi, ambil \autoref{fig:contoh-graf}. Coba \(W = \{x_1, x_4, x_5\}\).
+Dimensi metrik sisi dari \(G\) adalah kardinalitas minimum dari himpunan pembeda sisi untuk \(G\) \citep{kelenc2018}. Sebagai ilustrasi, ambil \autoref{fig:contoh-graf}. Coba \(W = \{x_1, x_4, x_5\}\).
 
 \[
 \begin{array}{ccccc}
@@ -240,17 +185,19 @@ Sebagai ilustrasi, ambil \autoref{fig:contoh-graf}. Coba \(W = \{x_1, x_4, x_5\}
 	r(e_3|W) & = & ( d(x_1, e_3), \; d(x_4, e_3), \; d(x_5, e_3) ) & = & (0, 1, 0) \\
 	r(e_4|W) & = & ( d(x_1, e_4), \; d(x_4, e_4), \; d(x_5, e_4) ) & = & (1, 0, 1) \\
 	r(e_5|W) & = & ( d(x_1, e_5), \; d(x_4, e_5), \; d(x_5, e_5) ) & = & (1, 1, 0) \\
+\end{array}
+\]
+
+\[
+\begin{array}{ccccc}
 	r(e_6|W) & = & ( d(x_1, e_6), \; d(x_4, e_6), \; d(x_5, e_6) ) & = & (1, 0, 1) \\
 	r(e_7|W) & = & ( d(x_1, e_7), \; d(x_4, e_7), \; d(x_5, e_7) ) & = & (1, 1, 0) \\
 	r(e_8|W) & = & ( d(x_1, e_8), \; d(x_4, e_8), \; d(x_5, e_8) ) & = & (1, 0, 0)
 \end{array}
 \]
 
-Ditemukan \(\{x_1, x_4, x_5\}\) bukanlah himpunan pembeda sisi karena \(r(e_4|W) = r(e_6|W)\).
+Ditemukan \(\{x_1, x_4, x_5\}\) bukanlah himpunan pembeda sisi karena \(r(e_4|W) = r(e_6|W)\). Untuk \autoref{fig:contoh-graf}, tidak ada himpunan pembeda sisi dengan kardinalitas 3. Dimensi metrik sisi dari graf ini adalah 4, dengan contoh solusi \(\{x_1, x_2, x_3, x_4\}\), atau \(\{x_1, x_2, x_3, x_5\}\), dan himpunan pembeda sisi lainnya yang berkardinalitas 4.
 
-Untuk \autoref{fig:contoh-graf}, tidak ada himpunan pembeda sisi dengan kardinalitas 3. Dimensi metrik sisi dari graf ini adalah 4, dengan contoh solusi \(\{x_1, x_2, x_3, x_4\}\), atau \(\{x_1, x_2, x_3, x_5\}\), dan himpunan pembeda sisi lainnya yang berkardinalitas 4.
-
-\newpage
 \section{\foreign{Satisfiability Modulo Theories}}
 
 SMT, atau \foreign{satisfiability modulo theories}, secara umum adalah proses mencari nilai dari variabel-variabel dalam ekspresi matematika yang menyebabkan ekspresi tersebut menjadi benar. Jika suatu solusi ada, ekspresi tersebut terbilang \foreign{satisfiable}. Jika solusi tidak ada, ekspresi tersebut terbilang \foreign{unsatisfiable}. Proses ini tidak menentukan solusi mana yang akan diberikan, melainkan hanya mencari satu solusi apa pun, yang kemudian disebut sebagai \foreign{model}.
@@ -263,22 +210,27 @@ Penjelasan lebih lengkap mengenai SMT dapat ditemukan pada \cite{barrett2018}.
 
 \subsection{\foreign{Boolean Satisfiability}}
 
-\foreign{Boolean satisfiability} dalam SMT adalah teori yang memuat variabel boolean dan operasi boolean pada umumnya \citep{yurichev}. Sebagai ilustrasi, perhatikan ekspresi berikut.
+\foreign{Boolean satisfiability} dalam SMT adalah teori yang memuat variabel boolean dan operasi boolean pada umumnya \citep{yurichev}. Sebagai ilustrasi, perhatikan ekspresi
 
 	\[ (x_1 \land x_2) \lor (x_1 \land x_3) \]
 
-dengan \(x_1, x_2, x_3\) adalah variabel boolean. Tabel kebenaran dapat dikonstruksi untuk ekspresi tersebut.
+dengan \(x_1, x_2, x_3\) adalah variabel boolean. Tabel kebenaran untuk ekspresi tersebut dapat dikonstruksi seperti berikut:
 
 \[
 \begin{array}{cccc}
-	x_1 & x_2 & x_3 & (x_1 \land x_2) \lor (x_1 \land x_3) \\
-	\\
+	x_1 & x_2 & x_3 & (x_1 \land x_2) \lor (x_1 \land x_3) \\ [8pt]
 	\False & \False & \False & \False \\
 	 \True & \False & \False & \False \\
 	\False &  \True & \False & \False \\
 	 \True &  \True & \False &  \True \\
 	\False & \False &  \True & \False \\
 	 \True & \False &  \True &  \True \\
+\end{array}
+\]
+
+\[
+\begin{array}{cccc}
+	\phantom{\False} & \phantom{\False} & \phantom{\False} & \phantom{(x_1 \land x_2) \lor (x_1 \land x_3)} \\ [-2em]
 	\False &  \True &  \True & \False \\
 	 \True &  \True &  \True &  \True
 \end{array}
@@ -288,7 +240,6 @@ Oleh karena itu, salah satu \foreign{model} yang dapat dihasilkan oleh \foreign{
 
 Dalam \foreign{boolean satisfiability}, terdapat pula batasan \(\mathrm{AtLeast}\) dan \(\mathrm{AtMost}\) untuk menentukan paling sedikit dan paling banyak variabel yang boleh bernilai benar. Misalnya, dengan menambahkan batasan \(\mathrm{AtLeast}(3)\) ke contoh sebelumnya, \(x_1 = \True, x_2 = \False, x_3 = \True\) tidaklah lagi solusi yang sah.
 
-\newpage
 \subsection{\foreign{Pseudo Boolean}}
 
 \foreign{Pseudo boolean} adalah ekstensi dari teori \foreign{boolean satisfiability} yang dapat menyatakan bentuk ekspresi linear dengan koefisien bilangan bulat atas variabel boolean \citep{yurichev}. Teori ini mendukung tiga operasi relasi, yaitu:
@@ -317,9 +268,7 @@ dengan \(x_1, x_2, x_3, x_4\) adalah variabel boolean. Ekspresi ini memiliki sel
 
 \subsection{\foreign{Linear Integer Arithmetic}}
 
-\foreign{Linear integer arithmetic}, atau LIA, dalam SMT adalah teori yang memuat variabel \foreign{integer}, atau bilangan bulat, dan operasi \foreign{integer} pada umumnya \citep{yurichev}.
-
-Contoh \foreign{pseudo boolean} sebelumnya dapat dinyatakan ulang dalam bentuk LIA.
+\foreign{Linear integer arithmetic}, atau LIA, dalam SMT adalah teori yang memuat variabel \foreign{integer}, atau bilangan bulat, dan operasi \foreign{integer} pada umumnya \citep{yurichev}. Contoh \foreign{pseudo boolean} sebelumnya dapat dinyatakan ulang dalam bentuk LIA.
 
 \[
 \begin{array}{rcl}
@@ -333,7 +282,6 @@ Contoh \foreign{pseudo boolean} sebelumnya dapat dinyatakan ulang dalam bentuk L
 
 dengan \(x_1, x_2, x_3, x_4\) adalah variabel \foreign{integer}. \foreign{Model} yang dapat dihasilkan oleh \foreign{solver} yang mirip dengan hasil dari \foreign{pseudo boolean} sebelumnya adalah \(x_1 = 1, x_2 = 0, x_3 = 1, x_4 = 0\).
 
-\newpage
 \section{Z3}
 
 Z3 adalah salah satu dari banyak \foreign{solver} SMT yang ada. Z3 dikembangkan oleh Microsoft Research dan dirancang khusus untuk menyelesaikan formula logika dari berbagai macam jenis teori. Z3 merupakan \foreign{solver} modular, dengan menggunakan arsitektur DPLL(T), menggabungkan berbagai prosedur untuk teori-teori yang berbeda \citep{demoura2008}.
