@@ -11,34 +11,43 @@ Yang bertanda tangan di sini:
 	\renewcommand{\arraystretch}{1.5}
 	\begin{tabularx}{\linewidth}{@{\hspace{2em}}l@{\ }l@{\quad}X}
 		Nama Mahasiswa / NRP &:& \theAuthor\ / \theAuthorId \\
-		Departemen &:& \departmentNameBahasa \\
+		Departemen &:& \departmentNameHeadlessBahasa\ \facultyNameBahasaAbbreviated\ - \campusNameAbbreviated \\
 		Dosen Pembimbing / NIP &:& \supervisor\ /\newline \supervisorId
 	\end{tabularx}
 }
 
 \vspace{0.75em}
 
-dengan ini menyatakan bahwa \documentNameBahasa\ dengan judul "\titleBahasa" adalah hasil karya sendiri, bersifat orisinal, dan ditulis dengan mengikuti kaidah penulisan ilmiah.
+dengan ini menyatakan bahwa \documentNameBahasa\ dengan judul
+
+\begin{center}
+	``\titleBahasa''
+\end{center}
+
+adalah hasil karya sendiri, bersifat orisinal, dan ditulis dengan mengikuti kaidah penulisan ilmiah.
 
 Bilamana di kemudian hari ditemukan ketidaksesuaian dengan pernyataan ini, maka saya bersedia menerima sanksi sesuai dengan ketentuan yang berlaku di \campusName.
 
 \vspace{4em}
 
-\begin{flushright}
-	\theCity, \theDay\ \theMonth\ \theYear
-\end{flushright}
-
+\begin{minipage}[t]{0.05\linewidth}
+	\strut
+\end{minipage}
 \begin{minipage}[t]{0.35\linewidth}
+	\centering
+	\strut \\
 	Mengetahui, \\
 	Dosen Pembimbing
 
 	\vspace{6em}
 
 	\supervisor \\
-	\supervisorId
+	NIP. \supervisorId
 \end{minipage}
 \hfill
 \begin{minipage}[t]{0.35\linewidth}
+	\centering
+	\theCity, \theDay\ \theMonth\ \theYear \\
 	\strut \\
 	Mahasiswa
 
@@ -46,7 +55,7 @@ Bilamana di kemudian hari ditemukan ketidaksesuaian dengan pernyataan ini, maka 
 
 	\theAuthor \\
 	\strut \\
-	\theAuthorId
+	NRP. \theAuthorId
 \end{minipage}
 \begin{minipage}[t]{0.05\linewidth}
 	\strut
