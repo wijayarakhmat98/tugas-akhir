@@ -2,4 +2,24 @@
 
 \section{Kesimpulan}
 
+Tugas akhir ini bertujuan untuk mempelajari permasalahan penentuan invarian graf berupa dimensi metrik dan dimensi metrik sisi dengan memanfaatkan pendekatan berbasis \foreign{Satisfiability Modulo Theories} (SMT). Fokus tugas akhir ini meliputi hal-hal dari formulasi permasalahan ke dalam bentuk SMT, pengimplementasian formulasi tersebut, hingga evaluasi efektivitas pendekatan yang diusulkan.
+
+Berdasarkan hasil yang telah diperoleh, dapat disimpulkan bahwa:
+
+\begin{itemize}
+	\item Permasalahan dimensi metrik dan dimensi metrik sisi dapat direpresentasikan secara sistematis ke dalam bentuk formula SMT, sebagaimana telah didemonstrasikan oleh \autoref{alg:boolean-satisfiability}, \autoref{alg:linear-integer-arithmetic}, dan \autoref{alg:pseudo-boolean}.
+
+	\item Pendekatan SMT dapat digunakan secara praktikal untuk menentukan dimensi metrik maupun dimensi metrik sisi suatu graf. Terlihat dari hasil pada \autoref{sec:implementation} dan tabel-tabel frekuensi pada \autoref{sec:discussion} bahwa strategi tersebut dapat menghasilkan kedua invarian ini dengan benar.
+
+	\item Efektivitas penggunaan SMT dalam menyelesaikan permasalahan dimensi metrik dan dimensi metrik sisi bergantung pada ukuran graf dan sumber daya komputasi yang tersedia, serta pemilihan teori yang digunakan -- seperti yang telah dikaji dalam poin ke-3 pada \autoref{sec:discussion}.
+\end{itemize}
+
+Kesimpulan yang diperoleh dalam tugas akhir ini berlaku dalam batasan-batasan yang telah ditetapkan. Yaitu pemilihan graf yang sederhana, tak berarah, terhubung, dan tak berbobot; banyaknya simpul pada graf yang dibatasi sesuai dengan perencanaan pada \autoref{sec:data}; membatasi waktu eksekusi; serta melakukan eksekusi implementasi menggunakan \foreign{CPU} yang telah dispesifikasikan. Semua hal ini dielaborasikan lebih detail pada \autoref{sec:implementation}. Kebenaran hasil penentuan dimensi metrik atau dimensi metrik sisi menggunakan SMT juga dibantu validasi melalui metode \foreign{brute-force} selama \autoref{alg:brute-force} masih mampu melakukan komputasinya dengan batasan-batasan ini.
+
+Dengan demikian, secara keseluruhan, hasil tugas akhir ini menunjukkan bahwa memetakan suatu perumusan ke dalam SMT merupakan alternatif pendekatan yang layaknya cukup tajam untuk secara sistematis menghadapi permasalahan graf yang relatif rumit, seperti penentuan dimensi metrik dan dimensi metrik sisi.
+
+Saya berharap pekerjaan yang telah dicapai dalam tugas akhir ini berhasil membawa beberapa manfaat. Seperti langkah-langkah analisis yang dilakukan dalam usaha memformulasi permasalahan graf ke dalam SMT diharapkan berkontribusi memberi wawasan baru dalam pengembangan pembelajaran teori graf secara komputasional. Atau cara pemetaan rumusan penentuan dimensi metrik dan dimensi metrik sisi spesifik pada tugas akhir ini yang mungkin menjadi dasar awal untuk pengembangan lebih lanjut. Maupun dokumentasi, implementasi, dan hasil yang diperoleh dapat menjadi referensi bagi tugas akhir atau penelitian selanjutnya dalam teori graf serta bidang ilmu komputer.
+
+Akhirnya, ini menunjukkan ujung dari tugas akhir saya. Bila terdapat kekurangan atau hal-hal yang kurang tepat dalam penyajian maupun analisis, sepenuhnya merupakan tanggung jawab pribadi, dan mohon kiranya pembaca dapat memaklumi. Segala macam koreksi maupun saran dan kritik yang konstruktif, akan sangat diterima.
+
 \section{Saran}
