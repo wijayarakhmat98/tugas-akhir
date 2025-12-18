@@ -106,7 +106,16 @@
 
 \begin{document}
 
-\input{cover}
+{
+	\makeatletter
+	\if@openright
+		%
+	\else
+		\renewcommand{\cleardoublepage}{\clearpage}
+	\fi
+	\makeatother
+	\input{cover}
+}
 \clearpage
 
 \frontmatter
@@ -167,5 +176,7 @@
 
 \input{Biography}
 \clearpage
+
+\cleardoublepage
 
 \end{document}
