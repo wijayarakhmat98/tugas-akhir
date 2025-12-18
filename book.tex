@@ -1,19 +1,43 @@
+\newlength{\margIn}
+\newlength{\margOut}
+\newlength{\margTop}
+\newlength{\margBot}
+
 % \documentclass[12pt,openright]{book}
 % \usepackage{emptypage}
-% \PassOptionsToPackage{a4paper, inner=3cm, outer=2cm, top=2.5cm, bottom=2.5cm}{geometry}
+% \setlength{\margIn}{3cm}
+% \setlength{\margOut}{2cm}
+% \setlength{\margTop}{2.5cm}
+% \setlength{\margBot}{2.5cm}
+% \PassOptionsToPackage{a4paper}{geometry}
 
 % \documentclass[12pt,openany]{book}
-% \usepackage{emptypage}
-% \PassOptionsToPackage{a4paper, inner=3cm, outer=2cm, top=2.5cm, bottom=2.5cm}{geometry}
+% \renewcommand{\cleardoublepage}{\clearpage}
+% \setlength{\margIn}{3cm}
+% \setlength{\margOut}{2cm}
+% \setlength{\margTop}{2.5cm}
+% \setlength{\margBot}{2.5cm}
+% \PassOptionsToPackage{a4paper}{geometry}
 
 % \documentclass[12pt,openright]{book}
-% \PassOptionsToPackage{paperwidth=17cm, paperheight=25.7cm, margin=.5cm}{geometry}
+% \usepackage{emptypage}
+% \setlength{\margIn}{.5cm}
+% \setlength{\margOut}{.5cm}
+% \setlength{\margTop}{.5cm}
+% \setlength{\margBot}{.5cm}
+% \PassOptionsToPackage{paperwidth=17cm, paperheight=25.7cm}{geometry}
 
 \documentclass[12pt,openany]{book}
-\PassOptionsToPackage{paperwidth=17cm, paperheight=25.7cm, margin=.5cm}{geometry}
+\renewcommand{\cleardoublepage}{\clearpage}
+\setlength{\margIn}{.5cm}
+\setlength{\margOut}{.5cm}
+\setlength{\margTop}{.5cm}
+\setlength{\margBot}{.5cm}
+\PassOptionsToPackage{paperwidth=17cm, paperheight=25.7cm}{geometry}
 
 \PassOptionsToPackage{english,main=indonesian}{babel}
 \PassOptionsToPackage{autostyle}{csquotes}
+\PassOptionsToPackage{inner=\margIn, outer=\margOut, top=\margTop, bottom=\margBot}{geometry}
 \PassOptionsToPackage{hidelinks}{hyperref}
 \PassOptionsToPackage{authoryear}{natbib}
 \PassOptionsToPackage{table,xcdraw}{xcolor}
@@ -94,89 +118,97 @@
 
 \raggedbottom
 
-\pagestyle{fancy}
-\fancyhf{}
 \renewcommand{\headrulewidth}{0pt}
-\fancyfoot[LE,RO]{\thepage}
-\fancypagestyle{plain}{
-	\fancyfoot[LE,RO]{\thepage}
+
+\newcommand\abspagenumber{\inteval{\ReadonlyShipoutCounter+1}}
+
+\newcommand{\margRepair}{
+	\ifodd\abspagenumber
+		\newgeometry{inner=\margIn, outer=\margOut, top=\margTop, bottom=\margBot}
+	\else
+		\newgeometry{inner=\margOut, outer=\margIn, top=\margTop, bottom=\margBot}
+	\fi
 }
+
+\newcommand{\footRepair}{
+	\ifodd\abspagenumber
+		\fancyhf{}
+		\fancypagestyle{plain}{\fancyfoot[RO,LE]{\thepage}}
+		\pagestyle{plain}
+	\else
+		\fancyhf{}
+		\fancypagestyle{plain}{\fancyfoot[RE,LO]{\thepage}}
+		\pagestyle{plain}
+	\fi
+}
+
+\let\ORIGINALfrontmatter\frontmatter
+\let\ORIGINALmainmatter\mainmatter
+\renewcommand{\frontmatter}{\ORIGINALfrontmatter \margRepair \footRepair}
+\renewcommand{\mainmatter}{\ORIGINALmainmatter \margRepair \footRepair}
 
 \input{constants}
 
 \begin{document}
-
-{
-	\makeatletter
-	\if@openright
-		%
-	\else
-		\renewcommand{\cleardoublepage}{\clearpage}
-	\fi
-	\makeatother
 	\input{cover}
-}
-\clearpage
+	\cleardoublepage
 
-\frontmatter
+	\frontmatter
 
-\input{endorsement-statement}
-\clearpage
+	\input{endorsement-statement}
+	\cleardoublepage
 
-\input{originality-statement}
-\clearpage
+	\input{originality-statement}
+	\cleardoublepage
 
-\input{abstract}
-\clearpage
+	\input{abstract}
+	\cleardoublepage
 
-\input{preface}
-\clearpage
+	\input{preface}
+	\cleardoublepage
 
-\addcontentsline{toc}{chapter}{Daftar Isi}
-\tableofcontents
-\clearpage
+	\addcontentsline{toc}{chapter}{Daftar Isi}
+	\tableofcontents
+	\cleardoublepage
 
-\addcontentsline{toc}{chapter}{Daftar Gambar}
-\listoffigures
-\clearpage
+	\addcontentsline{toc}{chapter}{Daftar Gambar}
+	\listoffigures
+	\cleardoublepage
 
-\addcontentsline{toc}{chapter}{Daftar Tabel}
-\listoftables
-\clearpage
+	\addcontentsline{toc}{chapter}{Daftar Tabel}
+	\listoftables
+	\cleardoublepage
 
-\mainmatter
+	\mainmatter
 
-\input{chapter-1}
-\clearpage
+	\input{chapter-1}
+	\cleardoublepage
 
-\input{chapter-2}
-\clearpage
+	\input{chapter-2}
+	\cleardoublepage
 
-\input{chapter-3}
-\clearpage
+	\input{chapter-3}
+	\cleardoublepage
 
-\input{chapter-4}
-\clearpage
+	\input{chapter-4}
+	\cleardoublepage
 
-\input{chapter-5}
-\clearpage
+	\input{chapter-5}
+	\cleardoublepage
 
-\backmatter
+	\backmatter
 
-\input{appendix}
-\clearpage
+	\input{appendix}
+	\cleardoublepage
 
-\addcontentsline{toc}{chapter}{Daftar Pustaka}
-\bibliographystyle{apalike}
-\bibliography{references}
-\clearpage
+	\addcontentsline{toc}{chapter}{Daftar Pustaka}
+	\bibliographystyle{apalike}
+	\bibliography{references}
+	\cleardoublepage
 
-\input{acknowledgement}
-\clearpage
+	\input{acknowledgement}
+	\cleardoublepage
 
-\input{Biography}
-\clearpage
-
-\cleardoublepage
-
+	\input{Biography}
+	\cleardoublepage
 \end{document}
