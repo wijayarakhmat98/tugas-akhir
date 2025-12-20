@@ -7,9 +7,92 @@
 \section{Implementasi Algoritma}
 \label[appsec]{app:code}
 
-\textit{...link to where the code is hosted...}
+\url{https://drive.google.com/drive/folders/1x_BZM-u7V-4VzNNbLmnsEhucgznmdhWr}
+
+Debian Sid.
+
+\begin{Verbatim}[gobble=1, xleftmargin=2em]
+	apt install nauty
+\end{Verbatim}
+
+\verb`name=MD-Z3`
+
+\begin{Verbatim}[gobble=1, xleftmargin=2em]
+	conda env create -f environment.yml -n ${name}
+\end{Verbatim}
+
+\begin{Verbatim}[gobble=1, xleftmargin=2em]
+	conda activate ${name}
+\end{Verbatim}
+
+\verb`nV=4`
+
+\begin{Verbatim}[gobble=1, xleftmargin=2em]
+	nauty-geng -cq ${nV}
+	 | ./process jsonify
+	 | ./process add --key=${invariant}
+	 | ./process add --key=algorithm --value=${}
+	 | ./process metric_dimension
+\end{Verbatim}
+
+\verb`./process simplify`
+
+\verb`metric_dimension` \\
+\verb`edge_metric_dimension`
+
+\verb`bruteforce` \\
+\verb`boolean_satisfiability` \\
+\verb`linear_integer_arithmetic` \\
+\verb`pseudo_boolean`
+
+\begin{Verbatim}[gobble=1, xleftmargin=2em]
+	echo CV
+	 | ./process jsonify
+	 | ./process add --key=edge_metric_dimension
+	 | ./process add --key=algorithm --value=boolean_satisfiability
+	 | ./process metric_dimension
+	 | ./process simplify
+\end{Verbatim}
+
+\begin{Verbatim}[gobble=1, xleftmargin=2em, xrightmargin=2em]
+	{"graph": "CV", "edge_metric_dimension": 2, "algorithm": "boolea
+	n_satisfiability", "vertices": 4, "edges": 4, "EMD_time": 0.1258
+	5456800115935}
+\end{Verbatim}
 
 \section{Data Hasil Eksekusi}
 \label[appsec]{app:result}
+
+\verb`nV=8`
+
+\begin{Verbatim}[gobble=1, xleftmargin=2em]
+	nauty-geng -cq ${nV}
+\end{Verbatim}
+
+\verb`nV=35`
+
+\begin{Verbatim}[gobble=1, xleftmargin=2em]
+	nauty-genrang -gq ${nV} 1000
+	 | nauty-labelg -q
+	 | nauty-pickg -qvc0
+	 | sort -u
+	 | head -50
+\end{Verbatim}
+
+\begin{Verbatim}[gobble=1, xleftmargin=2em]
+	./benchmark-exec batch-all
+\end{Verbatim}
+
+\verb`benchmark-result/batch-all.txt`
+
+\begin{Verbatim}[gobble=1, xleftmargin=2em]
+	./benchmark-exec simplify
+	./benchmark-exec sort
+	./benchmark-exec csv
+\end{Verbatim}
+
+Monday, November 17, 2025
+
+\verb`benchmark-result/batch-all.csv`
 
 \textit{...link to where the result is hosted...}

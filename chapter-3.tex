@@ -23,15 +23,15 @@ Data graf yang digunakan dibagi menjadi dua kategori: graf kecil (2 hingga 9 sim
 
 	\item Graf Kecil
 
-	Graf tak berarah dengan banyak simpul 2 hingga 9 digenerasikan menggunakan program \texttt{nauty-geng}. Program ini menghasilkan seluruh graf dengan banyak simpul yang dispesifikasikan dan juga mengeliminasi semua redundansi automorfimanya. Opsi \texttt{-c} diberikan kepada program untuk memastikan hanya graf terhubung yang dihasilkan.
+	Graf tak berarah dengan banyak simpul 2 hingga 9 digenerasikan menggunakan program \verb`nauty-geng`. Program ini menghasilkan seluruh graf dengan banyak simpul yang dispesifikasikan dan juga mengeliminasi semua redundansi automorfimanya. Opsi \verb`-c` diberikan kepada program untuk memastikan hanya graf terhubung yang dihasilkan.
 
 	\item Graf Besar
 
-	Graf besar digenerasikan secara acak menggunakan program \texttt{nauty-genrang}. Opsi \texttt{-g} diberikan kepada program untuk memastikan hanya graf tak berarah yang dihasilkan. Untuk menghindari duplikasi akibat automorfisma, setiap graf diproses menggunakan program \texttt{nauty-labelg} untuk menghasilkan representasi kanonik. Kemudian, program \texttt{nauty-pickg} dengan opsi \texttt{-vc0} digunakan untuk memilih hanya graf yang terkoneksi.
+	Graf besar digenerasikan secara acak menggunakan program \verb`nauty-genrang`. Opsi \verb`-g` diberikan kepada program untuk memastikan hanya graf tak berarah yang dihasilkan. Untuk menghindari duplikasi akibat automorfisma, setiap graf diproses menggunakan program \verb`nauty-labelg` untuk menghasilkan representasi kanonik. Kemudian, program \verb`nauty-pickg` dengan opsi \verb`-vc0` digunakan untuk memilih hanya graf yang terkoneksi.
 
 \end{itemize}
 
-Semua graf disimpan dalam \foreign{file} teks menggunakan format \texttt{graph6}. Graf dengan banyak simpul yang sama disimpan dalam file yang sama.
+Semua graf disimpan dalam \foreign{file} teks menggunakan format \verb`graph6`. Graf dengan banyak simpul yang sama disimpan dalam file yang sama.
 
 Banyak simpul maksimum yang dapat diuji bergantung pada keterbatasan waktu dan sumber daya komputasi yang tersedia.
 
@@ -51,7 +51,7 @@ Pada tahap ini dilakukan eksplorasi SMT \foreign{solver}, yaitu Z3, menggunakan 
 
 \section{Perancangan Algoritma}
 
-Perancangan algoritma difokuskan pada formulasi masalah dimensi metrik ke dalam bentuk SMT. Pertama, graf direpresentasikan dalam bentuk matriks ketetanggaan yang dibaca dari format \texttt{graph6}. Kedua, matriks jarak dapat dibangun dari matriks ketetanggaan menggunakan algoritma \foreign{Floyd–Warshall}. Kemudian, berdasarkan dua informasi ini, dirancanglah algoritma yang memetakan pencarian dimensi metrik ke dalam bentuk batasan yang dapat dicerna oleh SMT.
+Perancangan algoritma difokuskan pada formulasi masalah dimensi metrik ke dalam bentuk SMT. Pertama, graf direpresentasikan dalam bentuk matriks ketetanggaan yang dibaca dari format \verb`graph6`. Kedua, matriks jarak dapat dibangun dari matriks ketetanggaan menggunakan algoritma \foreign{Floyd–Warshall}. Kemudian, berdasarkan dua informasi ini, dirancanglah algoritma yang memetakan pencarian dimensi metrik ke dalam bentuk batasan yang dapat dicerna oleh SMT.
 
 \section{Implementasi Algoritma}
 
@@ -59,7 +59,7 @@ Algoritma yang telah dirancang kemudian diimplementasikan ke bentuk kode. Hal-ha
 
 \begin{itemize}
 
-		\item Pembacaan graf dari \foreign{file} teks \texttt{graph6}.
+		\item Pembacaan graf dari \foreign{file} teks \verb`graph6`.
 
 		\item Formulasi batasan untuk SMT dari informasi graf.
 
