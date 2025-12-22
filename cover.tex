@@ -11,6 +11,14 @@
 
 \vspace{2em}
 
+{
+\color{white}
+\begin{tikzpicture}[remember picture, overlay]
+  \fill[itsBlue]
+    ([yshift=-5cm]current page.north west)
+    rectangle
+    (current page.south east);
+\end{tikzpicture}%
 \textbf{\large\documentNameBahasa\ - \documentCode}
 
 \vfill
@@ -50,6 +58,7 @@ NIP \supervisorId
 \theCity
 
 \theYear
+}
 
 \cleardoublepage
 \thispagestyle{empty}
