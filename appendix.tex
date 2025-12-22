@@ -7,44 +7,45 @@
 \section{Implementasi Algoritma}
 \label[appsec]{app:code}
 
-\url{https://drive.google.com/drive/folders/1x_BZM-u7V-4VzNNbLmnsEhucgznmdhWr}
+Implementasi yang digunakan untuk menghasilkan data yang digunakan pada \autoref{sec:discussion} dapat diakses melalui \foreign{link} berikut: \url{https://drive.google.com/drive/folders/1x_BZM-u7V-4VzNNbLmnsEhucgznmdhWr}.
 
-Debian Sid.
+Seluruh \foreign{development} kode tersebut dilakukan dalam sistem operasi Debian Sid. Untuk mendapatkan \foreign{development environment} yang sama, lakukan \foreign{setup} \foreign{package manager} untuk \foreign{Python} bernama \foreign{conda}, kemudian buatlah \foreign{environment} bernama \verb`name=MD-Z3` sesuai dengan \foreign{file} \linebreak \verb`environment.yml`. Cara paling mudah adalah dengan mengeksekusi \foreign{command} berikut:
+\begin{Verbatim}[gobble=1, xleftmargin=2em]
+	conda env create -f environment.yml -n ${name}
+\end{Verbatim}
+Kemudian, environment tersebut dapat diaktivasi dengan \verb`conda activate ${name}`.
 
+Tugas akhir ini menggunakan aplikasi \verb`nauty` untuk membuat data graf yang digunakan, dan dapat di\foreign{install} menggunakan \foreign{command} berikut:
 \begin{Verbatim}[gobble=1, xleftmargin=2em]
 	apt install nauty
 \end{Verbatim}
 
-\verb`name=MD-Z3`
-
-\begin{Verbatim}[gobble=1, xleftmargin=2em]
-	conda env create -f environment.yml -n ${name}
-\end{Verbatim}
-
-\begin{Verbatim}[gobble=1, xleftmargin=2em]
-	conda activate ${name}
-\end{Verbatim}
-
-\verb`nV=4`
-
+Cara mencari \verb`invariant=metric_dimension` untuk seluruh graf dengan \verb`nV` simpul menggunakan algoritma \verb`method` adalah sebagai berikut:
 \begin{Verbatim}[gobble=1, xleftmargin=2em]
 	nauty-geng -cq ${nV}
 	 | ./process jsonify
 	 | ./process add --key=${invariant}
-	 | ./process add --key=algorithm --value=${}
+	 | ./process add --key=algorithm --value=${method}
 	 | ./process metric_dimension
 \end{Verbatim}
 
-\verb`./process simplify`
+Hasil dari \verb`./process metric_dimension` dapat disederhanakan dengan melakukan \foreign{pipe} \foreign{output}nya ke \verb`./process simplify` untuk mempermudah pembacaan.
 
-\verb`metric_dimension` \\
-\verb`edge_metric_dimension`
+\foreign{Value} yang dimungkinkan untuk \verb`invariant` adalah:
+\begin{itemize}
+	\item \verb`metric_dimension` untuk mencari dimensi metrik
+	\item \verb`edge_metric_dimension` untuk mencari dimensi metrik sisi
+\end{itemize}
 
-\verb`bruteforce` \\
-\verb`boolean_satisfiability` \\
-\verb`linear_integer_arithmetic` \\
-\verb`pseudo_boolean`
+\foreign{Value} yang dimungkinkan untuk \verb`method` adalah:
+\begin{itemize}
+	\item \verb`bruteforce` untuk \autoref{alg:brute-force}
+	\item \verb`boolean_satisfiability` untuk \autoref{alg:boolean-satisfiability}
+	\item \verb`linear_integer_arithmetic` untuk \autoref{alg:linear-integer-arithmetic}
+	\item \verb`pseudo_boolean` untuk \autoref{alg:pseudo-boolean}
+\end{itemize}
 
+Dengan demikian, untuk graf \verb`CV` (representasi dalam \verb`graph6`), dimensi metrik sisinya dapat ditentukan menggunakan \autoref{alg:boolean-satisfiability} dengan \foreign{command} berikut:
 \begin{Verbatim}[gobble=1, xleftmargin=2em]
 	echo CV
 	 | ./process jsonify
@@ -54,6 +55,7 @@ Debian Sid.
 	 | ./process simplify
 \end{Verbatim}
 
+Dan akan menghasilkan \foreign{output} berikut:
 \begin{Verbatim}[gobble=1, xleftmargin=2em, xrightmargin=2em]
 	{"graph": "CV", "edge_metric_dimension": 2, "algorithm": "boolea
 	n_satisfiability", "vertices": 4, "edges": 4, "EMD_time": 0.1258
@@ -63,14 +65,12 @@ Debian Sid.
 \section{Data Hasil Eksekusi}
 \label[appsec]{app:result}
 
-\verb`nV=8`
-
+Data graf yang digunakan dalam tugas akhir ini dapat ditemukan dalam \foreign{folder} \verb`benchmark-sou` \verb`rce`. Untuk graf kecil, data graf dengan \verb`nV` simpul dibuat menggunakan \foreign{command} berikut:
 \begin{Verbatim}[gobble=1, xleftmargin=2em]
 	nauty-geng -cq ${nV}
 \end{Verbatim}
 
-\verb`nV=35`
-
+Untuk graf besar, data graf dibuat menggunakan \foreign{command} berikut:
 \begin{Verbatim}[gobble=1, xleftmargin=2em]
 	nauty-genrang -gq ${nV} 1000
 	 | nauty-labelg -q
@@ -79,20 +79,20 @@ Debian Sid.
 	 | head -50
 \end{Verbatim}
 
+Akhirnya, evaluasi dapat dilakukan dengan \foreign{command} berikut:
 \begin{Verbatim}[gobble=1, xleftmargin=2em]
 	./benchmark-exec batch-all
 \end{Verbatim}
 
-\verb`benchmark-result/batch-all.txt`
+Hasil yang diperoleh direkam dalam file \verb`benchmark-result/batch-all.txt`.
 
+Untuk mempermudah analisis, hasil tersebut dapat disederhanakan dan ditransformasikan ke dalam bentuk \verb`CSV` dengan \foreign{command} berikut:
 \begin{Verbatim}[gobble=1, xleftmargin=2em]
 	./benchmark-exec simplify
 	./benchmark-exec sort
 	./benchmark-exec csv
 \end{Verbatim}
 
-Monday, November 17, 2025
+Setelah proses ini, akan dihasilkan file \verb`benchmark-result/batch-all.csv`.
 
-\verb`benchmark-result/batch-all.csv`
-
-\url{https://docs.google.com/spreadsheets/d/1f_0542zs0o7-m6yWZ5UTUYbEJ2W7uh0hArkL4eQQN-E}
+Data yang dibahas pada \autoref{sec:discussion} diperoleh melalui metode di atas, dilakukan pada Senin, 17 Nopember 2025, dan dapat diakses pada \foreign{link} berikut: \url{https://docs.google.com/spreadsheets/d/1f_0542zs0o7-m6yWZ5UTUYbEJ2W7uh0hArkL4eQQN-E}.
