@@ -22,38 +22,28 @@ Akhirnya, ini menunjukkan ujung dari tugas akhir saya. Bila terdapat kekurangan 
 
 \section{Saran}
 
-Interval lebih kecil.
+Banyak aspek dari tugas akhir ini yang masih dapat dikembangkan lebih lanjut. Bagian ini menyajikan beberapa saran sebagai bahan pertimbangan untuk area-area yang dapat dipelajari lebih lanjut. Diskusi saran di sini mencakup aspek lingkup eksperimen, implementasi algoritma, desain algoritma, eksekusi eksperimen, variasi graf, alternatif teori, serta eksplorasi aplikasi.
 
-Graf lebih besar.
+Secara lingkup eksperimen, batasan-batasan sebagaimana pada \autoref{sec:implementation} dipilih atas pertimbangan praktikalitas pengerjaan dengan waktu dan sumber daya yang tersedia dalam penyusunan tugas akhir ini. Namun, dengan telah selesainya perancangan teori yang mendasari formulasi algoritma-algoritma sebagaimana pada \autoref{sec:alg}, skema eksekusi eksperimen dapat dikembangkan lebih lanjut. Misalnya, evaluasi dapat dilakukan pada graf berukuran lebih besar, mengingat evaluasi pada tugas akhir ini dibatasi hingga 50 simpul. Dengan demikian, batasan waktu eksekusi per iterasi dalam tugas akhir ini yang ditetapkan selama 5 menit dapat diperpanjang untuk mendukung evaluasi graf lebih besar, seiring meningkatnya waktu eksekusi yang cenderung bersifat kombinatorial. Selain itu, interval kenaikan banyak simpul untuk graf besar dapat diperkecil. Dalam tugas akhir ini, interval yang digunakan relatif besar, yaitu 5 simpul. Dengan interval kenaikan simpul lebih kecil, tren seperti pada \autoref{sec:discussion} dapat diperoleh dengan resolusi lebih tinggi, sehingga analisis yang dilakukan dapat menjadi lebih spesifik. Selanjutnya, karena data analisis untuk graf besar pada dasarnya merupakan sampel dari seluruh kemungkinan graf yang ada, maka dapat diambil lebih banyak data. Dalam tugas akhir ini diambil 50 graf sembarang untuk setiap graf bersimpul \(n\); dengan memperbanyak graf yang dievaluasi, karakteristik tabel frekuensi untuk graf besar serta hasil perhitungan rata-rata waktu eksekusi diharapkan dapat menggambarkan variasi antar algoritma yang lebih kaya.
 
-Data lebih banyak.
+Secara implementasi algoritma, dapat dilakukan modifikasi cara penerapan batasan waktu eksekusi. Pada tugas akhir ini, batas waktu diberikan pada setiap iterasi kardinalitasnya. Hal ini dapat diubah menjadi batasan waktu secara eksekusi total algoritma, yaitu dari awal hingga akhir ditemukannya dimensi metrik ataupun dimensi metrik sisi.
 
-Waktu lebih lama.
+Secara desain algoritma, terdapat tiga arah pengembangan yang dapat dilakukan. Yang paling sederhana adalah aspek perbandingan algoritma terhadap metode \foreign{brute-force}. Dalam tugas akhir ini, desain algoritma \foreign{brute-force} menggunakan landasan teori yang sama dengan algoritma berbasis SMT. Oleh karena itu, artinya metode ini tidak sepenuhnya murni \foreign{brute-force}. Analisis dapat dikembangkan dengan mendesain algoritma \foreign{brute-force} yang lebih \foreign{naive}, dan melihat apakah perbandingan evaluasi terhadap \foreign{brute-force} baru ini menghasilkan kesimpulan yang sama seperti yang ditarik pada \autoref{sec:discussion}. Berikutnya, aspek yang lebih menarik adalah mencoba teori lain dalam SMT, karena tugas akhir ini baru mengeksplorasi pemetaan \foreign{constraint} ke dalam \foreign{boolean satisfiability}, \foreign{linear integer arithmetic}, dan \foreign{pseudo boolean}. Mungkin terdapat teori SMT dengan \foreign{construct} yang lebih tinggi ataupun lebih rendah yang dapat menghasilkan waktu eksekusi lebih cepat, baik untuk graf kecil maupun graf besar. Akhirnya, aspek yang paling menantang untuk dikembangkan adalah mempelajari cara kerja \foreign{conflict driven learning} yang fundamental dalam SMT, dan memformulasi pemetaan yang dapat mengeksploitasi mekanisme ini dengan lebih efektif.
 
-Alternatif batasan waktu.
+Secara eksekusi eksperimen, terdapat dua pendekatan yang dapat dicoba. Pertama adalah menggunakan \foreign{solver} SMT selain Z3. Kedua adalah menggunakan \foreign{solver} yang memiliki kemampuan \foreign{parallelism}, sehingga dapat memanfaatkan \foreign{multi-core} untuk eksekusi satu individu graf, tanpa mengubah kode implementasi sama sekali. Hasil yang diperoleh dari kedua pendekatan ini kemudian dapat dibandingkan dengan hasil eksekusi klasik menggunakan Z3.
 
-Brute-force lebih \foreign{naive}.
+Secara variasi graf, terdapat banyak variasi yang dapat dilakukan. Beberapa contohnya dijelaskan berikut ini. Contoh yang paling jelas adalah dimensi metrik itu sendiri. Tugas akhir ini hanya mengkaji dimensi metrik pada bentuk klasiknya dan dimensi metrik sisi. Beberapa contoh variasi dimensi metrik yang dapat dicoba antara lain adalah \foreign{local metric dimension}, \foreign{mixed metric dimension}, \foreign{k-metric dimension}, \foreign{fault tolerant metric dimension}, \foreign{strong metric dimension}, dan variasi lainnya. Hal lain yang dapat diubah adalah asumsi dalam graf yang digunakan untuk menentukan dimensi metrik itu sendiri. Misalnya, dapat dicoba graf berbobot, atau graf berarah, atau graf tak sederhana, dan sebagainya.
 
-Teori SMT lainnya.
+Secara alternatif teori, yang dimaksud adalah pengembangan dari landasan teori fundamental yang telah dikerjakan oleh tugas akhir ini untuk desain setiap algoritmanya, yaitu \foreign{distance similarity matrix}. Pertama, representasi matriks paling optimal ketika graf yang bersangkutan cenderung \foreign{dense}. Sehingga, teori ini dapat dieksplorasi lebih lanjut sifat-sifatnya untuk graf yang cenderung \foreign{sparse}, dan apakah mampu dimodifikasi agar lebih efisien. Kedua, dapat dipelajari lebih lanjut apakah struktur \foreign{distance similarity matrix} ramah untuk melakukan optimasi menggunakan metode \foreign{divide and conquer}, atau apakah matriks ini memiliki struktur yang cukup terkait satu sama lain sehingga menghentikan pendekatan ini. Ketiga, dapat dipelajari apakah pemetaan \foreign{distance similarity matrix} ke \foreign{constraint} dalam SMT mungkin untuk dikonstruksikan sedemikian rupa ramah terhadap paralelisasi. Keempat, eksplorasi teori-teori graf lainnya yang mungkin dapat dimanfaatkan untuk mengambil inferensi dari maupun melakukan transformasi pada \foreign{distance similarity matrix}.
 
-Exploitasi \foreign{conflict driven learning} yang lebih efektif.
+Terakhir, adalah eksplorasi aplikasi. Di luar aplikasi yang telah dibahas pada \autoref{sec:application}, masih banyak lagi potensi penggunaan dimensi metrik yang dapat dieksplorasi, misalnya dalam bidang kimia. Simpul dapat dimodelkan sebagai atom dan sisi sebagai ikatan; dimensi metrik dapat digunakan untuk analisis terkait atom, seperti analisis pola struktural, sedangkan dimensi metrik sisi dapat digunakan untuk analisis terkait ikatan, seperti analisis functional group. Beberapa contoh aplikasinya antara lain adalah:
 
-Solver yang berbeda.
+\begin{itemize}
+	\item Banyak senyawa kimia memiliki komposisi elemen yang sama tetapi struktur berbeda. Dimensi metrik dapat digunakan untuk identifikasi isomer.
 
-Solver yang parallel.
+	\item Banyak senyawa kimia memiliki derajat kesimetrian yang tinggi, sehingga mereka tampak sama secara lokal. Dimensi metrik sisi dapat digunakan untuk memecah kesimetrian topologi.
 
-Variasi dimensi metrik.
+	\item Dalam machine learning, biasanya diperlukan data dalam bentuk vektor, sedangkan senyawa kimia biasanya direpresentasikan dalam bentuk simbolik. Dimensi metrik berpotensi berfungsi sebagai encoding yang efektif untuk merepresentasikan senyawa ke dalam representasi vektor.
+\end{itemize}
 
-Graf berbobot.
-
-Graf berarah.
-
-\foreign{Sparse large graph}.
-
-Paralelisasi algoritma.
-
-\foreign{Divide and conquer}.
-
-\foreign{Covering graph}.
-
-Aplikasi Kimia.
+Secara keseluruhan, saran-saran yang disampaikan pada bagian ini bertujuan untuk membuka peluang pengembangan lebih lanjut. Diharapkan tugas akhir ini dapat menjadi dasar yang lebih kaya untuk studi selanjutnya dalam bidang teori graf dan penerapannya secara komputasional. Segala pengembangan ini diharapkan tidak hanya meningkatkan efektivitas algoritma, tetapi juga memperluas pemahaman dan aplikasi dimensi metrik dalam konteks yang lebih luas.
