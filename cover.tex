@@ -1,4 +1,5 @@
 {
+	\newgeometry{inner=\margOut, outer=\margOut, top=\margOut, bottom=\margOut}
 	\thispagestyle{empty}
 	\setlength{\parindent}{0pt}
 	\setlength{\parskip}{0.5\baselineskip}
@@ -6,7 +7,7 @@
 
 	\begin{tikzpicture}[remember picture, overlay]
 		\fill[itsBlue]
-			([yshift=-\dimexpr (4cm + \margTop) \relax]current page.north west)
+			([yshift=-\dimexpr (4cm + \margOut) \relax]current page.north west)
 			rectangle
 			(current page.south east);
 	\end{tikzpicture}%
@@ -26,7 +27,7 @@
 	\vfill
 
 	\hfill
-	\begin{minipage}[t][3cm]{\dimexpr \linewidth - 2.5em \relax}
+	\begin{minipage}[t][2cm]{\dimexpr \linewidth - 2.5em \relax}
 		\raggedright
 		\Large
 		\textsf{\textbf{\MakeUppercase{\titleBahasa}}}
@@ -61,11 +62,14 @@
 	\hspace{2.5em}\textsf{\theCity}
 
 	\hspace{2.5em}\textsf{\theYear}
+
+	\restoregeometry
 }
 
 \cleardoublepage
 
 {
+	\newgeometry{inner=\margOut, outer=\margOut, top=\margOut, bottom=\margOut}
 	\thispagestyle{empty}
 	\setlength{\parindent}{0pt}
 	\setlength{\parskip}{0.5\baselineskip}
@@ -86,7 +90,7 @@
 	\vfill
 
 	\hfill
-	\begin{minipage}[t][3cm]{\dimexpr \linewidth - 2.5em \relax}
+	\begin{minipage}[t][2cm]{\dimexpr \linewidth - 2.5em \relax}
 		\raggedright
 		\Large
 		\textsf{\textbf{\MakeUppercase{\titleBahasa}}}
@@ -121,11 +125,14 @@
 	\hspace{2.5em}\textsf{\theCity}
 
 	\hspace{2.5em}\textsf{\theYear}
+
+	\restoregeometry
 }
 
 \cleardoublepage
 
 {
+	\newgeometry{inner=\margOut, outer=\margOut, top=\margOut, bottom=\margOut}
 	\thispagestyle{empty}
 	\setlength{\parindent}{0pt}
 	\setlength{\parskip}{0.5\baselineskip}
@@ -146,7 +153,7 @@
 	\vfill
 
 	\hfill
-	\begin{minipage}[t][3cm]{\dimexpr \linewidth - 2.5em \relax}
+	\begin{minipage}[t][2cm]{\dimexpr \linewidth - 2.5em \relax}
 		\raggedright
 		\Large
 		\textsf{\textbf{\MakeUppercase{\titleEnglish}}}
@@ -181,4 +188,6 @@
 	\hspace{2.5em}\textsf{\theCity}
 
 	\hspace{2.5em}\textsf{\theYear}
+
+	\restoregeometry
 }
