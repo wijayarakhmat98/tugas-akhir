@@ -99,21 +99,21 @@ Dengan demikian, didapatkan desain algoritma yang melakukan pencarian dari atas.
 
 \begin{example}
 	Ambil graf \autoref{fig:algorithm-example}, dan cari dimensi metriknya menggunakan \autoref{alg:boolean-satisfiability}. \foreign{Constraint} yang digunakan sesuai dengan \autoref{ex:boolean-satisfiability}. Kemudian, untuk masing-masing tahap berikut, diterapkan \foreign{constraint} tambahan \(\AtLeast\) dan \(\AtMost\) sama dengan \(k\).
-	\begin{itemize}
+	\begin{enumerate}
 		\item Untuk \(k = 5\), ditemukan \(\sat\).
 		\item Untuk \(k = 4\), ditemukan \(\sat\).
 		\item Untuk \(k = 3\), ditemukan \(\sat\).
 		\item Untuk \(k = 2\), ditemukan \(\unsat\).
-	\end{itemize}
+	\end{enumerate}
 	Disimpulkan bahwa \(2 + 1 = 3\) adalah dimensi metrik dari graf tersebut.
 \end{example}
 
 \begin{algorithm}
 	\foreign{Input}:
-	\begin{itemize}
+	\begin{enumerate}
 		\item Representasi graf dalam representasi matriks ketetanggaan \(M\).
 		\item Mencari dimensi metrik atau dimensi metrik sisi?
-	\end{itemize}
+	\end{enumerate}
 	Prosedur:
 	\begin{enumerate}
 		\item[1--5.] Sama seperti pada \autoref{alg:brute-force}.

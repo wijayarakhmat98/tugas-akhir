@@ -32,18 +32,18 @@ Cara mencari \verb`invariant=metric_dimension` untuk seluruh graf dengan \verb`n
 Hasil dari \verb`./process metric_dimension` dapat disederhanakan dengan melakukan \foreign{pipe} \foreign{output}nya ke \verb`./process simplify` untuk mempermudah pembacaan.
 
 \foreign{Value} yang dimungkinkan untuk \verb`invariant` adalah:
-\begin{itemize}
+\begin{enumerate}
 	\item \verb`metric_dimension` untuk mencari dimensi metrik
 	\item \verb`edge_metric_dimension` untuk mencari dimensi metrik sisi
-\end{itemize}
+\end{enumerate}
 
 \foreign{Value} yang dimungkinkan untuk \verb`method` adalah:
-\begin{itemize}
+\begin{enumerate}
 	\item \verb`bruteforce` untuk \autoref{alg:brute-force}
 	\item \verb`boolean_satisfiability` untuk \autoref{alg:boolean-satisfiability}
 	\item \verb`linear_integer_arithmetic` untuk \autoref{alg:linear-integer-arithmetic}
 	\item \verb`pseudo_boolean` untuk \autoref{alg:pseudo-boolean}
-\end{itemize}
+\end{enumerate}
 
 Dengan demikian, untuk graf \verb`CV` (representasi dalam \verb`graph6`), dimensi metrik sisinya dapat ditentukan menggunakan \autoref{alg:boolean-satisfiability} dengan \foreign{command} berikut:
 \begin{Verbatim}[gobble=1, xleftmargin=2em]

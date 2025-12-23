@@ -19,7 +19,7 @@ Metodologi yang digunakan dalam tugas akhir ini dirancang untuk menyusun, mengim
 
 Data graf yang digunakan dibagi menjadi dua kategori: graf kecil (2 hingga 9 simpul) dan graf besar (lebih dari 9 simpul).
 
-\begin{itemize}
+\begin{enumerate}
 
 	\item Graf Kecil
 
@@ -29,7 +29,7 @@ Data graf yang digunakan dibagi menjadi dua kategori: graf kecil (2 hingga 9 sim
 
 	Graf besar digenerasikan secara acak menggunakan program \verb`nauty-genrang`. Opsi \verb`-g` diberikan kepada program untuk memastikan hanya graf tak berarah yang dihasilkan. Untuk menghindari duplikasi akibat automorfisma, setiap graf diproses menggunakan program \verb`nauty-labelg` untuk menghasilkan representasi kanonik. Kemudian, program \verb`nauty-pickg` dengan opsi \verb`-vc0` digunakan untuk memilih hanya graf yang terkoneksi.
 
-\end{itemize}
+\end{enumerate}
 
 Semua graf disimpan dalam \foreign{file} teks menggunakan format \verb`graph6`. Graf dengan banyak simpul yang sama disimpan dalam file yang sama.
 
@@ -39,7 +39,7 @@ Banyak simpul maksimum yang dapat diuji bergantung pada keterbatasan waktu dan s
 
 Pada tahap ini dilakukan eksplorasi SMT \foreign{solver}, yaitu Z3, menggunakan \foreign{binding} untuk bahasa Python. Aktivitas meliputi:
 
-\begin{itemize}
+\begin{enumerate}
 
 	\item Mempelajari fitur dasar Z3 yang relevan dengan formulasi masalah kombinatorial pada teori graf.
 
@@ -47,7 +47,7 @@ Pada tahap ini dilakukan eksplorasi SMT \foreign{solver}, yaitu Z3, menggunakan 
 
 	\item Mengevaluasi kemampuan Z3 dalam menangani permasalahan berukuran kecil maupun besar untuk mengidentifikasi potensi kendala performa.
 
-\end{itemize}
+\end{enumerate}
 
 \section{Perancangan Algoritma}
 
@@ -57,7 +57,7 @@ Perancangan algoritma difokuskan pada formulasi masalah dimensi metrik ke dalam 
 
 Algoritma yang telah dirancang kemudian diimplementasikan ke bentuk kode. Hal-hal yang perlu dilakukan diantaranya adalah:
 
-\begin{itemize}
+\begin{enumerate}
 
 		\item Pembacaan graf dari \foreign{file} teks \verb`graph6`.
 
@@ -67,13 +67,13 @@ Algoritma yang telah dirancang kemudian diimplementasikan ke bentuk kode. Hal-ha
 
 		\item Simpan hasil perhitungan ke dalam \foreign{file} teks untuk analisis lebih lanjut.
 
-\end{itemize}
+\end{enumerate}
 
 \section{Uji Algoritma}
 
 Pengujian dilakukan secara bertahap untuk memverifikasi kebenaran implementasi serta mengevaluasi kinerjanya.
 
-\begin{itemize}
+\begin{enumerate}
 
 	\item{Uji pada Sampel Kecil}
 
@@ -87,13 +87,13 @@ Pengujian dilakukan secara bertahap untuk memverifikasi kebenaran implementasi s
 
 	Pengujian diperluas pada graf dengan simpul lebih banyak. Tujuan tahap pengujian ini adalah mengevaluasi kinerja dan keterbatasan pendekatan SMT pada kasus yang lebih kompleks. Uji ini juga yang dijadikan sebagai tolak ukur performa solusi dari tugas akhir ini secara umum untuk sembarang graf.
 
-\end{itemize}
+\end{enumerate}
 
 \section{Adaptasi Algoritma}
 
 Tahap adaptasi dilakukan dengan memodifikasi algoritma yang telah ada untuk menghitung dimensi metrik sisi. Proses adaptasi mencakup:
 
-\begin{itemize}
+\begin{enumerate}
 
 	\item Menyesuaikan representasi graf sehingga memperhatikan jarak antar sisi.
 
@@ -103,7 +103,7 @@ Tahap adaptasi dilakukan dengan memodifikasi algoritma yang telah ada untuk meng
 
 	\item Mengulangi tahapan pengujian: mulai dari sampel kecil, seluruh graf kecil, hingga graf besar.
 
-\end{itemize}
+\end{enumerate}
 
 \section{Penulisan Tugas Akhir}
 
