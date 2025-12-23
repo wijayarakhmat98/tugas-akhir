@@ -82,8 +82,6 @@ Dapat diamati, setiap elemen dalam matriks jarak memiliki nilai ketika graf yang
 
 \section{Automorfisma Graf}
 
-Automorfisma graf adalah isomorfima dari graf ke dirinya sendiri. Salah satu cara untuk menunjukkan automorfisma graf adalah menggunakan representasi kanonik. Hal ini telah dilakukan oleh \citeauthor{mckay2014} di \citeyear{mckay2014}. Jika dua graf memiliki representasi kanonik yang sama, maka kedua graf tersebut isomorfik. Sebaliknya, jika representasi kanonik berbeda, maka kedua graf tersebut tidak isomorfik.
-
 \noindent
 \begin{center}
 	\begin{minipage}{0.8\linewidth}
@@ -127,6 +125,8 @@ Automorfisma graf adalah isomorfima dari graf ke dirinya sendiri. Salah satu car
 	\end{minipage}
 \end{center}
 
+Automorfisma graf adalah isomorfima suatu graf ke dirinya sendiri. Salah satu cara untuk menunjukkan automorfisma graf adalah menggunakan representasi kanonik. Hal ini telah dilakukan oleh \citeauthor{mckay2014} di \citeyear{mckay2014}. Jika dua graf memiliki representasi kanonik yang sama, maka kedua graf tersebut isomorfik. Sebaliknya, jika representasi kanonik berbeda, maka kedua graf tersebut tidak isomorfik.
+
 Untuk graf tak berarah, representasi kanonik oleh \citeauthor{mckay2014} dituliskan dalam format \verb`graph6`. Sebagai ilustrasi, \autoref{fig:contoh-graf} memiliki representasi \verb`DV{` dalam format \verb`graph6`. Kemudian, setiap graf pada \autoref{fig:contoh-automorfisma}, dari (a) sampai (f), berturut-turut memiliki representasi \verb`D\{`, \verb`Du{`,  \verb`D{{`,  \verb`D~g`,  \verb`D~S`,  dan \verb`Dx{` dalam format \verb`graph6`. Akan tetapi, graf pada \autoref{fig:contoh-graf} dan semua graf pada \autoref{fig:contoh-automorfisma} memiliki representasi kanonik yang sama, yaitu \verb`DN{` dalam format \verb`graph6`, sehingga semuanya merupakan automorfisma dari graf yang sama.
 
 \section{Dimensi Metrik}
@@ -164,6 +164,11 @@ Dimensi metrik sisi dari \(G\) adalah kardinalitas minimum dari himpunan pembeda
 	r(e_2|W) & = & ( d(x_1, e_2), \; d(x_4, e_2), \; d(x_5, e_2) ) & = & (0, 0, 1) \\
 	r(e_3|W) & = & ( d(x_1, e_3), \; d(x_4, e_3), \; d(x_5, e_3) ) & = & (0, 1, 0) \\
 	r(e_4|W) & = & ( d(x_1, e_4), \; d(x_4, e_4), \; d(x_5, e_4) ) & = & (1, 0, 1) \\
+\end{array}
+\]
+
+\[
+\begin{array}{ccccc}
 	r(e_5|W) & = & ( d(x_1, e_5), \; d(x_4, e_5), \; d(x_5, e_5) ) & = & (1, 1, 0) \\
 	r(e_6|W) & = & ( d(x_1, e_6), \; d(x_4, e_6), \; d(x_5, e_6) ) & = & (1, 0, 1) \\
 	r(e_7|W) & = & ( d(x_1, e_7), \; d(x_4, e_7), \; d(x_5, e_7) ) & = & (1, 1, 0) \\
@@ -187,6 +192,7 @@ Penjelasan lebih lengkap mengenai SMT dapat ditemukan pada \cite{barrett2018}.
 \foreign{Boolean satisfiability} dalam SMT adalah teori yang memuat variabel boolean dan operasi boolean pada umumnya \citep{yurichev}. Sebagai ilustrasi, perhatikan ekspresi
 	\[ (x_1 \land x_2) \lor (x_1 \land x_3) \]
 dengan \(x_1, x_2, x_3\) adalah variabel boolean. Tabel kebenaran untuk ekspresi tersebut dapat dikonstruksi seperti berikut:
+\vspace{-0.5\baselineskip}
 \[
 \begin{array}{cccc}
 	x_1 & x_2 & x_3 & (x_1 \land x_2) \lor (x_1 \land x_3) \\ [8pt]
@@ -199,7 +205,7 @@ dengan \(x_1, x_2, x_3\) adalah variabel boolean. Tabel kebenaran untuk ekspresi
 	\False &  \True &  \True & \False \\
 	 \True &  \True &  \True &  \True
 \end{array}
-\] \\
+\]
 Oleh karena itu, salah satu \foreign{model} yang dapat dihasilkan oleh \foreign{solver} adalah \(x_1 = \True, x_2 = \False, x_3 = \True\).
 
 Dalam \foreign{boolean satisfiability}, terdapat pula batasan \(\mathrm{AtLeast}\) dan \(\mathrm{AtMost}\) untuk menentukan paling sedikit dan paling banyak variabel yang boleh bernilai benar. Misalnya, dengan menambahkan batasan \(\mathrm{AtLeast}(3)\) ke contoh sebelumnya, \(x_1 = \True, x_2 = \False, x_3 = \True\) tidaklah lagi solusi yang sah.

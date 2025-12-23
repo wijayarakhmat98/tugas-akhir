@@ -6,6 +6,7 @@ Pondasi yang digunakan oleh seluruh formulasi algoritma di sini adalah matriks y
 Oleh karena itu, \foreign{input} yang digunakan adalah representasi matriks ketetanggaan \(M\) dari graf \(G\). Kemudian, \(D^{(V)}\) dapat dikonstruksi menggunakan algoritma \foreign{Floyd-Warshall} \citep{floyd1962, warshall1962} dari \(M\) dengan mudah. Dan \(D^{(E)}\) dapat dikonstruksi langsung dari definisi jarak simpul ke sisi; yaitu jarak dari simpul \(v_i \in V\) ke sisi \(e_j \in E\), di mana \(e_j\) adalah sisi yang menghubungkan dua simpul \(v_k, v_l \in V\), adalah \(d(v_i,e_j) = \min(d(v_i, v_k), d(v_i, v_l))\), sehingga \(D^{(E)}_{ij} = \min(D^{(V)}_{ik}, D^{(V)}_{il})\).
 
 \foreign{Distance similarity matrix} dari \(G\) yang dinotasikan \(B^{(V)} \in \Bbb^{|V|\times \frac{(|V|-1)|V|}{2}}\) dan \foreign{edge distance similarity matrix} dari \(G\) yang dinotasikan \(B^{(E)} \in \Bbb^{|V|\times \frac{(|E|-1)|E|}{2}}\) berturut-turut merupakan hasil dari perbandingan antara setiap kolom berbeda di \(D^{(V)}\) dan \(D^{(E)}\).
+\vspace{0.25\baselineskip}
 	\[ B^{(V)} = [(D^{(V)}_{*j} = D^{(V)}_{*k})\ \cdots], \quad j < k\]
 	\[ B^{(E)} = [(D^{(E)}_{*j} = D^{(E)}_{*k})\ \cdots], \quad j < k\]
 
@@ -33,7 +34,9 @@ Kedua, cermatilah hubungan antara matriks jarak dan representasi. Matriks jarak 
 \end{enumerate}
 
 Perhatikan metode \foreign{indexing} kedua yang memilih baris terlebih dahulu sebelum memilih kolom. Ketika pemilihan kolom diabaikan, operasi tersebut dapat digeneralisasikan menjadi pemilihan baris-baris berdasarkan \(W\) dari sembarang matriks \(A\) yang memiliki sebanyak \(|V|\) baris. Operasi ini dinotasikan dengan \((A|W)\) dan didefinisikan sebagai berikut:
+\vspace{0.2\baselineskip}
 	\[ (A|W) = \left[ \begin{array}{c} A_{i*}\\ \vdots \end{array} \right] \quad, w_i \in W \]
+\vspace{0.05\baselineskip}
 
 Dengan demikian, representasi terhadap \(W\) dapat diambil melalui kolom di \((D|W)\), yaitu \(r(\cdot_j|W) = (D|W)_{*j}\). Simak pula bahwa kolom-kolom \((D|W)\) memuat seluruh representasi terhadap \(W\). Ingat kembali, untuk menunjukkan \(W \subseteq V\) adalah \foreign{resolving set}, haruslah semua \(v \in V\) memiliki representasi unik. Atau dengan kata lain, setiap kolom di \((D|W)\) haruslah unik, yang diuji dengan membandingkan semua pasang kolomnya. Proses ini sudah dilakukan oleh \foreign{distance similarity matrix} \(B\). Maka, perbandingan setiap pasang kolom \((D|W)\) dimuat oleh kolom-kolom \((B|W)\). Jika terdapat representasi yang sama persis (dua kolom di \((D|W)\) yang sama), maka akan terdapat kolom di \((B|W)\) yang berisi semua \(\True\). Artinya, \(W\) bukanlan \foreign{resolving set} ketika ada kolom berisi semua \(\True\) di \((B|W)\). Dan sebaliknya, \(W\) adalah \foreign{resolving set} ketika tidak ada kolom di \((B|W)\) yang berisi semua \(\True\).
 
@@ -46,6 +49,7 @@ Berdasarkan pengamatan ini, saat ada \(W = V[B_{*k}]\) sedemikian rupa \(Z = V[B
 Terkahir, menunjukkan \(k\) merupakan kandidat dimensi metrik yang valid dapat dilakukan dengan mencari contoh \foreign{resolving set} berkardinalitas \(k\). Kemudian, untuk menunjukkan bahwa \(k\) adalah dimensi metrik, cukup ditunjukkan bahwa tidak ada \foreign{resolving set} berkardinalitas \(k - 1\), sehingga, sesuai definisi dimensi metrik, \(k\) adalah kardinalitas \foreign{resolving set} minimum. Metode yang sama persis juga dapat digunakaan untuk mencari dimensi metrik sisi. Pendekatan inilah yang digunakan oleh semua algoritma yang akan datang.
 
 Untuk memperjelas pembahasan sebelumnya, diilustrasikan ulang eksposisi melalui contoh. Perhatikan graf pada \autoref{fig:algorithm-example}. Graf ini memiliki representasi dalam matriks ketetanggaan sebagai berikut.
+\vspace{-0.4\baselineskip}
 \[
 	M = \left[ \begin{array}{ccccc}
 		0 & 0 & 0 & 1 & 1 \\
@@ -65,9 +69,9 @@ Menggunakan \foreign{Floyd-Warshall}, didapatkan matriks jarak simpul ke simpul 
 		1 & 1 & 1 & 0 & 2 \\
 		1 & 1 & 1 & 2 & 0
 	\end{array} \right]
-\]
+\] \vspace{-0.25\baselineskip} \\
 Selanjutnya, dari membandingkan setiap pasang kolom di matriks jarak, dihasilkan \foreign{distance similarity matrix} berikut.
-
+\vspace{0.25\baselineskip}
 \[
 	B^{(V)} = \left[ \begin{array}{c@{\enspace}c@{\enspace}c@{\enspace}c@{\enspace}c@{\enspace}c@{\enspace}c@{\enspace}c@{\enspace}c@{\enspace}c@{\enspace}}
 		\False & \False & \False & \False &  \True & \False & \False & \False & \False &  \True \\
@@ -76,8 +80,7 @@ Selanjutnya, dari membandingkan setiap pasang kolom di matriks jarak, dihasilkan
 		 \True &  \True & \False & \False &  \True & \False & \False & \False & \False & \False \\
 		 \True &  \True & \False & \False &  \True & \False & \False & \False & \False & \False
 	\end{array} \right]
-\]
-\vspace{0.25\baselineskip}%
+\] \vspace{-0.25\baselineskip} \\
 Kemudian, setelah penghapusan, didapat \foreign{reduced distance similarity} berikut.
 \[
 	P^{(V)} = \left[ \begin{array}{ccccc}
@@ -87,7 +90,7 @@ Kemudian, setelah penghapusan, didapat \foreign{reduced distance similarity} ber
 		 \True &  \True &  \True & \False \\
 		 \True &  \True &  \True & \False \\
 	\end{array} \right]
-\]
+\] \\
 Misal dipilih kolom kedua dari \(P^{(V)}\), yaitu \(P^{(V)}_{*2} = (\False, \True, \False, \True, \True)\). Mengambil semua simpul yang berkoresponden dengan \(\True\), didapat \(W = V[P^{(V)}_{*2}] = \{v_2, v_4, v_5\}\). Lihat bahwa
 \[
 	(P^{(V)}|W) = \left[ \begin{array}{ccccc}
@@ -114,12 +117,13 @@ Contoh \foreign{resolving set} berkardinalitas 3 untuk graf ini adalah \(\{v_1, 
 Cara paling sederhana untuk menunjukkan bahwa \(k\) adalah kandidat dimensi matrik yang valid adalah dengan mencoba satu per satu himpunan \(W \subseteq V\) berkardinalitas \(k\) hingga ditemukan satu saja \(W\) yang merupakan \foreign{resolving set}. Sebaliknya, untuk menunjukkan bahwa tidak ada \foreign{resolving set} berkardinalitas \(k\), maka harus dicoba habis seluruh kemungkinan himpunan \(W \subseteq V\) berkardinalitas \(k\). Kemudian, untuk menguji apakah \(W\) adalah \foreign{resolving set}, cukup ditunjukkan untuk seluruh kolom di \(P\) bahwa tidak ada \(W\) merupakan himpunan bagian tak sejati dari \(V[P_{*j}]\). Secara terbalik, jika ada saja satu kolom di \(P\) yang menyebabkan \(W \subseteq V[P_{*j}]\), maka \(W\) bukanlah \foreign{resolving set}.
 
 Karena \(P\) berbentuk matriks boolean, akan lebih mudah untuk bekerja dengan representasi \(W\) dalam bentuk boolean juga. Hal ini dapat dilakukan dengan mengkonstruksi vektor boolean \(X \in \Bbb^{|V|}\) yang memiliki sebanyak \(k\) nilai \(\True\). Oleh karena itu, jelas \(W = V[X]\) adalah himpunan berkardinalitas \(k\). Selanjutnya, pengujian apakah \(W\) merupakan himpunan bagian tak sejati dari \(V[P_{*j}]\) dapat dicapai melalui operasi \((X|P_{*j})\). Secara eksplisit:
+\vspace{0.25\baselineskip}
 \[
 	\begin{array}{rl}
 		(X|P_{*j}) = P_{*j}  &\iff V[X] \subseteq V[P_{*j}] \\
 		(X|P_{*j}) \neq P_{*j}  &\iff V[X] \not\subseteq V[P_{*j}]
 	\end{array}
-\]
+\] \vspace{-1.25\baselineskip} \\
 
 Amatilah, untuk menyatakan bahwa tidak ada \foreign{resolving set} berkardinalitas \(k\), harus diuji habis sebanyak \(\binom{|V|}{k}\) kasus. Sedangkan, secara umum, untuk menemukan satu contoh \foreign{resolving set} berkardinalitas \(k\), akan dibutuhkan banyaknya kasus yang perlu diuji kurang dari \(\binom{|V|}{k}\). Maka dari itu, menemukan satu contoh \foreign{resolving set} berkardinalitas \(k\) "lebih murah" dibandingkan menunjukkan tidak ada \foreign{resolving set} berkardinalitas \(k\). Sehingga, desain algoritma yang melakukan pencarian dari bawah, yaitu secara iteratif menaikkan nilai \(k\) hingga menemukan \foreign{resolving set} pertama dan mengambil kardinalitasnya sebagai dimensi metrik, akan "lebih lambat" dibandingkan desain algoritma yang melakukan pencarian dari atas, yaitu secara iteratif menurunkan nilai \(k\) hingga menemukan kardinalitas pertama yang tidak ada \foreign{resolving set}-nya dan mengambil \(k + 1\) sebagai dimensi metrik.
 
@@ -199,6 +203,7 @@ Kedua, untuk sembarang \(W \subseteq V\), dapat dikonstruksi \foreign{constraint
 \end{example}
 
 Ketiga, untuk sembarang \(W \subseteq V\), dapat dikonstruksi \foreign{constraint} sedemikian rupa \foreign{model}-nya berkoresponden satu-satu dengan \(\Pcal(W)\). Perhatikan pada konstruksi \foreign{constraint} sebelumnya betapa pentingnya konteks \(V\) yang dimaksud relatif terhadap \(W\) karena \foreign{model} yang menyatakan \(W\) tidak hanya didefinisikan oleh \(W\) sendiri, tetapi juga oleh \(\widetilde{W} = V \setminus W\). Dalam konstruksi \foreign{constraint} untuk \(\Pcal(W)\) ini, hubungan tersebut menjadi lebih kritikal. Karena, terbalik dari perspektif \foreign{power set} pada umumnya, dalam bentuk \foreign{constraint}, definisi \foreign{power set} justru dilihat dari elemen-elemennya yang tidak ada di \(W\). Lebih formalnya dinyatakan oleh ekspresi berikut:
+\vspace{-0.25\baselineskip}
 \[
 	\bigwedge \limits_{\displaystyle v \in \widetilde{W}} \neg \boolmap(v)
 \]
@@ -209,11 +214,12 @@ Dengan kata lain, seluruh kemungkinan \foreign{model} yang memenuhi \foreign{con
 \end{example}
 
 Akhirnya, dapat dibahas konstruksi \foreign{constraint boolean satisfiability} yang menunjukkan \foreign{resolving set}. Ingat kembali, untuk setiap kolom di \(P\), himpunan \(V[P_{*j}]\) serta seluruh himpunan bagiannya bukanlah \foreign{resolving set}. Maka, \(W \subseteq V\) adalah \foreign{resolving set} jika dan hanya jika \(W\) tidak ada di \(\Pcal(V[P_{*j}])\) untuk setiap kolom di \(P\). Secara formal, ini dapat dinyatakan sebagai berikut:
+\vspace{-0.25\baselineskip}
 \[
 	\bigwedge \limits_{\displaystyle P_{*j} \in P} \neg \left( \bigwedge \limits_{\displaystyle v \in \widetilde{V[P_{*j}]}} \neg \boolmap(v) \right)
 \]
-
 Dan dapat disederhakan menjadi:
+\vspace{0.25\baselineskip}
 \begin{equation}
 	\bigwedge \limits_{\displaystyle P_{*j} \in P} \enspace \bigvee \limits_{\displaystyle v \in V[\sim\!P_{*j}]} \boolmap(v)
 	\label{eq:boolean-satisfiability-natural}
@@ -288,36 +294,12 @@ Dengan demikian, didapatkan desain \autoref{alg:boolean-satisfiability} yang mel
 \subsection{\foreign{Linear Integer Arithmetic}}
 
 Seperti pemetaan injektif \(\boolmap\), di sini didefinisikan pemetaan injektif \(\intmap\) dari \(V\) ke variabel \foreign{integer} di SMT. Dengan membatasi \(0 \leq \intmap(v_i) \leq 1\), seperti halnya koresponden keanggotaan simpul dalam \(W\) bergantung dari nilai \(\True\) untuk \(\boolmap(v_i)\), nilai \(1\) untuk \(\intmap(v_i)\) menunjukkan korespondensi keanggotaan dan nilai \(0\) untuk tidak. Sehingga, pemetaan \foreign{resolving set} ke dalam \foreign{constraint boolean satisfiability} dapat diangkat secara langsung ke bentuk \foreign{linear integer arithmetic} dengan melakukan translasi berikut:
+\vspace{0.2\baselineskip}
 \[
 	\bigvee \limits_{\displaystyle v \in W} \boolmap(v)
 	\iff
 	\sum \limits_{\displaystyle v \in W} \intmap(v) \enspace \geq 1
 \]
-
-Dan didapat bentuk dari \autoref{eq:boolean-satisfiability-natural} dalam \foreign{linear integer arithmetic} sebagai berikut:
-\begin{equation}
-	\bigwedge \limits_{\displaystyle P_{*j} \in P} \enspace \sum \limits_{\displaystyle v \in V[\sim\!P_{*j}]} \intmap(v) \enspace \geq 1
-	\label{eq:linear-integer-arithmetic-natural}
-\end{equation}
-
-\begin{example}
-	Ambil graf \autoref{fig:algorithm-example}. Misalnya \(\intmap(v_i) = x_i\), maka \foreign{constraint} yang berkorespondensi dengan \foreign{resolving set}-nya dalam \foreign{linear integer arithmetic} adalah:
-	\[
-		\smash[b]{
-		\begin{array}{c}
-			x_1 + x_2 \geq 1 \\
-			x_1 + x_3 \geq 1 \\
-			x_2 + x_3 \geq 1 \\
-			x_4 + x_5 \geq 1 \\ [8pt]
-			0 \leq x_1 \leq 1,\enspace
-			0 \leq x_2 \leq 1,\enspace
-			0 \leq x_3 \leq 1,\enspace
-			0 \leq x_4 \leq 1,\enspace
-			0 \leq x_5 \leq 1
-		\end{array}
-		} \vspace{1em}
-	\]
-\end{example}
 
 \begin{algorithm}[H]
 	\foreign{Input}:
@@ -346,6 +328,34 @@ Dan didapat bentuk dari \autoref{eq:boolean-satisfiability-natural} dalam \forei
 	\label{alg:boolean-satisfiability}
 \end{algorithm}
 \vspace{-\baselineskip}
+
+\noindent Dan didapat bentuk dari \autoref{eq:boolean-satisfiability-natural} dalam \foreign{linear integer arithmetic} sebagai berikut:
+\vspace{-0.5\baselineskip} \\
+\begin{equation}
+	\bigwedge \limits_{\displaystyle P_{*j} \in P} \enspace \sum \limits_{\displaystyle v \in V[\sim\!P_{*j}]} \intmap(v) \enspace \geq 1
+	\label{eq:linear-integer-arithmetic-natural}
+\end{equation}
+
+\vspace{-0.5\baselineskip}
+\begin{example}
+	Ambil graf \autoref{fig:algorithm-example}. Misalnya \(\intmap(v_i) = x_i\), maka \foreign{constraint} yang berkorespondensi dengan \foreign{resolving set}-nya dalam \foreign{linear integer arithmetic} adalah:
+	\vspace{0.2\baselineskip}
+	\[
+		\smash[b]{
+		\begin{array}{c}
+			x_1 + x_2 \geq 1 \\
+			x_1 + x_3 \geq 1 \\
+			x_2 + x_3 \geq 1 \\
+			x_4 + x_5 \geq 1 \\ [8pt]
+			0 \leq x_1 \leq 1,\enspace
+			0 \leq x_2 \leq 1,\enspace
+			0 \leq x_3 \leq 1,\enspace
+			0 \leq x_4 \leq 1,\enspace
+			0 \leq x_5 \leq 1
+		\end{array}
+		} \vspace{1em}
+	\]
+\end{example}
 
 Selanjutnya, untuk \foreign{constraint} \(\AtLeast\) dan \(\AtMost\), dapat dinyatakan dalam \foreign{linear integer arithmetic} dengan lebih sederhana sebagai:
 \vspace{0.25\baselineskip}
@@ -386,6 +396,33 @@ Sama seperti transformasi \autoref{eq:boolean-satisfiability-natural} ke \autore
 
 Dengan demikian, didapatkan desain algoritma yang menggunakan \foreign{linear integer arithmetic}.
 
+\begin{example}
+	Ambil graf \autoref{fig:algorithm-example}, dan cari dimensi metriknya menggunakan \autoref{alg:linear-integer-arithmetic}. Setelah menetapkan \foreign{constraint} \(0 \leq x_i \leq 1\) untuk setiap variabel \foreign{integer}-nya, \foreign{constraint} yang digunakan pada setiap tahapannya bersesuaian dengan yang telah tertera pada \autoref{ex:linear-integer-arithmetic-constraint}.
+	\begin{enumerate}
+		\item Untuk \(k = 5\), ditemukan \(\sat\).
+		\item Untuk \(k = 4\), ditemukan \(\sat\).
+		\item Untuk \(k = 3\), ditemukan \(\sat\).
+		\item Untuk \(k = 2\), ditemukan \(\unsat\).
+	\end{enumerate}
+	Disimpulkan bahwa \(2 + 1 = 3\) adalah dimensi metrik dari graf tersebut.
+\end{example}
+
+\subsection{\foreign{Pseudo Boolean}}
+
+Pada akhirnya, sampailah di penghujung desain algoritma dimensi metrik menggunakan SMT. Cermati bentuk \foreign{constraint} yang terdapat dalam \foreign{linear integer arithmetic} sudah sesuai dengan representasi \foreign{constraint} yang dibutuhkan dalam \foreign{pseudo boolean}. Maka dari itu, konstruksi \foreign{constraint} dapat diturunkan kembali menggunakan variabel boolean dari pada \foreign{integer}, tetapi menggunakan teori yang lebih tinggi dari \foreign{boolean satisfiability}, yaitu \foreign{pseudo boolean}. Di sini, didapatkan kembali representasi natural keanggotaan sebagai nilai \(\True\), dan secara bersamaan dapat diekspresikan bentuk \foreign{constraint} yang memuat logika kardinalitas secara lebih natural. Dengan demikian, \autoref{eq:linear-integer-arithmetic-cardinality} dan \autoref{eq:linear-integer-arithmetic} dapat translasikan langsung menjadi pseudo boolean sebagai berikut:
+
+\begin{equation}
+	\sum \limits_{\displaystyle v \in V} \boolmap(v) \enspace = k
+	\label{eq:pseudo-boolean-cardinality}
+\end{equation}
+
+\begin{equation}
+	\bigwedge \limits_{\displaystyle P_{*j} \in P} \enspace \sum \limits_{\displaystyle v \in V[P_{*j}]} \boolmap(v) \enspace \leq k - 1
+	\label{eq:pseudo-boolean}
+\end{equation}
+
+Meskipun perubahan yang dilakukan hanyalah membawa turun dari \foreign{linear integer arithmetic} ke \foreign{pseudo boolean}, dengan bentuk \foreign{constraint} yang kurang lebih sama persis, ketika tidak ada \foreign{expresiveness} yang hilang, maka secara umum \foreign{solver} yang menggunakan \foreign{pseudo boolean} akan lebih efektif dibandingkan yang menggunakan \foreign{linear integer arithmetic}.
+
 \begin{algorithm}[H]
 	\foreign{Input}:
 	\begin{enumerate}
@@ -414,33 +451,6 @@ Dengan demikian, didapatkan desain algoritma yang menggunakan \foreign{linear in
 \end{algorithm}
 
 \begin{example}
-	Ambil graf \autoref{fig:algorithm-example}, dan cari dimensi metriknya menggunakan \autoref{alg:linear-integer-arithmetic}. Setelah menetapkan \foreign{constraint} \(0 \leq x_i \leq 1\) untuk setiap variabel \foreign{integer}-nya, \foreign{constraint} yang digunakan pada setiap tahapannya bersesuaian dengan yang telah tertera pada \autoref{ex:linear-integer-arithmetic-constraint}.
-	\begin{enumerate}
-		\item Untuk \(k = 5\), ditemukan \(\sat\).
-		\item Untuk \(k = 4\), ditemukan \(\sat\).
-		\item Untuk \(k = 3\), ditemukan \(\sat\).
-		\item Untuk \(k = 2\), ditemukan \(\unsat\).
-	\end{enumerate}
-	Disimpulkan bahwa \(2 + 1 = 3\) adalah dimensi metrik dari graf tersebut.
-\end{example}
-
-\subsection{\foreign{Pseudo Boolean}}
-
-Pada akhirnya, sampailah di penghujung desain algoritma dimensi metrik menggunakan SMT. Cermati bentuk \foreign{constraint} yang terdapat dalam \foreign{linear integer arithmetic} sudah sesuai dengan representasi \foreign{constraint} yang dibutuhkan dalam \foreign{pseudo boolean}. Maka dari itu, konstruksi \foreign{constraint} dapat diturunkan kembali menggunakan variabel boolean dari pada \foreign{integer}, tetapi menggunakan teori yang lebih tinggi dari \foreign{boolean satisfiability}, yaitu \foreign{pseudo boolean}. Di sini, didapatkan kembali representasi natural keanggotaan sebagai nilai \(\True\), dan secara bersamaan dapat diekspresikan bentuk \foreign{constraint} yang memuat logika kardinalitas secara lebih natural. Dengan demikian, \autoref{eq:linear-integer-arithmetic-cardinality} dan \autoref{eq:linear-integer-arithmetic} dapat translasikan langsung menjadi pseudo boolean sebagai berikut:
-
-\begin{equation}
-	\sum \limits_{\displaystyle v \in V} \boolmap(v) \enspace = k
-	\label{eq:pseudo-boolean-cardinality}
-\end{equation}
-
-\begin{equation}
-	\bigwedge \limits_{\displaystyle P_{*j} \in P} \enspace \sum \limits_{\displaystyle v \in V[P_{*j}]} \boolmap(v) \enspace \leq k - 1
-	\label{eq:pseudo-boolean}
-\end{equation}
-
-Meskipun perubahan yang dilakukan hanyalah membawa turun dari \foreign{linear integer arithmetic} ke \foreign{pseudo boolean}, dengan bentuk \foreign{constraint} yang kurang lebih sama persis, ketika tidak ada \foreign{expresiveness} yang hilang, maka secara umum \foreign{solver} yang menggunakan \foreign{pseudo boolean} akan lebih efektif dibandingkan yang menggunakan \foreign{linear integer arithmetic}.
-
-\begin{example}
 	Ambil graf \autoref{fig:algorithm-example}. Jika \(\boolmap(v_i) = x_i\), maka \foreign{constraint} yang berkorespondensi dengan \foreign{resolving set} berkardinalitas \(k\) adalah:
 	\[
 		\smash[b]{
@@ -458,7 +468,18 @@ Meskipun perubahan yang dilakukan hanyalah membawa turun dari \foreign{linear in
 
 Sehingga, didapat desain algoritma yang menggunakan \foreign{pseudo boolean}.
 
-\begin{algorithm}
+\begin{example}
+	Untuk graf \autoref{fig:algorithm-example}, mencari dimensi metriknya menggunakan \autoref{alg:pseudo-boolean}, dapat dilakukan dengan mengambil pada setiap tahapannya \foreign{constraint} yang telah tertera pada \autoref{ex:pseudo-boolean-constraint}.
+	\begin{enumerate}
+		\item Untuk \(k = 5\), ditemukan \(\sat\).
+		\item Untuk \(k = 4\), ditemukan \(\sat\).
+		\item Untuk \(k = 3\), ditemukan \(\sat\).
+		\item Untuk \(k = 2\), ditemukan \(\unsat\).
+	\end{enumerate}
+	Disimpulkan bahwa \(2 + 1 = 3\) adalah dimensi metrik dari graf tersebut.
+\end{example}
+
+\begin{algorithm}[H]
 	\foreign{Input}:
 	\begin{enumerate}
 		\item Representasi graf dalam representasi matriks ketetanggaan \(M\).
@@ -483,14 +504,3 @@ Sehingga, didapat desain algoritma yang menggunakan \foreign{pseudo boolean}.
 	\caption{\foreign{Pseudo Boolean}}
 	\label{alg:pseudo-boolean}
 \end{algorithm}
-
-\begin{example}
-	Untuk graf \autoref{fig:algorithm-example}, mencari dimensi metriknya menggunakan \autoref{alg:pseudo-boolean}, dapat dilakukan dengan mengambil pada setiap tahapannya \foreign{constraint} yang telah tertera pada \autoref{ex:pseudo-boolean-constraint}.
-	\begin{enumerate}
-		\item Untuk \(k = 5\), ditemukan \(\sat\).
-		\item Untuk \(k = 4\), ditemukan \(\sat\).
-		\item Untuk \(k = 3\), ditemukan \(\sat\).
-		\item Untuk \(k = 2\), ditemukan \(\unsat\).
-	\end{enumerate}
-	Disimpulkan bahwa \(2 + 1 = 3\) adalah dimensi metrik dari graf tersebut.
-\end{example}
