@@ -92,6 +92,7 @@ Kemudian, setelah penghapusan, didapat \foreign{reduced distance similarity} ber
 	\end{array} \right]
 \] \\
 Misal dipilih kolom kedua dari \(P^{(V)}\), yaitu \(P^{(V)}_{*2} = (\False, \True, \False, \True, \True)\). Mengambil semua simpul yang berkoresponden dengan \(\True\), didapat \(W = V[P^{(V)}_{*2}] = \{v_2, v_4, v_5\}\). Lihat bahwa
+\vspace{-0.5em}
 \[
 	(P^{(V)}|W) = \left[ \begin{array}{ccccc}
 		\False &  \True & \False &  \True \\
@@ -101,6 +102,8 @@ Misal dipilih kolom kedua dari \(P^{(V)}\), yaitu \(P^{(V)}_{*2} = (\False, \Tru
 \]
 di mana kolom kedua berisi semua \(\True\). Disimpulkan \(W\) dan semua subset dari \(W\), yaitu \(\{v_2, v_4, v_5\}\), \(\{v_4, v_5\}\), \(\{v_2, v_5\}\), \(\{v_2, v_4\}\), \(\{v_2\}\), \(\{v_4\}\), \(\{v_5\}\), dan \(\emptyset\) bukanlah \foreign{resolving set}.
 
+\vspace{0.5em}
+
 \noindent
 \begin{minipage}{\linewidth}
 	\centering
@@ -108,6 +111,8 @@ di mana kolom kedua berisi semua \(\True\). Disimpulkan \(W\) dan semua subset d
 	\captionof{figure}{Contoh Graf}
 	\label{fig:algorithm-example}
 \end{minipage}
+
+\vspace{0.5em}
 
 Contoh \foreign{resolving set} berkardinalitas 3 untuk graf ini adalah \(\{v_1, v_2, v_4\}\). Kemudian, karena ia tidak memiliki \foreign{resolving set} berkardinalitas 2, maka kardinalitas minimum \foreign{resolving set}-nya adalah 3. Sehingga, disimpulkan dimensi metriknya adalah 3.
 
