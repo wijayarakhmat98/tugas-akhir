@@ -21,7 +21,10 @@ Yang bertanda tangan di sini:
 dengan ini menyatakan bahwa \documentNameBahasa\ dengan judul
 
 \begin{center}
-	``\textbf{\titleBahasa}''
+	\begin{minipage}{0.9\linewidth}
+		\centering
+		``\textbf{\MakeUppercase{\titleBahasa}}''
+	\end{minipage}
 \end{center}
 
 adalah hasil karya sendiri, bersifat orisinal, dan ditulis dengan mengikuti kaidah penulisan ilmiah.
@@ -30,33 +33,29 @@ Bilamana di kemudian hari ditemukan ketidaksesuaian dengan pernyataan ini, maka 
 
 \vspace{4em}
 
-\begin{minipage}[t]{0.05\linewidth}
-	\strut
-\end{minipage}
 \begin{minipage}[t]{0.35\linewidth}
-	\centering
 	\strut \\
 	Mengetahui, \\
 	Dosen Pembimbing
 
 	\vspace{6em}
 
-	\supervisor \\
+	\expandafter\uline\expandafter{\supervisor} \\
 	NIP. \supervisorId
 \end{minipage}
 \hfill
+\hfill
+\hfill
+\hfill
 \begin{minipage}[t]{0.35\linewidth}
-	\centering
 	\theCity, \theDay\ \theMonth\ \theYear \\
 	\strut \\
 	Mahasiswa
 
 	\vspace{6em}
 
-	\theAuthor \\
+	\uline{\theAuthor} \\
 	\strut \\
 	NRP. \theAuthorId
 \end{minipage}
-\begin{minipage}[t]{0.05\linewidth}
-	\strut
-\end{minipage}
+\hfill
