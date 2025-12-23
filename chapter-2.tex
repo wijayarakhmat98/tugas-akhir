@@ -16,7 +16,7 @@ Berdasarkan penelitian-penelitian terdahulu, dapat dilihat bahwa kajian mengenai
 
 \section{Graf}
 
-Graf adalah struktur yang terdiri dari himpunan simpul dan himpunan sisi, yang setiap sisinya menghubungkan sepasang simpul dalam himpunan simpul tersebut \citep{harary1969}. Misalnya sebuah graf memiliki 5 simpul \(V = \{x_1, x_2, x_3, x_4, x_5\}\) dan 8 sisi \(E = \{e_1, e_2, e_3, e_4, e_5, e_6, e_7, e_8\}\). Setiap sisi tersebut berturut-turut menghubungkan pasangan simpul \((x_1, x_3)\), \((x_1, x_4)\), \((x_1, x_5)\), \((x_2, x_4)\), \((x_2, x_5)\), \((x_3, x_4)\), \((x_3, x_5)\), dan \((x_4, x_5)\). \autoref{fig:contoh-graf} menunjukkan graf ini.
+Graf adalah struktur yang terdiri dari himpunan simpul dan himpunan sisi, yang setiap sisinya menghubungkan sepasang simpul dalam himpunan simpul tersebut \citep{harary1969}. Misalkan sebuah graf memiliki 5 simpul \(V = \{x_1, x_2, x_3, x_4, x_5\}\) dan 8 sisi \(E = \{e_1, e_2, e_3, e_4, e_5, e_6, e_7, e_8\}\). Setiap sisi tersebut berturut-turut menghubungkan pasangan simpul \((x_1, x_3)\), \((x_1, x_4)\), \((x_1, x_5)\), \((x_2, x_4)\), \((x_2, x_5)\), \((x_3, x_4)\), \((x_3, x_5)\), dan \((x_4, x_5)\). \autoref{fig:contoh-graf} menunjukkan graf ini.
 
 Lintasan adalah rangkaian sisi yang menghubungkan rangkaian simpul, dengan setiap ujung sisinya merupakan simpul berurutan \citep{west1996}. Contohnya, pada \autoref{fig:contoh-graf}, \((x_2, x_4, x_3, x_1)\) adalah lintasan, karena dapat dihubungkan dengan rangkaian \((e_4, e_6, e_1)\). Sedangkan \((x_5, x_2, x_3)\) bukanlah lintasan, karena tidak terdapat sisi yang menghubungkan simpul \(x_2\) dan \(x_3\). Lintasan dengan ujung simpul \(v, w\) disebut sebagai lintasan yang menghubungkan \(v\) dan \(w\). Pada suatu graf, bisa terdapat banyak lintasan yang menghubungkan sepasang simpul \citep{west1996}. Sehingga, lintasan \((e_4, e_6, e_1\)) disebut menghubungkan \(x_2\) dan \(x_1\).
 
@@ -44,7 +44,7 @@ Graf terhubung adalah graf dengan setiap pasang simpulnya memiliki lintasan yang
 
 Jarak antara dua simpul \(u\) dan \(v\), dinotasikan \(d(u, v)\), adalah panjang minimum dari semua lintasan yang menghubungkan kedua simpul tersebut \citep{chartrand2000}. Panjang sebuah lintasan adalah banyaknya sisi yang membangun rangkaian lintasan tersebut. Contoh, pada \autoref{fig:contoh-graf}, nilai dari \(d(x_2, x_1)\) adalah \(2\).
 
-Matriks ketetanggaan adalah alternatif representasi dari graf yang menunjukkan ketetanggaan, atau keberadaan sisi antar simpul \citep{west1996}. Misalnya sebuah graf memiliki himpunan simpul \(V = \{v_1, v_2, \ldots\}\). Maka, baris dan kolom pertama dalam matriks ketetanggaannya menunjukkan \(v_1\), baris dan kolom kedua menunjukkan \(v_2\), dan seterusnya. Ketika terdapat sisi yang menghubungkan \(v_i\) ke \(v_j\), maka elemen pada baris ke-\(i\) dan kolom ke-\(j\) bernilai \(1\), sedangkan bila tidak terhubung maka bernilai \(0\).
+Matriks ketetanggaan adalah alternatif representasi dari graf yang menunjukkan ketetanggaan, atau keberadaan sisi antar simpul \citep{west1996}. Semisalnya sebuah graf memiliki himpunan simpul \(V = \{v_1, v_2, \ldots\}\). Maka, baris dan kolom pertama dalam matriks ketetanggaannya menunjukkan \(v_1\), baris dan kolom kedua menunjukkan \(v_2\), dan seterusnya. Ketika terdapat sisi yang menghubungkan \(v_i\) ke \(v_j\), maka elemen pada baris ke-\(i\) dan kolom ke-\(j\) bernilai \(1\), sedangkan bila tidak terhubung maka bernilai \(0\).
 
 Matriks jarak adalah matriks yang memuat jarak antara seluruh pasangan simpul \citep{chartrand2000}. Sehingga, setiap baris ke-\(i\) dan kolom ke-\(j\) berisi nilai jarak dari \(v_i\) ke \(v_j\), seperti berikut:
 \[
@@ -121,7 +121,7 @@ Automorfisma graf adalah isomorfima dari graf ke dirinya sendiri. Salah satu car
 	\label{fig:contoh-automorfisma}
 \end{figure}
 
-Untuk graf tak berarah, representasi kanonik oleh \citeauthor{mckay2014} dituliskan dalam format \verb`graph6`. Misalnya, \autoref{fig:contoh-graf} memiliki representasi \verb`DV{` dalam format \verb`graph6`. Kemudian, setiap graf pada \autoref{fig:contoh-automorfisma}, dari (a) sampai (f), berturut-turut memiliki representasi \verb`D\{`, \verb`Du{`,  \verb`D{{`,  \verb`D~g`,  \verb`D~S`,  dan \verb`Dx{` dalam format \verb`graph6`. Akan tetapi, graf pada \autoref{fig:contoh-graf} dan semua graf pada \autoref{fig:contoh-automorfisma} memiliki representasi kanonik yang sama, yaitu \verb`DN{` dalam format \verb`graph6`, sehingga semuanya merupakan automorfisma dari graf yang sama.
+Untuk graf tak berarah, representasi kanonik oleh \citeauthor{mckay2014} dituliskan dalam format \verb`graph6`. Sebagai ilustrasi, \autoref{fig:contoh-graf} memiliki representasi \verb`DV{` dalam format \verb`graph6`. Kemudian, setiap graf pada \autoref{fig:contoh-automorfisma}, dari (a) sampai (f), berturut-turut memiliki representasi \verb`D\{`, \verb`Du{`,  \verb`D{{`,  \verb`D~g`,  \verb`D~S`,  dan \verb`Dx{` dalam format \verb`graph6`. Akan tetapi, graf pada \autoref{fig:contoh-graf} dan semua graf pada \autoref{fig:contoh-automorfisma} memiliki representasi kanonik yang sama, yaitu \verb`DN{` dalam format \verb`graph6`, sehingga semuanya merupakan automorfisma dari graf yang sama.
 
 \section{Dimensi Metrik}
 
