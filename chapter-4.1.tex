@@ -2,34 +2,36 @@
 
 Untuk mempermudah pembahasan, terlebih dahulu didefinisikan beberapa notasi. Misalkan \(S\) merupakan suatu himpunan sembarang. Sebuah vektor berdimensi \(n\) yang elemennya berasal dari \(S\) ditulis sebagai \(c \in S^n\), dengan \(c_i \in S\) menyatakan elemen ke-\(i\) dari vektor tersebut. Vektor \(c\) dapat dibangun dari elemen-elemennya dengan notasi \(c = (c_1\ \cdots\ c_n)\), atau secara singkat \(c = (c_i\ \cdots)\) ketika domain indeks \(i\) jelas dari konteks.
 
-Selanjutnya, sebuah matriks \(A\) berukuran \(m\) baris dan \(n\) kolom yang elemennya berasal dari \(S\) ditulis sebagai \(A \in S^{m\times n}\), dengan \(A_{ij} \in S\) menyatakan elemen di baris ke-\(i\) dan kolom ke-\(j\) dari matriks tersebut. Digunakan notasi \(A_{*j} \in S^m\) untuk kolom ke-\(j\) dan \(A_{i*} \in S^n\) untuk baris ke-\(i\).
+Selanjutnya, sebuah matriks \(A\) berukuran \(m\) baris dan \(n\) kolom yang elemennya berasal dari \(S\) ditulis sebagai \(A \in S^{m\times n}\), dengan \(A_{ij} \in S\) menyatakan elemen di baris ke-\(i\) dan kolom ke-\(j\) dari matriks tersebut. Digunakan notasi \(A_{*j} \in S^m\) untuk kolom ke-\(j\) dan notasi \(A_{i*} \in S^n\) untuk baris ke-\(i\).
 
-Kemudian, misalnya, diberikan \(a_1,\ \cdots,\ a_m \in S^n\). Sebuah matriks \(A \in S^{n\times m}\) dapat dibangun dengan menyusun vektor-vektor tersebut secara bersampingan, yaitu \(A = [a_1\ \cdots\ a_m]\), atau secara singkat \(A = [a_i\ \cdots]\) ketika domain indeks \(i\) jelas dari konteks. Demikian pula, sebuah matriks \(A \in S^{m\times n}\) dapat dibangun dengan menyusun vektor-vektor tersebut secara bertumpuk, yaitu
+Kemudian, misalnya, diberikan \(a_1,\ \cdots,\ a_m \in S^n\). Sebuah matriks \(A \in S^{n\times m}\) dapat dibangun dengan menyusun vektor-vektor tersebut secara bersampingan, yaitu \(A = [a_1\ \cdots\ a_m]\), atau secara singkat \(A = [a_i\ \cdots]\) ketika domain indeks \(i\) jelas dari konteks. Dan sebuah matriks \(A \in S^{m\times n}\) dapat dibangun dengan menyusun vektor-vektor tersebut secara bertumpuk, yaitu
 	\[ A = \left[ \begin{array}{c} a_1\\ \vdots\\ a_m \end{array} \right], \quad \text{atau secara singkat } A = \left[ \begin{array}{c} a_i\\ \vdots \end{array} \right] \text{.}\]
+\vspace{0.01\baselineskip}
 
 Dengan demikian, matriks \(A\) dapat dibangun dari elemen-elemen barisnya maupun dari elemen-elemen kolomnya sebagai berikut.
 	\[ A = \left[ \begin{array}{c} A_{i*}\\ \vdots \end{array} \right] = [A_{*j}\ \cdots] \]
+\vspace{0.01\baselineskip}
 
 Didefinisikan dua operator biner, yaitu \((s_1 = s_2)\) dan \((t_1 | t_2)\), serta satu operator unari, yaitu \((\sim\!t)\), yang memetakan unsur-unsurnya kepada nilai boolean \(\Bbb = \{\True, \False\}\), untuk sembarang \(s_1, s_2 \in S\) serta \(t, t_1, t_2 \in \Bbb\).
-	\[
-	\begin{array}{r@{\ }l}
-		(s_1 = s_2) &= \left\{
-			\begin{array}{l@{\ }l}
-				\True  &\iff s_1 = s_2 \\
-				\False &\iff s_1 \neq s_2
-			\end{array} \right. \\ [16pt]
-		(s_1 | s_2) &= \left\{
-			\begin{array}{l@{\ }l@{\ }c}
-				\True  &\iff& s_1 \vee s_2 \\
-				\False &\iff& \neg s_1 \wedge \neg s_2
-			\end{array} \right. \\ [16pt]
-		(\sim\!s) &= \left\{
-			\begin{array}{l@{\ }l@{\ }c}
-				\True  &\iff& \neg s \\
-				\False &\iff& s
-			\end{array} \right.
-	\end{array}
-	\]
+\[
+\begin{array}{r@{\ }l}
+	(s_1 = s_2) &= \left\{
+		\begin{array}{l@{\ }l}
+			\True  &\iff s_1 = s_2 \\
+			\False &\iff s_1 \neq s_2
+		\end{array} \right. \\ [16pt]
+	(s_1 | s_2) &= \left\{
+		\begin{array}{l@{\ }l@{\ }c}
+			\True  &\iff& s_1 \vee s_2 \\
+			\False &\iff& \neg s_1 \wedge \neg s_2
+		\end{array} \right. \\ [16pt]
+	(\sim\!s) &= \left\{
+		\begin{array}{l@{\ }l@{\ }c}
+			\True  &\iff& \neg s \\
+			\False &\iff& s
+		\end{array} \right.
+\end{array}
+\]
 Secara natural, setiap operator tersebut dapat diperluas untuk unsur-unsur vektor yang dipetakan ke \(\Bbb^n\). Apabila \(a, b \in S^n\), maka \((a = b) = ((a_i = b_i)\ \cdots)\). Sedangkan untuk \(\alpha, \beta \in \Bbb^n\), maka \((\alpha | \beta) = ((\alpha_i | \beta_i)\ \cdots)\) dan juga \((\sim\!\alpha) = ((\sim\!\alpha_i)\ \cdots)\).
 
 Terakhir, diperkenalkan beberapa notasi yang berhubungan dengan graf. Misalkan \(G\) adalah graf. Representasi graf \(G\) dalam bentuk matriks ketetanggaan ditulis sebagai \(M\). Untuk \(V\), himpunan seluruh simpul di \(G\), matriks jarak simpul ke simpul dari \(G\) ditulis sebagai \(D^{(V)}\), sehingga jarak antar dua simpul \(v_i,u_j \in V\) adalah \(d(v_i,u_j) = D^{(V)}_{ij}\). Untuk \(E\), himpunan seluruh sisi di \(G\), matriks jarak simpul ke sisi dari \(G\) ditulis sebagai \(D^{(E)}\), sehingga jarak antara simpul \(v_i \in V\) dan sisi \(e_j \in E\) adalah \(d(v_i,e_j) = D^{(E)}_{ij}\).

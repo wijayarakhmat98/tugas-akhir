@@ -54,7 +54,8 @@
 	fancyvrb,
 	geometry,
 	pagecolor,
-	parskip,
+	% parskip,
+	indentfirst,
 	titlesec,
 	titletoc,
 	tabularx,
@@ -111,16 +112,40 @@
 	\fi
 }
 
+\captionsetup{hypcap=false}
+
 \titleformat{\chapter}[display]
-	{\centering\LARGE\bfseries}
+	{\centering\large\bfseries}
 	{\MakeUppercase{\chaptername~\Roman{chapter}}}
 	{0pt}
 	{\MakeUppercase}
 
 \titlespacing*{\chapter}
 	{0pt}
+	{0.5\baselineskip}
+	{2\baselineskip}
+
+\titleformat{\section}
+	{\normalfont\bfseries}
+	{\thesection}
+	{1em}
+	{}
+
+\titlespacing*{\section}
 	{0pt}
-	{2\parskip}
+	{0.5\baselineskip}
+	{0.2\baselineskip}
+
+\titleformat{\subsection}
+	{\normalfont\bfseries}
+	{\thesection}
+	{1em}
+	{}
+
+\titlespacing*{\subsection}
+	{0pt}
+	{0.5\baselineskip}
+	{0.2\baselineskip}
 
 \titlecontents{chapter}[0pt]
 	{\vspace{0.5em}}
@@ -174,6 +199,9 @@
 \input{constants}
 
 \begin{document}
+	\setlength{\abovedisplayskip}{0pt}
+	\setlength{\belowdisplayskip}{0pt}
+
 	\input{cover}
 	\cleardoublepage
 
