@@ -56,6 +56,7 @@
 	pagecolor,
 	parskip,
 	titlesec,
+	titletoc,
 	tabularx,
 	array,
 	multirow,
@@ -120,6 +121,24 @@
 	{0pt}
 	{0pt}
 	{2\parskip}
+
+\titlecontents{chapter}[0pt]
+	{\vspace{0.5em}}
+	{BAB \MakeUppercase{\romannumeral\thecontentslabel}\quad\MakeUppercase}
+	{\MakeUppercase}
+	{\hfill\contentspage}
+
+\titlecontents{figure}[1.5em]
+	{}
+	{Gambar \makebox[2em][l]{\thecontentslabel}\enspace}
+	{}
+	{\ \titlerule*[.75pc]{.}\contentspage}
+
+\titlecontents{table}[1.5em]
+	{}
+	{Tabel \makebox[2em][l]{\thecontentslabel}\enspace}
+	{}
+	{\ \titlerule*[.75pc]{.}\contentspage}
 
 \raggedbottom
 
