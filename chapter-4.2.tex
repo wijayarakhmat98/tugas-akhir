@@ -17,9 +17,9 @@ Kemudian, dari \(B^{(V)}\), dikonstruksi matriks yang bernama \foreign{reduced d
 
 Seluruh formulasi algoritma yang akan datang didasari dari interpretasi \(P^{(V)}\) maupun \(P^{(E)}\). Maka dari itu, dibahas terlebih dahulu pemaknaan informasi yang dikandung oleh \(P\).
 
-Pertama-tama, amatilah hubungan antara jarak dan representasi. Secara definisi, representasi dibangun dari jarak, yaitu \(r(\cdot|V)=(d(v_i,\cdot)\ \cdots)\). Artinya, jarak dapat diambil tarbalik dari representasi sebagai \(d(v_i,\cdot) = r_i(\cdot|V)\) untuk \(v_i \in V\). Dengan begitu, untuk \(W \subseteq V\), representasi terhadapt \(W\) dapat diambil langsung dari representasi terhadap \(V\) dengan cara \(r(\cdot|W) = (r_i(\cdot|V)\ \cdots), w_i \in W\).
+Pertama-tama, dapat diamati hubungan antara jarak dan representasi. Secara definisi, representasi dibangun dari jarak, yaitu \(r(\cdot|V)=(d(v_i,\cdot)\ \cdots)\). Artinya, jarak dapat diambil tarbalik dari representasi sebagai \(d(v_i,\cdot) = r_i(\cdot|V)\) untuk \(v_i \in V\). Dengan begitu, untuk \(W \subseteq V\), representasi terhadapt \(W\) dapat diambil langsung dari representasi terhadap \(V\) dengan cara \(r(\cdot|W) = (r_i(\cdot|V)\ \cdots), w_i \in W\).
 
-Kedua, cermatilah hubungan antara matriks jarak dan representasi. Matriks jarak dapat dibangun dari representasi sebagai kolom-kolomnya, yaitu \(D = [r(\cdot_j|V)\ \cdots]\). Sebaliknya, representasi dapat diambil langsung dari kolom matriks jarak sebagai \(r(\cdot_j|V) = D_{*j}\). Sehingga, representasi terhadap sembarang \(W \subseteq V\) sudah termuat dalam matriks jarak, dan dapat diambil menggunakan dua bentuk pendekatan.
+Kedua, dapat dicermati hubungan antara matriks jarak dan representasi. Matriks jarak dapat dibangun dari representasi sebagai kolom-kolomnya, yaitu \(D = [r(\cdot_j|V)\ \cdots]\). Sebaliknya, representasi dapat diambil langsung dari kolom matriks jarak sebagai \(r(\cdot_j|V) = D_{*j}\). Sehingga, representasi terhadap sembarang \(W \subseteq V\) sudah termuat dalam matriks jarak, dan dapat diambil menggunakan dua bentuk pendekatan.
 \begin{enumerate}
 	\item Ambil kolom kemudian baris:
 		\(
@@ -54,7 +54,7 @@ Terkahir, menunjukkan \(k\) merupakan kandidat dimensi metrik yang valid dapat d
 	\label{fig:algorithm-example}
 \end{minipage}
 
-Untuk memperjelas pembahasan sebelumnya, diilustrasikan ulang eksposisi melalui contoh. Perhatikan graf pada \autoref{fig:algorithm-example}. Graf ini memiliki representasi dalam matriks ketetanggaan sebagai berikut.
+Untuk memperjelas pembahasan sebelumnya, diilustrasikan ulang eksposisi melalui contoh. Dapat diperhatikan graf pada \autoref{fig:algorithm-example}. Graf ini memiliki representasi dalam matriks ketetanggaan sebagai berikut.
 \[
 	M = \left[ \begin{array}{ccccc}
 		0 & 0 & 0 & 1 & 1 \\
@@ -198,7 +198,7 @@ Kedua, untuk sembarang \(W \subseteq V\), dapat dikonstruksi \foreign{constraint
 	Untuk \(V = \{v_1, v_2, v_3, v_4, v_5\}\) dan \(W = \{v_3, v_4, v_5\}\), \foreign{constraint} yang menyebabkan koresponden satu-satu antara \(W\) dan \(V[X]\) adalah: \(\neg x_1 \wedge \neg x_2 \wedge x_3 \wedge x_4 \wedge x_5\).
 \end{example}
 
-Ketiga, untuk sembarang \(W \subseteq V\), dapat dikonstruksi \foreign{constraint} sedemikian rupa \foreign{model}-nya berkoresponden satu-satu dengan \(\Pcal(W)\). Perhatikan pada konstruksi \foreign{constraint} sebelumnya betapa pentingnya konteks \(V\) yang dimaksud relatif terhadap \(W\) karena \foreign{model} yang menyatakan \(W\) tidak hanya didefinisikan oleh \(W\) sendiri, tetapi juga oleh \(\widetilde{W} = V \setminus W\). Dalam konstruksi \foreign{constraint} untuk \(\Pcal(W)\) ini, hubungan tersebut menjadi lebih kritikal. Karena, terbalik dari perspektif \foreign{power set} pada umumnya, dalam bentuk \foreign{constraint}, definisi \foreign{power set} justru dilihat dari elemen-elemennya yang tidak ada di \(W\). Lebih formalnya dinyatakan oleh ekspresi berikut:
+Ketiga, untuk sembarang \(W \subseteq V\), dapat dikonstruksi \foreign{constraint} sedemikian rupa \foreign{model}-nya berkoresponden satu-satu dengan \(\Pcal(W)\). Dapat diperhatikan pada konstruksi \foreign{constraint} sebelumnya betapa pentingnya konteks \(V\) yang dimaksud relatif terhadap \(W\) karena \foreign{model} yang menyatakan \(W\) tidak hanya didefinisikan oleh \(W\) sendiri, tetapi juga oleh \(\widetilde{W} = V \setminus W\). Dalam konstruksi \foreign{constraint} untuk \(\Pcal(W)\) ini, hubungan tersebut menjadi lebih kritikal. Karena, terbalik dari perspektif \foreign{power set} pada umumnya, dalam bentuk \foreign{constraint}, definisi \foreign{power set} justru dilihat dari elemen-elemennya yang tidak ada di \(W\). Lebih formalnya dinyatakan oleh ekspresi berikut:
 \[
 	\bigwedge \limits_{\displaystyle v \in \widetilde{W}} \neg \boolmap(v)
 \]
@@ -392,7 +392,7 @@ Sama seperti transformasi \autoref{eq:boolean-satisfiability-natural} ke \autore
 
 \subsection{\foreign{Pseudo Boolean}}
 
-Pada akhirnya, sampailah di penghujung desain algoritma dimensi metrik menggunakan SMT. Cermati bentuk \foreign{constraint} yang terdapat dalam \foreign{linear integer arithmetic} sudah sesuai dengan representasi \foreign{constraint} yang dibutuhkan dalam \foreign{pseudo boolean}. Maka dari itu, konstruksi \foreign{constraint} dapat diturunkan kembali menggunakan variabel boolean dari pada \foreign{integer}, tetapi menggunakan teori yang lebih tinggi dari \foreign{boolean satisfiability}, yaitu \foreign{pseudo boolean}. Di sini, didapatkan kembali representasi natural keanggotaan sebagai nilai \(\True\), dan secara bersamaan dapat diekspresikan bentuk \foreign{constraint} yang memuat logika kardinalitas secara lebih natural. Dengan demikian, \autoref{eq:linear-integer-arithmetic-cardinality} dan \autoref{eq:linear-integer-arithmetic} dapat translasikan langsung menjadi pseudo boolean sebagai berikut:
+Pada akhirnya, sampailah di penghujung desain algoritma dimensi metrik menggunakan SMT. Dapat dicermati bentuk \foreign{constraint} yang terdapat dalam \foreign{linear integer arithmetic} sudah sesuai dengan representasi \foreign{constraint} yang dibutuhkan dalam \foreign{pseudo boolean}. Maka dari itu, konstruksi \foreign{constraint} dapat diturunkan kembali menggunakan variabel boolean dari pada \foreign{integer}, tetapi menggunakan teori yang lebih tinggi dari \foreign{boolean satisfiability}, yaitu \foreign{pseudo boolean}. Di sini, didapatkan kembali representasi natural keanggotaan sebagai nilai \(\True\), dan secara bersamaan dapat diekspresikan bentuk \foreign{constraint} yang memuat logika kardinalitas secara lebih natural. Dengan demikian, \autoref{eq:linear-integer-arithmetic-cardinality} dan \autoref{eq:linear-integer-arithmetic} dapat translasikan langsung menjadi pseudo boolean sebagai berikut:
 
 \begin{equation}
 	\sum \limits_{\displaystyle v \in V} \boolmap(v) \enspace = k
