@@ -25,12 +25,14 @@ Lintasan adalah rangkaian sisi yang menghubungkan rangkaian simpul, dengan setia
 	\begin{minipage}{0.4\linewidth}
 		\centering
 		\includegraphics[width=0.625\linewidth]{img/8ec60eeeaa549478379fc4cb6b42df17c5ca8b364e4e642efbba0ac2db0b6e94.pdf}
+		\vspace{-1em}
 		\captionof{figure}{\centering Graf Terhubung}
 		\label{fig:contoh-graf}
 	\end{minipage}
 	\begin{minipage}{0.4\linewidth}
 		\centering
 		\includegraphics[width=0.625\linewidth]{img/0630ebfe671b8208b2dc56ca90c62464252c4ac5e3f30ff3fc2c6db4495f49cc.pdf}
+		\vspace{-1em}
 		\captionof{figure}{\centering Graf Tak Terhubung}
 		\label{fig:graf-tak-terhubung}
 	\end{minipage}
@@ -65,7 +67,6 @@ Matriks jarak adalah matriks yang memuat jarak antara seluruh pasangan simpul \c
 \right]
 \]
 Dan sebagai gambaran, berikut adalah matriks jarak dari \autoref{fig:contoh-graf}.
-\vspace{0.2\baselineskip}
 \[
 \left[
 \begin{array}{ccccc}
@@ -77,7 +78,6 @@ Dan sebagai gambaran, berikut adalah matriks jarak dari \autoref{fig:contoh-graf
 \end{array}
 \right]
 \]
-\vspace{-0.2\baselineskip} \\
 Dapat diamati, setiap elemen dalam matriks jarak memiliki nilai ketika graf yang direpresentasikan adalah graf terhubung.
 
 \section{Automorfisma Graf}
@@ -88,36 +88,42 @@ Dapat diamati, setiap elemen dalam matriks jarak memiliki nilai ketika graf yang
 		\begin{minipage}{0.25\linewidth}
 			\centering
 			\includegraphics[width=\linewidth]{img/3637d326d230653eb5359219776827aba655cda549265e8622f29fcf4522cfb1.pdf}
+			\vspace{-2em}
 			\par\small (a)
 		\end{minipage}
 		\hfill
 		\begin{minipage}{0.25\linewidth}
 			\centering
 			\includegraphics[width=\linewidth]{img/401a2e0bee9ea19714a37a3c2bfa4c78f5a92ea31c623ab3bc7826d5ed95c330.pdf}
+			\vspace{-2em}
 			\par\small (b)
 		\end{minipage}
 		\hfill
 		\begin{minipage}{0.25\linewidth}
 			\centering
 			\includegraphics[width=\linewidth]{img/4b541ec99ee9b0f060e784c888fc378dca74b6d8ff80f5ccc8336615aca46695.pdf}
+			\vspace{-2em}
 			\par\small (c)
 		\end{minipage}
 
 		\begin{minipage}{0.25\linewidth}
 			\centering
 			\includegraphics[width=\linewidth]{img/6eeebca324db75f7c0a719672bf306f79b5afe806b2a8814f0b2f2beedb3b891.pdf}
+			\vspace{-2em}
 			\par\small (d)
 		\end{minipage}
 		\hfill
 		\begin{minipage}{0.25\linewidth}
 			\centering
 			\includegraphics[width=\linewidth]{img/71f4c81555ee6516f44f4d05f5e6f67edd5de0ed42a1cdbcb2f2af72c3232b75.pdf}
+			\vspace{-2em}
 			\par\small (e)
 		\end{minipage}
 		\hfill
 		\begin{minipage}{0.25\linewidth}
 			\centering
 			\includegraphics[width=\linewidth]{img/7d7c7231a399fc001d20da820222d60b8205b145c0e4fafd9cf2f3ebf1eec22d.pdf}
+			\vspace{-2em}
 			\par\small (f)
 		\end{minipage}
 		\captionof{figure}{Automorfisma Graf}
@@ -164,11 +170,6 @@ Dimensi metrik sisi dari \(G\) adalah kardinalitas minimum dari himpunan pembeda
 	r(e_2|W) & = & ( d(x_1, e_2), \; d(x_4, e_2), \; d(x_5, e_2) ) & = & (0, 0, 1) \\
 	r(e_3|W) & = & ( d(x_1, e_3), \; d(x_4, e_3), \; d(x_5, e_3) ) & = & (0, 1, 0) \\
 	r(e_4|W) & = & ( d(x_1, e_4), \; d(x_4, e_4), \; d(x_5, e_4) ) & = & (1, 0, 1) \\
-\end{array}
-\]
-
-\[
-\begin{array}{ccccc}
 	r(e_5|W) & = & ( d(x_1, e_5), \; d(x_4, e_5), \; d(x_5, e_5) ) & = & (1, 1, 0) \\
 	r(e_6|W) & = & ( d(x_1, e_6), \; d(x_4, e_6), \; d(x_5, e_6) ) & = & (1, 0, 1) \\
 	r(e_7|W) & = & ( d(x_1, e_7), \; d(x_4, e_7), \; d(x_5, e_7) ) & = & (1, 1, 0) \\
@@ -192,10 +193,10 @@ Penjelasan lebih lengkap mengenai SMT dapat ditemukan pada \cite{barrett2018}.
 \foreign{Boolean satisfiability} dalam SMT adalah teori yang memuat variabel boolean dan operasi boolean pada umumnya \citep{yurichev}. Sebagai ilustrasi, perhatikan ekspresi
 	\[ (x_1 \land x_2) \lor (x_1 \land x_3) \]
 dengan \(x_1, x_2, x_3\) adalah variabel boolean. Tabel kebenaran untuk ekspresi tersebut dapat dikonstruksi seperti berikut:
-\vspace{-0.5\baselineskip}
+\vspace{-0.5em}
 \[
 \begin{array}{cccc}
-	x_1 & x_2 & x_3 & (x_1 \land x_2) \lor (x_1 \land x_3) \\ [8pt]
+	x_1 & x_2 & x_3 & (x_1 \land x_2) \lor (x_1 \land x_3) \\ [4pt]
 	\False & \False & \False & \False \\
 	 \True & \False & \False & \False \\
 	\False &  \True & \False & \False \\
@@ -206,7 +207,8 @@ dengan \(x_1, x_2, x_3\) adalah variabel boolean. Tabel kebenaran untuk ekspresi
 	 \True &  \True &  \True &  \True
 \end{array}
 \]
-Oleh karena itu, salah satu \foreign{model} yang dapat dihasilkan oleh \foreign{solver} adalah \(x_1 = \True, x_2 = \False, x_3 = \True\).
+
+\noindent Oleh karena itu, salah satu \foreign{model} yang dapat dihasilkan oleh \foreign{solver} adalah \(x_1 = \True, x_2 = \False, x_3 = \True\).
 
 Dalam \foreign{boolean satisfiability}, terdapat pula batasan \(\mathrm{AtLeast}\) dan \(\mathrm{AtMost}\) untuk menentukan paling sedikit dan paling banyak variabel yang boleh bernilai benar. Misalnya, dengan menambahkan batasan \(\mathrm{AtLeast}(3)\) ke contoh sebelumnya, \(x_1 = \True, x_2 = \False, x_3 = \True\) tidaklah lagi solusi yang sah.
 
@@ -240,7 +242,6 @@ dengan \(x_1, x_2, x_3, x_4\) adalah variabel boolean. Ekspresi ini memiliki sel
 	x_3 + x_4 &\leq& 1
 \end{array}
 \]
-\vspace{-\parskip}
 \[ 0 \leq x_1 \leq 1, \quad 0 \leq x_2 \leq 1, \quad 0 \leq x_3 \leq 1, \quad 0 \leq x_4 \leq 1 \]
 dengan \(x_1, x_2, x_3, x_4\) adalah variabel \foreign{integer}. \foreign{Model} yang dapat dihasilkan oleh \foreign{solver} yang mirip dengan hasil dari \foreign{pseudo boolean} sebelumnya adalah \(x_1 = 1, x_2 = 0, x_3 = 1, x_4 = 0\).
 
