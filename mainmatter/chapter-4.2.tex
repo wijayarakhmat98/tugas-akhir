@@ -184,7 +184,13 @@ Meskipun secara konsep \(\boolmap(v_i)\) adalah variabel abstrak, secara matemat
 	\label{alg:brute-force}
 \end{algorithm}
 
-Kedua, untuk sembarang \(W \subseteq V\), dapat dikonstruksi \foreign{constraint} sedemikian rupa \foreign{model}-nya berkoresponden satu-satu dengan \(W\). Secara umum, variabel yang tidak memiliki restriksi akan memiliki nilai \(\indeterminate\) pada \foreign{model}-nya. Maksud dari \(\indeterminate\) adalah variabel yang bebas; yaitu, tidak peduli apa pun nilai yang ia miliki, kebenaran dari \foreign{constraint} yang ada tidak terpengaruhi oleh variabel tersebut. Ketika \foreign{solver} menghasilkan sebuah \foreign{model}, seluruh variabelnya yang \(\indeterminate\) akan diberi sembarang nilai. Artinya, untuk variabel boolean, ia akan mendapatkan sembarang nilai \(\True\) atau \(\False\). Maka dari itu, agar koresponden \foreign{model}-nya satu-satu dengan himpunan yang dituju, tidak boleh ada variabel yang tidak terestriksi secara tidak sengaja dalam \foreign{constraint} yang dikonstruksikan. Untuk kasus di sini yang memilih tepat \(W\), \foreign{constraint} yang menyatakan pemilihan ini adalah sebagai berikut:
+Kedua, untuk sembarang \(W \subseteq V\), dapat dikonstruksi \foreign{constraint} sedemikian rupa \foreign{model}-nya berkoresponden satu-satu dengan \(W\). Secara umum, variabel yang tidak memiliki restriksi akan memiliki nilai \(\indeterminate\) pada \foreign{model}-nya. Maksud dari \(\indeterminate\) adalah variabel yang bebas; yaitu, tidak peduli apa pun nilai yang ia miliki, kebenaran dari \foreign{constraint} yang ada tidak terpengaruhi oleh variabel tersebut. Ketika \foreign{solver} menghasilkan sebuah \foreign{model}, seluruh variabelnya yang \(\indeterminate\) akan diberi sembarang nilai. Artinya, untuk variabel boolean, ia akan mendapatkan sembarang nilai \(\True\) atau \(\False\).
+
+\begin{example}
+	Misalnya \(X = \{x_1, x_2, x_3\}\). \foreign{Constraint} \(\neg x_1\) hanya memaksa terjadinya \(x_1 = \False\). Sementara \(x_2\) dan \(x_3\) secara umum bernilai \(\indeterminate\). Sehingga, meskipun \foreign{model} yang dihasilkan dari \foreign{solver} akan memberi nilai nyata kepada \(x_2\) dan \(x_3\), nilai tersebut diperoleh secara sembarang dari \(\True\) atau \(\False\).
+\end{example}
+
+Maka dari itu, agar koresponden \foreign{model}-nya satu-satu dengan himpunan yang dituju, tidak boleh ada variabel yang tidak terestriksi secara tidak sengaja dalam \foreign{constraint} yang dikonstruksikan. Untuk kasus di sini yang memilih tepat \(W\), \foreign{constraint} yang menyatakan pemilihan ini adalah sebagai berikut:
 
 \[
 	\combine{\left(}
@@ -209,6 +215,7 @@ Dengan kata lain, seluruh kemungkinan \foreign{model} yang memenuhi \foreign{con
 \end{example}
 
 Akhirnya, dapat dibahas konstruksi \foreign{constraint boolean satisfiability} yang menunjukkan \foreign{resolving set}. Ingat kembali, untuk setiap kolom di \(P\), himpunan \(V[P_{*j}]\) serta seluruh himpunan bagiannya bukanlah \foreign{resolving set}. Maka, \(W \subseteq V\) adalah \foreign{resolving set} jika dan hanya jika \(W\) tidak ada di \(\Pcal(V[P_{*j}])\) untuk setiap kolom di \(P\). Secara formal, ini dapat dinyatakan sebagai berikut:
+
 \[
 	\bigwedge \limits_{\displaystyle P_{*j} \in P} \neg \left( \bigwedge \limits_{\displaystyle v \in \widetilde{V[P_{*j}]}} \neg \boolmap(v) \right)
 \]
@@ -227,6 +234,7 @@ Sedemikian rupa dapat disederhakan menjadi:
 \end{example}
 
 Secara teori, \foreign{constraint} \autoref{eq:boolean-satisfiability-natural} sudah berbentuk \foreign{conjunctive normal form} (CNF). Akan tetapi, ketika menunjukkan \(\unsat\) menggunakan SMT, efektivitasnya sangat bergantung pada \foreign{conflict driven learning}, yaitu metode "penalaran" yang digunakan oleh \foreign{solver} untuk melakukan pemangkasan ruang pencarian. Salah satu sifat yang digunakan oleh \foreign{conflict driven learning} adalah bentuk CNF yang terdiri dari suku-suku positif maupun suku-suku negatif. Sedangkan \autoref{eq:boolean-satisfiability-natural} sepenuhnya hanya memuat suku-suku positif. Bentuk yang sudah diperoleh ini dapat ditransformasikan agar juga memuat suku-suku negatif dengan memfaktorkan keluar "pemilihan" sang himpunan kosong, dengan cara berikut:
+
 \begin{equation}
 	\begin{array}{l}
 		\displaystyle \bigwedge \limits_{\displaystyle P_{*j} \in P} \enspace \combine{\left(}{\False}{\right)}{\vee}{\left(}{\bigvee \limits_{\displaystyle v \in V[\sim\!P_{*j}]} \boolmap(v)}{\right)} \\ [18pt]
@@ -241,7 +249,6 @@ Secara teori, \foreign{constraint} \autoref{eq:boolean-satisfiability-natural} s
 \begin{example}
 	Berikut adalah hasil dari pemfaktoran \autoref{ex:boolean-satisfiability-natural}.
 	\[
-		\smash[b]{
 		\begin{array}{c}
 			x_1 \vee x_2 \vee x_3 \vee x_4 \vee x_5 \\ [4pt]
 			x_3 \vee x_4 \vee x_5 \implies x_1 \vee x_2 \\
@@ -249,7 +256,6 @@ Secara teori, \foreign{constraint} \autoref{eq:boolean-satisfiability-natural} s
 			x_1 \vee x_4 \vee x_5 \implies x_2 \vee x_3 \\
 			x_1 \vee x_2 \vee x_3 \implies x_4 \vee x_5
 		\end{array}
-		}
 	\]
 	\label{ex:boolean-satisfiability}
 \end{example}
@@ -280,45 +286,6 @@ Dengan demikian, didapatkan desain \autoref{alg:boolean-satisfiability} yang mel
 	Disimpulkan bahwa \(2 + 1 = 3\) adalah dimensi metrik dari graf tersebut.
 \end{example}
 
-\subsection{\foreign{Linear Integer Arithmetic}}
-
-Seperti pemetaan injektif \(\boolmap\), di sini didefinisikan pemetaan injektif \(\intmap\) dari \(V\) ke variabel \foreign{integer} di SMT. Dengan membatasi \(0 \leq \intmap(v_i) \leq 1\), seperti halnya koresponden keanggotaan simpul dalam \(W\) bergantung dari nilai \(\True\) untuk \(\boolmap(v_i)\), nilai \(1\) untuk \(\intmap(v_i)\) menunjukkan korespondensi keanggotaan dan nilai \(0\) untuk tidak. Sehingga, pemetaan \foreign{resolving set} ke dalam \foreign{constraint boolean satisfiability} dapat diangkat secara langsung ke bentuk \foreign{linear integer arithmetic} dengan melakukan translasi berikut:
-\[
-	\bigvee \limits_{\displaystyle v \in W} \boolmap(v)
-	\iff
-	\sum \limits_{\displaystyle v \in W} \intmap(v) \enspace \geq 1
-\]
-Didapat bentuk dari \autoref{eq:boolean-satisfiability-natural} dalam \foreign{linear integer arithmetic} sebagai berikut:
-\begin{equation}
-	\bigwedge \limits_{\displaystyle P_{*j} \in P} \enspace \sum \limits_{\displaystyle v \in V[\sim\!P_{*j}]} \intmap(v) \enspace \geq 1
-	\label{eq:linear-integer-arithmetic-natural}
-\end{equation}
-
-\begin{example}
-	Ambil graf \autoref{fig:algorithm-example}. Misalnya \(\intmap(v_i) = x_i\), maka \foreign{constraint} yang berkorespondensi dengan \foreign{resolving set}-nya dalam \foreign{linear integer arithmetic} adalah:
-	\[
-		\smash[b]{
-		\begin{array}{c}
-			x_1 + x_2 \geq 1 \\
-			x_1 + x_3 \geq 1 \\
-			x_2 + x_3 \geq 1 \\
-			x_4 + x_5 \geq 1 \\ [4pt]
-			0 \leq x_1 \leq 1,\enspace
-			0 \leq x_2 \leq 1,\enspace
-			0 \leq x_3 \leq 1,\enspace
-			0 \leq x_4 \leq 1,\enspace
-			0 \leq x_5 \leq 1
-		\end{array}
-		} \vspace{0.75em}
-	\]
-\end{example}
-
-Selanjutnya, untuk \foreign{constraint} \(\AtLeast\) dan \(\AtMost\), dapat dinyatakan dalam \foreign{linear integer arithmetic} dengan lebih sederhana sebagai:
-\begin{equation}
-	\sum \limits_{\displaystyle v \in V} \intmap(v) \enspace = k
-	\label{eq:linear-integer-arithmetic-cardinality}
-\end{equation}
-
 \vspace{-0.5em}
 
 \begin{algorithm}[H]
@@ -348,6 +315,43 @@ Selanjutnya, untuk \foreign{constraint} \(\AtLeast\) dan \(\AtMost\), dapat diny
 	\label{alg:boolean-satisfiability}
 \end{algorithm}
 
+\subsection{\foreign{Linear Integer Arithmetic}}
+
+Seperti pemetaan injektif \(\boolmap\), di sini didefinisikan pemetaan injektif \(\intmap\) dari \(V\) ke variabel \foreign{integer} di SMT. Dengan membatasi \(0 \leq \intmap(v_i) \leq 1\), seperti halnya koresponden keanggotaan simpul dalam \(W\) bergantung dari nilai \(\True\) untuk \(\boolmap(v_i)\), nilai \(1\) untuk \(\intmap(v_i)\) menunjukkan korespondensi keanggotaan dan nilai \(0\) untuk tidak. Sehingga, pemetaan \foreign{resolving set} ke dalam \foreign{constraint boolean satisfiability} dapat diangkat secara langsung ke bentuk \foreign{linear integer arithmetic} dengan melakukan translasi berikut:
+\[
+	\bigvee \limits_{\displaystyle v \in W} \boolmap(v)
+	\iff
+	\sum \limits_{\displaystyle v \in W} \intmap(v) \enspace \geq 1
+\]
+Didapat bentuk dari \autoref{eq:boolean-satisfiability-natural} dalam \foreign{linear integer arithmetic} sebagai berikut:
+\begin{equation}
+	\bigwedge \limits_{\displaystyle P_{*j} \in P} \enspace \sum \limits_{\displaystyle v \in V[\sim\!P_{*j}]} \intmap(v) \enspace \geq 1
+	\label{eq:linear-integer-arithmetic-natural}
+\end{equation}
+
+\begin{example}
+	Ambil graf \autoref{fig:algorithm-example}. Misalnya \(\intmap(v_i) = x_i\), maka \foreign{constraint} yang berkorespondensi dengan \foreign{resolving set}-nya dalam \foreign{linear integer arithmetic} adalah:
+	\[
+		\begin{array}{c}
+			x_1 + x_2 \geq 1 \\
+			x_1 + x_3 \geq 1 \\
+			x_2 + x_3 \geq 1 \\
+			x_4 + x_5 \geq 1 \\ [4pt]
+			0 \leq x_1 \leq 1,\enspace
+			0 \leq x_2 \leq 1,\enspace
+			0 \leq x_3 \leq 1,\enspace
+			0 \leq x_4 \leq 1,\enspace
+			0 \leq x_5 \leq 1
+		\end{array}
+	\]
+\end{example}
+
+Selanjutnya, untuk \foreign{constraint} \(\AtLeast\) dan \(\AtMost\), dapat dinyatakan dalam \foreign{linear integer arithmetic} dengan lebih sederhana sebagai:
+\begin{equation}
+	\sum \limits_{\displaystyle v \in V} \intmap(v) \enspace = k
+	\label{eq:linear-integer-arithmetic-cardinality}
+\end{equation}
+
 Perhatikan bentuk jumlahan ini yang lebih ekspresif dari pada \(\AtLeast\) dan \(\AtMost\). Menggunakan persamaan ini, \autoref{eq:linear-integer-arithmetic-natural} dapat ditransformasi menjadi relatif terhadap kardinalitas \(k\) seperti berikut:
 \begin{equation}
 	\bigwedge \limits_{\displaystyle P_{*j} \in P} \enspace \sum \limits_{\displaystyle v \in V[P_{*j}]} \intmap(v) \enspace \leq k - 1
@@ -359,7 +363,6 @@ Sama seperti transformasi \autoref{eq:boolean-satisfiability-natural} ke \autore
 \begin{example}
 	Untuk graf \autoref{fig:algorithm-example}, \foreign{constraint} yang berkorespondensi dengan \foreign{resolving set} berkardinalitas \(k\) adalah:
 	\[
-		\smash[b]{
 		\begin{array}{c}
 			x_1 + x_2 + x_3 + x_4 + x_5 = k \\ [4pt]
 			x_3 + x_4 + x_5 \leq k - 1 \\
@@ -372,7 +375,6 @@ Sama seperti transformasi \autoref{eq:boolean-satisfiability-natural} ke \autore
 			0 \leq x_4 \leq 1,\enspace
 			0 \leq x_5 \leq 1
 		\end{array}
-		} \vspace{1.25em}
 	\]
 	\label{ex:linear-integer-arithmetic-constraint}
 \end{example}
@@ -389,20 +391,6 @@ Sama seperti transformasi \autoref{eq:boolean-satisfiability-natural} ke \autore
 	\end{enumerate}
 	Disimpulkan bahwa \(2 + 1 = 3\) adalah dimensi metrik dari graf tersebut.
 \end{example}
-
-\subsection{\foreign{Pseudo Boolean}}
-
-Pada akhirnya, sampailah di penghujung desain algoritma dimensi metrik menggunakan SMT. Dapat dicermati bentuk \foreign{constraint} yang terdapat dalam \foreign{linear integer arithmetic} sudah sesuai dengan representasi \foreign{constraint} yang dibutuhkan dalam \foreign{pseudo boolean}. Maka dari itu, konstruksi \foreign{constraint} dapat diturunkan kembali menggunakan variabel boolean dari pada \foreign{integer}, tetapi menggunakan teori yang lebih tinggi dari \foreign{boolean satisfiability}, yaitu \foreign{pseudo boolean}. Di sini, didapatkan kembali representasi natural keanggotaan sebagai nilai \(\True\), dan secara bersamaan dapat diekspresikan bentuk \foreign{constraint} yang memuat logika kardinalitas secara lebih natural. Dengan demikian, \autoref{eq:linear-integer-arithmetic-cardinality} dan \autoref{eq:linear-integer-arithmetic} dapat translasikan langsung menjadi pseudo boolean sebagai berikut:
-
-\begin{equation}
-	\sum \limits_{\displaystyle v \in V} \boolmap(v) \enspace = k
-	\label{eq:pseudo-boolean-cardinality}
-\end{equation}
-
-\begin{equation}
-	\bigwedge \limits_{\displaystyle P_{*j} \in P} \enspace \sum \limits_{\displaystyle v \in V[P_{*j}]} \boolmap(v) \enspace \leq k - 1
-	\label{eq:pseudo-boolean}
-\end{equation}
 
 \begin{algorithm}[H]
 	\foreign{Input}:
@@ -433,12 +421,25 @@ Pada akhirnya, sampailah di penghujung desain algoritma dimensi metrik menggunak
 
 \vspace{-0.5em}
 
+\subsection{\foreign{Pseudo Boolean}}
+
+Pada akhirnya, sampailah di penghujung desain algoritma dimensi metrik menggunakan SMT. Dapat dicermati bentuk \foreign{constraint} yang terdapat dalam \foreign{linear integer arithmetic} sudah sesuai dengan representasi \foreign{constraint} yang dibutuhkan dalam \foreign{pseudo boolean}. Maka dari itu, konstruksi \foreign{constraint} dapat diturunkan kembali menggunakan variabel boolean dari pada \foreign{integer}, tetapi menggunakan teori yang lebih tinggi dari \foreign{boolean satisfiability}, yaitu \foreign{pseudo boolean}. Di sini, didapatkan kembali representasi natural keanggotaan sebagai nilai \(\True\), dan secara bersamaan dapat diekspresikan bentuk \foreign{constraint} yang memuat logika kardinalitas secara lebih natural. Dengan demikian, \autoref{eq:linear-integer-arithmetic-cardinality} dan \autoref{eq:linear-integer-arithmetic} dapat translasikan langsung menjadi pseudo boolean sebagai berikut:
+
+\begin{equation}
+	\sum \limits_{\displaystyle v \in V} \boolmap(v) \enspace = k
+	\label{eq:pseudo-boolean-cardinality}
+\end{equation}
+
+\begin{equation}
+	\bigwedge \limits_{\displaystyle P_{*j} \in P} \enspace \sum \limits_{\displaystyle v \in V[P_{*j}]} \boolmap(v) \enspace \leq k - 1
+	\label{eq:pseudo-boolean}
+\end{equation}
+
 Meskipun perubahan yang dilakukan hanyalah membawa turun dari \foreign{linear integer arithmetic} ke \foreign{pseudo boolean}, dengan bentuk \foreign{constraint} yang kurang lebih sama persis, ketika tidak ada \foreign{expresiveness} yang hilang, maka secara umum \foreign{solver} yang menggunakan \foreign{pseudo boolean} akan lebih efektif dibandingkan yang menggunakan \foreign{linear integer arithmetic}.
 
 \begin{example}
 	Ambil graf \autoref{fig:algorithm-example}. Jika \(\boolmap(v_i) = x_i\), maka \foreign{constraint} yang berkorespondensi dengan \foreign{resolving set} berkardinalitas \(k\) adalah:
 	\[
-		\smash[b]{
 		\begin{array}{c}
 			x_1 + x_2 + x_3 + x_4 + x_5 = k \\ [4pt]
 			x_3 + x_4 + x_5 \leq k - 1 \\
@@ -446,7 +447,6 @@ Meskipun perubahan yang dilakukan hanyalah membawa turun dari \foreign{linear in
 			x_1 + x_4 + x_5 \leq k - 1 \\
 			x_1 + x_2 + x_3 \leq k - 1
 		\end{array}
-		} \vspace{0.75em}
 	\]
 	\label{ex:pseudo-boolean-constraint}
 \end{example}
