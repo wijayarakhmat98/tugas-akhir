@@ -66,7 +66,7 @@ Matriks jarak adalah matriks yang memuat jarak antara seluruh pasangan simpul \c
 \end{array}
 \right]
 \]
-Dan sebagai gambaran, berikut adalah matriks jarak dari \autoref{fig:contoh-graf}.
+Sebagai gambaran, berikut adalah matriks jarak dari \autoref{fig:contoh-graf}.
 \[
 \left[
 \begin{array}{ccccc}
@@ -143,9 +143,9 @@ adalah representasi dari \(v\) terhadap \(W\). Himpunan \(W\) adalah \foreign{re
 	\[ \forall u, v \in V, u \neq v \implies r(u|W) \neq r(v|W) \]
 atau dengan kata lain, seluruh simpul dalam \(G\) memiliki representasi unik terhadap \(W\).
 
-Dimensi metrik dari \(G\) adalah kardinalitas minimum dari himpunan pembeda untuk \(G\) \citep{tillquist2023}. Sebagai ilustrasi, ambil \autoref{fig:contoh-graf}. Coba \(W = \{x_2, x_4\}\).
+Dimensi metrik dari \(G\) adalah kardinalitas minimum dari himpunan pembeda untuk \(G\) \citep{tillquist2023}. Sebagai ilustrasi, untuk graf pada \autoref{fig:contoh-graf}, jika dipilih \(W = \{x_2, x_4\}\), akan diperoleh representasi terhadap \(W\) berikut:
 \[
-\begin{array}{ccccc}
+\begin{array}{c@{\ }c@{\ }c@{\ }c@{\ }c}
 	r(x_1|W) & = & ( d(x_2, x_1), \; d(x_4, x_1) ) & = & (2, 1) \\
 	r(x_2|W) & = & ( d(x_2, x_2), \; d(x_4, x_2) ) & = & (0, 1) \\
 	r(x_3|W) & = & ( d(x_2, x_3), \; d(x_4, x_3) ) & = & (2, 1) \\
@@ -163,9 +163,9 @@ adalah representasi dari \(e\) terhadap \(W\). Himpunan \(W\) adalah \foreign{ed
 	\[ \forall e, f \in E, e \neq f \implies r(e|W) \neq r(f|W) \]
 atau dengan kata lain, seluruh sisi dalam \(G\) memiliki representasi unik terhadap \(W\).
 
-Dimensi metrik sisi dari \(G\) adalah kardinalitas minimum dari himpunan pembeda sisi untuk \(G\) \citep{kelenc2018}. Sebagai ilustrasi, ambil \autoref{fig:contoh-graf}. Coba \(W = \{x_1, x_4, x_5\}\).
+Dimensi metrik sisi dari \(G\) adalah kardinalitas minimum dari himpunan pembeda sisi untuk \(G\) \citep{kelenc2018}. Sebagai ilustrasi, untuk graf pada \autoref{fig:contoh-graf}, jika dipilih \(W = \{x_1, x_4, x_5\}\), akan diperoleh representasi terhadap \(W\) berikut:
 \[
-\begin{array}{ccccc}
+\begin{array}{c@{\ }c@{\ }c@{\ }c@{\ }c}
 	r(e_1|W) & = & ( d(x_1, e_1), \; d(x_4, e_1), \; d(x_5, e_1) ) & = & (0, 1, 1) \\
 	r(e_2|W) & = & ( d(x_1, e_2), \; d(x_4, e_2), \; d(x_5, e_2) ) & = & (0, 0, 1) \\
 	r(e_3|W) & = & ( d(x_1, e_3), \; d(x_4, e_3), \; d(x_5, e_3) ) & = & (0, 1, 0) \\
@@ -203,6 +203,12 @@ dengan \(x_1, x_2, x_3\) adalah variabel boolean. Tabel kebenaran untuk ekspresi
 	 \True &  \True & \False &  \True \\
 	\False & \False &  \True & \False \\
 	 \True & \False &  \True &  \True \\
+\end{array}
+\]
+
+\[
+\begin{array}{cccc}
+	\phantom{\False} & \phantom{\False} & \phantom{\False} & \phantom{(x_1 \land x_2) \lor (x_1 \land x_3)} \\ [-2em]
 	\False &  \True &  \True & \False \\
 	 \True &  \True &  \True &  \True
 \end{array}
