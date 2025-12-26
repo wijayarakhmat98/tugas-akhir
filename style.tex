@@ -1,0 +1,83 @@
+\captionsetup{hypcap=false}
+
+\titleformat{\chapter}[display]
+	{\centering\large\bfseries}
+	{\MakeUppercase{\chaptername~\Roman{chapter}}}
+	{0pt}
+	{\MakeUppercase}
+
+\titlespacing*{\chapter}
+	{0pt}
+	{0.5\baselineskip}
+	{2\baselineskip}
+
+\titleformat{\section}
+	{\normalfont\bfseries}
+	{\thesection}
+	{1em}
+	{}
+
+\titlespacing*{\section}
+	{0pt}
+	{0.5\baselineskip}
+	{0.2\baselineskip}
+
+\titleformat{\subsection}
+	{\normalfont\bfseries}
+	{\thesubsection}
+	{1em}
+	{}
+
+\titlespacing*{\subsection}
+	{0pt}
+	{0.5\baselineskip}
+	{0.2\baselineskip}
+
+\titlecontents{chapter}[0pt]
+	{\vspace{0.5em}}
+	{BAB \MakeUppercase{\romannumeral\thecontentslabel}\quad\MakeUppercase}
+	{\MakeUppercase}
+	{\hfill\contentspage}
+
+\titlecontents{figure}[1.5em]
+	{}
+	{Gambar \makebox[2em][l]{\thecontentslabel}\enspace}
+	{}
+	{\ \titlerule*[.75pc]{.}\contentspage}
+
+\titlecontents{table}[1.5em]
+	{}
+	{Tabel \makebox[2em][l]{\thecontentslabel}\enspace}
+	{}
+	{\ \titlerule*[.75pc]{.}\contentspage}
+
+\raggedbottom
+
+\renewcommand{\headrulewidth}{0pt}
+
+\newcommand\abspagenumber{\inteval{\ReadonlyShipoutCounter+1}}
+
+\newcommand{\margRepair}{
+	\ifodd\abspagenumber
+		\newgeometry{inner=\margIn, outer=\margOut, top=\margTop, bottom=\margBot}
+	\else
+		\newgeometry{inner=\margOut, outer=\margIn, top=\margTop, bottom=\margBot}
+	\fi
+}
+
+\newcommand{\footRepair}{
+	\ifodd\abspagenumber
+		\fancyhf{}
+		\fancypagestyle{plain}{\fancyfoot[RO,LE]{\thepage}}
+		\pagestyle{plain}
+	\else
+		\fancyhf{}
+		\fancypagestyle{plain}{\fancyfoot[RE,LO]{\thepage}}
+		\pagestyle{plain}
+	\fi
+}
+
+\let\ORIGINALfrontmatter\frontmatter
+\let\ORIGINALmainmatter\mainmatter
+\renewcommand{\frontmatter}{\ORIGINALfrontmatter \margRepair \footRepair}
+\renewcommand{\mainmatter}{\ORIGINALmainmatter \margRepair \footRepair}

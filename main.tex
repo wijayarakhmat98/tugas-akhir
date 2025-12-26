@@ -1,0 +1,173 @@
+\documentclass[12pt,openright]{book}
+
+\newlength{\margIn}
+\newlength{\margOut}
+\newlength{\margTop}
+\newlength{\margBot}
+
+% \usepackage{emptypage}
+% \setlength{\margIn}{3cm}
+% \setlength{\margOut}{2cm}
+% \setlength{\margTop}{3cm}
+% \setlength{\margBot}{2.5cm}
+% \PassOptionsToPackage{a4paper}{geometry}
+
+\renewcommand{\cleardoublepage}{\clearpage}
+\setlength{\margIn}{.5cm}
+\setlength{\margOut}{.5cm}
+\setlength{\margTop}{.5cm}
+\setlength{\margBot}{.5cm}
+\PassOptionsToPackage{paperwidth=17cm, paperheight=25.2cm}{geometry}
+
+\PassOptionsToPackage{english,main=indonesian}{babel}
+\PassOptionsToPackage{autostyle}{csquotes}
+\PassOptionsToPackage{inner=\margIn, outer=\margOut, top=\margTop, bottom=\margBot}{geometry}
+\PassOptionsToPackage{hidelinks}{hyperref}
+\PassOptionsToPackage{authoryear}{natbib}
+\PassOptionsToPackage{table,xcdraw}{xcolor}
+
+\usepackage{
+	babel,
+	csquotes,
+	textcase,
+	amsthm,
+	lmodern,
+	newtxtext,
+	newtxmath,
+	newtxtt,
+	fancyvrb,
+	geometry,
+	pagecolor,
+	% parskip,
+	indentfirst,
+	titlesec,
+	titletoc,
+	tabularx,
+	array,
+	multirow,
+	float,
+	graphicx,
+	wrapfig,
+	wallpaper,
+	subcaption,
+	xcolor,
+	ulem,
+	tikz,
+	% pdflscape,
+	lscape,
+	hyperref,
+	xurl,
+	cleveref,
+	natbib,
+	fancyhdr,
+	algorithm
+}
+
+\def\True{\mathtt{True}}
+\def\False{\mathtt{False}}
+
+\newcommand{\foreign}[1]{\foreignlanguage{english}{\textit{#1}}}
+
+\theoremstyle{definition}
+\newtheorem{examplex}{Contoh}
+
+\newenvironment{example}
+	{\begin{examplex}\pushQED{\qed}}
+	{\popQED\end{examplex}}
+
+\addto\extrasindonesian{
+	\renewcommand{\chapterautorefname}{Bab}
+	\renewcommand{\sectionautorefname}{Subbab}
+	\renewcommand{\subsectionautorefname}{Subsubbab}
+	\renewcommand{\figureautorefname}{Gambar}
+	\renewcommand{\tableautorefname}{Tabel}
+	\renewcommand{\equationautorefname}{Persamaan}
+	\floatname{algorithm}{Algoritma}
+	\renewcommand{\refname}{Daftar Pustaka}
+	\renewcommand{\bibname}{Daftar Pustaka}
+	\providecommand{\algorithmautorefname}{Algoritma}
+	\providecommand{\examplexautorefname}{Contoh}
+	\crefname{appsec}{Lampiran}{Appendices}
+	\Crefname{appsec}{Lampiran}{Appendices}
+}
+
+\newcommand{\bulan}[1]{
+	\ifcase#1\relax
+		\or Januari\or Februari\or Maret\or April\or Mei\or Juni\or Juli\or Agustus\or September\or Oktober\or Nopember\or Desember%
+	\fi
+}
+
+\input{style}
+
+\input{constants}
+
+\begin{document}
+	\setlength{\abovedisplayskip}{0.5\baselineskip}
+	\setlength{\belowdisplayskip}{0.5\baselineskip}
+
+	\input{cover/Blue}
+	\cleardoublepage
+
+	\input{cover/Bahasa}
+	\cleardoublepage
+
+	\input{cover/English}
+	\cleardoublepage
+
+	\frontmatter
+
+	\input{frontmatter/endorsement-statement}
+	\cleardoublepage
+
+	\input{frontmatter/originality-statement}
+	\cleardoublepage
+
+	\input{frontmatter/abstractBahasa}
+	\cleardoublepage
+
+	\input{frontmatter/abstractEnglish}
+	\cleardoublepage
+
+	\input{frontmatter/preface}
+	\cleardoublepage
+
+	\input{frontmatter/table-of-contents}
+	\cleardoublepage
+
+	\input{frontmatter/list-of-figures}
+	\cleardoublepage
+
+	\input{frontmatter/list-of-tables}
+	\cleardoublepage
+
+	\mainmatter
+
+	\input{mainmatter/chapter-1}
+	\cleardoublepage
+
+	\input{mainmatter/chapter-2}
+	\cleardoublepage
+
+	\input{mainmatter/chapter-3}
+	\cleardoublepage
+
+	\input{mainmatter/chapter-4}
+	\cleardoublepage
+
+	\input{mainmatter/chapter-5}
+	\cleardoublepage
+
+	\backmatter
+
+	\input{backmatter/appendix}
+	\cleardoublepage
+
+	\input{backmatter/bibliography}
+	\cleardoublepage
+
+	\input{backmatter/acknowledgement}
+	\cleardoublepage
+
+	\input{backmatter/biography}
+	\cleardoublepage
+\end{document}
