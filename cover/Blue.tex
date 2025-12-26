@@ -1,5 +1,5 @@
 \begin{titlepage}
-	\newgeometry{inner=\margOut, outer=\margOut, top=\margOut, bottom=\margOut}
+	\newgeometry{inner=\marginOuter, outer=\marginOuter, top=\marginOuter, bottom=\marginOuter}
 	\thispagestyle{empty}
 	\setlength{\parindent}{0pt}
 	\setlength{\parskip}{0.5\baselineskip}
@@ -7,7 +7,7 @@
 
 	\begin{tikzpicture}[remember picture, overlay]
 		\fill[itsBlue]
-			([yshift=-\dimexpr (4cm + \margOut) \relax]current page.north west)
+			([yshift=-\dimexpr (4cm + \marginOuter) \relax]current page.north west)
 			rectangle
 			(current page.south east);
 	\end{tikzpicture}%

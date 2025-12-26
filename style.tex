@@ -57,11 +57,11 @@
 
 \newcommand\abspagenumber{\inteval{\ReadonlyShipoutCounter+1}}
 
-\newcommand{\margRepair}{
+\newcommand{\marginRepair}{
 	\ifodd\abspagenumber
-		\newgeometry{inner=\margIn, outer=\margOut, top=\margTop, bottom=\margBot}
+		\newgeometry{inner=\marginInner, outer=\marginOuter, top=\marginTop, bottom=\marginBottom}
 	\else
-		\newgeometry{inner=\margOut, outer=\margIn, top=\margTop, bottom=\margBot}
+		\newgeometry{inner=\marginOuter, outer=\marginInner, top=\marginTop, bottom=\marginBottom}
 	\fi
 }
 
@@ -79,5 +79,5 @@
 
 \let\ORIGINALfrontmatter\frontmatter
 \let\ORIGINALmainmatter\mainmatter
-\renewcommand{\frontmatter}{\ORIGINALfrontmatter \margRepair \footRepair}
-\renewcommand{\mainmatter}{\ORIGINALmainmatter \margRepair \footRepair}
+\renewcommand{\frontmatter}{\ORIGINALfrontmatter \marginRepair \footRepair}
+\renewcommand{\mainmatter}{\ORIGINALmainmatter \marginRepair \footRepair}
