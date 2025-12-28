@@ -1,0 +1,88 @@
+\documentclass[10pt,twocolumn]{article}
+
+\newlength{\marginInner}
+\newlength{\marginOuter}
+\newlength{\marginTop}
+\newlength{\marginBottom}
+
+% \setlength{\marginInner}{16.5mm}
+% \setlength{\marginOuter}{16.5mm}
+% \setlength{\marginTop}{17.8mm}
+% \setlength{\marginBottom}{17.8mm}
+% \PassOptionsToPackage{a4paper}{geometry}
+
+\setlength{\marginInner}{5mm}
+\setlength{\marginOuter}{5mm}
+\setlength{\marginTop}{5mm}
+\setlength{\marginBottom}{5mm}
+\PassOptionsToPackage{paperwidth=187mm, paperheight=271.4mm}{geometry}
+
+\PassOptionsToPackage{english,main=indonesian}{babel}
+\PassOptionsToPackage{inner=\marginInner, outer=\marginOuter, top=\marginTop, bottom=\marginBottom}{geometry}
+
+\usepackage{
+	babel,
+	lipsum,
+	geometry,
+	xcolor
+}
+
+\newcommand{\foreign}[1]{\foreignlanguage{english}{\textit{#1}}}
+
+\addto\extrasindonesian{
+	\renewcommand{\refname}{Daftar Pustaka}
+}
+
+\input{constants}
+
+\title{\titleBahasa}
+\author{\theAuthor}
+\date{}
+
+\begin{document}
+
+\maketitle
+
+\section*{Abstract}
+\lipsum[1]
+
+\subsection*{Kata Kunci}
+\lipsum[2][1]
+
+\section{Pendahuluan}
+\lipsum[3]
+
+\section{Penelitian Terdahulu}
+\cite{kratica2007} \lipsum[4][1-2]
+\cite{eppstein2015} \lipsum[4][3-4]
+\cite{kelenc2018} \lipsum[4][5-6]
+\cite{klavzar2020} \lipsum[4][7-8]
+\cite{knor2021} \lipsum[4][9-10]
+
+\section{Formulasi Algoritma}
+\lipsum[5]
+
+\section{Evaluasi Algoritma}
+\lipsum[6]
+
+\section{Pembahasan}
+\lipsum[7]
+
+\section{Kesimpulan}
+\lipsum[8]
+
+\section*{Lampiran}
+\renewcommand{\thesubsection}{\Alph{subsection}}
+
+\subsection{Implementasi Algoritma}
+\lipsum[9]
+
+\subsection{Data Hasil Eksekusi}
+\lipsum[10]
+
+\section*{Ucapan Terima Kasih}
+\lipsum[11]
+
+\input{backmatter/bibliography}
+
+\end{document}
