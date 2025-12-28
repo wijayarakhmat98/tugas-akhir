@@ -462,6 +462,7 @@ Sehingga, didapat desain algoritma yang menggunakan \foreign{pseudo boolean}.
 \end{algorithm}
 
 \section{Evaluasi Algoritma}
+\label{sec:implementation}
 
 Seluruh algoritma yang telah dideskripsikan pada \autoref{sec:alg} diimplementasikan dalam bahasa pemrograman \foreign{Python} versi 3.14 serta menggunakan \foreign{libraries} yang tersedia melalui \foreign{pip} dan \foreign{conda-forge}. Di antaranya adalah \foreign{NetworkX}, yang menyediakan fungsi untuk \foreign{decoding} dan \foreign{encoding} format \verb`graph6`; \foreign{NumPy}, yang menyediakan fungsi untuk melakukan operasi matriks secara efisien; \foreign{SciPy}, yang menyediakan implementasi algoritma \foreign{Floyd-Warshall}; dan \foreign{Z3-solver}, yang menyediakan \foreign{binding} untuk menggunakan \foreign{solver} Z3 melalui \foreign{Python}. Informasi lebih lanjut mengenai cara mengakses kode implementasi ini dapat ditemukan pada \cref{app:code}.
 
@@ -635,7 +636,18 @@ Dengan demikian, secara keseluruhan, hasil ini menunjukkan bahwa \autoref{alg:br
 \end{center}
 
 \section{Kesimpulan}
-\lipsum[8]
+
+Makalah ini bertujuan untuk mempelajari permasalahan penentuan invarian graf berupa dimensi metrik dan dimensi metrik sisi dengan memanfaatkan pendekatan berbasis \foreign{Satisfiability Modulo Theories} (SMT). Fokus makalah ini meliputi hal-hal dari formulasi permasalahan ke dalam bentuk SMT, pengimplementasian formulasi tersebut, hingga evaluasi efektivitas pendekatan yang diusulkan. Berdasarkan hasil yang telah diperoleh, dapat disimpulkan bahwa:
+
+\begin{enumerate}
+	\item Permasalahan dimensi metrik dan dimensi metrik sisi dapat direpresentasikan secara sistematis ke dalam bentuk formula SMT, sebagaimana telah didemonstrasikan oleh \autoref{alg:boolean-satisfiability}, \autoref{alg:linear-integer-arithmetic}, dan \autoref{alg:pseudo-boolean}.
+
+	\item Pendekatan SMT dapat digunakan secara praktikal untuk menentukan dimensi metrik maupun dimensi metrik sisi suatu graf. Terlihat dari hasil tabel-tabel frekuensi pada \autoref{sec:discussion} bahwa strategi tersebut dapat menghasilkan kedua invarian ini dengan benar.
+
+	\item Efektivitas penggunaan SMT dalam menyelesaikan permasalahan dimensi metrik dan dimensi metrik sisi bergantung pada ukuran graf dan sumber daya komputasi yang tersedia, serta pemilihan teori yang digunakan -- seperti yang telah dikaji dalam poin ke-3 pada \autoref{sec:discussion}.
+\end{enumerate}
+
+Kesimpulan yang diperoleh dalam makalah ini berlaku dalam batasan-batasan yang telah ditetapkan. Yaitu pemilihan graf yang sederhana, tak berarah, terhubung, dan tak berbobot; banyaknya simpul pada graf yang dibatasi sesuai dengan perencanaan pada \autoref{sec:implementation}; membatasi waktu eksekusi; serta melakukan eksekusi implementasi menggunakan \foreign{CPU} yang telah dispesifikasikan. Kebenaran hasil penentuan dimensi metrik atau dimensi metrik sisi menggunakan SMT juga dibantu validasi melalui metode \foreign{brute-force} selama \autoref{alg:brute-force} masih mampu melakukan komputasinya dengan batasan-batasan ini.
 
 \section*{Lampiran}
 
