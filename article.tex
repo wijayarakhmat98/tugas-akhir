@@ -32,6 +32,7 @@
 	fancyvrb,
 	geometry,
 	indentfirst,
+	titlesec,
 	hyperref,
 	natbib,
 	algorithm
@@ -62,6 +63,28 @@
 \def\Pcal{\mathcal{P}}
 \def\sat{\mathtt{sat}}
 \def\unsat{\mathtt{unsat}}
+
+\titleformat{\section}
+	{\centering}
+	{\Roman{section}.}
+	{.5em}
+	{\MakeUppercase}
+
+\titlespacing*{\section}
+	{0pt}
+	{0.5\baselineskip}
+	{0.2\baselineskip}
+
+\titleformat{\subsection}
+	{}
+	{\textit{\Alph{subsection}}.}
+	{.5em}
+	{\textit}
+
+\titlespacing*{\subsection}
+	{0pt}
+	{0.5\baselineskip}
+	{0.2\baselineskip}
 
 \raggedbottom
 
@@ -417,7 +440,6 @@ Sehingga, didapat desain algoritma yang menggunakan \foreign{pseudo boolean}.
 \lipsum[8]
 
 \section*{Lampiran}
-\renewcommand{\thesubsection}{\Alph{subsection}}
 
 \subsection{Implementasi Algoritma}
 
