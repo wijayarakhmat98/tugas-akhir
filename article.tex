@@ -33,6 +33,7 @@
 	geometry,
 	indentfirst,
 	titlesec,
+	multirow,
 	graphicx,
 	subcaption,
 	hyperref,
@@ -471,7 +472,155 @@ Akhirnya, hasil dari setiap komputasi pada individu graf adalah total waktu ekse
 
 \section{Pembahasan}
 \label{sec:discussion}
-\lipsum[7]
+
+Sebelum dilakukannya pembahasan, diperjelas terlebih dahulu cara membaca tabel dan grafik pada bagian ini. Seluruh tabel mengenai rata-rata waktu eksekusi, yaitu \autoref{tab:mean-md-small}, \autoref{tab:mean-emd-small}, \autoref{tab:mean-md-large}, dan \autoref{tab:mean-emd-large}, unit waktu eksekusi adalah dalam detik. Kemudian, seluruh grafik mengenai tren waktu eksekusi, yaitu \autoref{fig:trend-md-small}, \autoref{fig:trend-emd-small}, \autoref{fig:trend-md-large}, \autoref{fig:trend-emd-large}, \autoref{fig:trend-md-combined}, dan \autoref{fig:trend-emd-combined}, sumbu vertikal menunjukkan unit waktu dalam detik, sumbu horizontal menunjukkan graf bersimpul tertentu, dan setiap garis dalam grafik menunjukkan algoritma sesuai dengan \autoref{fig:trend-legend}.
+
+\begin{center}
+	\renewcommand{\minipagewidth}{\linewidth}
+	\input{result/trend-legend}
+\end{center}
+
+Pertama, dibahas hasil eksekusi untuk graf kecil. Untuk seluruh algoritma dan untuk dimensi metrik maupun dimensi metrik sisi, tidak ada hasil evaluasi yang gagal karena melewati batas waktu. Sehingga, untuk seluruh 273192 graf kecil, berhasil diidentifikasi dimensi metrik dan dimensi metrik sisinya. Rincian frekuensi graf berdasarkan dimensi metrik dapat dilihat dalam \autoref{tab:freq-md-small}, dan rincian frekuensi graf berdasarkan dimensi metrik sisi dapat dilihat dalam \autoref{tab:freq-emd-small}. Kedua tabel ini berlaku untuk seluruh \autoref{alg:brute-force}, \autoref{alg:boolean-satisfiability}, \autoref{alg:linear-integer-arithmetic}, dan \autoref{alg:pseudo-boolean}, menunjukkan secara \foreign{experimental} bahwa semua implementasi algoritma benar, sekaligus secara tidak langsung menunjukkan bahwa teori formulasi setiap algoritma benar untuk menentukan dimensi metrik dan dimensi metrik sisi, karena semuanya menghasilkan frekuensi yang sama.
+
+Dari data ini, dapat diilustrasikan perbedaan antara invarian graf dimensi metrik dan invarian graf dimensi metrik sisi. Dapat diperhatikan \autoref{fig:hist-md-8}, yaitu histogram frekuensi graf berdasarkan dimensi metrik, dan \autoref{fig:hist-emd-8}, yaitu histogram frekuensi graf berdasarkan dimensi metrik sisi. Meskipun kedua histogram menggunakan graf bersimpul 8, gambaran ini dapat memberikan intuisi mengenai sebaran dimensi metrik dan sebaran dimensi metrik sisi pada graf dengan banyak simpul lebih besar. Dapat diamati bahwa untuk graf dengan \(n\) simpul, sebaran dimensi metrik cenderung berat di kiri \(\dfrac{n}{2}\) sedangkan sebaran dimensi metrik sisi cenderung berat di kanan \(\dfrac{n}{2}\).
+
+Dari data frekuensi ini juga terlihat bahwa eksistensi dimensi metrik dan dimensi metrik sisi minimum mirip, karena hanya ada satu graf yang memiliki dimensi metrik minimum dan hanya ada satu graf pula yang memiliki dimensi metrik sisi minimum. Namun, eksistensi dimensi metrik dan dimensi metrik sisi maksimum berbeda, karena hanya ada satu graf yang berdimensi metrik maksimum, tetapi ada banyak graf yang berdimensi metrik sisi maksimum.
+
+Selanjutnya, untuk membandingkan waktu eksekusi antar algoritma, dihitung rata-rata waktu eksekusi untuk setiap graf dengan \(n\) simpul. Akan tetapi, sebagaimana telah dibahas dalam \autoref{subsec:bf} mengenai pengujian habis dan dalam \autoref{subsec:bs} mengenai menunjukkan \(\unsat\), tidaklah masuk akal untuk menghitung rata-rata waktu eksekusi langsung dari semua graf dengan banyak simpul yang sama. Hal ini karena waktu eksekusi sangat dipengaruhi oleh nilai invarian dimensi metrik maupun dimensi metrik sisi yang dimiliki oleh setiap graf. Oleh karena itu, untuk setiap graf bersimpul \(n\), dipilih graf berdasarkan frekuensi dimensi metrik terbanyak dan dimensi metrik sisi terbanyak.
+
+Untuk graf bersimpul 2 hingga 9, frekuensi dimensi metrik terbanyak berturut-turut adalah 1, 1, 2, 2, 2, 2, 3, 3, 3, dan frekuensi dimensi metrik sisi terbanyak berturut-turut adalah 0, 1, 2, 3, 4, 4, 5, 5.  Rata-rata waktu eksekusi dihitung berdasarkan banyaknya simpul \(n\) dan frekuensi dimensi metrik atau dimensi metrik sisi terbanyak. Hasil perhitungan rata-rata waktu eksekusi setiap algoritma untuk menentukan dimensi metrik pada graf kecil dapat dilihat pada \autoref{tab:mean-md-small}, dan rata-rata waktu eksekusi setiap algoritma menentukan dimensi metrik sisi pada graf kecil dapat dilihat pada \autoref{tab:mean-emd-small}.
+
+Akhirnya, rata-rata waktu eksekusi yang telah diperoleh untuk membandingkan waktu eksekusi setiap algoritma dapat diilustrasikan lebih jelas sebagai grafik tren. Untuk dimensi metrik, tren ini dapat diamati pada \autoref{fig:trend-md-small}, dan untuk dimensi metrik sisi, tren ini dapat diamati pada \autoref{fig:trend-emd-small}. Terlihat bahwa, untuk graf kecil, waktu eksekusi \autoref{alg:brute-force} selalu paling cepat, sedangkan waktu eksekusi \autoref{alg:linear-integer-arithmetic} selalu paling lambat.
+
+\begin{center}
+	\renewcommand{\minipagewidth}{0.8\linewidth}
+
+	\input{result/freq-md-small}
+
+	\vspace{1em}
+
+	\input{result/freq-emd-small}
+
+	\vspace{1em}
+
+	\renewcommand{\minipagewidth}{0.9\linewidth}
+
+	\input{result/hist-md-8}
+
+	\vspace{1em}
+
+	\input{result/hist-emd-8}
+
+	\vspace{1em}
+
+	\renewcommand{\minipagewidth}{\linewidth}
+
+	\input{result/mean-md-small}
+
+	\vspace{1em}
+
+	\input{result/mean-emd-small}
+
+	\vspace{1em}
+
+	\renewcommand{\minipagewidth}{0.9\linewidth}
+
+	\input{result/trend-md-small}
+
+	\vspace{1em}
+
+	\input{result/trend-emd-small}
+
+\end{center}
+
+Kedua, dibahas hasil eksekusi untuk graf besar. Berbeda dari evaluasi untuk graf kecil, pada graf besar ini setiap algoritma mengalami kegagalan dalam menentukan dimensi metrik maupun dimensi metrik sisi. Hal ini tertera secara ringkas pada \autoref{tab:freq-fail-large}. Terlihat \autoref{alg:pseudo-boolean} mengalami kegagalan paling sedikit dalam menentukan dimensi metrik dan dimensi metrik sisi, sementara algoritma yang mengalami kegagalan paling banyak dalam menentukan dimensi metrik adalah \autoref{alg:boolean-satisfiability} dan dalam menentukan dimensi metrik sisi adalah \autoref{alg:brute-force}. Namun, kesimpulan ini tidak menggambarkan seluruh cerita, sehingga perlu dilihat rincian frekuensi lebih detail.
+
+Untuk frekuensi dimensi metrik dari hasil eksekusi setiap algoritma dapat dilihat pada \autoref{tab:freq-md-large-bf}, \autoref{tab:freq-md-large-bs}, \autoref{tab:freq-md-large-lia}, dan \autoref{tab:freq-md-large-pb}. Terlihat bahwa untuk semua algoritma, penentuan dimensi metrik berhasil untuk seluruh graf dengan banyak simpul dari 10 hingga 40, dan semua algoritma menghasilkan frekuensi yang sama. Akan tetapi, \autoref{alg:brute-force}, \autoref{alg:boolean-satisfiability}, dan \autoref{alg:linear-integer-arithmetic}, baru mengalami kegagalan mulai dari graf dengan 45 simpul. Lebih kuat lagi, ketiga algoritma ini gagal dalam menentukan dimensi metrik untuk seluruh graf bersimpul 50. Di sisi lain, \autoref{alg:pseudo-boolean} adalah satu-satunya yang tidak mengalami kegagalan sama sekali dalam penentuan dimensi metrik graf besar.
+
+Untuk frekuensi dimensi metrik sisi, hasil eksekusi setiap algoritma dapat dilihat pada \autoref{tab:freq-emd-large-bf}, \autoref{tab:freq-emd-large-bs}, \autoref{tab:freq-emd-large-lia}, dan \autoref{tab:freq-emd-large-pb}. \autoref{alg:brute-force} seluruhnya gagal menentukan dimensi metrik sisi sejak graf dengan 30 simpul. Sedangkan \autoref{alg:boolean-satisfiability} dan \autoref{alg:linear-integer-arithmetic} seluruhnya gagal sejak graf dengan 40 simpul. Sementara itu, \autoref{alg:pseudo-boolean} baru mulai seluruhnya gagal sejak graf dengan 45 simpul.
+
+Seperti sebelumnya, rata-rata waktu eksekusi dihitung berdasarkan banyaknya simpul \(n\) frekuensi dimensi metrik atau dimensi metrik sisi terbanyak. Untuk graf besar bersimpul 10 hingga 45, frekuensi dimensi metrik terbanyak berturut-turut adalah 3, 4, 5, 5, 6, 6, 6, 6. Untuk graf besar bersimpul 10 hingga 35, frekuensi dimensi metrik sisi terbanyak berturut-turut adalah 5, 8, 10, 12, 14, 15. Hasil perhitungan rata-rata waktu eksekusi untuk dimensi metrik dapat dilihat pada \autoref{tab:mean-md-large}, dan untuk dimensi metrik sisi pada \autoref{tab:mean-emd-large}.
+
+Demikian pula, rata-rata waktu eksekusi yang telah diperoleh untuk membandingkan waktu eksekusi antar algoritma dapat diilustrasikan lebih jelas sebagai grafik tren. Untuk dimensi metrik, dapat diamati pada \autoref{fig:trend-md-large}. Untuk dimensi metrik sisi, dapat diamati pada \autoref{fig:trend-emd-large}. Untuk grafik \autoref{fig:trend-emd-large} dipecah menjadi dua, karena rata-rata waktu eksekusi untuk \autoref{alg:brute-force} hanya tersedia hingga graf bersimpul 25, dan diilustrasikan sebagai (a). Kemudian, (b) melanjutkan perbandingan tren untuk \autoref{alg:boolean-satisfiability} dan \autoref{alg:pseudo-boolean} hingga graf bersimpul 35. Tren untuk \autoref{alg:linear-integer-arithmetic} tidak dimasukkan dalam (b) karena rata-rata waktu eksekusi hanya tersedia hingga graf bersimpul 30.
+
+Dapat diamati, dalam menentukan dimensi metrik untuk graf bersimpul \(n\), seiring membesarnya \(n\), \autoref{alg:pseudo-boolean} adalah yang paling cepat. Sama pula, dalam menentukan dimensi metrik sisi, seiring membesarnya \(n\), \autoref{alg:pseudo-boolean} juga adalah yang paling cepat. Catat bahwa meskipun \autoref{fig:trend-emd-large} (b) menunjukkan \autoref{alg:boolean-satisfiability} dan \autoref{alg:pseudo-boolean} memiliki tren yang mirip, ini hanya ilustrasi parsial karena \autoref{alg:boolean-satisfiability} seluruhnya gagal pada graf bersimpul 40, sedangkan \autoref{alg:pseudo-boolean} masih berhasil.
+
+\begin{center}
+	\renewcommand{\minipagewidth}{0.8\linewidth}
+
+	\input{result/freq-md-large-bf}
+
+	\vspace{1em}
+
+	\input{result/freq-md-large-bs}
+
+	\vspace{1em}
+
+	\input{result/freq-md-large-lia}
+
+	\vspace{1em}
+
+	\input{result/freq-md-large-pb}
+
+	\vspace{1em}
+
+	\input{result/freq-emd-large-bf}
+
+	\vspace{1em}
+
+	\input{result/freq-emd-large-bs}
+
+	\vspace{1em}
+
+	\input{result/freq-emd-large-lia}
+
+	\vspace{1em}
+
+	\input{result/freq-emd-large-pb}
+
+	\vspace{1em}
+
+	\renewcommand{\minipagewidth}{\linewidth}
+
+	\input{result/freq-fail-large}
+
+	\vspace{1em}
+
+	\input{result/mean-md-large}
+
+	\vspace{1em}
+
+	\input{result/mean-emd-large}
+
+	\vspace{1em}
+
+	\renewcommand{\minipagewidth}{0.9\linewidth}
+
+	\input{result/trend-md-large}
+
+	\vspace{1em}
+
+	\input{result/trend-emd-large}
+
+\end{center}
+
+Ketiga, dibahas hasil eksekusi secara keseluruhan untuk memberikan gambaran lebih jelas mengenai waktu eksekusi masing-masing algoritma. Dengan menggabungkan \autoref{tab:mean-md-small} dan \autoref{tab:mean-md-large} dan mengilustrasikannya sebagai satu grafik tren pada \autoref{fig:trend-md-combined}, didapatkan gambaran yang lebih lengkap mengenai waktu eksekusi untuk graf kecil dan besar. Menggunakan cara yang sama, \autoref{tab:mean-emd-small} dan \autoref{tab:mean-emd-large} digabungkan dan diilustrasikan dalam satu grafik tren pada \autoref{fig:trend-emd-combined}; grafik ini dipecah menjadi (a) dan (b) untuk alasan yang sama seperti pada \autoref{fig:trend-emd-large}. Seluruh ilustrasi gabungan ini menggunakan skala logaritma pada sumbu vertikal karena naiknya waktu eksekusi yang cenderung bersifat kombinatorial, sesuai dengan pembahasan pada \autoref{subsec:bf}.
+
+Untuk penentuan dimensi metrik, terlihat pada \autoref{fig:trend-md-combined} bahwa \autoref{alg:brute-force} unggul dari graf bersimpul 2 hingga 20. Selanjutnya, \autoref{alg:boolean-satisfiability} unggul dari graf bersimpul 25 hingga 30. Untuk graf bersimpul 35 atau lebih, \autoref{alg:pseudo-boolean} menjadi yang paling unggul. Sementara itu, \autoref{alg:linear-integer-arithmetic} selalu memiliki waktu eksekusi paling lambat untuk semua graf.
+
+Kemudian, untuk penentuan dimensi metrik sisi, sebagaimana terlihat pada \autoref{fig:trend-emd-combined}, \autoref{alg:brute-force} unggul dari graf bersimpul 2 hingga 10. Mirip seperti sebelumnya, \autoref{alg:boolean-satisfiability} unggul dari graf bersimpul 15 hingga 25. Akhirnya, \autoref{alg:pseudo-boolean} adalah yang paling unggul untuk graf bersimpul 30 atau lebih. Sekali lagi, \autoref{alg:linear-integer-arithmetic} merupakan algoritma dengan waktu eksekusi paling lambat.
+
+Dengan demikian, secara keseluruhan, hasil ini menunjukkan bahwa \autoref{alg:brute-force} lebih unggul pada graf kecil, sedangkan \autoref{alg:pseudo-boolean} lebih unggul pada graf besar. Lalu, \autoref{alg:boolean-satisfiability} merupakan \foreign{trade-off} yang dapat diambil dalam implementasi umum untuk transisi dari komputasi pada graf kecil ke graf besar.
+
+\begin{center}
+	\renewcommand{\minipagewidth}{0.9\linewidth}
+
+	\input{result/trend-md-combined}
+
+	\vspace{1em}
+
+	\input{result/trend-emd-combined}
+\end{center}
 
 \section{Kesimpulan}
 \lipsum[8]
