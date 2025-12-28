@@ -122,15 +122,20 @@
 {
 	\small
 
-	\noindent \textbf{\textit{Abstrak} -- Dimensi metrik dan dimensi metrik sisi pada sebuah graf merupakan invarian fundamental dalam teori graf. Secara sederhana, dimensi metrik menyatakan banyaknya simpul paling sedikit yang diperlukan untuk membedakan seluruh simpul lain dalam graf, sedangkan dimensi metrik sisi menyatakan hal serupa tetapi untuk membedakan seluruh sisi. Makalah ini mengeksplorasi penggunaan \foreign{Satisfiability Modulo Theories} (SMT) sebagai pendekatan untuk menghitung dimensi metrik dan dimensi metrik sisi. Permasalahan diformulasikan secara deklaratif dalam SMT dan diselesaikan menggunakan \foreign{solver}. Representasi graf kanonik digunakan untuk menghapus redundansi akibat automorfisma, dan eksperimen dilakukan pada seluruh graf terhubung unik dengan 2 hingga 9 simpul, serta beberapa graf berukuran lebih besar.}
+	\noindent \textbf{\textit{Abstrak} --- Dimensi metrik dan dimensi metrik sisi pada sebuah graf merupakan invarian fundamental dalam teori graf. Secara sederhana, dimensi metrik menyatakan banyaknya simpul paling sedikit yang diperlukan untuk membedakan seluruh simpul lain dalam graf, sedangkan dimensi metrik sisi menyatakan hal serupa tetapi untuk membedakan seluruh sisi. Makalah ini mengeksplorasi penggunaan \foreign{Satisfiability Modulo Theories} (SMT) sebagai pendekatan untuk menghitung dimensi metrik dan dimensi metrik sisi. Permasalahan diformulasikan secara deklaratif dalam SMT dan diselesaikan menggunakan \foreign{solver}. Representasi graf kanonik digunakan untuk menghapus redundansi akibat automorfisma, dan eksperimen dilakukan pada seluruh graf terhubung unik dengan 2 hingga 9 simpul, serta beberapa graf berukuran lebih besar.}
 
 	\vspace{0.5\baselineskip}
 
-	\noindent \textbf{\textit{Kata Kunci} -- Dimensi Metrik, Dimensi Metrik Sisi, \foreign{Satisfiability Modulo Theories}, SMT \foreign{Solver}, \foreign{NP-hard}.}
+	\noindent \textbf{\textit{Kata Kunci} --- Dimensi Metrik, Dimensi Metrik Sisi, \foreign{Satisfiability Modulo Theories}, SMT \foreign{Solver}, \foreign{NP-hard}.}
 }
 
 \section{Pendahuluan}
-\lipsum[3]
+
+Teori graf dapat dimanfaatkan untuk memodelkan berbagai macam struktur diskret, dengan aplikasi dalam berbagai bidang seperti jaringan, optimasi, dan analisis struktur relasional. Salah satu konsep dalam teori graf adalah \emph{dimensi metrik}, yang bertujuan untuk membedakan simpul-simpul dalam suatu graf berdasarkan jaraknya terhadap suatu himpunan pembeda. Konsep ini memiliki beragam aplikasi, antara lain pada lokalisasi sumber, teori permainan, dan analisis jaringan \cite{tillquist2023}. Variasi dari konsep tersebut adalah \emph{dimensi metrik sisi}, yang membedakan sisi graf, ketika hubungan antar simpul lebih penting dibandingkan simpul, seperti apliasi yang dibahas pada \cite{awadiyah2019}.
+
+Permasalahan dimensi metrik dan dimensi metrik sisi bersifat kombinatorial dan secara umum sulit diselesaikan secara analitik, terutama untuk graf dengan ukuran yang semakin besar. Oleh karena itu, dalam makalah ini, dicoba pendekatan komputasional. Permasalahan semacam ini dapat dipetakan ke dalam \foreign{Satisfiability Modulo Theories} (SMT), yang mendukung pemodelan berbagai jenis batasan secara ekspresif. \cite{smt-app} membahas berbagai macam pemodelan menggunakan SMT, termasuk untuk menyelesaikan permasalahan kombinatorial dan optimasi diskret.
+
+Makalah ini memformulasi permasalahan dimensi metrik dan dimensi metrik sisi ke dalam SMT dan penggunaan \foreign{solver} untuk menentukan keduanya. Pendekatan yang dieksplorasi mencakup formulasi algoritma, serta perbandingan dengan pendekatan \foreign{brute-force} sebagai validasi. Analisis difokuskan pada graf sederhana, tak berarah, terhubung, dan tak berbobot dengan ukuran simpul terbatas, sesuai dengan keterbatasan sumber daya komputasi.
 
 \section{Penelitian Terdahulu}
 \cite{kratica2007} \lipsum[4][1-2]
