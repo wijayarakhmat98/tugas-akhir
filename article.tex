@@ -33,7 +33,10 @@
 	geometry,
 	indentfirst,
 	titlesec,
+	graphicx,
+	subcaption,
 	hyperref,
+	cleveref,
 	natbib,
 	algorithm
 }
@@ -47,6 +50,8 @@
 	\renewcommand{\refname}{Daftar Pustaka}
 	\renewcommand{\bibname}{Daftar Pustaka}
 	\providecommand{\algorithmautorefname}{Algoritma}
+	\crefname{appsec}{Lampiran}{Appendices}
+	\Crefname{appsec}{Lampiran}{Appendices}
 }
 
 \def\True{\mathtt{True}}
@@ -63,6 +68,21 @@
 \def\Pcal{\mathcal{P}}
 \def\sat{\mathtt{sat}}
 \def\unsat{\mathtt{unsat}}
+
+\newcommand{\minipagealign}{}
+\newcommand{\minipagewidth}{\linewidth}
+
+\newlength{\contentwidth}
+\newcommand{\resizetofit}[1]{
+	\settowidth{\contentwidth}{#1}
+	\ifdim\contentwidth > \linewidth
+		\resizebox{\linewidth}{!}{#1}
+	\else
+		#1
+	\fi
+}
+
+\captionsetup{hypcap=false}
 
 \titleformat{\section}
 	{\centering}
@@ -115,6 +135,7 @@
 \cite{knor2021} \lipsum[4][9-10]
 
 \section{Formulasi Algoritma}
+\label{sec:alg}
 
 Untuk mempermudah pembahasan, terlebih dahulu didefinisikan beberapa notasi. Misalkan \(S\) merupakan suatu himpunan sembarang. Sebuah vektor berdimensi \(n\) yang elemennya berasal dari \(S\) ditulis sebagai \(c \in S^n\), dengan \(c_i \in S\) menyatakan elemen ke-\(i\) dari vektor tersebut. Vektor \(c\) dapat dibangun dari elemen-elemennya dengan notasi \(c = (c_1\ \cdots\ c_n)\), atau secara singkat \(c = (c_i\ \cdots)\) ketika domain indeks \(i\) jelas dari konteks.
 
@@ -430,7 +451,23 @@ Sehingga, didapat desain algoritma yang menggunakan \foreign{pseudo boolean}.
 \end{algorithm}
 
 \section{Evaluasi Algoritma}
-\lipsum[6]
+
+Seluruh algoritma yang telah dideskripsikan pada \autoref{sec:alg} diimplementasikan dalam bahasa pemrograman \foreign{Python} versi 3.14 serta menggunakan \foreign{libraries} yang tersedia melalui \foreign{pip} dan \foreign{conda-forge}. Di antaranya adalah \foreign{NetworkX}, yang menyediakan fungsi untuk \foreign{decoding} dan \foreign{encoding} format \verb`graph6`; \foreign{NumPy}, yang menyediakan fungsi untuk melakukan operasi matriks secara efisien; \foreign{SciPy}, yang menyediakan implementasi algoritma \foreign{Floyd-Warshall}; dan \foreign{Z3-solver}, yang menyediakan \foreign{binding} untuk menggunakan \foreign{solver} Z3 melalui \foreign{Python}. Informasi lebih lanjut mengenai cara mengakses kode implementasi ini dapat ditemukan pada \cref{app:code}.
+
+Dipersiapkan data graf yang dibagi menjadi dua kategori: graf kecil (2 hingga 9 simpul) dan graf besar (lebih dari 9 simpul). Seluruh graf terhubung dengan 2–9 simpul diuji secara menyeluruh. Tujuan tahap pengujian ini adalah untuk mendapatkan data komprehensif kinerja algoritma dengan berbagai macam konfigurasi graf. Data ini dapat dianalisis kasus-kasusnya seperti kejadian \foreign{worst-case} dan kejadian \foreign{best-case}. Selanjutnya, pengujian diperluas pada graf dengan simpul lebih banyak. Tujuan tahap pengujian ini adalah mengevaluasi kinerja dan keterbatasan pendekatan SMT pada kasus yang lebih kompleks. Uji ini juga yang dijadikan sebagai tolak ukur performa solusi dari tugas akhir ini secara umum untuk sembarang graf.
+
+Total graf kecil yang akan dicari dimensi metrik dan dimensi metrik sisinya adalah sebanyak 273192 graf. Untuk graf besar, dipilih dari graf bersimpul 10 hingga graf bersimpul 50 dengan interval 5 simpul, dan diambil masing-masing sebanyak 50 graf. Sehingga, total graf besar yang akan dicari dimensi metrik dan dimensi metrik sisinya adalah sebanyak 450 graf. Dengan demikian, total graf yang akan dievaluasi adalah sebanyak 273642 graf. Rincian lebih detailnya dapat dilihat pada \autoref{tab:graph-count}.
+
+\begin{center}
+	\renewcommand{\minipagewidth}{0.5\linewidth}
+	\input{result/graph-count}
+\end{center}
+
+Terdapat 4 macam algoritma yang masing-masing digunakan untuk mencari dimensi metrik dan dimensi metrik sisi pada sebanyak 273642 graf. Maka, perlu dilakukan sebanyak individual 2189136 komputasi. Catat bahwa setiap komputasi bersifat saling independen, atau disebut juga sebagai \foreign{embarrassingly parallel}. Oleh karena itu, secara keseluruhan, komputasi ini dapat dipercepat dengan menggunakan \foreign{CPU} yang memiliki \foreign{multi-core}, selama semua \foreign{core} yang digunakan identik satu sama lain. Untuk tugas akhir ini, digunakan \foreign{CPU Intel i7-118G7} dengan \foreign{4 physical cores} yang masing-masing memiliki kapabilitas \foreign{hyperthreading}, sehingga ada sebanyak \foreign{8 logical cores} yang dapat digunakan.
+
+Meskipun antar komputasi bersifat \foreign{embarrassingly parallel}, implementasi setiap komputasinya sendiri secara internal tidak bersifat parallel. Maka dari itu, diperlakukan batas waktu eksekusi pada setiap algoritma. Batasan waktu ini diimplementasikan bukan pada total waktu eksekusi masing-masing algoritma, melainkan pada waktu eksekusi di setiap iterasi kardinalitasnya. Adapun tahap yang dibatasi adalah tahap \((8a)\) pada \autoref{alg:brute-force} dan \autoref{alg:boolean-satisfiability}, tahap \((8b)\) pada \autoref{alg:linear-integer-arithmetic}, dan tahap \((7b)\) pada \autoref{alg:pseudo-boolean}. Batas waktu yang dipilih untuk tugas akhir ini adalah selama 5 menit. Ditekankan kembali batas waktu ini adalah pada setiap iterasi kardinalitas, sehingga jelas total waktu eksekusi dapat lebih dari 5 menit.
+
+Akhirnya, hasil dari setiap komputasi pada individu graf adalah total waktu eksekusi dan, bila algoritma tidak diberhentikan karena melebihi batas waktu, dimensi metrik atau dimensi metrik sisinya. Pembahasan pada \autoref{sec:discussion} langsung mencakup statistik dari hasil semua eksekusi yang telah diperoleh. Sedangkan hasil eksekusi spesifik secara per individual tidak dibahas. Informasi mengenai cara mengakses hasil eksekusi yang masih berbentuk komputasi individual dapat ditemukan pada \cref{app:result}.
 
 \section{Pembahasan}
 \label{sec:discussion}
@@ -442,6 +479,7 @@ Sehingga, didapat desain algoritma yang menggunakan \foreign{pseudo boolean}.
 \section*{Lampiran}
 
 \subsection{Implementasi Algoritma}
+\label[appsec]{app:code}
 
 Implementasi yang digunakan untuk menghasilkan data yang digunakan pada \autoref{sec:discussion} dapat diakses melalui \foreign{link} berikut: \url{https://drive.google.com/drive/folders/1x_BZM-u7V-4VzNNbLmnsEhucgznmdhWr}.
 
@@ -504,6 +542,7 @@ Kemudian, akan dihasilkan \foreign{output} seperti berikut:
 \end{Verbatim}
 
 \subsection{Data Hasil Eksekusi}
+\label[appsec]{app:result}
 
 Data graf yang digunakan dalam tugas akhir ini dapat ditemukan dalam \foreign{folder} \verb`benchmar` \verb`k-source`. Untuk graf kecil, data graf dengan \verb`nV` simpul dibuat menggunakan \foreign{command} \verb`nauty-geng -cq ${nV}`. Untuk graf besar, data graf dibuat menggunakan \foreign{command} berikut:
 \vspace{-.375\baselineskip}
