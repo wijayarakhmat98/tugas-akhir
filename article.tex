@@ -116,8 +116,16 @@
 
 \input{constants}
 
-\title{\titleBahasa}
-\author{\theAuthor}
+\title{
+	\Huge\titleBahasa
+}
+
+\author{
+	\normalsize\theAuthor \\
+	\normalsize\departmentNameHeadlessBahasa\ -- \facultyNameBahasaAbbreviated, \campusName \\
+	\normalsize\textit{e-mail:} wijaya.rakhmat@hotmail.com
+}
+
 \date{}
 
 \begin{document}
@@ -477,7 +485,7 @@ Dipersiapkan data graf yang dibagi menjadi dua kategori: graf kecil (2 hingga 9 
 Total graf kecil yang akan dicari dimensi metrik dan dimensi metrik sisinya adalah sebanyak 273192 graf. Untuk graf besar, dipilih dari graf bersimpul 10 hingga graf bersimpul 50 dengan interval 5 simpul, dan diambil masing-masing sebanyak 50 graf. Sehingga, total graf besar yang akan dicari dimensi metrik dan dimensi metrik sisinya adalah sebanyak 450 graf. Dengan demikian, total graf yang akan dievaluasi adalah sebanyak 273642 graf. Rincian lebih detailnya dapat dilihat pada \autoref{tab:graph-count}.
 
 \begin{center}
-	\renewcommand{\minipagewidth}{0.5\linewidth}
+	\renewcommand{\minipagewidth}{\linewidth}
 	\input{result/graph-count}
 \end{center}
 
@@ -502,7 +510,7 @@ Pertama, dibahas hasil eksekusi untuk graf kecil. Untuk seluruh algoritma dan un
 Dari data frekuensi ini juga terlihat bahwa eksistensi dimensi metrik dan dimensi metrik sisi minimum mirip, karena hanya ada satu graf yang memiliki dimensi metrik minimum dan hanya ada satu graf pula yang memiliki dimensi metrik sisi minimum. Namun, eksistensi dimensi metrik dan dimensi metrik sisi maksimum berbeda, karena hanya ada satu graf yang berdimensi metrik maksimum, tetapi ada banyak graf yang berdimensi metrik sisi maksimum.
 
 \begin{center}
-	\renewcommand{\minipagewidth}{0.8\linewidth}
+	\renewcommand{\minipagewidth}{0.9\linewidth}
 
 	\input{result/freq-md-small}
 
@@ -557,7 +565,7 @@ Untuk frekuensi dimensi metrik dari hasil eksekusi setiap algoritma dapat diliha
 Untuk frekuensi dimensi metrik sisi, hasil eksekusi setiap algoritma dapat dilihat pada \autoref{tab:freq-emd-large-bf}, \autoref{tab:freq-emd-large-bs}, \autoref{tab:freq-emd-large-lia}, dan \autoref{tab:freq-emd-large-pb}. \autoref{alg:brute-force} seluruhnya gagal menentukan dimensi metrik sisi sejak graf dengan 30 simpul. Sedangkan \autoref{alg:boolean-satisfiability} dan \autoref{alg:linear-integer-arithmetic} seluruhnya gagal sejak graf dengan 40 simpul. Sementara itu, \autoref{alg:pseudo-boolean} baru mulai seluruhnya gagal sejak graf dengan 45 simpul.
 
 \begin{center}
-	\renewcommand{\minipagewidth}{0.7\linewidth}
+	\renewcommand{\minipagewidth}{0.9\linewidth}
 
 	\input{result/freq-md-large-bf}
 
@@ -629,8 +637,6 @@ Untuk penentuan dimensi metrik, terlihat pada \autoref{fig:trend-md-combined} ba
 
 Kemudian, untuk penentuan dimensi metrik sisi, sebagaimana terlihat pada \autoref{fig:trend-emd-combined}, \autoref{alg:brute-force} unggul dari graf bersimpul 2 hingga 10. Mirip seperti sebelumnya, \autoref{alg:boolean-satisfiability} unggul dari graf bersimpul 15 hingga 25. Akhirnya, \autoref{alg:pseudo-boolean} adalah yang paling unggul untuk graf bersimpul 30 atau lebih. Sekali lagi, \autoref{alg:linear-integer-arithmetic} merupakan algoritma dengan waktu eksekusi paling lambat.
 
-Dengan demikian, secara keseluruhan, hasil ini menunjukkan bahwa \autoref{alg:brute-force} lebih unggul pada graf kecil, sedangkan \autoref{alg:pseudo-boolean} lebih unggul pada graf besar. Lalu, \autoref{alg:boolean-satisfiability} merupakan \foreign{trade-off} yang dapat diambil dalam implementasi umum untuk transisi dari komputasi pada graf kecil ke graf besar.
-
 \begin{center}
 	\renewcommand{\minipagewidth}{0.9\linewidth}
 
@@ -640,6 +646,8 @@ Dengan demikian, secara keseluruhan, hasil ini menunjukkan bahwa \autoref{alg:br
 
 	\input{result/trend-emd-combined}
 \end{center}
+
+Dengan demikian, secara keseluruhan, hasil ini menunjukkan bahwa \autoref{alg:brute-force} lebih unggul pada graf kecil, sedangkan \autoref{alg:pseudo-boolean} lebih unggul pada graf besar. Lalu, \autoref{alg:boolean-satisfiability} merupakan \foreign{trade-off} yang dapat diambil dalam implementasi umum untuk transisi dari komputasi pada graf kecil ke graf besar.
 
 \section{Kesimpulan}
 
