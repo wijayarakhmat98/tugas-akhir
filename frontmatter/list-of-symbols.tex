@@ -1,6 +1,92 @@
 \addcontentsline{toc}{chapter}{Daftar Simbol}
 \chapter*{Daftar Simbol}
 
-\begin{tabular}{lll}
-	\(|A|\) &:& Kardinalitas himpunan \(A\).
-\end{tabular}
+{
+	\renewcommand{\arraystretch}{1.25}
+
+	\noindent \begin{tabular}{@{}c@{\ }l@{\enspace}l}
+		\(\min(x, y)\) &:& Menghasilkan nilai minimum dari \(x\) dan \(y\). \\
+
+		\(d(u, v)\) &:& Jarak dari simpul \(u\) ke simpul \(v\). \\
+
+		\(d(v, e)\) &:& Jarak dari simpul \(v\) ke sisi \(e\). \\
+
+		\(r(v|W)\) &:& Representasi simpul \(v\) terhadap himpunan \(W\). \\
+
+		\(r(e|W)\) &:& Representasi sisi \(e\) terhadap himpunan \(W\). \\ [.5em]
+
+		\(\displaystyle \binom{c}{r}\) &:& Kombinasi \(c\) pilih \(r\). \\ [1em]
+
+		\(v \in V\) &:& \(v\) adalah elemen di himpunan \(V\). \\
+
+		\(W \subseteq V\) &:& \(W\) adalah himpunan bagian tak sejati dari \(V\). \\
+
+		\(|A|\) &:& Kardinalitas himpunan \(A\). \\ [.25em]
+
+		\(\widetilde{W}\) &:& Himpunan komplemen \(W\). \\
+
+		\(\Pcal(A)\) &:& Himpunan kuasa dari \(A\). \\ [.5em]
+
+		\(\displaystyle \binom{A}{n}\) &:& Himpunan kuasa dari \(A\) khusus untuk himpunan bagian berkardinalitas \(n\). \\ [1em]
+
+		\(S^n\) &:& Vektor berdimensi \(n\). \\
+
+		\(S^{m\times n}\) &:& Matriks berdimensi \(m\) baris dan \(n\) kolom. \\
+
+		\(a_i\) &:& Elemen ke-\(i\) pada vektor \(A\). \\
+
+		\(A_{ij}\) &:& Elemen dari baris ke-\(i\) dan kolom ke-\(j\) pada matriks \(A\). \\
+
+		\(A_{i*}\) &:& Vektor dari baris ke-\(i\) pada matriks \(A\). \\
+
+		\(A_{*j}\) &:& Vektor dari kolom ke-\(j\) pada matriks \(A\). \\
+
+		\((\alpha_1 \enspace \alpha_2)\) &:& Susun sebuah vektor dengan \(\alpha_1\) dan \(\alpha_2\) sebagai elemennya.\\
+
+		\(\left[ a_1 \enspace a_2 \right]\) &:& Susun sebuah matriks dengan vektor \(a_1\) dan \(a_2\) sebagai kolom. \\ [.5em]
+
+		\(\left[ \begin{array}{c} a_1 \\ a_2 \end{array} \right]\) &:& Susun sebuah matriks dengan vektor \(a_1\) dan \(a_2\) sebagai baris. \\ [1em]
+
+		\(\Bbb\) &:& Himpunan nilai boolean. \\
+
+		\(x \vee y\) &:& \(x\) atau \(y\). \\
+
+		\(x \wedge y\) &:& \(x\) dan \(y\). \\
+
+		\(\neg x\) &:& Negasi \(x\). \\
+
+		\(x \implies y\) &:& Jika \(x\) maka \(y\). \\
+
+		\((s_1 = s_2)\) &:& Menghasilkan \(\True\) ketika \(s_1 = s_2\), atau \(\False\) jika tidak. \\
+
+		\((s_1 | s_2)\) &:& Menghasilkan \(\True\) ketika \(s_1 \vee s_2\), atau \(\False\) jika tidak. \\
+
+		\((\sim\!s)\) &:& Menghasilkan \(\True\) ketika \(\neg s\), atau \(\False\) jika tidak. \\
+	\end{tabular}
+
+	\noindent \begin{tabular}{@{}c@{\ }l@{\enspace}l}
+		\((a = b)\) &:& Menghasilkan vektor boolean dengan setiap elemennya \((a_i = b_i)\). \\
+
+		\((a | b)\) &:& Menghasilkan vektor boolean dengan setiap elemennya \((a_i | b_i)\). \\
+
+		\((\sim\!a)\) &:& Menghasilkan vektor boolean dengan setiap elemennya \((\sim\!a_i)\). \\
+
+		\(V[B]\) &:& Menghasilkan vektor berisi elemen dari \(V\) dengan koresponden \(\True\) pada \(B\). \\
+
+		\(\boolmap(v)\) &:& Pemetaan bijektif dari simpul \(v\) ke variabel boolean abstrak SMT. \\
+
+		\(\intmap(v)\) &:& Pemetaan bijektif dari simpul \(v\) ke variabel \foreign{integer} abstrak SMT. \\
+
+		\(\AtLeast(V,n)\) &:& Minimal sebanyak \(n\) variabel dari \(\boolmap(V)\) bernilai \(\True\). \\
+
+		\(\AtMost(V,n)\) &:& Maksimal sebanyak \(n\) variabel dari \(\boolmap(V)\) bernilai \(\True\). \\ [.5em]
+
+		\(\displaystyle \sum \limits_{\displaystyle v \in W} \intmap(v)\) &:& Jumlahan seluruh variabel \foreign{integer} abstrak SMT di \(\intmap(W)\). \\ [1em]
+
+		\(\sat\) &:& Sebuah \foreign{model} berhasil ditemukan. \\
+
+		\(\unsat\) &:& Tidak ada \foreign{model} yang ditemukan. \\
+
+		\(\indeterminate\) &:& Sebuah variabel abstrak SMT memiliki nilai bebas. \\
+	\end{tabular}
+}
