@@ -38,6 +38,7 @@
 	hyperref,
 	cleveref,
 	natbib,
+	fancyhdr,
 	algorithm
 }
 
@@ -106,6 +107,11 @@
 	{0.5\baselineskip}
 	{0.2\baselineskip}
 
+\renewcommand{\headrulewidth}{0pt}
+\fancyhf{}
+\fancypagestyle{plain}{\fancyhead[R]{\raisebox{-1.25em}{\thepage}}}
+\pagestyle{plain}
+
 \raggedbottom
 
 \input{constants}
@@ -155,6 +161,7 @@ Kemudian, misalnya, diberikan \(a_1,\ \cdots,\ a_m \in S^n\). Sebuah matriks \(A
 	\[ A = \left[ \begin{array}{c} a_1\\ \vdots\\ a_m \end{array} \right], \quad \text{atau secara singkat } A = \left[ \begin{array}{c} a_i\\ \vdots \end{array} \right] \text{.}\]
 
 Dengan demikian, matriks \(A\) dapat dibangun dari elemen-elemen barisnya maupun dari elemen-elemen kolomnya sebagai berikut.
+
 	\[ A = \left[ \begin{array}{c} A_{i*}\\ \vdots \end{array} \right] = [A_{*j}\ \cdots] \]
 
 Didefinisikan dua operator biner, yaitu \((s_1 = s_2)\) dan \((t_1 | t_2)\), serta satu operator unari, yaitu \((\sim\!t)\), yang memetakan unsur-unsurnya kepada nilai boolean \(\Bbb = \{\True, \False\}\), untuk sembarang \(s_1, s_2 \in S\) serta \(t, t_1, t_2 \in \Bbb\).
