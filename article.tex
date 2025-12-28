@@ -29,6 +29,7 @@
 	newtxtext,
 	newtxmath,
 	newtxtt,
+	fancyvrb,
 	geometry,
 	indentfirst,
 	hyperref,
@@ -39,6 +40,7 @@
 \newcommand{\foreign}[1]{\foreignlanguage{english}{\textit{#1}}}
 
 \addto\extrasindonesian{
+	\renewcommand{\sectionautorefname}{Bagian}
 	\renewcommand{\equationautorefname}{Persamaan}
 	\floatname{algorithm}{Algoritma}
 	\renewcommand{\refname}{Daftar Pustaka}
@@ -60,6 +62,8 @@
 \def\Pcal{\mathcal{P}}
 \def\sat{\mathtt{sat}}
 \def\unsat{\mathtt{unsat}}
+
+\raggedbottom
 
 \input{constants}
 
@@ -406,6 +410,7 @@ Sehingga, didapat desain algoritma yang menggunakan \foreign{pseudo boolean}.
 \lipsum[6]
 
 \section{Pembahasan}
+\label{sec:discussion}
 \lipsum[7]
 
 \section{Kesimpulan}
@@ -415,10 +420,102 @@ Sehingga, didapat desain algoritma yang menggunakan \foreign{pseudo boolean}.
 \renewcommand{\thesubsection}{\Alph{subsection}}
 
 \subsection{Implementasi Algoritma}
-\lipsum[9]
+
+Implementasi yang digunakan untuk menghasilkan data yang digunakan pada \autoref{sec:discussion} dapat diakses melalui \foreign{link} berikut: \url{https://drive.google.com/drive/folders/1x_BZM-u7V-4VzNNbLmnsEhucgznmdhWr}.
+
+Seluruh \foreign{development} kode tersebut dilakukan dalam sistem operasi Debian Sid. Untuk mendapatkan \foreign{development environment} yang sama, lakukan \foreign{setup} \foreign{package manager} untuk \foreign{Python} bernama \foreign{conda}, kemudian dapat dibuat \foreign{environment} bernama \verb`name=MD-Z3` sesuai dengan \foreign{file} \linebreak \verb`environment.yml`. Cara paling mudah adalah dengan mengeksekusi \foreign{command} berikut:
+\vspace{-.375\baselineskip}
+\begin{Verbatim}[gobble=1, xleftmargin=1em]
+	conda env create -f environment.yml -n ${name}
+\end{Verbatim}
+\vspace{-.375\baselineskip}
+Selanjutnya, environment tersebut dapat diaktivasi dengan \verb`conda activate ${name}`.
+
+Tugas akhir ini menggunakan aplikasi \verb`nauty` untuk membuat data graf yang digunakan, dan dapat di\foreign{install} menggunakan \foreign{command} \verb`apt install nauty`.
+
+Cara mencari \verb`invariant=metric_dimension` untuk seluruh graf dengan \verb`nV` simpul menggunakan algoritma \verb`method` adalah sebagai berikut:
+\vspace{-.375\baselineskip}
+\begin{Verbatim}[gobble=1, xleftmargin=1em]
+	nauty-geng -cq ${nV}
+	 | ./process jsonify
+	 | ./process add --key=${invariant}
+	 | ./process add --key=algorithm
+		--value=${method}
+	 | ./process metric_dimension
+\end{Verbatim}
+\vspace{-.375\baselineskip}
+Hasil dari \verb`./process metric_dimension` dapat disederhanakan dengan melakukan \foreign{pipe} \foreign{output}nya ke \verb`./process simplify` untuk mempermudah pembacaan.
+
+\noindent \foreign{Value} yang dimungkinkan untuk \verb`invariant` adalah:
+\begin{enumerate}
+	\item \verb`metric_dimension` untuk mencari dimensi metrik
+	\item \verb`edge_metric_dimension` untuk mencari dimensi metrik sisi
+\end{enumerate}
+
+\noindent \foreign{Value} yang dimungkinkan untuk \verb`method` adalah:
+\begin{enumerate}
+	\item \verb`bruteforce` untuk \autoref{alg:brute-force}
+	\item \verb`boolean_satisfiability` untuk \autoref{alg:boolean-satisfiability}
+	\item \verb`linear_integer_arithmetic` untuk \autoref{alg:linear-integer-arithmetic}
+	\item \verb`pseudo_boolean` untuk \autoref{alg:pseudo-boolean}
+\end{enumerate}
+
+Dengan demikian, untuk graf \verb`CV` (representasi dalam \verb`graph6`), dimensi metrik sisinya dapat ditentukan menggunakan \autoref{alg:boolean-satisfiability} dengan \foreign{command} berikut:
+\vspace{-.375\baselineskip}
+\begin{Verbatim}[gobble=1, xleftmargin=1em]
+	echo CV
+	 | ./process jsonify
+	 | ./process add --key=edge_metric_dimension
+	 | ./process add --key=algorithm
+		--value=boolean_satisfiability
+	 | ./process metric_dimension
+	 | ./process simplify
+\end{Verbatim}
+\vspace{-.375\baselineskip}
+Kemudian, akan dihasilkan \foreign{output} seperti berikut:
+\vspace{-.375\baselineskip}
+\begin{Verbatim}[gobble=1, xleftmargin=1em, xrightmargin=1em]
+	{"graph": "CV", "edge_metric_dimension": 2,
+	"algorithm": "boolean_satisfiability", "vert
+	ices": 4, "edges": 4, "EMD_time": 0.1258 545
+	6800115935}
+\end{Verbatim}
 
 \subsection{Data Hasil Eksekusi}
-\lipsum[10]
+
+Data graf yang digunakan dalam tugas akhir ini dapat ditemukan dalam \foreign{folder} \verb`benchmar` \verb`k-source`. Untuk graf kecil, data graf dengan \verb`nV` simpul dibuat menggunakan \foreign{command} \verb`nauty-geng -cq ${nV}`. Untuk graf besar, data graf dibuat menggunakan \foreign{command} berikut:
+\vspace{-.375\baselineskip}
+\begin{Verbatim}[gobble=1, xleftmargin=1em]
+	nauty-genrang -gq ${nV} 1000
+	 | nauty-labelg -q
+	 | nauty-pickg -qvc0
+	 | sort -u
+	 | head -50
+\end{Verbatim}
+\vspace{-.375\baselineskip}
+Akhirnya, evaluasi dapat dilakukan dengan \foreign{command} berikut:
+\vspace{-1.375\baselineskip}
+\begin{Verbatim}[gobble=1, xleftmargin=1em]
+	./benchmark-exec batch-all
+\end{Verbatim}
+\vspace{-.375\baselineskip}
+Hasil yang diperoleh direkam dalam file \verb`benchmark-result/batch-all.txt`.
+
+Untuk mempermudah analisis, hasil tersebut dapat disederhanakan dan ditransformasikan ke dalam bentuk \verb`CSV` dengan \foreign{command} berikut:
+\vspace{-.375\baselineskip}
+\begin{Verbatim}[gobble=1, xleftmargin=1em]
+	./benchmark-exec simplify
+	./benchmark-exec sort
+	./benchmark-exec csv
+\end{Verbatim}
+\vspace{-.375\baselineskip}
+Setelah proses ini, akan dihasilkan file \verb`benchmark-result/batch-all.csv`.
+
+Data yang dibahas pada \autoref{sec:discussion} diperoleh melalui metode di atas, dilakukan pada Senin, 17 Nopember 2025, dan dapat diakses pada \foreign{link} berikut:
+\vspace{-.475\baselineskip}
+\begin{center}
+	\url{https://docs.google.com/spreadsheets/d/1f_0542zs0o7-m6yWZ5UTUYbEJ2W7uh0hArkL4eQQN-E}.
+\end{center}
 
 \section*{Ucapan Terima Kasih}
 \lipsum[11]
