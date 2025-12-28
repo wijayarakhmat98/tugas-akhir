@@ -138,11 +138,12 @@ Permasalahan dimensi metrik dan dimensi metrik sisi bersifat kombinatorial dan s
 Makalah ini memformulasi permasalahan dimensi metrik dan dimensi metrik sisi ke dalam SMT dan penggunaan \foreign{solver} untuk menentukan keduanya. Pendekatan yang dieksplorasi mencakup formulasi algoritma, serta perbandingan dengan pendekatan \foreign{brute-force} sebagai validasi. Analisis difokuskan pada graf sederhana, tak berarah, terhubung, dan tak berbobot dengan ukuran simpul terbatas, sesuai dengan keterbatasan sumber daya komputasi.
 
 \section{Penelitian Terdahulu}
-\cite{kratica2007} \lipsum[4][1-2]
-\cite{eppstein2015} \lipsum[4][3-4]
-\cite{kelenc2018} \lipsum[4][5-6]
-\cite{klavzar2020} \lipsum[4][7-8]
-\cite{knor2021} \lipsum[4][9-10]
+
+Pendekatan algoritmik untuk menghitung dimensi metrik telah dikaji melalui berbagai metode. \cite{kratica2007} mengusulkan pendekatan heuristik berbasis \foreign{genetic algorithm} untuk menghitung dimensi metrik pada graf berukuran besar, dan menunjukkan bahwa metode metaheuristik dapat menghasilkan solusi mendekati optimal ketika pendekatan analitik tidak dapat dilakukan. Dari segi kompleksitas, \cite{eppstein2015} membuktikan permasalahan dimensi metrik bersifat \foreign{fixed-parameter tractable} jika diparameterkan oleh \emph{max leaf number}, meskipun dengan kompleksitas eksponensial.
+
+Konsep dimensi metrik sisi diperkenalkan dan dikaji secara sistematis oleh \cite{kelenc2018}, yang menunjukkan bahwa permasalahan ini bersifat \foreign{NP-hard} serta menentukan nilainya pada beberapa kelas graf khusus. Pendekatan komputasional lebih lanjut dikembangkan oleh \cite{klavzar2020} melalui formulasi \foreign{integer linear programming} (ILP). Hubungan antara dimensi metrik dan dimensi metrik sisi dianalisis oleh \cite{knor2021}, yang menunjukkan bahwa kedua invarian tersebut tidak dapat dibatasi oleh rasio konstan dan dapat sembarang berbeda pada keluarga graf tertentu.
+
+Berdasarkan kajian-kajian tersebut, belum terdapat penelitian yang memformulasikan permasalahan dimensi metrik dan dimensi metrik sisi ke dalam \foreign{Satisfiability Modulo Theories} (SMT). Makalah ini mengeksplorasi pendekatan tersebut dengan merepresentasikan kedua permasalahan ke dalam formula SMT dan memanfaatkan \foreign{solver} SMT untuk menentukan invarian tersebut.
 
 \section{Formulasi Algoritma}
 \label{sec:alg}
