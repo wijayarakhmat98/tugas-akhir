@@ -306,7 +306,7 @@
 
 \outline{3}
 
-\slide{\foreign{Brute-force}}{
+\slide{\foreign{Constraint Brute-force}}{
 	\justifying
 
 	\[
@@ -330,9 +330,23 @@
 }{}
 
 \slide{Algoritma \foreign{Brute-force}}{
+	\begin{enumerate}
+		\item Mulai variabel \(k\) dari banyaknya simpul, yaitu \(k := |V|\).
+
+		\item Selama \(k \geq 0\):
+		\begin{enumerate}
+			\item Cari satu saja himpunan \(W \subseteq V\) berkardinalitas \(k\) yang merupakan \foreign{resolving set}, kemudian lompat ke tahap (2c).
+
+			\item Bila tidak ditemukan, lompat ke tahap (3).
+
+			\item Kurangi \(k\) sebanyak satu, yaitu \(k := k - 1\).
+		\end{enumerate}
+
+		\item Simpulkan bahwa \(k + 1\) adalah dimensi metrik.
+	\end{enumerate}
 }{}
 
-\slide{\foreign{Boolean Satisfiability}}{
+\slide{\foreign{Constraint Boolean Satisfiability}}{
 	\begin{minipage}[t]{.14\textwidth}
 	\[
 		\begin{array}{c}
@@ -359,7 +373,7 @@
 	\end{minipage}
 }{}
 
-\slide{\foreign{Boolean Satisfiability}}{
+\slide{\foreign{Constraint Boolean Satisfiability}}{
 	\[
 		\begin{array}{c}
 			x_1 \vee x_2 \\
@@ -370,7 +384,7 @@
 	\]
 }{}
 
-\slide{\foreign{Boolean Satisfiability}}{
+\slide{\foreign{Constraint Boolean Satisfiability}}{
 	\[
 		\begin{array}{c}
 			x_1 \vee x_2 \vee x_3 \vee x_4 \vee x_5 \\ [4pt]
@@ -382,7 +396,7 @@
 	\]
 }{}
 
-\slide{\foreign{Linear Integer Arithmetic}}{
+\slide{\foreign{Constraint Linear Integer Arithmetic}}{
 	\[
 		\begin{array}{c}
 			x_1 + x_2 \geq 1 \\
@@ -398,7 +412,7 @@
 	\]
 }{}
 
-\slide{\foreign{Linear Integer Arithmetic}}{
+\slide{\foreign{Constraint Linear Integer Arithmetic}}{
 	\[
 		\begin{array}{c}
 			x_1 + x_2 + x_3 + x_4 + x_5 = k \\ [4pt]
@@ -415,7 +429,7 @@
 	\]
 }{}
 
-\slide{\foreign{Pseudo Boolean}}{
+\slide{\foreign{Constraint Pseudo Boolean}}{
 	\[
 		\begin{array}{c}
 			x_1 + x_2 + x_3 + x_4 + x_5 = k \\ [4pt]
@@ -428,6 +442,20 @@
 }{}
 
 \slide{Algoritma \foreign{Satisfiability Modulo Theories}}{
+	\begin{enumerate}
+		\item Mulai variabel \(k\) dari banyaknya simpul, yaitu \(k := |V|\).
+
+		\item Selama \(k \geq 0\):
+		\begin{enumerate}
+			\item Cari \foreign{model} berkardinalitas \(k\) yang memenuhi \foreign{constraint}, kemudian lompat ke tahap (2c).
+
+			\item Bila didapatkan \foreign{unsatisfiable}, lompat ke tahap (3).
+
+			\item Kurangi \(k\) sebanyak satu, yaitu \(k := k - 1\).
+		\end{enumerate}
+
+		\item Simpulkan bahwa \(k + 1\) adalah dimensi metrik.
+	\end{enumerate}
 }{}
 
 \outline{4}
