@@ -1,6 +1,7 @@
 \documentclass[12pt]{article}
 
 \PassOptionsToPackage{a6paper, landscape, margin=5mm}{geometry}
+\PassOptionsToPackage{table}{xcolor}
 
 \usepackage{
 	geometry,
@@ -14,6 +15,7 @@
 	multirow,
 	graphicx,
 	subcaption,
+	xcolor,
 	lastpage
 }
 
@@ -185,9 +187,36 @@
 }{}
 
 \slide{Representasi}{
+	\[
+		D^{(V)} = \left[ \begin{array}{ccccc}
+			r(x_1|V) & r(x_2|V) & r(x_3|V) & r(x_4|V) & r(x_5|V)
+		\end{array} \right]
+	\]
+}{}
+
+\slide{Representasi}{
+	\justifying
+	\[
+		\left[ \begin{array}{ccccc}
+			\rowcolor{yellow} 0 & 2 & 2 & 1 & 1 \\
+			2 & 0 & 2 & 1 & 1 \\
+			2 & 2 & 0 & 1 & 1 \\
+			\rowcolor{yellow} 1 & 1 & 1 & 0 & 2 \\
+			\rowcolor{yellow} 1 & 1 & 1 & 2 & 0
+		\end{array} \right]
+	\]
+	\vspace{1em} \\
+	\(W = \{x_1, x_4, x_5\}\)
+	\[
+		\left[ \begin{array}{ccccc}
+			r(x_1|W) & r(x_2|W) & r(x_3|W) & r(x_4|W) & r(x_5|W)
+		\end{array} \right]
+	\]
 }{}
 
 \slide{\foreign{Distance Similarity Matrix}}{
+	\let\oldTrue\True
+	\renewcommand{\True}{\cellcolor{pink}\oldTrue}
 	\resizebox{\textwidth}{!}{
 	\(
 		B^{(V)} = \left[ \begin{array}{c@{\enspace}c@{\enspace}c@{\enspace}c@{\enspace}c@{\enspace}c@{\enspace}c@{\enspace}c@{\enspace}c@{\enspace}c@{\enspace}}
@@ -202,12 +231,65 @@
 }{}
 
 \slide{\foreign{Invalid Resolving Set}}{
+	\justifying
+	\let\oldTrue\True
+	\renewcommand{\True}{\cellcolor{pink}\oldTrue}
+	\(W = \{x_1, x_4, x_5\}\)
+	\vspace{1em} \\
+	\resizebox{\textwidth}{!}{
+	\(
+		\left[ \begin{array}{c@{\enspace}c@{\enspace}c@{\enspace}c@{\enspace}c@{\enspace}c@{\enspace}c@{\enspace}c@{\enspace}c@{\enspace}c@{\enspace}}
+			\False & \False & \False & \False &  \True & \False & \False & \False & \False &  \True \\
+			 \True &  \True & \False & \False &  \True & \False & \False & \False & \False & \False \\
+			 \True &  \True & \False & \False &  \True & \False & \False & \False & \False & \False
+		\end{array} \right]
+	\)
+	}
 }{}
 
 \slide{\foreign{Resolving Set}}{
+	\justifying
+	\let\oldTrue\True
+	\renewcommand{\True}{\cellcolor{pink}\oldTrue}
+	\(W = \{x_1, x_4, x_5\}\)
+	\vspace{1em} \\
+	\resizebox{\textwidth}{!}{
+	\(
+		B^{(V)} = \left[ \begin{array}{c@{\enspace}c@{\enspace}c@{\enspace}c@{\enspace}c@{\enspace}c@{\enspace}c@{\enspace}c@{\enspace}c@{\enspace}c@{\enspace}}
+			\False & \False & \False & \False &  \True & \False & \False & \False & \False &  \True \\
+			 \True & \False & \False & \False & \False & \False & \False & \False & \False &  \True \\
+			 \True &  \True & \False & \False &  \True & \False & \False & \False & \False & \False
+		\end{array} \right]
+	\)
+	}
 }{}
 
 \slide{\foreign{Subset of Invalid Resolving Set}}{
+	\justifying
+	\let\oldTrue\True
+	\renewcommand{\True}{\cellcolor{pink}\oldTrue}
+	\(W = \{x_1, x_4, x_5\}\)
+	\vspace{1em} \\
+	\resizebox{\textwidth}{!}{
+	\(
+		\left[ \begin{array}{c@{\enspace}c@{\enspace}c@{\enspace}c@{\enspace}c@{\enspace}c@{\enspace}c@{\enspace}c@{\enspace}c@{\enspace}c@{\enspace}}
+			\False & \False & \False & \False &  \True & \False & \False & \False & \False &  \True \\
+			 \True &  \True & \False & \False &  \True & \False & \False & \False & \False & \False \\
+			 \True &  \True & \False & \False &  \True & \False & \False & \False & \False & \False
+		\end{array} \right]
+	\)
+	}
+	\vspace{2em} \\
+	\(W = \{x_1, x_4\}\)
+	\vspace{1em} \\
+	\resizebox{\textwidth}{!}{
+	\(
+		\left[ \begin{array}{c@{\enspace}c@{\enspace}c@{\enspace}c@{\enspace}c@{\enspace}c@{\enspace}c@{\enspace}c@{\enspace}c@{\enspace}c@{\enspace}}
+			\False & \False & \False & \False &  \True & \False & \False & \False & \False &  \True \\
+			 \True &  \True & \False & \False &  \True & \False & \False & \False & \False & \False
+		\end{array} \right]
+	\)
+	}
 }{}
 
 \slide{\foreign{Reduced Distance Similarity Matrix}}{
@@ -228,6 +310,28 @@
 }{}
 
 \slide{\foreign{Boolean Satisfiability}}{
+	\begin{minipage}[t]{.14\textwidth}
+	\[
+		\begin{array}{c}
+			\False \\
+			\False \\
+			 \True \\
+			 \True \\
+			 \True
+		\end{array}
+	\]
+	\end{minipage}
+	\hfill
+	\begin{minipage}[t]{.84\textwidth}
+		\vspace{0pt}
+		\foreign{Invalid resolving set} untuk kolom di kiri adalah \(\{x_3, x_4, x_5\}\).
+
+		Bentuk \foreign{constraint} yang persis satu-satu dengan himpunan tersebut adalah \(\neg x_1 \wedge \neg x_2 \wedge x_3 \wedge x_4 \wedge x_5\).
+
+		Bentuk \foreign{constraint} yang ruang solusinya adalah himpunan tersebut dan seluruh himpunan bagiannya adalah \(\neg x_1 \wedge \neg x_2\).
+
+		Dengan demikian, sebuah \foreign{resolving set} haruslah memenuhi kebalikan dari \foreign{constraint} tersebut, yaitu \(x_1 \vee x_2\).
+	\end{minipage}
 }{}
 
 \slide{\foreign{Boolean Satisfiability}}{
