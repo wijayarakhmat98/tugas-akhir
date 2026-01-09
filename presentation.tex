@@ -4,12 +4,12 @@
 \PassOptionsToPackage{table}{xcolor}
 
 \usepackage{
-	geometry,
 	multicol,
 	lmodern,
 	newtxtext,
 	newtxmath,
 	newtxtt,
+	geometry,
 	parskip,
 	ragged2e,
 	multirow,
@@ -461,9 +461,25 @@
 \outline{4}
 
 \slide{Implementasi}{
+	\begin{enumerate}
+		\item Bahasa pemrograman \foreign{Python}.
+
+		\item \foreign{NetworkX} untuk \foreign{decoding} dan \foreign{encoding} \texttt{graph6}.
+
+		\item \foreign{Numpy} untuk operasi matrix.
+
+		\item \foreign{SciPy} yang menyediakan implementasi algoritma \foreign{Floyd-Warshall}.
+
+		\item \foreign{Z3-solver} untuk menggunakan \foreign{solver} Z3 melalui \foreign{Python}.
+	\end{enumerate}
 }{}
 
 \slide{Batasan Eksekusi}{
+	\begin{enumerate}
+		\item Dibatasi waktu eksekusi per kardinalitas selama 5 menit.
+
+		\item Dieksekusi pada komputer dengan \foreign{CPU Intel i7-118G7}.
+	\end{enumerate}
 }{}
 
 \slide{Data}{
