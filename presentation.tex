@@ -307,6 +307,29 @@
 \outline{3}
 
 \slide{\foreign{Brute-force}}{
+	\justifying
+
+	\[
+		\left[ \begin{array}{ccccc}
+			\False & \False &  \True &  \True \\
+			\False &  \True & \False &  \True \\
+			 \True & \False & \False &  \True \\
+			 \True &  \True &  \True & \False \\
+			 \True &  \True &  \True & \False \\
+		\end{array} \right]
+		\enspace \to \enspace
+		\begin{array}{c}
+			\{x_3, x_4, x_5\} \\
+			\{x_2, x_4, x_5\} \\
+			\{x_1, x_4, x_5\} \\
+			\{x_1, x_2, x_3\}
+		\end{array}
+	\]
+
+	Untuk menentukan apakah sembarang \(W \subseteq V\) merupakan sebuah \foreign{resolving set}, cukup uji habis bahwa \(W\) bukanlah himpunan bagian tak sejati dari seluruh kolom \foreign{reduced distance similarity matrix}.
+}{}
+
+\slide{Algoritma \foreign{Brute-force}}{
 }{}
 
 \slide{\foreign{Boolean Satisfiability}}{
@@ -324,6 +347,8 @@
 	\hfill
 	\begin{minipage}[t]{.84\textwidth}
 		\vspace{0pt}
+		\setlength{\parskip}{.3\baselineskip}
+
 		\foreign{Invalid resolving set} untuk kolom di kiri adalah \(\{x_3, x_4, x_5\}\).
 
 		Bentuk \foreign{constraint} yang persis satu-satu dengan himpunan tersebut adalah \(\neg x_1 \wedge \neg x_2 \wedge x_3 \wedge x_4 \wedge x_5\).
@@ -400,6 +425,9 @@
 			x_1 + x_2 + x_3 \leq k - 1
 		\end{array}
 	\]
+}{}
+
+\slide{Algoritma \foreign{Satisfiability Modulo Theories}}{
 }{}
 
 \outline{4}
