@@ -10,6 +10,7 @@
 	newtxmath,
 	newtxtt,
 	parskip,
+	ragged2e,
 	multirow,
 	graphicx,
 	subcaption,
@@ -26,7 +27,7 @@
 	\hfill
 	\includegraphics[height=10mm]{img/logo-math}
 	\includegraphics[height=10mm]{img/logo-classic}
-	\vspace{.5em} \hrule
+	\vspace{.25em} \hrule
 	\vfill
 
 	\begin{center}
@@ -34,7 +35,7 @@
 	\end{center}
 
 	\vfill
-	\vspace{.5em} \hrule
+	\hrule
 	{#3}
 	\hfill
 	\thepage\ / \pageref{LastPage}
@@ -100,18 +101,57 @@
 \outline{1}
 
 \slide{Latar Belakang}{
+	\justifying
+
+	Teori graf dapat dimanfaatkan untuk memodelkan berbagai macam struktur diskret. Salah satu konsep dalam teori graf adalah dimensi metrik yang memiliki beragam aplikasi, seperti lokalisasi sumber, teori permainan, dan analisis jaringan. Permasalahan dimensi metrik bersifat kombinatorial dan secara umum sulit diselesaikan secara analitik.
+
+	Penelitian ini mencoba menyelesaikannya melalui pendekatan komputasional, dengan memetakan ke dalam \foreign{Satisfiability Modulo Theories}, yang mendukung pemodelan berbagai jenis constraints secara ekspresif.
 }{}
 
 \slide{Dimensi Metrik}{
+	\justifying
+
+	Diberikan \(G\) adalah graf dengan himpunan simpul \(V\) dan himpunan sisi \(E\), dan diambil sembarang \(W = \{w_1, w_2, \ldots\} \subseteq V\).
+
+	Representasi simpul \(v \in V\) terhadap \(W\) adalah tupel jarak setiap simpul di \(W\) ke simpul \(v\), yaitu \( r(v|W) = (d(w_1, v), d(w_2, v), \ldots) \). Representasi sisi \(e \in E\) terhadap \(W\) adalah tupel jarak setiap simpul di \(W\) ke sisi \(e\), yaitu \( r(e|W) = (d(w_1, e), d(w_2, e), \ldots) \).
+
+	Jika \(W\) adalah \foreign{resolving set} untuk \(G\), maka setiap simpul di \(G\) memiliki representasi unik terhadap \(W\). Jika \(W\) adalah \foreign{edge resolving set} untuk \(G\), maka setiap sisi di \(G\) memiliki representasi unik terhadap \(W\).
+
+	Dimensi metrik adalah kardinalitas terkecil \foreign{resolving set} untuk \(G\). Dimensi metrik sisi adalah kardinalitas terkecil \foreign{edge resolving set} untuk \(G\).
 }{}
 
 \slide{\foreign{Satisfiability Modulo Theories}}{
+	\justifying
+
+	\foreign{Satisfiability modulo theories} biasa disingkat juga menjadi SMT. \foreign{Satifiability} adalah proses mencari \foreign{model} dari suatu ekspresi. \foreign{Modulo theories} menunjukkan adanya banyak teori-teori yang dapat digunakan. Contohnya seperti \foreign{boolean satisfiability}, \foreign{linear integer arithmetic}, \foreign{pseudo boolean}, dll.
+
+	\foreign{Model} adalah contoh kasus yang menyebabkan ekspresi tersebut menjadi benar. Ketika sebuah \foreign{model} dapat ditemukan, maka ekspresi itu dikatakan \foreign{satisfiable}. Ketika tidak ada \foreign{model} yang dapat ditemukan, maka ekspresi itu dikatakan \foreign{unsatisfiable}. Pencarian \foreign{model} dilakukan menggunakan program yang disebut \foreign{solver}, contohnya adalah Z3 \foreign{solver}.
 }{}
 
 \slide{Rumusan Masalah}{
+	\begin{enumerate}
+		\item Bagaimana cara merepresentasikan permasalahan dimensi metrik dan dimensi metrik sisi dari suatu graf ke dalam bentuk formula SMT?
+
+		\item Bagaimana penggunaan SMT \foreign{solver}, dapat digunakan untuk menghitung dimensi metrik dan dimensi metrik sisi suatu graf?
+
+		\item Sejauh mana efektivitas dan keterbatasan pendekatan berbasis SMT dalam menyelesaikan permasalahan dimensi metrik dan dimensi metrik sisi untuk sembarang graf dengan banyak simpul berhingga?
+	\end{enumerate}
 }{}
 
 \slide{Batasan Masalah}{
+	\begin{enumerate}
+		\item Graf yang dibahas terbatas pada graf sederhana, tak berarah, terhubung, dan tak berbobot.
+
+		\item Perhitungan dilakukan untuk dimensi metrik dan dimensi metrik sisi.
+
+		\item Analisis dilakukan terhadap graf dengan ukuran simpul terbatas sesuai dengan keterbatasan waktu dan sumber daya komputasi.
+
+		\item Data graf yang digunakan menghapus redundansi akibat automorfisma sehingga hanya graf unik yang dianalisis.
+
+		\item Seluruh graf dengan banyak simpul 2 hingga 9 digunakan, karena banyaknya graf masih kurang dari 300000 sehingga masih cukup dalam daya komputasi.
+
+		\item Graf dengan banyak simpul lebih dari 9 digenerasi secara acak, dan banyak graf yang digunakan bergantung pada keterbatasan waktu dan sumber daya komputasi yang tersedia.
+	\end{enumerate}
 }{}
 
 \outline{2}
@@ -473,6 +513,13 @@
 \outline{6}
 
 \slide{Kesimpulan}{
+	\begin{enumerate}
+		\item Permasalahan dimensi metrik dapat direpresentasikan secara sistematis ke bentuk constraints SMT.
+
+		\item Pendekatan SMT dapat digunakan secara praktikal untuk menentukan dimensi metrik suatu graf; bahwa strategi tersebut menghasilkan invarian ini dengan benar.
+
+		\item Efektivitas penggunaan SMT dalam menyelesaikan permasalahan dimensi metrik bergantung pada ukuran graf dan sumber daya komputasi yang tersedia, serta pemilihan teori yang digunakan.
+	\end{enumerate}
 }{}
 
 \titleslide{
