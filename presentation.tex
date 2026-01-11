@@ -142,7 +142,16 @@
 
 	\foreign{Satisfiability modulo theories} biasa disingkat juga menjadi SMT. \foreign{Satifiability} adalah proses mencari \foreign{model} dari suatu ekspresi. \foreign{Modulo theories} menunjukkan adanya banyak teori-teori yang dapat digunakan. Contohnya seperti \foreign{boolean satisfiability}, \foreign{linear integer arithmetic}, \foreign{pseudo boolean}, dll.
 
-	\foreign{Model} adalah contoh kasus yang menyebabkan ekspresi tersebut menjadi benar. Ketika sebuah \foreign{model} dapat ditemukan, maka ekspresi itu dikatakan \foreign{satisfiable}. Ketika tidak ada \foreign{model} yang dapat ditemukan, maka ekspresi itu dikatakan \foreign{unsatisfiable}. Pencarian \foreign{model} dilakukan menggunakan program yang disebut \foreign{solver}, contohnya adalah Z3 \foreign{solver}.
+	Misalnya, dalam \foreign{boolean satisfiability}, \foreign{constraint} \((x_1 \land x_2) \lor (x_1 \land x_3)\) memiliki 3 kemungkinan \foreign{model}, yaitu
+	\vspace{-.75em}
+	\[
+		\begin{array}{l@{}l@{}l}
+		 x_1 = \True &,\ x_2 =  \True &,\ x_3 = \False \\
+		 x_1 = \True &,\ x_2 = \False &,\ x_3 =  \True \\
+		 x_1 = \True &,\ x_2 =  \True &,\ x_3 =  \True
+		\end{array}
+ \]
+
 }{}{}
 
 \slide{Rumusan Masalah}{
