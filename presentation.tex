@@ -5,6 +5,7 @@
 
 \usepackage{
 	multicol,
+	etoolbox,
 	lmodern,
 	newtxtext,
 	newtxmath,
@@ -24,7 +25,7 @@
 \def\True{\mathtt{True}}
 \def\False{\mathtt{False}}
 
-\newcommand{\slide}[3]{
+\newcommand{\slide}[4]{
 	\raisebox{.5em}{\bfseries\Large #1}
 	\hfill
 	\includegraphics[height=10mm]{img/logo-math}
@@ -40,30 +41,31 @@
 	\hrule
 	{#3}
 	\hfill
-	\thepage\ / \pageref{LastPage}
+	\ifstrequal{#4}{hide}{\addtocounter{page}{-1}}{}
+	\ifstrequal{#4}{continue}{\addtocounter{page}{-1}}{}
+	\ifblank{#4}{\thepage\ / \pageref{LastPage}}{}
+	\ifstrequal{#4}{continue}{\thepage\ / \pageref{LastPage}}{}
 	\clearpage
 }
 
 \newcommand{\titleslide}[1]{
-	\slide{\normalfont Sidang Tugas Akhir}{#1}{\theYear}
+	\slide{\normalfont Sidang Tugas Akhir}{#1}{\theYear}{hide}
 }
 
 \newcommand{\outline}[1]{
 	\slide{Outline}{
-		\begin{multicols}{2}
-			{\ifnum#1=1\bfseries\fi Permasalahan}
+		{\ifnum#1=1\bfseries\fi Permasalahan}
 
-			{\ifnum#1=2\bfseries\fi \foreign{Distance Similarity Matrix}}
+		{\ifnum#1=2\bfseries\fi \foreign{Distance Similarity Matrix}}
 
-			{\ifnum#1=3\bfseries\fi Formulasi Algoritma}
+		{\ifnum#1=3\bfseries\fi Formulasi Algoritma}
 
-			{\ifnum#1=4\bfseries\fi Evaluasi Algoritma}
+		{\ifnum#1=4\bfseries\fi Evaluasi Algoritma}
 
-			{\ifnum#1=5\bfseries\fi Hasil dan Pembahasan}
+		{\ifnum#1=5\bfseries\fi Hasil dan Pembahasan}
 
-			{\ifnum#1=6\bfseries\fi Kesimpulan}
-		\end{multicols}
-	}{}
+		{\ifnum#1=6\bfseries\fi Kesimpulan}
+	}{}{hide}
 }
 
 \input{constants}
@@ -108,7 +110,7 @@
 	Teori graf dapat dimanfaatkan untuk memodelkan berbagai macam struktur diskret. Salah satu konsep dalam teori graf adalah dimensi metrik yang memiliki beragam aplikasi, seperti lokalisasi sumber, teori permainan, dan analisis jaringan. Permasalahan dimensi metrik bersifat kombinatorial dan secara umum sulit diselesaikan secara analitik.
 
 	Penelitian ini mencoba menyelesaikannya melalui pendekatan komputasional, dengan memetakan ke dalam \foreign{Satisfiability Modulo Theories}, yang mendukung pemodelan berbagai jenis constraints secara ekspresif.
-}{}
+}{}{}
 
 \slide{Dimensi Metrik}{
 	\justifying
@@ -120,7 +122,7 @@
 	Jika \(W\) adalah \foreign{resolving set} untuk \(G\), maka setiap simpul di \(G\) memiliki representasi unik terhadap \(W\). Jika \(W\) adalah \foreign{edge resolving set} untuk \(G\), maka setiap sisi di \(G\) memiliki representasi unik terhadap \(W\).
 
 	Dimensi metrik adalah kardinalitas terkecil \foreign{resolving set} untuk \(G\). Dimensi metrik sisi adalah kardinalitas terkecil \foreign{edge resolving set} untuk \(G\).
-}{}
+}{}{}
 
 \slide{\foreign{Satisfiability Modulo Theories}}{
 	\justifying
@@ -128,7 +130,7 @@
 	\foreign{Satisfiability modulo theories} biasa disingkat juga menjadi SMT. \foreign{Satifiability} adalah proses mencari \foreign{model} dari suatu ekspresi. \foreign{Modulo theories} menunjukkan adanya banyak teori-teori yang dapat digunakan. Contohnya seperti \foreign{boolean satisfiability}, \foreign{linear integer arithmetic}, \foreign{pseudo boolean}, dll.
 
 	\foreign{Model} adalah contoh kasus yang menyebabkan ekspresi tersebut menjadi benar. Ketika sebuah \foreign{model} dapat ditemukan, maka ekspresi itu dikatakan \foreign{satisfiable}. Ketika tidak ada \foreign{model} yang dapat ditemukan, maka ekspresi itu dikatakan \foreign{unsatisfiable}. Pencarian \foreign{model} dilakukan menggunakan program yang disebut \foreign{solver}, contohnya adalah Z3 \foreign{solver}.
-}{}
+}{}{}
 
 \slide{Rumusan Masalah}{
 	\begin{enumerate}
@@ -138,7 +140,7 @@
 
 		\item Sejauh mana efektivitas dan keterbatasan pendekatan berbasis SMT dalam menyelesaikan permasalahan dimensi metrik dan dimensi metrik sisi untuk sembarang graf dengan banyak simpul berhingga?
 	\end{enumerate}
-}{}
+}{}{}
 
 \slide{Batasan Masalah}{
 	\begin{enumerate}
@@ -154,13 +156,13 @@
 
 		\item Graf dengan banyak simpul lebih dari 9 digenerasi secara acak, dan banyak graf yang digunakan bergantung pada keterbatasan waktu dan sumber daya komputasi yang tersedia.
 	\end{enumerate}
-}{}
+}{}{}
 
 \outline{2}
 
 \slide{Contoh Graf}{
 	\includegraphics[width=40mm]{img/f372738d3845db182fe0b4a3eced9bc2ac778c82a1804f5788cce6bb74ea1beb.pdf}
-}{}
+}{}{}
 
 \slide{Matriks Ketetanggaan}{
 	\[
@@ -172,7 +174,7 @@
 			1 & 1 & 1 & 0 & 0
 		\end{array} \right]
 	\]
-}{}
+}{}{}
 
 \slide{Matriks Jarak}{
 	\[
@@ -184,7 +186,7 @@
 			1 & 1 & 1 & 2 & 0
 		\end{array} \right]
 	\]
-}{}
+}{}{}
 
 \slide{Representasi}{
 	\[
@@ -192,7 +194,7 @@
 			r(x_1|V) & r(x_2|V) & r(x_3|V) & r(x_4|V) & r(x_5|V)
 		\end{array} \right]
 	\]
-}{}
+}{(a)}{}
 
 \slide{Representasi}{
 	\justifying
@@ -212,7 +214,7 @@
 			r(x_1|W) & r(x_2|W) & r(x_3|W) & r(x_4|W) & r(x_5|W)
 		\end{array} \right]
 	\]
-}{}
+}{(b)}{continue}
 
 \slide{\foreign{Distance Similarity Matrix}}{
 	\let\oldTrue\True
@@ -228,7 +230,7 @@
 		\end{array} \right]
 	\)
 	}
-}{}
+}{}{}
 
 \slide{\foreign{Invalid Resolving Set}}{
 	\justifying
@@ -245,7 +247,7 @@
 		\end{array} \right]
 	\)
 	}
-}{}
+}{}{}
 
 \slide{\foreign{Resolving Set}}{
 	\justifying
@@ -262,7 +264,7 @@
 		\end{array} \right]
 	\)
 	}
-}{}
+}{}{}
 
 \slide{\foreign{Subset of Invalid Resolving Set}}{
 	\justifying
@@ -290,7 +292,7 @@
 		\end{array} \right]
 	\)
 	}
-}{}
+}{}{}
 
 \slide{\foreign{Reduced Distance Similarity Matrix}}{
 	\[
@@ -302,7 +304,7 @@
 			 \True &  \True &  \True & \False \\
 		\end{array} \right]
 	\]
-}{}
+}{}{}
 
 \outline{3}
 
@@ -327,7 +329,7 @@
 	\]
 
 	Untuk menentukan apakah sembarang \(W \subseteq V\) merupakan sebuah \foreign{resolving set}, cukup uji habis bahwa \(W\) bukanlah himpunan bagian tak sejati dari seluruh kolom \foreign{reduced distance similarity matrix}.
-}{}
+}{}{}
 
 \slide{Algoritma \foreign{Brute-force}}{
 	\begin{enumerate}
@@ -344,7 +346,7 @@
 
 		\item Simpulkan bahwa \(k + 1\) adalah dimensi metrik.
 	\end{enumerate}
-}{}
+}{}{}
 
 \slide{\foreign{Constraint Boolean Satisfiability}}{
 	\begin{minipage}[t]{.14\textwidth}
@@ -371,7 +373,7 @@
 
 		Dengan demikian, sebuah \foreign{resolving set} haruslah memenuhi kebalikan dari \foreign{constraint} tersebut, yaitu \(x_1 \vee x_2\).
 	\end{minipage}
-}{}
+}{(a)}{}
 
 \slide{\foreign{Constraint Boolean Satisfiability}}{
 	\[
@@ -382,7 +384,7 @@
 			x_4 \vee x_5
 		\end{array}
 	\]
-}{}
+}{(b)}{continue}
 
 \slide{\foreign{Constraint Boolean Satisfiability}}{
 	\[
@@ -394,7 +396,7 @@
 			x_1 \vee x_2 \vee x_3 \implies x_4 \vee x_5
 		\end{array}
 	\]
-}{}
+}{(c)}{continue}
 
 \slide{\foreign{Constraint Linear Integer Arithmetic}}{
 	\[
@@ -410,7 +412,7 @@
 			0 \leq x_5 \leq 1
 		\end{array}
 	\]
-}{}
+}{(a)}{}
 
 \slide{\foreign{Constraint Linear Integer Arithmetic}}{
 	\[
@@ -427,7 +429,7 @@
 			0 \leq x_5 \leq 1
 		\end{array}
 	\]
-}{}
+}{(b)}{continue}
 
 \slide{\foreign{Constraint Pseudo Boolean}}{
 	\[
@@ -439,7 +441,7 @@
 			x_1 + x_2 + x_3 \leq k - 1
 		\end{array}
 	\]
-}{}
+}{}{}
 
 \slide{Algoritma \foreign{Satisfiability Modulo Theories}}{
 	\begin{enumerate}
@@ -456,7 +458,7 @@
 
 		\item Simpulkan bahwa \(k + 1\) adalah dimensi metrik.
 	\end{enumerate}
-}{}
+}{}{}
 
 \outline{4}
 
@@ -472,7 +474,7 @@
 
 		\item \foreign{Z3-solver} untuk menggunakan \foreign{solver} Z3 melalui \foreign{Python}.
 	\end{enumerate}
-}{}
+}{}{}
 
 \slide{Batasan Eksekusi}{
 	\begin{enumerate}
@@ -480,7 +482,7 @@
 
 		\item Dieksekusi pada komputer dengan \foreign{CPU Intel i7-118G7}.
 	\end{enumerate}
-}{}
+}{}{}
 
 \slide{Data}{
 	\resizebox{.275\linewidth}{!}{
@@ -506,7 +508,7 @@
 			50             & 50          \\ \hline
 		\end{tabular}
 	}
-}{}
+}{}{}
 
 \outline{5}
 
@@ -514,25 +516,25 @@
 	\begin{tabular}{|c|rrrrrrrr|}
 		\hline \multirow{2}{*}{\begin{tabular}[c]{@{}c@{}}Dimensi\\ Metrik\end{tabular}} & \multicolumn{8}{c|}{Graf Bersimpul} \\ \cline{2-9} & \multicolumn{1}{c|}{2} & \multicolumn{1}{c|}{3} & \multicolumn{1}{c|}{4} & \multicolumn{1}{c|}{5} & \multicolumn{1}{c|}{6} & \multicolumn{1}{c|}{7} & \multicolumn{1}{c|}{8} & \multicolumn{1}{c|}{9} \\ \hline 1 & \multicolumn{1}{r|}{1} & \multicolumn{1}{r|}{1} & \multicolumn{1}{r|}{1} & \multicolumn{1}{r|}{1} & \multicolumn{1}{r|}{1} & \multicolumn{1}{r|}{1} & \multicolumn{1}{r|}{1} & 1 \\ \hline 2 & \multicolumn{1}{r|}{} & \multicolumn{1}{r|}{1} & \multicolumn{1}{r|}{4} & \multicolumn{1}{r|}{13} & \multicolumn{1}{r|}{62} & \multicolumn{1}{r|}{275} & \multicolumn{1}{r|}{1710} & 12061 \\ \hline 3 & \multicolumn{1}{r|}{} & \multicolumn{1}{r|}{} & \multicolumn{1}{r|}{1} & \multicolumn{1}{r|}{6} & \multicolumn{1}{r|}{39} & \multicolumn{1}{r|}{488} & \multicolumn{1}{r|}{8116} & 216432 \\ \hline 4 & \multicolumn{1}{r|}{} & \multicolumn{1}{r|}{} & \multicolumn{1}{r|}{} & \multicolumn{1}{r|}{1} & \multicolumn{1}{r|}{9} & \multicolumn{1}{r|}{77} & \multicolumn{1}{r|}{1145} & 29958 \\ \hline 5 & \multicolumn{1}{r|}{} & \multicolumn{1}{r|}{} & \multicolumn{1}{r|}{} & \multicolumn{1}{r|}{} & \multicolumn{1}{r|}{1} & \multicolumn{1}{r|}{11} & \multicolumn{1}{r|}{130} & 2415 \\ \hline 6 & \multicolumn{1}{r|}{} & \multicolumn{1}{r|}{} & \multicolumn{1}{r|}{} & \multicolumn{1}{r|}{} & \multicolumn{1}{r|}{} & \multicolumn{1}{r|}{1} & \multicolumn{1}{r|}{14} & 196 \\ \hline 7 & \multicolumn{1}{r|}{} & \multicolumn{1}{r|}{} & \multicolumn{1}{r|}{} & \multicolumn{1}{r|}{} & \multicolumn{1}{r|}{} & \multicolumn{1}{r|}{} & \multicolumn{1}{r|}{1} & 16 \\ \hline 8 & \multicolumn{1}{r|}{} & \multicolumn{1}{r|}{} & \multicolumn{1}{r|}{} & \multicolumn{1}{r|}{} & \multicolumn{1}{r|}{} & \multicolumn{1}{r|}{} & \multicolumn{1}{r|}{} & 1 \\ \hline
 	\end{tabular}
-}{}
+}{(a)}{}
 
 \slide{Frekuensi untuk Graf Kecil}{
 	\begin{tabular}{|c|rrrrrrrr|}
 		\hline \multirow{2}{*}{\begin{tabular}[c]{@{}c@{}}Dimensi\\ Metrik Sisi\end{tabular}} & \multicolumn{8}{c|}{Graf Bersimpul} \\ \cline{2-9} & \multicolumn{1}{c|}{2} & \multicolumn{1}{c|}{3} & \multicolumn{1}{c|}{4} & \multicolumn{1}{c|}{5} & \multicolumn{1}{c|}{6} & \multicolumn{1}{c|}{7} & \multicolumn{1}{c|}{8} & \multicolumn{1}{c|}{9} \\ \hline 0 & \multicolumn{1}{r|}{1} & \multicolumn{1}{r|}{} & \multicolumn{1}{r|}{} & \multicolumn{1}{r|}{} & \multicolumn{1}{r|}{} & \multicolumn{1}{r|}{} & \multicolumn{1}{r|}{} & \\ \hline 1 & \multicolumn{1}{r|}{} & \multicolumn{1}{r|}{1} & \multicolumn{1}{r|}{1} & \multicolumn{1}{r|}{1} & \multicolumn{1}{r|}{1} & \multicolumn{1}{r|}{1} & \multicolumn{1}{r|}{1} & 1 \\ \hline 2 & \multicolumn{1}{r|}{} & \multicolumn{1}{r|}{1} & \multicolumn{1}{r|}{3} & \multicolumn{1}{r|}{6} & \multicolumn{1}{r|}{17} & \multicolumn{1}{r|}{40} & \multicolumn{1}{r|}{108} & 292 \\ \hline 3 & \multicolumn{1}{r|}{} & \multicolumn{1}{r|}{} & \multicolumn{1}{r|}{2} & \multicolumn{1}{r|}{9} & \multicolumn{1}{r|}{38} & \multicolumn{1}{r|}{198} & \multicolumn{1}{r|}{1148} & 7414 \\ \hline 4 & \multicolumn{1}{r|}{} & \multicolumn{1}{r|}{} & \multicolumn{1}{r|}{} & \multicolumn{1}{r|}{5} & \multicolumn{1}{r|}{42} & \multicolumn{1}{r|}{330} & \multicolumn{1}{r|}{3566} & 49742 \\ \hline 5 & \multicolumn{1}{r|}{} & \multicolumn{1}{r|}{} & \multicolumn{1}{r|}{} & \multicolumn{1}{r|}{} & \multicolumn{1}{r|}{14} & \multicolumn{1}{r|}{236} & \multicolumn{1}{r|}{4081} & 97009 \\ \hline 6 & \multicolumn{1}{r|}{} & \multicolumn{1}{r|}{} & \multicolumn{1}{r|}{} & \multicolumn{1}{r|}{} & \multicolumn{1}{r|}{} & \multicolumn{1}{r|}{48} & \multicolumn{1}{r|}{1995} & 78723 \\ \hline 7 & \multicolumn{1}{r|}{} & \multicolumn{1}{r|}{} & \multicolumn{1}{r|}{} & \multicolumn{1}{r|}{} & \multicolumn{1}{r|}{} & \multicolumn{1}{r|}{} & \multicolumn{1}{r|}{218} & 26401 \\ \hline 8 & \multicolumn{1}{r|}{} & \multicolumn{1}{r|}{} & \multicolumn{1}{r|}{} & \multicolumn{1}{r|}{} & \multicolumn{1}{r|}{} & \multicolumn{1}{r|}{} & \multicolumn{1}{r|}{} & 1498 \\ \hline
 	\end{tabular}
-}{}
+}{(b)}{continue}
 
 \slide{Gambaran Distribusi}{
 	\includegraphics[width=.8\linewidth]{img/hist-md-8.pdf}
 
 	Histogram Dimensi Metrik Graf Bersimpul 8
-}{}
+}{(a)}{}
 
 \slide{Gambaran Distribusi}{
 	\includegraphics[width=.8\linewidth]{img/hist-emd-8.pdf}
 
 	Histogram Dimensi Metrik Sisi Graf Bersimpul 8
-}{}
+}{(b)}{continue}
 
 \slide{Rata-rata Waktu untuk Graf Kecil}{
 	\resizebox{\linewidth}{!}{
@@ -540,7 +542,7 @@
 			\hline \begin{tabular}[c]{@{}c@{}}Dimensi\\ Metrik\end{tabular} & \begin{tabular}[c]{@{}c@{}}Graf\\ Bersimpul\end{tabular} & \multicolumn{1}{c|}{\foreign{Brute-force}} & \multicolumn{1}{c|}{\begin{tabular}[c]{@{}c@{}}\foreign{Boolean}\\ \foreign{Satisfiability}\end{tabular}} & \multicolumn{1}{c|}{\begin{tabular}[c]{@{}c@{}}\foreign{Linear Integer}\\ \foreign{Arithmetic}\end{tabular}} & \multicolumn{1}{c|}{\begin{tabular}[c]{@{}c@{}}\foreign{Pseudo}\\ \foreign{Boolean}\end{tabular}} \\ \hline 1 & 2 & .156965 & .174657 & .186278 & .170794 \\ \hline 1 & 3 & .153144 & .173771 & .061201 & .003076 \\ \hline 2 & 4 & .000947 & .009032 & .028977 & .003894 \\ \hline 2 & 5 & .001206 & .006250 & .034587 & .005617 \\ \hline 2 & 6 & .001573 & .008373 & .043509 & .007274 \\ \hline 3 & 7 & .002507 & .011181 & .052244 & .010301 \\ \hline 3 & 8 & .002948 & .014158 & .068935 & .014817 \\ \hline 3 & 9 & .003770 & .018461 & .093387 & .021154 \\ \hline
 		\end{tabular}
 	}
-}{}
+}{(a)}{}
 
 \slide{Rata-rata Waktu untuk Graf Kecil}{
 	\resizebox{\linewidth}{!}{
@@ -548,19 +550,19 @@
 			\hline \begin{tabular}[c]{@{}c@{}}Dimensi\\ Metrik Sisi\end{tabular} & \begin{tabular}[c]{@{}c@{}}Graf\\ Bersimpul\end{tabular} & \multicolumn{1}{c|}{\foreign{Brute-force}} & \multicolumn{1}{c|}{\begin{tabular}[c]{@{}c@{}}\foreign{Boolean}\\ \foreign{Satisfiability}\end{tabular}} & \multicolumn{1}{c|}{\begin{tabular}[c]{@{}c@{}}\foreign{Linear Integer}\\ \foreign{Arithmetic}\end{tabular}} & \multicolumn{1}{c|}{\begin{tabular}[c]{@{}c@{}}\foreign{Pseudo}\\ \foreign{Boolean}\end{tabular}} \\ \hline 0 & 2 & .000783 & .003237 & .009080 & .002883 \\ \hline 1 & 3 & .000899 & .004708 & .020789 & .003183 \\ \hline 2 & 4 & .000792 & .005288 & .024364 & .003950 \\ \hline 3 & 5 & .001399 & .007340 & .029201 & .006055 \\ \hline 4 & 6 & .002330 & .009507 & .033777 & .009077 \\ \hline 4 & 7 & .003574 & .012815 & .048816 & .013481 \\ \hline 5 & 8 & .006108 & .017646 & .059845 & .021366 \\ \hline 5 & 9 & .009322 & .023267 & .087683 & .031534 \\ \hline
 		\end{tabular}
 	}
-}{}
+}{(b)}{continue}
 
 \slide{Tren Waktu untuk Graf Kecil}{
 	\includegraphics[width=.8\linewidth]{img/trend-md-small.pdf}
 
 	Tren Waktu Eksekusi Dimensi Metrik Graf Kecil
-}{}
+}{(a)}{}
 
 \slide{Tren Waktu untuk Graf Kecil}{
 	\includegraphics[width=\linewidth]{img/trend-emd-small.pdf}
 
 	Tren Waktu Eksekusi Dimensi Sisi Metrik Graf Kecil
-}{}
+}{(b)}{continue}
 
 \slide{Frekuensi untuk Graf Besar}{
 	\begin{multicols}{2}
@@ -580,7 +582,7 @@
 		\end{tabular}
 	}
 	\end{multicols}
-}{}
+}{(a)}{}
 
 \slide{Frekuensi untuk Graf Besar}{
 	\begin{multicols}{2}
@@ -600,7 +602,7 @@
 		\end{tabular}
 	}
 	\end{multicols}
-}{}
+}{(b)}{continue}
 
 \slide{Frekuensi untuk Graf Besar}{
 	\begin{multicols}{2}
@@ -620,7 +622,7 @@
 		\end{tabular}
 	}
 	\end{multicols}
-}{}
+}{(c)}{continue}
 
 \slide{Frekuensi untuk Graf Besar}{
 	\begin{multicols}{2}
@@ -640,7 +642,7 @@
 		\end{tabular}
 	}
 	\end{multicols}
-}{}
+}{(d)}{continue}
 
 \slide{Rata-rata Waktu untuk Graf Besar}{
 	\resizebox{\linewidth}{!}{
@@ -648,7 +650,7 @@
 			\hline \begin{tabular}[c]{@{}c@{}}Dimensi\\ Metrik\end{tabular} & \begin{tabular}[c]{@{}c@{}}Banyak\\ Simpul\end{tabular} & \multicolumn{1}{c|}{\foreign{Brute-force}} & \multicolumn{1}{c|}{\begin{tabular}[c]{@{}c@{}}\foreign{Boolean}\\ \foreign{Satisfiability}\end{tabular}} & \multicolumn{1}{c|}{\begin{tabular}[c]{@{}c@{}}\foreign{Linear Integer}\\ \foreign{Arithmetic}\end{tabular}} & \multicolumn{1}{c|}{\begin{tabular}[c]{@{}c@{}}\foreign{Pseudo}\\ \foreign{Boolean}\end{tabular}} \\ \hline 3 & 10 & .004119 & .020946 & .115585 & .027161 \\ \hline 4 & 15 & .019737 & .072151 & .391855 & .155409 \\ \hline 5 & 20 & .131515 & .197247 & 1.306162 & .526939 \\ \hline 5 & 25 & .779308 & .474250 & 4.026042 & 1.523069 \\ \hline 6 & 30 & 4.967965 & 4.721401 & 11.883957 & 3.081103 \\ \hline 6 & 35 & 16.766268 & 20.284314 & 50.562551 & 6.585125 \\ \hline 6 & 40 & 71.217442 & 100.421604 & 204.669259 & 17.266515 \\ \hline 6 & 45 & 280.950692 & 438.786140 & 476.961207 & 64.249163 \\ \hline 7 & 50 & & & & 134.408767 \\ \hline
 		\end{tabular}
 	}
-}{}
+}{(a)}{}
 
 \slide{Rata-rata Waktu untuk Graf Besar}{
 	\resizebox{\linewidth}{!}{
@@ -656,13 +658,13 @@
 			\hline \begin{tabular}[c]{@{}c@{}}Dimensi\\ Metrik Sisi\end{tabular} & \begin{tabular}[c]{@{}c@{}}Banyak\\ Simpul\end{tabular} & \multicolumn{1}{c|}{\foreign{Brute-force}} & \multicolumn{1}{c|}{\begin{tabular}[c]{@{}c@{}}\foreign{Boolean}\\ \foreign{Satisfiability}\end{tabular}} & \multicolumn{1}{c|}{\begin{tabular}[c]{@{}c@{}}\foreign{Linear Integer}\\ \foreign{Arithmetic}\end{tabular}} & \multicolumn{1}{c|}{\begin{tabular}[c]{@{}c@{}}\foreign{Pseudo}\\ \foreign{Boolean}\end{tabular}} \\ \hline 5 & 10 & .011334 & .026933 & .109807 & .041412 \\ \hline 8 & 15 & .249981 & .162525 & .543050 & .343242 \\ \hline 10 & 20 & 6.572275 & 1.022019 & 3.285489 & 2.136249 \\ \hline 12 & 25 & 236.021321 & 5.733961 & 19.858158 & 10.403642 \\ \hline 14 & 30 & & 66.906106 & 203.095024 & 47.012734 \\ \hline 15 & 35 & & 324.791564 & & 291.849713 \\ \hline 16 & 40 & & & & 500.657666 \\ \hline & 45 & & & & \\ \hline & 50 & & & & \\ \hline
 		\end{tabular}
 	}
-}{}
+}{(b)}{continue}
 
 \slide{Tren Waktu untuk Graf Besar}{
 	\includegraphics[width=\linewidth]{img/trend-md-large.pdf}
 
 	Tren Waktu Eksekusi Dimensi Metrik Graf Besar
-}{}
+}{(a)}{}
 
 \slide{Tren Waktu untuk Graf Besar}{
 	\includegraphics[height=52mm]{img/trend-emd-large-1.pdf}
@@ -670,13 +672,13 @@
 	\includegraphics[height=52mm]{img/trend-emd-large-2.pdf}
 
 	Tren Waktu Eksekusi Dimensi Metrik Sisi Graf Besar
-}{}
+}{(b)}{continue}
 
 \slide{Gambaran Besar Tren Waktu}{
 	\includegraphics[width=\linewidth]{img/trend-md-combined.pdf}
 
 	Tren Waktu Eksekusi Dimensi Metrik
-}{}
+}{(a)}{}
 
 \slide{Gambaran Besar Tren Waktu}{
 	\includegraphics[height=41.5mm]{img/trend-emd-combined-1.pdf}
@@ -684,7 +686,7 @@
 	\includegraphics[height=41.5mm]{img/trend-emd-combined-2.pdf}
 
 	Tren Waktu Eksekusi Dimensi Metrik Sisi
-}{}
+}{(b)}{continue}
 
 \outline{6}
 
@@ -696,7 +698,7 @@
 
 		\item Efektivitas penggunaan SMT dalam menyelesaikan permasalahan dimensi metrik bergantung pada ukuran graf dan sumber daya komputasi yang tersedia, serta pemilihan teori yang digunakan.
 	\end{enumerate}
-}{}
+}{}{}
 
 \titleslide{
 	\textbf{\Large Terima Kasih}
