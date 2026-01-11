@@ -1,0 +1,265 @@
+\documentclass[12pt]{article}
+
+\PassOptionsToPackage{a6paper, landscape, margin=5mm}{geometry}
+\PassOptionsToPackage{table}{xcolor}
+
+\usepackage{
+	multicol,
+	etoolbox,
+	lmodern,
+	newtxtext,
+	newtxmath,
+	newtxtt,
+	geometry,
+	parskip,
+	graphicx,
+	lastpage
+}
+
+\newcommand{\foreign}[1]{\textit{#1}}
+
+\def\True{\mathtt{True}}
+\def\False{\mathtt{False}}
+
+\newcommand{\slide}[4]{
+	\raisebox{.5em}{\bfseries\Large #1}
+	\hfill
+	\includegraphics[height=10mm]{img/logo-math}
+	\includegraphics[height=10mm]{img/logo-classic}
+	\vspace{.25em} \hrule
+
+	#2
+
+	\vfill
+	\hrule
+	{#3}
+	\hfill
+	\ifstrequal{#4}{hide}{\addtocounter{page}{-1}}{}
+	\ifstrequal{#4}{continue}{\addtocounter{page}{-1}}{}
+	\ifblank{#4}{\thepage\ / \pageref{LastPage}}{}
+	\ifstrequal{#4}{hide}{\vphantom{\thepage\ / \pageref{LastPage}}}{}
+	\ifstrequal{#4}{continue}{\thepage\ / \pageref{LastPage}}{}
+	\clearpage
+}
+
+\newcommand{\titleslide}[1]{
+	\slide{\normalfont Sidang Tugas Akhir}{#1}{\theYear}{hide}
+}
+
+\newcommand{\outline}[1]{
+	\slide{Outline}{#1}{}{hide}
+}
+
+\input{constants}
+
+\begin{document}
+
+\titleslide{
+	Tugas Akhir
+}
+
+\titleslide{
+	Dosen Penguji
+}
+
+\outline{
+	Permasalahan
+}
+
+\slide{Latar Belakang}{
+	\textit{...blah blah blah...}
+}{}{}
+
+\slide{Dimensi Metrik}{
+	\textit{...blah blah blah...}
+}{}{}
+
+\slide{\foreign{Satisfiability Modulo Theories}}{
+	\textit{...blah blah blah...}
+}{}{}
+
+\slide{Rumusan Masalah}{
+	\textit{...blah blah blah...}
+}{}{}
+
+\slide{Batasan Masalah}{
+	\textit{...blah blah blah...}
+}{}{}
+
+\outline{
+	\foreign{Distance Similarity Matrix}
+}
+
+\slide{Contoh Graf}{
+	\textit{...blah blah blah...}
+}{}{}
+
+\slide{Matriks Jarak}{
+	\textit{...blah blah blah...}
+}{}{}
+
+\slide{Representasi}{
+	\textit{...blah blah blah...}
+}{}{}
+
+\slide{\foreign{Distance Similarity Matrix}}{
+	\textit{...blah blah blah...}
+}{}{}
+
+\slide{\foreign{Invalid Resolving Set}}{
+	\textit{...blah blah blah...}
+}{}{}
+
+\slide{\foreign{Resolving Set}}{
+	\textit{...blah blah blah...}
+}{}{}
+
+\slide{\foreign{Subset of Invalid Resolving Set}}{
+	\textit{...blah blah blah...}
+}{}{}
+
+\slide{\foreign{Reduced Distance Similarity Matrix}}{
+	\textit{...blah blah blah...}
+}{}{}
+
+\outline{
+	Formulasi Algoritma
+}
+
+\slide{\foreign{Constraint Brute-force}}{
+	\textit{...blah blah blah...}
+}{}{}
+
+\slide{Algoritma \foreign{Brute-force}}{
+	\textit{...blah blah blah...}
+}{}{}
+
+\slide{\foreign{Constraint Boolean Satisfiability}}{
+	\textit{...blah blah blah...}
+}{(a / c)}{}
+
+\slide{\foreign{Constraint Boolean Satisfiability}}{
+	\textit{...blah blah blah...}
+}{(b / c)}{continue}
+
+\slide{\foreign{Constraint Boolean Satisfiability}}{
+	\textit{...blah blah blah...}
+}{(c / c)}{continue}
+
+\slide{\foreign{Constraint Linear Integer Arithmetic}}{
+	\textit{...blah blah blah...}
+}{(a / b)}{}
+
+\slide{\foreign{Constraint Linear Integer Arithmetic}}{
+	\textit{...blah blah blah...}
+}{(b / b)}{continue}
+
+\slide{\foreign{Constraint Pseudo Boolean}}{
+	\textit{...blah blah blah...}
+}{}{}
+
+\slide{Algoritma \foreign{Satisfiability Modulo Theories}}{
+	\textit{...blah blah blah...}
+}{}{}
+
+\outline{
+	Evaluasi Algoritma
+}
+
+\slide{Metode Evaluasi}{
+	\textit{...blah blah blah...}
+}{}{}
+
+\slide{Data}{
+	\textit{...blah blah blah...}
+}{}{}
+
+\outline{
+	Hasil Dan Pembahasan
+}
+
+\slide{Frekuensi untuk Graf Kecil}{
+	\textit{...blah blah blah...}
+}{(a / b)}{}
+
+\slide{Frekuensi untuk Graf Kecil}{
+	\textit{...blah blah blah...}
+}{(b / b)}{continue}
+
+\slide{Gambaran Distribusi}{
+	\textit{...blah blah blah...}
+}{(a / b)}{}
+
+\slide{Gambaran Distribusi}{
+	\textit{...blah blah blah...}
+}{(b / b)}{continue}
+
+\slide{Rata-rata Waktu untuk Graf Kecil}{
+	\textit{...blah blah blah...}
+}{(a / b)}{}
+
+\slide{Rata-rata Waktu untuk Graf Kecil}{
+	\textit{...blah blah blah...}
+}{(b / b)}{continue}
+
+\slide{Tren Waktu untuk Graf Kecil}{
+	\textit{...blah blah blah...}
+}{(a / b)}{}
+
+\slide{Tren Waktu untuk Graf Kecil}{
+	\textit{...blah blah blah...}
+}{(b / b)}{continue}
+
+\slide{Frekuensi untuk Graf Besar}{
+	\textit{...blah blah blah...}
+}{(a / d)}{}
+
+\slide{Frekuensi untuk Graf Besar}{
+	\textit{...blah blah blah...}
+}{(b / d)}{continue}
+
+\slide{Frekuensi untuk Graf Besar}{
+	\textit{...blah blah blah...}
+}{(c / d)}{continue}
+
+\slide{Frekuensi untuk Graf Besar}{
+	\textit{...blah blah blah...}
+}{(d / d)}{continue}
+
+\slide{Rata-rata Waktu untuk Graf Besar}{
+	\textit{...blah blah blah...}
+}{(a / b)}{}
+
+\slide{Rata-rata Waktu untuk Graf Besar}{
+	\textit{...blah blah blah...}
+}{(b / b)}{continue}
+
+\slide{Tren Waktu untuk Graf Besar}{
+	\textit{...blah blah blah...}
+}{(a / b)}{}
+
+\slide{Tren Waktu untuk Graf Besar}{
+	\textit{...blah blah blah...}
+}{(b / b)}{continue}
+
+\slide{Gambaran Besar Tren Waktu}{
+	\textit{...blah blah blah...}
+}{(a / b)}{}
+
+\slide{Gambaran Besar Tren Waktu}{
+	\textit{...blah blah blah...}
+}{(b / b)}{continue}
+
+\outline{
+	Kesimpulan
+}
+
+\slide{Kesimpulan}{
+	\textit{...blah blah blah...}
+}{}{}
+
+\titleslide{
+	Terima Kasih.
+}
+
+\end{document}
