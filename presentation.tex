@@ -144,77 +144,82 @@
 
 \slide{Batasan Masalah}{
 	\begin{enumerate}
-		\item Graf yang dibahas terbatas pada graf sederhana, tak berarah, terhubung, dan tak berbobot.
+		\item Graf sederhana, tak berarah, terhubung, dan tak berbobot.
 
-		\item Perhitungan dilakukan untuk dimensi metrik dan dimensi metrik sisi.
+		\item Hanya dimensi metrik dan dimensi metrik sisi.
 
-		\item Analisis dilakukan terhadap graf dengan ukuran simpul terbatas sesuai dengan keterbatasan waktu dan sumber daya komputasi.
+		\item Banyak simpul dibatasi sesuai dengan keterbatasan waktu dan sumber daya komputasi.
 
-		\item Data graf yang digunakan menghapus redundansi akibat automorfisma sehingga hanya graf unik yang dianalisis.
+		\item Menghapus redundansi akibat automorfisma.
 
-		\item Seluruh graf dengan banyak simpul 2 hingga 9 digunakan, karena banyaknya graf masih kurang dari 300000 sehingga masih cukup dalam daya komputasi.
+		\item Seluruh graf dengan banyak simpul 2 hingga 9 digunakan.
 
-		\item Graf dengan banyak simpul lebih dari 9 digenerasi secara acak, dan banyak graf yang digunakan bergantung pada keterbatasan waktu dan sumber daya komputasi yang tersedia.
+		\item Graf dengan banyak simpul lebih dari 9 digenerasi secara acak.
 	\end{enumerate}
 }{}{}
 
 \outline{2}
 
 \slide{Contoh Graf}{
-	\includegraphics[width=40mm]{img/f372738d3845db182fe0b4a3eced9bc2ac778c82a1804f5788cce6bb74ea1beb.pdf}
-}{}{}
-
-\slide{Matriks Ketetanggaan}{
-	\[
-		M = \left[ \begin{array}{ccccc}
-			0 & 0 & 0 & 1 & 1 \\
-			0 & 0 & 0 & 1 & 1 \\
-			0 & 0 & 0 & 1 & 1 \\
-			1 & 1 & 1 & 0 & 0 \\
-			1 & 1 & 1 & 0 & 0
-		\end{array} \right]
-	\]
+	\begin{minipage}{.35\linewidth}
+		\includegraphics[width=40mm]{img/f372738d3845db182fe0b4a3eced9bc2ac778c82a1804f5788cce6bb74ea1beb.pdf}
+	\end{minipage}
+	\hspace{1em}
+	\begin{minipage}{.35\linewidth}
+		\textbf{Matriks Ketetanggaan}
+		\[
+			M = \left[ \begin{array}{ccccc}
+				0 & 0 & 0 & 1 & 1 \\
+				0 & 0 & 0 & 1 & 1 \\
+				0 & 0 & 0 & 1 & 1 \\
+				1 & 1 & 1 & 0 & 0 \\
+				1 & 1 & 1 & 0 & 0
+			\end{array} \right]
+		\]
+	\end{minipage}
 }{}{}
 
 \slide{Matriks Jarak}{
+	\justifying
+	\vphantom{\(W = \{x_1, x_4, x_5\}\)} \\
 	\[
-		D^{(V)} = \left[ \begin{array}{ccccc}
-			0 & 2 & 2 & 1 & 1 \\
-			2 & 0 & 2 & 1 & 1 \\
-			2 & 2 & 0 & 1 & 1 \\
-			1 & 1 & 1 & 0 & 2 \\
-			1 & 1 & 1 & 2 & 0
-		\end{array} \right]
+		\begin{array}{llc}
+			D^{(V)} &=& \left[ \begin{array}{ccccc}
+				0 & 2 & 2 & 1 & 1 \\
+				2 & 0 & 2 & 1 & 1 \\
+				2 & 2 & 0 & 1 & 1 \\
+				1 & 1 & 1 & 0 & 2 \\
+				1 & 1 & 1 & 2 & 0
+			\end{array} \right] \\
+			&& \phantom{\left[ \begin{array}{ccccc}
+				r(x_1|W) & r(x_2|W) & r(x_3|W) & r(x_4|W) & r(x_5|W)
+			\end{array} \right]} \\
+			&=& \left[ \begin{array}{ccccc}
+				r(x_1|V) & r(x_2|V) & r(x_3|V) & r(x_4|V) & r(x_5|V)
+			\end{array} \right]
+		\end{array}
 	\]
 }{}{}
 
 \slide{Representasi}{
-	\[
-		D^{(V)} = \left[ \begin{array}{ccccc}
-			r(x_1|V) & r(x_2|V) & r(x_3|V) & r(x_4|V) & r(x_5|V)
-		\end{array} \right]
-	\]
-}{(a)}{}
-
-\slide{Representasi}{
 	\justifying
+	\(W = \{x_1, x_4, x_5\}\) \\
 	\[
-		\left[ \begin{array}{ccccc}
-			\rowcolor{yellow} 0 & 2 & 2 & 1 & 1 \\
-			2 & 0 & 2 & 1 & 1 \\
-			2 & 2 & 0 & 1 & 1 \\
-			\rowcolor{yellow} 1 & 1 & 1 & 0 & 2 \\
-			\rowcolor{yellow} 1 & 1 & 1 & 2 & 0
-		\end{array} \right]
+		\begin{array}{llc}
+			\phantom{D^{(V)}} && \left[ \begin{array}{ccccc}
+				0 & 2 & 2 & 1 & 1 \\
+				\\
+				\\
+				1 & 1 & 1 & 0 & 2 \\
+				1 & 1 & 1 & 2 & 0
+			\end{array} \right] \\
+			\\
+			&=& \left[ \begin{array}{ccccc}
+				r(x_1|W) & r(x_2|W) & r(x_3|W) & r(x_4|W) & r(x_5|W)
+			\end{array} \right]
+		\end{array}
 	\]
-	\vspace{1em} \\
-	\(W = \{x_1, x_4, x_5\}\)
-	\[
-		\left[ \begin{array}{ccccc}
-			r(x_1|W) & r(x_2|W) & r(x_3|W) & r(x_4|W) & r(x_5|W)
-		\end{array} \right]
-	\]
-}{(b)}{continue}
+}{}{}
 
 \slide{\foreign{Distance Similarity Matrix}}{
 	\let\oldTrue\True
@@ -312,14 +317,6 @@
 	\justifying
 
 	\[
-		\left[ \begin{array}{ccccc}
-			\False & \False &  \True &  \True \\
-			\False &  \True & \False &  \True \\
-			 \True & \False & \False &  \True \\
-			 \True &  \True &  \True & \False \\
-			 \True &  \True &  \True & \False \\
-		\end{array} \right]
-		\enspace \to \enspace
 		\begin{array}{c}
 			\{x_3, x_4, x_5\} \\
 			\{x_2, x_4, x_5\} \\
@@ -328,7 +325,7 @@
 		\end{array}
 	\]
 
-	Untuk menentukan apakah sembarang \(W \subseteq V\) merupakan sebuah \foreign{resolving set}, cukup uji habis bahwa \(W\) bukanlah himpunan bagian tak sejati dari seluruh kolom \foreign{reduced distance similarity matrix}.
+	Untuk menentukan apakah sembarang \(W \subseteq V\) merupakan sebuah \foreign{resolving set}, cukup uji habis bahwa \(W\) bukanlah himpunan bagian tak sejati seluruh koresponden \foreign{invalid resolving set} dari kolom-kolom pada \foreign{reduced distance similarity matrix}.
 }{}{}
 
 \slide{Algoritma \foreign{Brute-force}}{
@@ -462,7 +459,11 @@
 
 \outline{4}
 
-\slide{Implementasi}{
+\slide{Metode Evaluasi}{
+	\justifying
+
+	\textbf{Implementasi}
+
 	\begin{enumerate}
 		\item Bahasa pemrograman \foreign{Python}.
 
@@ -474,9 +475,9 @@
 
 		\item \foreign{Z3-solver} untuk menggunakan \foreign{solver} Z3 melalui \foreign{Python}.
 	\end{enumerate}
-}{}{}
 
-\slide{Batasan Eksekusi}{
+	\textbf{Batasan Eksekusi}
+
 	\begin{enumerate}
 		\item Dibatasi waktu eksekusi per kardinalitas selama 5 menit.
 
