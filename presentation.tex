@@ -118,15 +118,23 @@
 }{}{}
 
 \slide{Dimensi Metrik}{
-	\justifying
+	\begin{minipage}{.35\linewidth}
+		\includegraphics[width=40mm]{img/8ec60eeeaa549478379fc4cb6b42df17c5ca8b364e4e642efbba0ac2db0b6e94.pdf}
+	\end{minipage}
+	\hspace{1em}
+	\begin{minipage}{.35\linewidth}
+		\textbf{Dimensi Metrik: 3}
+		\vspace{.25em} \\
+		Contoh \foreign{resolving set}:
+		\vspace{-.75em} \[ \{x_1, x_4, x_5\} \]
 
-	Diberikan \(G\) adalah graf dengan himpunan simpul \(V\) dan himpunan sisi \(E\), dan diambil sembarang \(W = \{w_1, w_2, \ldots\} \subseteq V\).
+		\vspace{1em}
 
-	Representasi simpul \(v \in V\) terhadap \(W\) adalah tupel jarak setiap simpul di \(W\) ke simpul \(v\), yaitu \( r(v|W) = (d(w_1, v), d(w_2, v), \ldots) \). Representasi sisi \(e \in E\) terhadap \(W\) adalah tupel jarak setiap simpul di \(W\) ke sisi \(e\), yaitu \( r(e|W) = (d(w_1, e), d(w_2, e), \ldots) \).
-
-	Jika \(W\) adalah \foreign{resolving set} untuk \(G\), maka setiap simpul di \(G\) memiliki representasi unik terhadap \(W\). Jika \(W\) adalah \foreign{edge resolving set} untuk \(G\), maka setiap sisi di \(G\) memiliki representasi unik terhadap \(W\).
-
-	Dimensi metrik adalah kardinalitas terkecil \foreign{resolving set} untuk \(G\). Dimensi metrik sisi adalah kardinalitas terkecil \foreign{edge resolving set} untuk \(G\).
+		\textbf{Dimensi Metrik Sisi: 4}
+		\vspace{.25em} \\
+		Contoh \foreign{edge resolving set}:
+		\vspace{-.75em} \[ \{x_1, x_2, x_3, x_4\} \]
+	\end{minipage}
 }{}{}
 
 \slide{\foreign{Satisfiability Modulo Theories}}{
