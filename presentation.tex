@@ -44,6 +44,7 @@
 	\ifstrequal{#4}{hide}{\addtocounter{page}{-1}}{}
 	\ifstrequal{#4}{continue}{\addtocounter{page}{-1}}{}
 	\ifblank{#4}{\thepage\ / \pageref{LastPage}}{}
+	\ifstrequal{#4}{hide}{\vphantom{\thepage\ / \pageref{LastPage}}}{}
 	\ifstrequal{#4}{continue}{\thepage\ / \pageref{LastPage}}{}
 	\clearpage
 }
