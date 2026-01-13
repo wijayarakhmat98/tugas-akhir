@@ -55,111 +55,189 @@
 \begin{document}
 
 \titleslide{
-	Tugas Akhir
+	Assalamu'alaikum Wr. Wb. Yang terhormat, pak Syifa'ul, selaku dosen pembimbing.
+
+	\textit{...change slide forward...}
+
+	Yang terhormat bu Soleha, pak Dieky, dan pak Sahab, selaku dosen penguji. Terima kasih telah hadir pada di pagi hari ini.
+
+	\textit{...change slide backward...}
+
+	Nama saya Fikri Yudhistira Ajiwijaya, dengan NRP 5002211165. Pada kesempatan ini, saya akan memberikan presentasi mengenai hasil dari tugas akhir saya, yang berjudul "Menentukan Dimensi Metrik Menggunakan \foreign{Satisfiability Modulo Theories}.
 }
 
 \titleslide{
-	Dosen Penguji
+	...
 }
 
 \outline{
-	Permasalahan
+	Sebelumnya, saya ingin melakukan rekap sekilas soal rumusan masalah dari tugas akhir ini.
 }
 
 \slide{Latar Belakang}{
-	\textit{...blah blah blah...}
+	Dimensi metrik adalah suatu invarian graf yang memiliki banyak aplikasi berguna. Akan tetapi, secara umum, menentukan dimensi metrik adalah suatu permasalahan yang sulit diselesaikan secara analitik.
+
+	Dengan demikian, tugas akhir ini adalah salah satu usaha menyelesaikan permasalahan ini melalui pendekatan komputasi. Yaitu, menggunakan metode \foreign{Satisfiability Modulo Theories}.
 }{}{}
 
 \slide{Dimensi Metrik}{
-	\textit{...blah blah blah...}
+	Terdapat banyak variasi dari dimensi metrik, dan di sini dibahas hanya 2, yaitu dimensi metrik klasik dan dimensi metrik sisi.
+
+	Dimensi metrik suatu graf adalah banyaknya simpul paling sedikit yang dibutuhkan untuk dapat mengidentifikasi setiap \textbf{simpul-simpul} lainnya dalam graf tersebut. Sedangkan dimensi metrik sisi adalah banyaknya simpul paling sedikit yang diperlukan untuk mengidentifikasi setiap \textbf{sisi-sisi} dalam suatu graf.
+
+	Himpunan simpul yang dapat secara unik mengidentifikasi setiap simpul-simpul lainnya dalam suatu graf disebut sebagai \foreign{resolving set}. Dan himpunan simpul yang dapat secara unik mengidentifikasi setiap sisi-sisi dalam suatu graf disebut sebagai \foreign{edge resolving set}.
+
+	Sebagai contoh, graf berikut memiliki dimensi metrik 3 dan dimensi metrik sisi 4. Contoh \foreign{resolving set}-nya adalah \(\{x_1, x_4, x_5\}\) dan contoh \foreign{edge resolving set}-nya adalah \(\{x_1, x_2, x_3, x_4\}\).
 }{}{}
 
 \slide{\foreign{Satisfiability Modulo Theories}}{
-	\textit{...blah blah blah...}
+	Kemudian, untuk \foreign{satisfiability modulo theories}, yang biasa disingkat juga sebagai SMT, \foreign{satisfiability} di sini maksudnya adalah proses mencari \foreign{model} dari suatu ekspresi. Sedangkan \foreign{modulo theories} maksudnya ia memuat banyak macam teori di dalamnya, seperti \foreign{boolean satisfiability}, \foreign{linear integer arithmetic}, \foreign{pseudo boolean}, dan lain-lain.
+
+	Untuk ilustrasi, perhatikan \foreign{constraint} \((x_1 \wedge x_2) \vee (x_1 \wedge x_3)\) ini. Dalam teori \foreign{boolean satisfiability}, ada 3 kemungkinan \foreign{model} yang dapat memenuhi \foreign{constraint} tersebut.
+
+	Yaitu \(x_1\) dan \(x_2\) \(\True\), atua \(x_1\) dan \(x_3\) \(\True\), atau semuanya \(\True\).
 }{}{}
 
 \slide{Rumusan Masalah}{
-	\textit{...blah blah blah...}
+	Maka dari itu, didapat rumusan masalah tugas akhir ini sebagi berikut. Yaitu:
+
+	Bagaimana cara merepresentasikan permasalahan dimensi metrik dan dimensi metrik sisi ke dalam SMT?
+
+	Kemudian, bagaimana SMT \foreign{solver} digunakan untuk menghitung dimensi metrik dan dimensi metrik sisi?
+
+	Dan terakhir, seberapa efektifkah SMT ini untuk menyelesaikan dimensi metrik dan dimensi metrik sisi?
 }{}{}
 
 \slide{Batasan Masalah}{
-	\textit{...blah blah blah...}
+	Adanya batasan-batasan yang telah ditetapkan dalam tugas akhir ini adalah:
+
+	Satu, graf yang diteliti adalah graf sederhana, tak berarah, terhubung, dan tak berbobot.
+
+	Dua, banyaknya simpul graf juga dibatasi sebagaimana praktikal untuk waktu dan sumberdaya komputasi yang ada.
+
+	Tiga, graf dipilih agar unik hingga automorfisma.
+
+	Empat, semua kemungkinan graf bersimpul 2 sampai 9 diuji habis.
+
+	Dan lima, untuk graf bersimpul lebih dari 9, dipilih beberapa saja secara acak.
 }{}{}
 
 \outline{
-	\foreign{Distance Similarity Matrix}
+	Selanjutnya, kita masuk ke pembahasan hasil pertama dari tugas akhir ini, yaitu konstruksi \foreign{distance similarity matrix}.
 }
 
 \slide{Contoh Graf}{
-	\textit{...blah blah blah...}
+	Karena keterbatasannya waktu, pembahasan pada bagian ini disederhanakan dengan ilustrasi langsung melalui contoh.
+
+	Di sini kita ambil graf dengan 5 simpul dan 6 sisi ini, dan matriks ketetanggaannya adalah yang tertera di sampingnya.
 }{}{}
 
 \slide{Matriks Jarak}{
-	\textit{...blah blah blah...}
+	Kemudian, menggunakan algoritma \foreign{Floyd-Warshall}, dapat diperoleh matriks jarak seperti ini dari matriks ketetanggaan sebelumnya.
+
+	Diskusi ini hanya akan meliputih dimensi metrik. Tetapi, semuanya juga berlaku untuk dimensi metrik sisi. Yang membedakan hanya pada matriks jarak ini. Untuk dimensi metrik, digunakan matriks jarak simpul ke simpul. Untuk dimensi metrik sisi, digunakan matriks jarak simpul ke sisi.
+
+	Perhatikan, dalam permasalahan dimensi metrik, matriks jarak memiliki interpretasi spesial, di mana setiap kolom-kolomnya merupakan representasi salah satu simpul terhadap seluruh simpul-simpul lainnya di graf.
 }{}{}
 
 \slide{Representasi}{
-	\textit{...blah blah blah...}
+	Sehingga, misalnya kita pilih himpunan \(W\) yang terdiri dari simpul \(x_1, x_4, \text{ dan } x_5\), representasinya terhadap \(W\) dapat diambil langsung dari matriks jarak dengan memilih baris pertama, keempat, dan kelima.
+
+	Ingat, kembali, dimensi metrik adalah kardinalitas terkecil dari seluruh kemungkinan \foreign{resolving set} suatu graf. Dan \foreign{resolving set} adalah himpunan simpul yang setiap representasi terhadapnya adalah unik.
+
+	Atau dengan kata lain, apabila dilihat dari representasi yang ditata sebagai matrix, artinya setiap kolom dalam matriks tersebut adalah unik.
 }{}{}
 
 \slide{\foreign{Distance Similarity Matrix}}{
-	\textit{...blah blah blah...}
+	Dengan demikian, dapat dikonstruksikan sebuah \foreign{distance similarity matrix} dari dengan membandingkan seluruh kemungkinan pasangan kolom pada matriks jarak.
+
+	Pada contoh ini, kita peroleh \foreign{distance similarity matrix} dengan 10 kolom, karena matriks jarak sebelumnya memiliki 5 kolom, sehingga terdapat 10 kemungkinan pasangan kolom.
+
+	Catat, matriks ini sudah memuat seluruh kemungkinan perbandingan representasi. Oleh karena itu, untuk melihat apakah sebuah himpunan merupakan \foreign{resolving set} atau bukan, dapat dilihat dari informasi dalam matriks ini.
 }{}{}
 
 \slide{\foreign{Invalid Resolving Set}}{
-	\textit{...blah blah blah...}
+	Misalnya, untuk himpunan berisi simpul \(x_1, x_4, \text{ dan } x_5\), cukup ambil baris pertama, keempat, dan kelima dari \foreign{distance similarity matrix}-nya. Ketika ada representasi terhadap dirinya yang tidak unik, maka akan terjadi kolom yang berisian semua \(\True\).
+
+	Maka, himpunan ini bukanlah \foreign{resolving set}, atau disebut juga sebagai \foreign{invalid resolving set}.
 }{}{}
 
 \slide{\foreign{Resolving Set}}{
-	\textit{...blah blah blah...}
+	Sebaliknya, ketika setiap representasi adalah unik, maka tidak akan ada kolom yang berisian semua \(\True\).
+
+	Dapat dilihat pada contoh himpunan simpul ini yang berisi \(x_1, x_3, \text{ dan } x_5\). Ambil baris pertama, ketiga, dan kelima dari \foreign{distance similarity matrix}-nya, dan terlihat himpunan ini adalah \foreign{resolving set}.
 }{}{}
 
 \slide{\foreign{Subset of Invalid Resolving Set}}{
-	\textit{...blah blah blah...}
+	Kemudian, dari \foreign{distance similarity matrix}, dapat diamati pula salah satu properti dari sebuah \foreign{invalid resolving set}, di mana seluruh himpunan bagiannya yang juga merupakan \foreign{invalid resolving set}.
+
+	Terlihat jelas pada kolom yang berisi semua \(\True\), hapus baris apa pun, kolom yang sama juga tetap akan berisi semua \(\True\).
 }{}{}
 
 \slide{\foreign{Reduced Distance Similarity Matrix}}{
-	\textit{...blah blah blah...}
+	Oleh karena itu, dapat diperoleh konstruksi \foreign{reduced distance similarity matrix}, yaitu reduksi dari \foreign{distance similarity matrix} dengan menghapus seluruh kolom-kolom yang merupakan himpunan bagian dari kolom lainnya.
+
+	Seluruh formulasi algoritma dalam tugas akhir ini didasari dari konstruksi \foreign{reduced distance similarity matrix}.
 }{}{}
 
 \outline{
-	Formulasi Algoritma
+	Sekarang kita masuk ke pembahasan hasil kedua dari tugas akhir ini, yaitu formulasi \foreign{constraint} dan formulasi algoritma untuk menentukan dimensi metrik.
 }
 
 \slide{\foreign{Constraint Brute-force}}{
-	\textit{...blah blah blah...}
+	Dimulai dari formulasi paling sederhana, yaitu mengambil langsung dari interpretasi \foreign{reduced distance similarity matrix} sebagai aturan \foreign{brute-force}.
+
+	Perhatikan, kolom-kolom pada \foreign{reduced distance similarity matrix} memiliki koresponden langung yang menjadi \foreign{invalid resolving set}. Untuk contoh ini, diperoleh 4 himpunan berikut.
+
+	Untuk menguji apakah suatu himpunan merupakan \foreign{resolving set} atau bukan, cukup uji bahwa ia bukanlah himpunan bagian tak sejati dari satu pun \foreign{invalid resolving set} ini.
 }{}{}
 
 \slide{Algoritma \foreign{Brute-force}}{
-	\textit{...blah blah blah...}
+	Sehingga, didapat algoritma untuk menentukan dimensi metrik suatu graf secara \foreign{brute-force}, dengan mencoba mencari \foreign{resolving set} graf tersebut dari kardinalitas terbesar. Ketika pada kardinalitas \(k\) secara habis tidak ada \foreign{resolving set}, maka dimensi metriknya adalah \(k + 1\).
 }{}{}
 
 \slide{\foreign{Constraint Boolean Satisfiability}}{
-	\textit{...blah blah blah...}
+	Selanjutnya, kita masuk ke formulasi \foreign{constraint} dalam SMT, pertama menggunakan teori \foreign{boolean satisfiability}.
+
+	Di sebelah kiri ini adalah kolom pertama dari contoh \foreign{reduced distance similarity matrix} sebelumnya. Kolom ini menunjukkan bahwa himpunan \(x_3, x_4, x_5\) adalah \foreign{invalid resolving set}.
+
+	Dalam \foreign{constraint boolean satisfiability}, negasi \(x_1\) dan negasi \(x_2\) dan \(x_3\) dan \(x_4\) dan \(x_5\) memiliki solusi yang satu-satu dengan himpunan tersebut.
+
+	Akan tetapi, himpunan itu menyatakan bahwa seluruh himpunan bagiannya juga merupakan \foreign{invalid resolving set}. \foreign{Constraint} yang ruang solusi adalah himpunan tersebut serta seluruh himpunan bagiannya adalah negasi \(x_1\) dan negasi \(x_2\).
+
+	Maka, sebuah \foreign{resolving set} perlu memenuhi kebalikan dari \foreign{constraint} tersebut, yaitu \(x_1\) atau \(x_2\).
 }{(a / c)}{}
 
 \slide{\foreign{Constraint Boolean Satisfiability}}{
-	\textit{...blah blah blah...}
+	Sehingga, sebuah himpunan adalah \foreign{resolving set} ketika ia memenuhi semua keterbalikan \foreign{constraint} \foreign{invalid resolving set} dari seluruh kolom pada \foreign{reduced distance similarity matrix}.
+
+	Dalam contoh ini, artinya sebuah \foreign{resolving set} haruslah memenuhi seluruh \foreign{constraint} ini.
+
+	Hanya saja, \foreign{constraint} ini sepenuhnya terdiri dari yang disebut sebagai \foreign{positive constraint}. Sedangkan SMT \foreign{solver} lebih efektif ketika \foreign{constraint} yang diberikan juga memuan yang disebut sebagai \foreign{negative constraint}, karena mekanisme yang dinamana \foreign{conflict driven learning}.
 }{(b / c)}{continue}
 
 \slide{\foreign{Constraint Boolean Satisfiability}}{
-	\textit{...blah blah blah...}
+	Dengan demikian, \foreign{constraint} sebelumnya dapat difaktorisasi menjadi \foreign{constraint} berikut. Keduanya sebenarnya ekivalen, tatapi bentuk ini lebih efektif untuk diberikan kepada SMT \foreign{solver}.
 }{(c / c)}{continue}
 
 \slide{\foreign{Constraint Linear Integer Arithmetic}}{
-	\textit{...blah blah blah...}
+	Kedua, kita dapat dengan mudah mentransformasi \foreign{constraint boolean satisfiability} sebelumnya menajdi \foreign{constraint} dalam teori \foreign{linear integer arithmetic} berikut.
+
+	Seluruh variabel \foreign{boolean} menjadi variabel \foreign{integer} yang dibatasi memiliki nilai nol satu. Dan \foreign{constraint} atau dijadikan penjumlahan yang hasilnya lebih besar atau sama dengan 1.
 }{(a / b)}{}
 
 \slide{\foreign{Constraint Linear Integer Arithmetic}}{
-	\textit{...blah blah blah...}
+	Seperti halnya dalam \foreign{boolean satisfiability}, \foreign{constraint} tadi dapat ditransformasi dari \foreign{positive constraint} menjadi \foreign{negative constraint} seperti berikut.
+
+	Di sini, kita \foreign{introduce} variabel \(k\) yang menunjukkan kardinalitas dari solusi yang dihasilkan.
 }{(b / b)}{continue}
 
 \slide{\foreign{Constraint Pseudo Boolean}}{
-	\textit{...blah blah blah...}
+	Terkahir, \foreign{constraint linear integer arithmetic} tersebut dapat dengan trivial disederhanakan menjadi ke dalam teori \foreign{pseudo boolean} karena bentuknya yang sudah sesuai.
 }{}{}
 
 \slide{Algoritma \foreign{Satisfiability Modulo Theories}}{
-	\textit{...blah blah blah...}
+	Maka dari itu, didapat algoritma untuk menentukan dimensi metrik suatu graf menggunakan SMT. Dicari \foreign{model} dari kardinalitas terbesar. Ketika pada kardinalitas \(k\) ditemukan \foreign{unsatisfiable}, maka dimensi metriknya adalah \(k + 1\).
 }{}{}
 
 \outline{
