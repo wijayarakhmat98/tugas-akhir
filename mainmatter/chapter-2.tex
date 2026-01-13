@@ -188,9 +188,7 @@ Istilah \foreign{modulo theories} merujuk pada penggunaan teori tertentu, sepert
 
 \subsection{\foreign{Boolean Satisfiability}}
 
-\foreign{Boolean satisfiability} dalam SMT adalah teori yang memuat variabel boolean dan operasi boolean pada umumnya \citep{yurichev}. Sebagai ilustrasi, dapat diperhatikan ekspresi
-	\[ (x_1 \land x_2) \lor (x_1 \land x_3) \]
-dengan \(x_1, x_2, x_3\) adalah variabel boolean. Tabel kebenaran untuk ekspresi tersebut dapat dikonstruksi seperti berikut:
+\foreign{Boolean satisfiability} dalam SMT adalah teori yang memuat variabel boolean dan operasi boolean pada umumnya \citep{yurichev}. Sebagai ilustrasi, dapat diperhatikan ekspresi \((x_1 \land x_2) \lor (x_1 \land x_3)\) dengan \(x_1, x_2, x_3\) adalah variabel boolean. Tabel kebenaran untuk ekspresi tersebut dapat dikonstruksi seperti berikut:
 \vspace{-0.5em}
 \[
 \begin{array}{cccc}
@@ -201,12 +199,6 @@ dengan \(x_1, x_2, x_3\) adalah variabel boolean. Tabel kebenaran untuk ekspresi
 	 \True &  \True & \False &  \True \\
 	\False & \False &  \True & \False \\
 	 \True & \False &  \True &  \True \\
-\end{array}
-\]
-
-\[
-\begin{array}{cccc}
-	\phantom{\False} & \phantom{\False} & \phantom{\False} & \phantom{(x_1 \land x_2) \lor (x_1 \land x_3)} \\ [-2em]
 	\False &  \True &  \True & \False \\
 	 \True &  \True &  \True &  \True
 \end{array}
