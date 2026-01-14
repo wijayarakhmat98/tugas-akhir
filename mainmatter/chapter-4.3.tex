@@ -5,16 +5,12 @@ Seluruh algoritma yang telah dideskripsikan pada \autoref{sec:alg} diimplementas
 
 Melanjutkan pembahasan pada \autoref{sec:data}, total graf kecil yang akan dicari dimensi metrik dan dimensi metrik sisinya adalah sebanyak 273192 graf. Untuk graf besar, dipilih dari graf bersimpul 10 hingga graf bersimpul 50 dengan interval 5 simpul, dan diambil masing-masing sebanyak 50 graf. Sehingga, total graf besar yang akan dicari dimensi metrik dan dimensi metrik sisinya adalah sebanyak 450 graf. Dengan demikian, total graf yang akan dievaluasi adalah sebanyak 273642 graf. Rincian lebih detailnya dapat dilihat pada \autoref{tab:graph-count}.
 
-Terdapat 4 macam algoritma yang masing-masing digunakan untuk mencari dimensi metrik dan dimensi metrik sisi pada sebanyak 273642 graf. Dapat dicatat bahwa setiap komputasi bersifat saling independen, atau disebut juga sebagai \foreign{embarrassingly parallel}. Oleh karena itu, secara keseluruhan, komputasi ini dapat dipercepat dengan menggunakan \foreign{CPU} yang memiliki \foreign{multi-core}, selama semua \foreign{core} yang digunakan identik satu sama lain. Untuk tugas akhir ini, digunakan \foreign{CPU Intel i7-1185G7} dengan \foreign{4 physical cores} yang masing-masing memiliki kapabilitas \foreign{hyperthreading}, sehingga ada sebanyak \foreign{8 logical cores} yang dapat digunakan.
-
-\vspace{-0.3em}
-
 \begin{center}
 	\renewcommand{\minipagewidth}{0.35\linewidth}
 	\input{result/graph-count}
 \end{center}
 
-\vspace{-0.1em}
+Terdapat 4 macam algoritma yang masing-masing digunakan untuk mencari dimensi metrik dan dimensi metrik sisi pada sebanyak 273642 graf. Dapat dicatat bahwa setiap komputasi bersifat saling independen, atau disebut juga sebagai \foreign{embarrassingly parallel}. Oleh karena itu, secara keseluruhan, komputasi ini dapat dipercepat dengan menggunakan \foreign{CPU} yang memiliki \foreign{multi-core}, selama semua \foreign{core} yang digunakan identik satu sama lain. Untuk tugas akhir ini, digunakan \foreign{CPU Intel i7-1185G7} dengan \foreign{4 physical cores} yang masing-masing memiliki kapabilitas \foreign{hyperthreading}, sehingga ada sebanyak \foreign{8 logical cores} yang dapat digunakan.
 
 Meskipun antar komputasi bersifat \foreign{embarrassingly parallel}, implementasi setiap komputasinya sendiri secara internal tidak bersifat parallel. Maka dari itu, diperlakukan batas waktu eksekusi pada setiap algoritma. Batasan waktu ini diimplementasikan bukan pada total waktu eksekusi masing-masing algoritma, melainkan pada waktu eksekusi di setiap iterasi kardinalitasnya. Adapun tahap yang dibatasi adalah tahap \((8a)\) pada \autoref{alg:brute-force} dan \autoref{alg:boolean-satisfiability}, tahap \((8b)\) pada \autoref{alg:linear-integer-arithmetic}, dan tahap \((7b)\) pada \autoref{alg:pseudo-boolean}. Batas waktu yang dipilih untuk tugas akhir ini adalah selama 5 menit. Ditekankan kembali batas waktu ini adalah pada setiap iterasi kardinalitas, sehingga jelas total waktu eksekusi dapat lebih dari 5 menit.
 
