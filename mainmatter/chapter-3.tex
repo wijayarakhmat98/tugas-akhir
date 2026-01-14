@@ -51,6 +51,8 @@ Pada tahap ini dilakukan eksplorasi SMT \foreign{solver}, yaitu Z3, menggunakan 
 
 Perancangan algoritma difokuskan pada formulasi masalah dimensi metrik ke dalam bentuk SMT. Pertama, graf direpresentasikan dalam bentuk matriks ketetanggaan yang dibaca dari format \verb`graph6`. Kedua, matriks jarak dapat dibangun dari matriks ketetanggaan menggunakan algoritma \foreign{Floyd–Warshall}. Kemudian, berdasarkan dua informasi ini, dirancanglah algoritma yang memetakan pencarian dimensi metrik ke dalam bentuk batasan yang dapat dicerna oleh SMT.
 
+Dalam tugas akhir ini, digunakan tiga teori dalam SMT, yaitu \foreign{boolean satisfiability}, \foreign{pseudo boolean}, dan \foreign{linear integer arithmetic}. Dipilih teori \foreign{boolean satisfiability} karena permasalahan dimensi metrik yang perlu memodelkan \foreign{resolving set}, yaitu memilih keanggotaan simpul graf yang dapat dinyatakan menggunakan \foreign{constraints} boolean. Sedangkan teori \foreign{pseudo boolean} serta \foreign{linear integer arithmetic} dipilih sebagai eksplorasi tambahan mengenai kapabilitas SMT, karena translasi \foreign{constraint} dari \foreign{boolean satisfiability} ke dalam kedua teori ini yang masih cukup mudah untuk dilakukan.
+
 \section{Implementasi Algoritma}
 
 Algoritma yang telah dirancang kemudian diimplementasikan ke bentuk kode. Hal-hal yang perlu dilakukan diantaranya adalah:
