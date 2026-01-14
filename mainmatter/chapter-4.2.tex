@@ -84,7 +84,7 @@ Selanjutnya, dari membandingkan setiap pasang kolom di matriks jarak, dihasilkan
 		 \True &  \True & \False & \False &  \True & \False & \False & \False & \False & \False
 	\end{array} \right]
 \]
-Kemudian, setelah penghapusan, didapat \foreign{reduced distance similarity} berikut.
+Kolom pertama pada \(B^{(V)}\) dihasilkan dari perbandingan kolom pertama dan kedua pada \(D^{(V)}\), yaitu \((B^{(V)}_{*1}=B^{(V)}_{*2})\), kolom kedua \(B^{(V)}\) dihasilkan dari perbandingan kolom pertama dan ketiga \(D^{(V)}\), yaitu \((B^{(V)}_{*1}=B^{(V)}_{*3})\), kolom ketiga \(B^{(V)}\) dihasilkan dari perbandingan kolom pertama dan keempat \(D^{(V)}\), yaitu \((B^{(V)}_{*1}=B^{(V)}_{*4})\), dan seterusnya, hingga kolom terakhir \(B^{(V)}\) dihasilkan dari perbandingan kolom keempat dan kelima \(D^{(V)}\), yaitu \((B^{(V)}_{*4}=B^{(V)}_{*5})\), sehingga \(B^{(V)}\) memiliki 10 kolom karena terdapat 10 kombinasi pasangan kolom yang dibandingkan dari \(D^{(V)}\). Kemudian, setelah penghapusan, didapat \foreign{reduced distance similarity} berikut.
 \[
 	P^{(V)} = \left[ \begin{array}{ccccc}
 		\False & \False &  \True &  \True \\
@@ -94,6 +94,8 @@ Kemudian, setelah penghapusan, didapat \foreign{reduced distance similarity} ber
 		 \True &  \True &  \True & \False \\
 	\end{array} \right]
 \] \\
+Dapat dilihat seluruh kolom pada \(B^{(V)}\) berisi semua \(\False\) terhapus karena korespondensinya dengan himpunan kosong yang merupakan himpunan bagian dari kolom lainnya. Contohnya, kolom ketiga adalah himpunan bagian dari kolom pertama, sehingga \((B^{(V)}_{*3} | B^{(V)}_{*1}) = B^{(V)}_{*1}\). Dengan demikian, \(P^{(V)}\) terdiri dari sisa kolom-kolom yang tidak saling memuat satu sama lain.
+
 Misal dipilih kolom kedua dari \(P^{(V)}\), yaitu \(P^{(V)}_{*2} = (\False, \True, \False, \True, \True)\). Mengambil semua simpul yang berkoresponden dengan \(\True\), didapat \(W = V[P^{(V)}_{*2}] = \{v_2, v_4, v_5\}\). Lihat bahwa
 \[
 	(P^{(V)}|W) = \left[ \begin{array}{ccccc}
