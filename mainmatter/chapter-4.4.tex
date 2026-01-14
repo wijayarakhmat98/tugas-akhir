@@ -1,14 +1,5 @@
-\section{Pembahasan}
-\label{sec:discussion}
-
-Sebelum dilakukannya pembahasan, diperjelas terlebih dahulu cara membaca tabel dan grafik pada bagian ini. Seluruh tabel mengenai rata-rata waktu eksekusi, yaitu \autoref{tab:mean-md-small}, \autoref{tab:mean-emd-small}, \autoref{tab:mean-md-large}, dan \autoref{tab:mean-emd-large}, unit waktu eksekusi adalah dalam detik. Kemudian, seluruh grafik mengenai tren waktu eksekusi, yaitu \autoref{fig:trend-md-small}, \autoref{fig:trend-emd-small}, \autoref{fig:trend-md-large}, \autoref{fig:trend-emd-large}, \autoref{fig:trend-md-combined}, dan \autoref{fig:trend-emd-combined}, sumbu vertikal menunjukkan unit waktu dalam detik, sumbu horizontal menunjukkan graf bersimpul tertentu, dan setiap garis dalam grafik menunjukkan algoritma sesuai dengan \autoref{fig:trend-legend}.
-
-\begin{center}
-	\renewcommand{\minipagewidth}{\linewidth}
-	\input{result/trend-legend}
-\end{center}
-
-\subsection{Pembahasan Hasil Eksekusi Untuk Graf Kecil}
+\section{Pembahasan Hasil Eksekusi Graf Kecil}
+\label{sec:discussion-small}
 
 Pertama, dibahas hasil eksekusi untuk graf kecil. Untuk seluruh algoritma dan untuk dimensi metrik maupun dimensi metrik sisi, tidak ada hasil evaluasi yang gagal karena melewati batas waktu. Sehingga, untuk seluruh 273192 graf kecil, berhasil diidentifikasi dimensi metrik dan dimensi metrik sisinya. Rincian frekuensi graf berdasarkan dimensi metrik dapat dilihat dalam \autoref{tab:freq-md-small}, dan rincian frekuensi graf berdasarkan dimensi metrik sisi dapat dilihat dalam \autoref{tab:freq-emd-small}. Kedua tabel ini berlaku untuk seluruh \autoref{alg:brute-force}, \autoref{alg:boolean-satisfiability}, \autoref{alg:linear-integer-arithmetic}, dan \autoref{alg:pseudo-boolean}, menunjukkan secara \foreign{experimental} bahwa semua implementasi algoritma benar, sekaligus secara tidak langsung menunjukkan bahwa teori formulasi setiap algoritma benar untuk menentukan dimensi metrik dan dimensi metrik sisi, karena semuanya menghasilkan frekuensi yang sama.
 
@@ -64,7 +55,8 @@ Akhirnya, rata-rata waktu eksekusi yang telah diperoleh untuk membandingkan wakt
 \end{center}
 \end{landscape}
 
-\subsection{Pembahasan Hasil Eksekusi Untuk Graf Besar}
+\section{Pembahasan Hasil Eksekusi Graf Besar}
+\label{sec:discussion-large}
 
 Kedua, dibahas hasil eksekusi untuk graf besar. Berbeda dari evaluasi untuk graf kecil, pada graf besar ini setiap algoritma mengalami kegagalan dalam menentukan dimensi metrik maupun dimensi metrik sisi, karena melebihi batas waktu eksekusi. Hal ini tertera secara ringkas pada \autoref{tab:freq-fail-large}. Terlihat \autoref{alg:pseudo-boolean} mengalami kegagalan paling sedikit dalam menentukan dimensi metrik dan dimensi metrik sisi, sementara algoritma yang mengalami kegagalan paling banyak dalam menentukan dimensi metrik adalah \autoref{alg:boolean-satisfiability} dan dalam menentukan dimensi metrik sisi adalah \autoref{alg:brute-force}. Namun, kesimpulan ini tidak menggambarkan seluruh cerita, sehingga perlu dilihat rincian frekuensi lebih detail.
 
@@ -144,7 +136,8 @@ Dapat diamati, dalam menentukan dimensi metrik untuk graf bersimpul \(n\), seiri
 \end{center}
 \end{landscape}
 
-\subsection{Pembahasan Keseluruhan Hasil Eksekusi}
+\section{Pembahasan Keseluruhan Hasil Eksekusi}
+\label{sec:discussion-combined}
 
 Ketiga, dibahas hasil eksekusi secara keseluruhan untuk memberikan gambaran lebih jelas mengenai waktu eksekusi masing-masing algoritma. Dengan menggabungkan \autoref{tab:mean-md-small} dan \autoref{tab:mean-md-large} dan mengilustrasikannya sebagai satu grafik tren pada \autoref{fig:trend-md-combined}, didapatkan gambaran yang lebih lengkap mengenai waktu eksekusi untuk graf kecil dan besar. Menggunakan cara yang sama, \autoref{tab:mean-emd-small} dan \autoref{tab:mean-emd-large} digabungkan dan diilustrasikan dalam satu grafik tren pada \autoref{fig:trend-emd-combined}; grafik ini dipecah menjadi (a) dan (b) untuk alasan yang sama seperti pada \autoref{fig:trend-emd-large}. Seluruh ilustrasi gabungan ini menggunakan skala logaritma pada sumbu vertikal karena naiknya waktu eksekusi yang cenderung bersifat kombinatorial, sesuai dengan pembahasan pada \autoref{subsec:bf}.
 
