@@ -34,13 +34,13 @@ Dengan berbagai keunggulan tersebut, SMT tidak hanya relevan dalam konteks indus
 
 	\item Perhitungan dilakukan untuk dimensi metrik dan dimensi metrik sisi.
 
-	\item Analisis dilakukan terhadap graf dengan ukuran simpul terbatas sesuai dengan keterbatasan waktu dan sumber daya komputasi.
+	\item Analisis dilakukan terhadap graf dengan ukuran simpul terbatas, dan waktu per-iterasi kardinalitas maksimal selama 5 menit.
 
 	\item Data graf yang digunakan menghapus redundansi akibat automorfisma sehingga hanya graf unik yang dianalisis.
 
-	\item Seluruh graf dengan banyak simpul 2 hingga 9 digunakan, karena banyaknya graf masih kurang dari 300000 sehingga masih cukup dalam daya komputasi.
+	\item Digunakan seluruh kemungkinan graf dengan banyak simpul 2 hingga 9.
 
-	\item Graf dengan banyak simpul lebih dari 9 digenerasi secara acak, dan banyak graf yang digunakan bergantung pada keterbatasan waktu dan sumber daya komputasi yang tersedia.
+	\item Graf dengan banyak simpul 10, 15, 20, 25, 30, 35, 40, dan 50 digenerasi secara acak, masing-masing sebanyak 50 graf.
 
 	\item Beberapa hasil dimensi metrik dan dimensi metrik sisi menggunakan SMT akan dibandingkan dengan hasil dari pendekatan analitik serta \foreign{brute-force} untuk validasi.
 \end{enumerate}
