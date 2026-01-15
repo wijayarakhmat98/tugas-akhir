@@ -29,6 +29,8 @@ The metric dimension and the edge metric dimension of a graph are fundamental in
 
 This thesis explores the use of Satisfiability Modulo Theories (SMT) as an approach to compute the metric dimension and the edge metric dimension. The problems are formulated declaratively in SMT and solved using a solver. Canonical graph representations are employed to remove redundancy caused by automorphisms, and experiments are conducted on all unique connected graphs with 2 to 9 vertices, as well as on some larger graphs.
 
+The experimental results show that all SMT formulations produce correct values for metric dimension and edge metric dimension. In terms of execution time, for small-sized graphs, the brute-force approach is faster than SMT. In contrast, for large-sized graphs, the SMT approach with pseudo boolean theory exhibits the best execution performance, while the brute-force method fails entirely to complete the computation within the given time limit. These results indicate that SMT can be used to generate correct graph invariants for metric dimension, with a practical execution-time growth as the graph size grows.
+
 \vfill
 
 \noindent

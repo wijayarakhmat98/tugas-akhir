@@ -29,6 +29,8 @@ Dimensi metrik dan dimensi metrik sisi pada sebuah graf merupakan invarian funda
 
 Tugas akhir ini mengeksplorasi penggunaan \foreign{Satisfiability Modulo Theories} (SMT) sebagai pendekatan untuk menghitung dimensi metrik dan dimensi metrik sisi. Permasalahan diformulasikan secara deklaratif dalam SMT dan diselesaikan menggunakan \foreign{solver}. Representasi graf kanonik digunakan untuk menghapus redundansi akibat automorfisma, dan eksperimen dilakukan pada seluruh graf terhubung unik dengan 2 hingga 9 simpul, serta beberapa graf berukuran lebih besar.
 
+Hasil eksperimen menunjukkan bahwa seluruh formulasi SMT menghasilkan dimensi metrik dan dimensi metrik sisi yang benar. Dari sisi waktu eksekusi, untuk graf berukuran kecil, pendekatan \foreign{brute-force} lebih cepat dibandingkan SMT. Sebaliknya, untuk graf berukuran besar, pendekatan SMT dengan teori \foreign{pseudo boolean} menunjukkan kecepatan eksekusi paling unggul, sementara metode \foreign{brute-force} seluruhnya gagal menyelesaikan perhitungan dalam batas waktu yang ditetapkan. Hasil ini menunjukkan bahwa SMT dapat digunakan untuk menghasilkan invarian graf dimensi metrik yang benar dan dengan tren kenaikan waktu eksekusi yang praktikal semakin bertambahnya ukuran graf.
+
 \vfill
 
 \noindent
