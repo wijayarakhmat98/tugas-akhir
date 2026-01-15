@@ -186,6 +186,8 @@ Istilah \foreign{modulo theories} merujuk pada penggunaan teori tertentu, sepert
 
 \foreign{Solver} adalah program yang mengimplementasikan proses dari SMT, mengevaluasi ekspresi, dan dapat menghasilkan \foreign{model}. Secara komputasi, \foreign{solver} mungkin saja tidak menghasilkan hasil, karena hal-hal seperti konfigurasi batas waktu eksekusi, atau keterbatasan implementasi untuk beberapa teori. Penjelasan lebih lengkap mengenai SMT dapat ditemukan pada \cite{barrett2018}.
 
+Terdapat berbagai macam \foreign{solver} SMT, baik yang bersifat \foreign{general-purpose} maupun yang \foreign{special-purpose} untuk jenis \foreign{constraint} atau teori tertentu. Sebagai contoh, sistem persamaan linear dapat dimodelkan dalam teori \foreign{linear real arithmetic}, yang umumnya dapat diselesaikan oleh \foreign{general-purpose solver}. Di sisi lain, kelas permasalahan seperti sistem non-linier atas \foreign{integer} --- juga dikenal sebagai \foreign{Hilbert's Tenth Problem}, yang telah dibuktikan \foreign{undecidable} secara umum \citep{matiiaasevich1993} --- memerlukan \foreign{special-purpose solver}; seperti penelitian yang telah dilakukan oleh \cite{nuzzo2010} atau \cite{borralleras2020} yang menargetkan \foreign{subset} tertentu dari permasalahan tersebut dan mengeksploitasi sifat khusus seperti konveksitas, maupun teknik tertentu seperti linearisasi.
+
 \subsection{\foreign{Boolean Satisfiability}}
 
 \foreign{Boolean satisfiability} dalam SMT adalah teori yang memuat variabel boolean dan operasi boolean pada umumnya \citep{yurichev}. Sebagai ilustrasi, dapat diperhatikan ekspresi \((x_1 \land x_2) \lor (x_1 \land x_3)\) dengan \(x_1, x_2, x_3\) adalah variabel boolean. Tabel kebenaran untuk ekspresi tersebut dapat dikonstruksi seperti berikut:
