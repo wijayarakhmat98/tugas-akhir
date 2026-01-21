@@ -5,17 +5,17 @@
 \newlength{\marginTop}
 \newlength{\marginBottom}
 
-% \setlength{\marginInner}{16.5mm}
-% \setlength{\marginOuter}{16.5mm}
-% \setlength{\marginTop}{17.8mm}
-% \setlength{\marginBottom}{17.8mm}
-% \PassOptionsToPackage{a4paper}{geometry}
+\setlength{\marginInner}{16.5mm}
+\setlength{\marginOuter}{16.5mm}
+\setlength{\marginTop}{17.8mm}
+\setlength{\marginBottom}{17.8mm}
+\PassOptionsToPackage{a4paper}{geometry}
 
-\setlength{\marginInner}{5mm}
-\setlength{\marginOuter}{5mm}
-\setlength{\marginTop}{5mm}
-\setlength{\marginBottom}{5mm}
-\PassOptionsToPackage{paperwidth=187mm, paperheight=271.4mm}{geometry}
+% \setlength{\marginInner}{5mm}
+% \setlength{\marginOuter}{5mm}
+% \setlength{\marginTop}{5mm}
+% \setlength{\marginBottom}{5mm}
+% \PassOptionsToPackage{paperwidth=187mm, paperheight=271.4mm}{geometry}
 
 \PassOptionsToPackage{english,main=indonesian}{babel}
 \PassOptionsToPackage{inner=\marginInner, outer=\marginOuter, top=\marginTop, bottom=\marginBottom}{geometry}
@@ -496,13 +496,6 @@ Akhirnya, hasil dari setiap komputasi pada individu graf adalah total waktu ekse
 
 \section{Pembahasan}
 \label{sec:discussion}
-
-Sebelum dilakukannya pembahasan, diperjelas terlebih dahulu cara membaca tabel dan grafik pada bagian ini. Seluruh tabel mengenai rata-rata waktu eksekusi, yaitu \autoref{tab:mean-md-small}, \autoref{tab:mean-emd-small}, \autoref{tab:mean-md-large}, dan \autoref{tab:mean-emd-large}, unit waktu eksekusi adalah dalam detik. Kemudian, seluruh grafik mengenai tren waktu eksekusi, yaitu \autoref{fig:trend-md-small}, \autoref{fig:trend-emd-small}, \autoref{fig:trend-md-large}, \autoref{fig:trend-emd-large}, \autoref{fig:trend-md-combined}, dan \autoref{fig:trend-emd-combined}, sumbu vertikal menunjukkan unit waktu dalam detik, sumbu horizontal menunjukkan graf bersimpul tertentu, dan setiap garis dalam grafik menunjukkan algoritma sesuai dengan \autoref{fig:trend-legend}.
-
-\begin{center}
-	\renewcommand{\minipagewidth}{\linewidth}
-	\input{result/trend-legend}
-\end{center}
 
 Pertama, dibahas hasil eksekusi untuk graf kecil. Untuk seluruh algoritma dan untuk dimensi metrik maupun dimensi metrik sisi, tidak ada hasil evaluasi yang gagal karena melewati batas waktu. Sehingga, untuk seluruh 273192 graf kecil, berhasil diidentifikasi dimensi metrik dan dimensi metrik sisinya. Rincian frekuensi graf berdasarkan dimensi metrik dapat dilihat dalam \autoref{tab:freq-md-small}, dan rincian frekuensi graf berdasarkan dimensi metrik sisi dapat dilihat dalam \autoref{tab:freq-emd-small}. Kedua tabel ini berlaku untuk seluruh \autoref{alg:brute-force}, \autoref{alg:boolean-satisfiability}, \autoref{alg:linear-integer-arithmetic}, dan \autoref{alg:pseudo-boolean}, menunjukkan secara \foreign{experimental} bahwa semua implementasi algoritma benar, sekaligus secara tidak langsung menunjukkan bahwa teori formulasi setiap algoritma benar untuk menentukan dimensi metrik dan dimensi metrik sisi, karena semuanya menghasilkan frekuensi yang sama.
 
